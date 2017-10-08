@@ -1,0 +1,61 @@
+﻿.
+├── doc                     # Documents
+├── dependency              # Dependency libraries: glm, glew, zlib, libpng
+│   ├── setup               # Setup scripts to automate download and build libraries
+│   ├── include
+│   │   ├── generic         # Platform-independent include (e.g. glm)
+│   │   ├── win32           # Platform-specific include
+│   │   ├── win64
+│   │   ├── mac
+│   │   ├── ios
+│   │   └── android
+│   └── lib                 # Libraries
+│       ├── win32
+│       ├── win64
+│       ├── mac
+│       ├── ios
+│       └── android
+│           └── arch...
+├── libosal                 # The OSAL Library
+│   ├── proj                # Project files
+│   │   ├── vcxproj
+│   │   ├── xcodeproj
+│   │   └── ndk-build
+│   ├── include             # Public accessible headers
+│   ├── src                 # Platform-independent sources and local headers
+│   │   ├── win             # Platform-dependent sources and local headers
+│   │   ├── mac             # ..
+│   │   ├── ios             # ..
+│   │   └── android         # ..
+│   └── lib                 # Output Library
+│       ├── win32
+│       ├── win64
+│       ├── mac
+│       ├── ios
+│       └── android
+│           └── arch...
+└── example                 # Examples
+    └── hello               # Hello World
+        ├── proj            # Project files
+        │   ├── vcxproj
+        │   ├── xcodeproj
+        │   └── android
+        ├── glue            # Glue materials for each platform
+        │   ├── win
+        │   ├── mac
+        │   ├── ios
+        │   └── android
+        ├── src             # Program logic
+        ├── res             # Resources
+        │   ├── shader      # Shader
+        │   └── ui          # UI images
+        └── bin             # Output program
+            ├── win
+            │   ├── win32
+            │   ├── win32d
+            │   ├── win64
+            │   ├── win64d
+            │   └── res     # Clone of res
+            ├── mac
+            ├── ios
+            └── android     # APK Files
