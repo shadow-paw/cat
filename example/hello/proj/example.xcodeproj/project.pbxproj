@@ -13,9 +13,6 @@
 		3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */; };
 		3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEB21F89ED2900D299B6 /* Main.storyboard */; };
 		3ED4FEBD1F89F15A00D299B6 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* app.cpp */; };
-		3ED4FED71F89F51900D299B6 /* default_ui.png in res/ui */ = {isa = PBXBuildFile; fileRef = 3ED4FED31F89F50800D299B6 /* default_ui.png */; };
-		3ED4FED81F89F53300D299B6 /* test.fs in res/shader */ = {isa = PBXBuildFile; fileRef = 3ED4FED01F89F50800D299B6 /* test.fs */; };
-		3ED4FED91F89F53300D299B6 /* test.vs in res/shader */ = {isa = PBXBuildFile; fileRef = 3ED4FED11F89F50800D299B6 /* test.vs */; };
 		3ED4FEDA1F89F56400D299B6 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* app.cpp */; };
 		3ED4FEDB1F89F56400D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBF1F89F35100D299B6 /* main.m */; };
 		3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */; };
@@ -23,56 +20,83 @@
 		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
-		3ED4FEE11F89F58400D299B6 /* default_ui.png in res/ui */ = {isa = PBXBuildFile; fileRef = 3ED4FED31F89F50800D299B6 /* default_ui.png */; };
-		3ED4FEE41F89F59500D299B6 /* test.fs in res/shader */ = {isa = PBXBuildFile; fileRef = 3ED4FED01F89F50800D299B6 /* test.fs */; };
-		3ED4FEE51F89F59500D299B6 /* test.vs in res/shader */ = {isa = PBXBuildFile; fileRef = 3ED4FED11F89F50800D299B6 /* test.vs */; };
+		3EF9A0D21F8A67E3008C00C0 /* default_ui.png in assets/ui */ = {isa = PBXBuildFile; fileRef = 3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */; };
+		3EF9A0D31F8A67E9008C00C0 /* test.fs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0C91F8A67CA008C00C0 /* test.fs */; };
+		3EF9A0D41F8A67E9008C00C0 /* test.vs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0CA1F8A67CA008C00C0 /* test.vs */; };
+		3EF9A0D61F8A680C008C00C0 /* test.txt in assets/ */ = {isa = PBXBuildFile; fileRef = 3EF9A0CB1F8A67CA008C00C0 /* test.txt */; };
+		3EF9A0D71F8A681E008C00C0 /* default_ui.png in res/ui (1 item) */ = {isa = PBXBuildFile; fileRef = 3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */; };
+		3EF9A0D81F8A682C008C00C0 /* test.fs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0C91F8A67CA008C00C0 /* test.fs */; };
+		3EF9A0D91F8A682C008C00C0 /* test.vs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0CA1F8A67CA008C00C0 /* test.vs */; };
+		3EF9A0DB1F8A683D008C00C0 /* test.txt in assets/ */ = {isa = PBXBuildFile; fileRef = 3EF9A0CB1F8A67CA008C00C0 /* test.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3E326EF91F823347008AA4ED /* res/ui */ = {
+		3E326EF91F823347008AA4ED /* res/ui (1 item) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = ui;
 			dstSubfolderSpec = 7;
 			files = (
-				3ED4FEE11F89F58400D299B6 /* default_ui.png in res/ui */,
+				3EF9A0D71F8A681E008C00C0 /* default_ui.png in res/ui (1 item) */,
 			);
-			name = res/ui;
+			name = "res/ui (1 item)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3E41DFE31F840659003E7770 /* res/shader */ = {
+		3E41DFE31F840659003E7770 /* assets/shader */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = shader;
 			dstSubfolderSpec = 7;
 			files = (
-				3ED4FED81F89F53300D299B6 /* test.fs in res/shader */,
-				3ED4FED91F89F53300D299B6 /* test.vs in res/shader */,
+				3EF9A0D31F8A67E9008C00C0 /* test.fs in assets/shader */,
+				3EF9A0D41F8A67E9008C00C0 /* test.vs in assets/shader */,
 			);
-			name = res/shader;
+			name = assets/shader;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3E41DFEB1F840697003E7770 /* res/shader */ = {
+		3E41DFEB1F840697003E7770 /* assets/shader */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = shader;
 			dstSubfolderSpec = 7;
 			files = (
-				3ED4FEE41F89F59500D299B6 /* test.fs in res/shader */,
-				3ED4FEE51F89F59500D299B6 /* test.vs in res/shader */,
+				3EF9A0D81F8A682C008C00C0 /* test.fs in assets/shader */,
+				3EF9A0D91F8A682C008C00C0 /* test.vs in assets/shader */,
 			);
-			name = res/shader;
+			name = assets/shader;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3EB96BAB1F7F86F50067C170 /* res/ui */ = {
+		3EB96BAB1F7F86F50067C170 /* assets/ui */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = ui;
 			dstSubfolderSpec = 7;
 			files = (
-				3ED4FED71F89F51900D299B6 /* default_ui.png in res/ui */,
+				3EF9A0D21F8A67E3008C00C0 /* default_ui.png in assets/ui */,
 			);
-			name = res/ui;
+			name = assets/ui;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EF9A0D51F8A67F3008C00C0 /* assets/ */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3EF9A0D61F8A680C008C00C0 /* test.txt in assets/ */,
+			);
+			name = assets/;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EF9A0DA1F8A6833008C00C0 /* assets/ */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3EF9A0DB1F8A683D008C00C0 /* test.txt in assets/ */,
+			);
+			name = assets/;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -100,9 +124,10 @@
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEC51F89F35200D299B6 /* OSALView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSALView.mm; path = ../glue/ios/OSALView.mm; sourceTree = "<group>"; };
 		3ED4FEC61F89F35200D299B6 /* OSALView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSALView.h; path = ../glue/ios/OSALView.h; sourceTree = "<group>"; };
-		3ED4FED01F89F50800D299B6 /* test.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fs; sourceTree = "<group>"; };
-		3ED4FED11F89F50800D299B6 /* test.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vs; sourceTree = "<group>"; };
-		3ED4FED31F89F50800D299B6 /* default_ui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_ui.png; sourceTree = "<group>"; };
+		3EF9A0C91F8A67CA008C00C0 /* test.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fs; sourceTree = "<group>"; };
+		3EF9A0CA1F8A67CA008C00C0 /* test.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vs; sourceTree = "<group>"; };
+		3EF9A0CB1F8A67CA008C00C0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_ui.png; sourceTree = "<group>"; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,8 +152,8 @@
 		3E859A091F77939A00F84D36 = {
 			isa = PBXGroup;
 			children = (
+				3EF9A0C71F8A67CA008C00C0 /* assets */,
 				3E859A341F7793DE00F84D36 /* example */,
-				3ED4FECE1F89F50800D299B6 /* res */,
 				3E859A131F77939A00F84D36 /* Products */,
 				3EB96B9B1F7F73FC0067C170 /* Frameworks */,
 			);
@@ -194,29 +219,30 @@
 			name = glue;
 			sourceTree = "<group>";
 		};
-		3ED4FECE1F89F50800D299B6 /* res */ = {
+		3EF9A0C71F8A67CA008C00C0 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FECF1F89F50800D299B6 /* shader */,
-				3ED4FED21F89F50800D299B6 /* ui */,
+				3EF9A0C81F8A67CA008C00C0 /* shader */,
+				3EF9A0CB1F8A67CA008C00C0 /* test.txt */,
+				3EF9A0CC1F8A67CA008C00C0 /* ui */,
 			);
-			name = res;
-			path = ../res;
+			name = assets;
+			path = ../assets;
 			sourceTree = "<group>";
 		};
-		3ED4FECF1F89F50800D299B6 /* shader */ = {
+		3EF9A0C81F8A67CA008C00C0 /* shader */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FED01F89F50800D299B6 /* test.fs */,
-				3ED4FED11F89F50800D299B6 /* test.vs */,
+				3EF9A0C91F8A67CA008C00C0 /* test.fs */,
+				3EF9A0CA1F8A67CA008C00C0 /* test.vs */,
 			);
 			path = shader;
 			sourceTree = "<group>";
 		};
-		3ED4FED21F89F50800D299B6 /* ui */ = {
+		3EF9A0CC1F8A67CA008C00C0 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FED31F89F50800D299B6 /* default_ui.png */,
+				3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -247,8 +273,9 @@
 				3E859A0E1F77939A00F84D36 /* Sources */,
 				3E859A0F1F77939A00F84D36 /* Frameworks */,
 				3E859A101F77939A00F84D36 /* Resources */,
-				3EB96BAB1F7F86F50067C170 /* res/ui */,
-				3E41DFE31F840659003E7770 /* res/shader */,
+				3EB96BAB1F7F86F50067C170 /* assets/ui */,
+				3E41DFE31F840659003E7770 /* assets/shader */,
+				3EF9A0D51F8A67F3008C00C0 /* assets/ */,
 			);
 			buildRules = (
 			);
@@ -266,8 +293,9 @@
 				3EFB3A5F1F8105C50097445D /* Sources */,
 				3EFB3A601F8105C50097445D /* Frameworks */,
 				3EFB3A611F8105C50097445D /* Resources */,
-				3E326EF91F823347008AA4ED /* res/ui */,
-				3E41DFEB1F840697003E7770 /* res/shader */,
+				3E326EF91F823347008AA4ED /* res/ui (1 item) */,
+				3E41DFEB1F840697003E7770 /* assets/shader */,
+				3EF9A0DA1F8A6833008C00C0 /* assets/ */,
 			);
 			buildRules = (
 			);

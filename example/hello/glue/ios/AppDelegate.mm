@@ -22,6 +22,7 @@
     self.m_kernel = new app::AppKernel();
     if (!self.m_kernel->init(psd)) return NO;
     [view setKernel:self.m_kernel];
+    self.m_kernel->vfs()->mount("/", new osal::storage::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
 	[view startAnimation];
