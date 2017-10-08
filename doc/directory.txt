@@ -59,7 +59,8 @@
             │   ├── win32d
             │   ├── win64
             │   ├── win64d
-            │   └── assets     # Clone of assets
+            │   └── assets  # Clone of assets
             ├── mac
             ├── ios
             └── android     # APK Files
+            
