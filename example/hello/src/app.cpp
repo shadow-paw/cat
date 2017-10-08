@@ -2,6 +2,7 @@
 
 using namespace app;
 using namespace osal;
+using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 AppKernel::AppKernel() {
@@ -28,5 +29,10 @@ void AppKernel::cb_resize(int width, int height) {
 }
 // ----------------------------------------------------------------------------
 void AppKernel::cb_render(gfx::Renderer* r, Timestamp now) {
+    Rect2i rect;
+    TextStyle style;
+    rect.set(10, 10, 100, 40);
+    style.color = 0xffff00ff;
+    r->draw2d.drawtext(rect, "Hello", style);
 }
 // ----------------------------------------------------------------------------

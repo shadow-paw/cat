@@ -19,17 +19,44 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\android\osal_jni.cpp" />
+    <ClCompile Include="..\src\osal_gfx_draw2d.cpp" />
+    <ClCompile Include="..\src\osal_gfx_draw2d_shaders.cpp" />
+    <ClCompile Include="..\src\osal_gfx_drawable.cpp" />
+    <ClCompile Include="..\src\osal_gfx_ibo.cpp" />
     <ClCompile Include="..\src\osal_gfx_renderer.cpp" />
+    <ClCompile Include="..\src\osal_gfx_shader.cpp" />
+    <ClCompile Include="..\src\osal_gfx_tex.cpp" />
+    <ClCompile Include="..\src\osal_gfx_vbo.cpp" />
     <ClCompile Include="..\src\osal_kernel.cpp" />
+    <ClCompile Include="..\src\win\osal_gfx_canvas.cpp" />
+    <ClCompile Include="..\src\win\osal_util_log.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\android\osal_gfx_canvas.h" />
+    <ClInclude Include="..\include\android\osal_jni.h" />
+    <ClInclude Include="..\include\android\osal_platform.h" />
+    <ClInclude Include="..\include\ios\osal_gfx_canvas.h" />
+    <ClInclude Include="..\include\ios\osal_platform.h" />
+    <ClInclude Include="..\include\mac\osal_gfx_canvas.h" />
+    <ClInclude Include="..\include\mac\osal_platform.h" />
+    <ClInclude Include="..\include\osal_gfx_canvas.h" />
+    <ClInclude Include="..\include\osal_gfx_draw2d.h" />
+    <ClInclude Include="..\include\osal_gfx_drawable.h" />
+    <ClInclude Include="..\include\osal_gfx_ibo.h" />
     <ClInclude Include="..\include\osal_gfx_renderer.h" />
+    <ClInclude Include="..\include\osal_gfx_shader.h" />
+    <ClInclude Include="..\include\osal_gfx_tex.h" />
+    <ClInclude Include="..\include\osal_gfx_texref.h" />
+    <ClInclude Include="..\include\osal_gfx_type.h" />
+    <ClInclude Include="..\include\osal_gfx_vbo.h" />
     <ClInclude Include="..\include\osal_kernel.h" />
     <ClInclude Include="..\include\osal_platform.h" />
     <ClInclude Include="..\include\libosal.h" />
-    <ClInclude Include="..\include\osal_inc.h" />
-    <ClInclude Include="..\include\osal_event.h" />
     <ClInclude Include="..\include\osal_type.h" />
+    <ClInclude Include="..\include\osal_util_log.h" />
+    <ClInclude Include="..\include\win\osal_gfx_canvas.h" />
+    <ClInclude Include="..\include\win\osal_platform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

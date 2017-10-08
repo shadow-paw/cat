@@ -2,11 +2,14 @@
 #define __OSAL_GFX_RENDERER_H__
 
 #include "osal_type.h"
+#include "osal_gfx_draw2d.h"
 
 namespace osal { namespace gfx {
 // ----------------------------------------------------------------------------
 class Renderer {
 public:
+    Draw2D draw2d;
+
     Renderer();
     ~Renderer();
     bool init();
@@ -26,7 +29,7 @@ private:
     bool initGL();
 
 private:
-    bool m_contextlost;
+    bool m_contextready;
     bool m_dirty;
     int  m_width, m_height;
 };
