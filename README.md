@@ -1,7 +1,10 @@
 # Operating System Abstraction Layer
 > Write your program once with C++, and deliver Windows, Mac, iOS and Android app.
 
-![Platform][platform-image]
+![win](https://img.shields.io/badge/win-pass-brightgreen.svg)
+![mac](https://img.shields.io/badge/mac-pass-brightgreen.svg)
+![ios](https://img.shields.io/badge/ios-pass-brightgreen.svg)
+![android](https://img.shields.io/badge/android-pass-brightgreen.svg)
 [![C++ Version][cpp-image]][cpp-url]
 [![License][license-image]][license-url]
 
@@ -118,7 +121,6 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 5. Create a new Pull Request
 
 <!-- Markdown link & img dfn's -->
-[platform-image]: https://img.shields.io/badge/platform-win32%20%7C%20win64%20%7C%20mac%20%7C%20ios%20%7C%20android-lightgrey.svg
 [cpp-image]: https://img.shields.io/badge/c%2B%2B-14-green.svg
 [cpp-url]: https://en.wikipedia.org/wiki/C%2B%2B14
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
