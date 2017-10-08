@@ -14,16 +14,19 @@ struct OSAL_INSTANCE {
     std::mutex mutex;
     AppKernel* kernel;
     jobject    rootview;
+    jobject    asset_manager;
 };
 extern "C" JNIEXPORT jobject JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniInit(JNIEnv *env, jobject self, jobject assmgr) {
     JNIHelper::init(env);
-    PlatformSpecificData psd;
     OSAL_INSTANCE* data = new OSAL_INSTANCE();
     data->rootview = env->NewGlobalRef(self);
+    data->asset_manager = env->NewGlobalRef(assmgr);
+    PlatformSpecificData psd;
     psd.rootview = data->rootview;
     data->kernel = new AppKernel();
     data->kernel->init(psd);
+    data->kernel->vfs()->mount("/", new storage::AssetDriver(data->asset_manager));
     return env->NewDirectByteBuffer((void*)data, sizeof(OSAL_INSTANCE));
 }
 extern "C" JNIEXPORT void JNICALL
@@ -32,6 +35,7 @@ Java_com_shadowpaw_osal_glue_OSALView_jniFini(JNIEnv *env, jobject self, jobject
     if (data) {
         if (data->kernel) delete data->kernel;
         env->DeleteGlobalRef(data->rootview);
+        env->DeleteGlobalRef(data->asset_manager);
         delete data;
     }
     JNIHelper::fini();

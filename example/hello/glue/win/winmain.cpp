@@ -17,6 +17,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
     AppKernel* kernel = new AppKernel();
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
+    // mount our assets
+    kernel->vfs()->mount("/", new osal::storage::FileDriver("../"));
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();

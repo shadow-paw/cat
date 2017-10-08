@@ -63,9 +63,25 @@
 		3ED4FEA81F89EC9600D299B6 /* osal_kernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE931F89EB8800D299B6 /* osal_kernel.h */; };
 		3ED4FEA91F89EC9600D299B6 /* osal_gfx_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE8F1F89EB8800D299B6 /* osal_gfx_renderer.h */; };
 		3ED4FEAA1F89ECBC00D299B6 /* libosal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE951F89EB8800D299B6 /* libosal.h */; };
+		3EF9A0E11F8A6867008C00C0 /* osal_storage_driver_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DD1F8A6867008C00C0 /* osal_storage_driver_file.h */; };
+		3EF9A0E21F8A6867008C00C0 /* osal_storage_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DE1F8A6867008C00C0 /* osal_storage_driver.h */; };
+		3EF9A0E31F8A6867008C00C0 /* osal_storage_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* osal_storage_buffer.h */; };
+		3EF9A0E41F8A6867008C00C0 /* osal_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* osal_storage_vfs.h */; };
+		3EF9A0EE1F8A68C1008C00C0 /* osal_storage_vfs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0EC1F8A68C1008C00C0 /* osal_storage_vfs.cpp */; };
+		3EF9A0EF1F8A68C1008C00C0 /* osal_storage_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* osal_storage_buffer.cpp */; };
+		3EF9A0F11F8A68E0008C00C0 /* osal_storage_driver_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0F01F8A68E0008C00C0 /* osal_storage_driver_file.cpp */; };
+		3EF9A0F81F8A693C008C00C0 /* osal_storage_driver_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0F21F8A68E8008C00C0 /* osal_storage_driver_file.cpp */; };
+		3EF9A0F91F8A693C008C00C0 /* osal_storage_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* osal_storage_buffer.cpp */; };
+		3EF9A0FA1F8A693C008C00C0 /* osal_storage_vfs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0EC1F8A68C1008C00C0 /* osal_storage_vfs.cpp */; };
+		3EF9A0FB1F8A695D008C00C0 /* osal_storage_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* osal_storage_buffer.h */; };
+		3EF9A0FC1F8A695D008C00C0 /* osal_storage_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DE1F8A6867008C00C0 /* osal_storage_driver.h */; };
+		3EF9A0FD1F8A695D008C00C0 /* osal_storage_driver_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DD1F8A6867008C00C0 /* osal_storage_driver_file.h */; };
+		3EF9A0FE1F8A695D008C00C0 /* osal_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* osal_storage_vfs.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E06BA3C1F8A6AE900B1B2FF /* osal_storage_driver_asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_driver_asset.cpp; path = ../src/android/osal_storage_driver_asset.cpp; sourceTree = "<group>"; };
+		3E06BA3D1F8A6AE900B1B2FF /* osal_storage_driver_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_driver_file.cpp; path = ../src/android/osal_storage_driver_file.cpp; sourceTree = "<group>"; };
 		3E15D8F31F8A3564004EC94C /* osal_gfx_vbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_vbo.h; path = ../include/osal_gfx_vbo.h; sourceTree = "<group>"; };
 		3E15D8F41F8A3564004EC94C /* osal_gfx_ibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_ibo.h; path = ../include/osal_gfx_ibo.h; sourceTree = "<group>"; };
 		3E15D8F51F8A3565004EC94C /* osal_util_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_util_log.h; path = ../include/osal_util_log.h; sourceTree = "<group>"; };
@@ -110,6 +126,15 @@
 		3ED4FE941F89EB8800D299B6 /* osal_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_platform.h; path = ../include/osal_platform.h; sourceTree = "<group>"; };
 		3ED4FE951F89EB8800D299B6 /* libosal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libosal.h; path = ../include/libosal.h; sourceTree = "<group>"; };
 		3ED4FE9E1F89EB9100D299B6 /* osal_kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_kernel.cpp; path = ../src/osal_kernel.cpp; sourceTree = "<group>"; };
+		3EF9A0DD1F8A6867008C00C0 /* osal_storage_driver_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_storage_driver_file.h; path = ../include/osal_storage_driver_file.h; sourceTree = "<group>"; };
+		3EF9A0DE1F8A6867008C00C0 /* osal_storage_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_storage_driver.h; path = ../include/osal_storage_driver.h; sourceTree = "<group>"; };
+		3EF9A0DF1F8A6867008C00C0 /* osal_storage_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_storage_buffer.h; path = ../include/osal_storage_buffer.h; sourceTree = "<group>"; };
+		3EF9A0E01F8A6867008C00C0 /* osal_storage_vfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_storage_vfs.h; path = ../include/osal_storage_vfs.h; sourceTree = "<group>"; };
+		3EF9A0EA1F8A68B2008C00C0 /* osal_storage_driver_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_driver_file.cpp; path = ../src/win/osal_storage_driver_file.cpp; sourceTree = "<group>"; };
+		3EF9A0EC1F8A68C1008C00C0 /* osal_storage_vfs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_vfs.cpp; path = ../src/osal_storage_vfs.cpp; sourceTree = "<group>"; };
+		3EF9A0ED1F8A68C1008C00C0 /* osal_storage_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_buffer.cpp; path = ../src/osal_storage_buffer.cpp; sourceTree = "<group>"; };
+		3EF9A0F01F8A68E0008C00C0 /* osal_storage_driver_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_driver_file.cpp; path = ../src/mac/osal_storage_driver_file.cpp; sourceTree = "<group>"; };
+		3EF9A0F21F8A68E8008C00C0 /* osal_storage_driver_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_storage_driver_file.cpp; path = ../src/ios/osal_storage_driver_file.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +316,7 @@
 			children = (
 				3E33DBF41F7673C700B3A90C /* kernel */,
 				3ED4FEA11F89EBA400D299B6 /* gfx */,
+				3EF9A0DC1F8A6855008C00C0 /* storage */,
 				3E15D9071F8A356A004EC94C /* util */,
 				3ED4FE951F89EB8800D299B6 /* libosal.h */,
 				3ECE605F1F7671CB007C3766 /* Products */,
@@ -332,6 +358,64 @@
 			name = gfx;
 			sourceTree = "<group>";
 		};
+		3EF9A0DC1F8A6855008C00C0 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9A0E51F8A6872008C00C0 /* platform */,
+				3EF9A0DF1F8A6867008C00C0 /* osal_storage_buffer.h */,
+				3EF9A0ED1F8A68C1008C00C0 /* osal_storage_buffer.cpp */,
+				3EF9A0DE1F8A6867008C00C0 /* osal_storage_driver.h */,
+				3EF9A0DD1F8A6867008C00C0 /* osal_storage_driver_file.h */,
+				3EF9A0E01F8A6867008C00C0 /* osal_storage_vfs.h */,
+				3EF9A0EC1F8A68C1008C00C0 /* osal_storage_vfs.cpp */,
+			);
+			name = storage;
+			sourceTree = "<group>";
+		};
+		3EF9A0E51F8A6872008C00C0 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9A0E61F8A687A008C00C0 /* win */,
+				3EF9A0E71F8A6881008C00C0 /* mac */,
+				3EF9A0E81F8A6889008C00C0 /* ios */,
+				3EF9A0E91F8A6895008C00C0 /* android */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		3EF9A0E61F8A687A008C00C0 /* win */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9A0EA1F8A68B2008C00C0 /* osal_storage_driver_file.cpp */,
+			);
+			name = win;
+			sourceTree = "<group>";
+		};
+		3EF9A0E71F8A6881008C00C0 /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9A0F01F8A68E0008C00C0 /* osal_storage_driver_file.cpp */,
+			);
+			name = mac;
+			sourceTree = "<group>";
+		};
+		3EF9A0E81F8A6889008C00C0 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9A0F21F8A68E8008C00C0 /* osal_storage_driver_file.cpp */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		3EF9A0E91F8A6895008C00C0 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				3E06BA3C1F8A6AE900B1B2FF /* osal_storage_driver_asset.cpp */,
+				3E06BA3D1F8A6AE900B1B2FF /* osal_storage_driver_file.cpp */,
+			);
+			name = android;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -354,6 +438,10 @@
 				3ED3FD951F8A3FC6007BE517 /* osal_gfx_canvas.h in Headers */,
 				3ED3FD961F8A3FC6007BE517 /* osal_gfx_drawable.h in Headers */,
 				3ED3FD971F8A3FC6007BE517 /* osal_gfx_draw2d.h in Headers */,
+				3EF9A0FB1F8A695D008C00C0 /* osal_storage_buffer.h in Headers */,
+				3EF9A0FC1F8A695D008C00C0 /* osal_storage_driver.h in Headers */,
+				3EF9A0FD1F8A695D008C00C0 /* osal_storage_driver_file.h in Headers */,
+				3EF9A0FE1F8A695D008C00C0 /* osal_storage_vfs.h in Headers */,
 				3ED3FD8D1F8A3FAB007BE517 /* osal_platform.h in Headers */,
 				3ED3FD8E1F8A3FC6007BE517 /* osal_gfx_canvas.h in Headers */,
 			);
@@ -378,6 +466,10 @@
 				3E15D9001F8A3565004EC94C /* osal_gfx_canvas.h in Headers */,
 				3E15D9061F8A3565004EC94C /* osal_gfx_drawable.h in Headers */,
 				3E15D9041F8A3565004EC94C /* osal_gfx_draw2d.h in Headers */,
+				3EF9A0E31F8A6867008C00C0 /* osal_storage_buffer.h in Headers */,
+				3EF9A0E21F8A6867008C00C0 /* osal_storage_driver.h in Headers */,
+				3EF9A0E11F8A6867008C00C0 /* osal_storage_driver_file.h in Headers */,
+				3EF9A0E41F8A6867008C00C0 /* osal_storage_vfs.h in Headers */,
 				3E15D9121F8A35E9004EC94C /* osal_platform.h in Headers */,
 				3ECE1B0B1F8A3B39009D9088 /* osal_gfx_canvas.h in Headers */,
 			);
@@ -464,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ED4FEA21F89EC8700D299B6 /* osal_kernel.cpp in Sources */,
+				3ED3FD7F1F8A3F3E007BE517 /* osal_util_log.cpp in Sources */,
 				3ED3FD841F8A3F8B007BE517 /* osal_gfx_renderer.cpp in Sources */,
 				3ED3FD851F8A3F8B007BE517 /* osal_gfx_ibo.cpp in Sources */,
 				3ED3FD861F8A3F8B007BE517 /* osal_gfx_vbo.cpp in Sources */,
@@ -472,8 +565,10 @@
 				3ED3FD891F8A3F8B007BE517 /* osal_gfx_drawable.cpp in Sources */,
 				3ED3FD8A1F8A3F8B007BE517 /* osal_gfx_draw2d.cpp in Sources */,
 				3ED3FD8B1F8A3F8B007BE517 /* osal_gfx_draw2d_shaders.cpp in Sources */,
-				3ED3FD7F1F8A3F3E007BE517 /* osal_util_log.cpp in Sources */,
 				3ED3FD8C1F8A3F92007BE517 /* osal_gfx_canvas.cpp in Sources */,
+				3EF9A0F91F8A693C008C00C0 /* osal_storage_buffer.cpp in Sources */,
+				3EF9A0FA1F8A693C008C00C0 /* osal_storage_vfs.cpp in Sources */,
+				3EF9A0F81F8A693C008C00C0 /* osal_storage_driver_file.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ED4FEA01F89EB9100D299B6 /* osal_kernel.cpp in Sources */,
+				3ECE1AF81F8A382A009D9088 /* osal_util_log.cpp in Sources */,
 				3ECE1B021F8A391C009D9088 /* osal_gfx_renderer.cpp in Sources */,
 				3ECE1B031F8A391C009D9088 /* osal_gfx_ibo.cpp in Sources */,
 				3ECE1B041F8A391C009D9088 /* osal_gfx_vbo.cpp in Sources */,
@@ -490,8 +586,10 @@
 				3ECE1B071F8A391C009D9088 /* osal_gfx_drawable.cpp in Sources */,
 				3ECE1B081F8A391C009D9088 /* osal_gfx_draw2d.cpp in Sources */,
 				3ECE1B091F8A391C009D9088 /* osal_gfx_draw2d_shaders.cpp in Sources */,
-				3ECE1AF81F8A382A009D9088 /* osal_util_log.cpp in Sources */,
 				3ECE1B0D1F8A3B42009D9088 /* osal_gfx_canvas.cpp in Sources */,
+				3EF9A0EF1F8A68C1008C00C0 /* osal_storage_buffer.cpp in Sources */,
+				3EF9A0EE1F8A68C1008C00C0 /* osal_storage_vfs.cpp in Sources */,
+				3EF9A0F11F8A68E0008C00C0 /* osal_storage_driver_file.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
