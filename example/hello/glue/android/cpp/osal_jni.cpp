@@ -17,7 +17,7 @@ struct OSAL_INSTANCE {
 };
 extern "C" JNIEXPORT jobject JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniInit(JNIEnv *env, jobject self, jobject assmgr) {
-    // JNI::init(env);
+    JNIHelper::init(env);
     PlatformSpecificData psd;
     OSAL_INSTANCE* data = new OSAL_INSTANCE();
     data->rootview = env->NewGlobalRef(self);
@@ -34,7 +34,7 @@ Java_com_shadowpaw_osal_glue_OSALView_jniFini(JNIEnv *env, jobject self, jobject
         env->DeleteGlobalRef(data->rootview);
         delete data;
     }
-    // JNI::fini();
+    JNIHelper::fini();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniStartup(JNIEnv *env, jobject self, jobject handle) {

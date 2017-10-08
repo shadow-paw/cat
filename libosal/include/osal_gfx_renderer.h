@@ -26,7 +26,7 @@ private:
     bool initGL();
 
 private:
-    bool m_contextlost;
+    bool m_contextready;
     bool m_dirty;
     int  m_width, m_height;
 };

@@ -9,8 +9,13 @@ LOCAL_C_INCLUDES:=../include \
 LOCAL_CFLAGS    :=-Werror -Wno-switch -DPLATFORM_ANDROID
 LOCAL_CPPFLAGS  :=-std=c++14 -frtti -fexceptions
 LOCAL_SRC_FILES := \
+                ../../src/android/osal_jni.cpp \
                 ../../src/osal_kernel.cpp \
-                ../../src/osal_gfx_renderer.cpp
+                ../../src/osal_gfx_renderer.cpp \
+                ../../src/osal_gfx_ibo.cpp \
+                ../../src/osal_gfx_vbo.cpp \
+                ../../src/osal_gfx_tex.cpp \
+                ../../src/osal_gfx_shader.cpp
 
 include $(BUILD_STATIC_LIBRARY)
 

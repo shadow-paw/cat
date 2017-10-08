@@ -11,6 +11,24 @@
     <Filter Include="libosal\graphics">
       <UniqueIdentifier>{8e818c28-2696-40be-94e8-34301cf474af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libosal\util">
+      <UniqueIdentifier>{8be5ec90-31cb-4397-adc8-b89b9b01fffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\kernel\platform">
+      <UniqueIdentifier>{553df84f-f96e-463a-b96d-82e7ca2dda2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\kernel\platform\win">
+      <UniqueIdentifier>{06111c7a-3031-41fd-8cc9-1791a95b5d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\kernel\platform\android">
+      <UniqueIdentifier>{b0ed36b8-3d83-4cd4-a820-cf3ef5f75479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\kernel\platform\mac">
+      <UniqueIdentifier>{4f86d99e-a386-4aaf-81f5-77a1a173a9fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\kernel\platform\ios">
+      <UniqueIdentifier>{6ce52a6f-e4e9-41a9-a680-fa0156f758a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\osal_type.h">
@@ -22,17 +40,47 @@
     <ClInclude Include="..\include\osal_platform.h">
       <Filter>libosal\kernel</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\osal_event.h">
-      <Filter>libosal\kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\osal_inc.h">
-      <Filter>libosal\kernel</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\osal_gfx_renderer.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\include\libosal.h">
       <Filter>libosal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\win\osal_platform.h">
+      <Filter>libosal\kernel\platform\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\android\osal_jni.h">
+      <Filter>libosal\kernel\platform\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\android\osal_platform.h">
+      <Filter>libosal\kernel\platform\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mac\osal_platform.h">
+      <Filter>libosal\kernel\platform\mac</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ios\osal_platform.h">
+      <Filter>libosal\kernel\platform\ios</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_ibo.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_shader.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_tex.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_texref.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_vbo.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_util_log.h">
+      <Filter>libosal\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_type.h">
+      <Filter>libosal\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +89,24 @@
     </ClCompile>
     <ClCompile Include="..\src\osal_kernel.cpp">
       <Filter>libosal\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\android\osal_jni.cpp">
+      <Filter>libosal\kernel\platform\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_ibo.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_shader.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_tex.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_vbo.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\win\osal_util_log.cpp">
+      <Filter>libosal\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

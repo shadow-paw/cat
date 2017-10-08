@@ -31,20 +31,6 @@ Timestamp Kernel::now() const {
         (std::chrono::system_clock::now().time_since_epoch()).count();
 }
 // ----------------------------------------------------------------------------
-Platform Kernel::platform() const {
-#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    return Platform::Windows;
-#elif defined(PLATFORM_MACOSX)
-    return Platform::Mac;
-#elif defined(PLATFORM_IOS)
-    return Platform::IOS;
-#elif defined(PLATFORM_ANDROID)
-    return Platform::Android;
-#else
-  #error Not Implemented!
-#endif
-}
-// ----------------------------------------------------------------------------
 // Kernel Signals
 // ----------------------------------------------------------------------------
 void Kernel::startup() {

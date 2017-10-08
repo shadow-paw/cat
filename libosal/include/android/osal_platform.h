@@ -1,0 +1,18 @@
+#ifndef __OSAL_PLATFORM_ANDROID_H__
+#define __OSAL_PLATFORM_ANDROID_H__
+#if defined(PLATFORM_ANDROID)
+
+#include <jni.h>
+#include <GLES2/gl2.h>
+#include "osal_jni.h"
+
+namespace osal {
+// ----------------------------------------------------------------------------
+struct PlatformSpecificData {
+    jobject rootview;
+};
+// ----------------------------------------------------------------------------
+} // namespace osal:
+
+#endif // PLATFORM_ANDROID
+#endif // __OSAL_PLATFORM_ANDROID_H__

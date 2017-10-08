@@ -2,7 +2,7 @@
 #define __OSAL_KERNEL_H__
 
 #include "osal_platform.h"
-#include "osal_event.h"
+#include "osal_type.h"
 #include "osal_gfx_renderer.h"
 
 namespace osal {
@@ -15,7 +15,19 @@ public:
     bool init(const PlatformSpecificData& psd);
     void fini();
 
-    Platform platform() const;
+    Platform platform() const {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+        return Platform::Windows;
+#elif defined(PLATFORM_MACOSX)
+        return Platform::Mac;
+#elif defined(PLATFORM_IOS)
+        return Platform::IOS;
+#elif defined(PLATFORM_ANDROID)
+        return Platform::Android;
+#else
+  #error Not Implemented!
+#endif
+    }
     Timestamp now() const;
 
 public:
