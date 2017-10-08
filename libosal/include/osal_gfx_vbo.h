@@ -1,5 +1,5 @@
-#ifndef __OSAL_GFX_IBO_H__
-#define __OSAL_GFX_IBO_H__
+#ifndef __OSAL_GFX_VBO_H__
+#define __OSAL_GFX_VBO_H__
 
 #include <stdint.h>
 #include <stddef.h>
@@ -31,4 +31,4 @@ private:
 // ----------------------------------------------------------------------------
 }} // namespace osal::gfx
 
-#endif // __OSAL_GFX_IBO_H__
+#endif // __OSAL_GFX_VBO_H__

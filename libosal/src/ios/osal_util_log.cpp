@@ -1,5 +1,5 @@
 #if defined(PLATFORM_IOS)
-#include "osal_log.h"
+#include "osal_util_log.h"
 
 using namespace osal::util;
 

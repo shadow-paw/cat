@@ -1,7 +1,7 @@
 #include "osal_gfx_renderer.h"
 
 // NOTE: Fix for mac
-#if defined(PLATFORM_MACOSX)
+#if defined(PLATFORM_MAC)
   #define glClearDepthf(x) glClearDepth(x)
 #endif
 

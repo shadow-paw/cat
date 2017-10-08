@@ -4,9 +4,9 @@
 // ----------------------------------------------------------------------------
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
   #include "win/osal_gfx_canvas.h"
-#elif defined(PLATFORM_MACOSX)
+#elif defined(PLATFORM_MAC)
   #include "mac/osal_gfx_canvas.h"
-##elfi defined(PLATFORM_IOS)
+#elif defined(PLATFORM_IOS)
   #include "ios/osal_gfx_canvas.h"
 #elif defined(PLATFORM_ANDROID)
   #include "android/osal_gfx_canvas.h"
