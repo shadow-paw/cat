@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3ED4FE961F89EB8900D299B6 /* osal_gfx_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE8F1F89EB8800D299B6 /* osal_gfx_renderer.h */; };
+		3ED4FE971F89EB8900D299B6 /* osal_event.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE901F89EB8800D299B6 /* osal_event.h */; };
+		3ED4FE981F89EB8900D299B6 /* osal_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE911F89EB8800D299B6 /* osal_type.h */; };
+		3ED4FE991F89EB8900D299B6 /* osal_inc.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE921F89EB8800D299B6 /* osal_inc.h */; };
+		3ED4FE9A1F89EB8900D299B6 /* osal_kernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE931F89EB8800D299B6 /* osal_kernel.h */; };
+		3ED4FE9B1F89EB8900D299B6 /* osal_platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE941F89EB8800D299B6 /* osal_platform.h */; };
+		3ED4FE9C1F89EB8900D299B6 /* libosal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE951F89EB8800D299B6 /* libosal.h */; };
+		3ED4FE9F1F89EB9100D299B6 /* osal_gfx_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FE9D1F89EB9100D299B6 /* osal_gfx_renderer.cpp */; };
+		3ED4FEA01F89EB9100D299B6 /* osal_kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FE9E1F89EB9100D299B6 /* osal_kernel.cpp */; };
+		3ED4FEA21F89EC8700D299B6 /* osal_kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FE9E1F89EB9100D299B6 /* osal_kernel.cpp */; };
+		3ED4FEA31F89EC8700D299B6 /* osal_gfx_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FE9D1F89EB9100D299B6 /* osal_gfx_renderer.cpp */; };
+		3ED4FEA41F89EC9600D299B6 /* osal_inc.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE921F89EB8800D299B6 /* osal_inc.h */; };
+		3ED4FEA51F89EC9600D299B6 /* osal_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE911F89EB8800D299B6 /* osal_type.h */; };
+		3ED4FEA61F89EC9600D299B6 /* osal_platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE941F89EB8800D299B6 /* osal_platform.h */; };
+		3ED4FEA71F89EC9600D299B6 /* osal_event.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE901F89EB8800D299B6 /* osal_event.h */; };
+		3ED4FEA81F89EC9600D299B6 /* osal_kernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE931F89EB8800D299B6 /* osal_kernel.h */; };
+		3ED4FEA91F89EC9600D299B6 /* osal_gfx_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE8F1F89EB8800D299B6 /* osal_gfx_renderer.h */; };
+		3ED4FEAA1F89ECBC00D299B6 /* libosal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED4FE951F89EB8800D299B6 /* libosal.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3E8636FC1F77544B00A97811 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ECE605E1F7671CB007C3766 /* libosal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libosal.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ED4FE8F1F89EB8800D299B6 /* osal_gfx_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_renderer.h; path = ../include/osal_gfx_renderer.h; sourceTree = "<group>"; };
+		3ED4FE901F89EB8800D299B6 /* osal_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_event.h; path = ../include/osal_event.h; sourceTree = "<group>"; };
+		3ED4FE911F89EB8800D299B6 /* osal_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_type.h; path = ../include/osal_type.h; sourceTree = "<group>"; };
+		3ED4FE921F89EB8800D299B6 /* osal_inc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_inc.h; path = ../include/osal_inc.h; sourceTree = "<group>"; };
+		3ED4FE931F89EB8800D299B6 /* osal_kernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_kernel.h; path = ../include/osal_kernel.h; sourceTree = "<group>"; };
+		3ED4FE941F89EB8800D299B6 /* osal_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_platform.h; path = ../include/osal_platform.h; sourceTree = "<group>"; };
+		3ED4FE951F89EB8800D299B6 /* libosal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libosal.h; path = ../include/libosal.h; sourceTree = "<group>"; };
+		3ED4FE9D1F89EB9100D299B6 /* osal_gfx_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_renderer.cpp; path = ../src/osal_gfx_renderer.cpp; sourceTree = "<group>"; };
+		3ED4FE9E1F89EB9100D299B6 /* osal_kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_kernel.cpp; path = ../src/osal_kernel.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3E8636F91F77544B00A97811 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3ECE605B1F7671CB007C3766 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3E33DBF41F7673C700B3A90C /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				3ED4FE921F89EB8800D299B6 /* osal_inc.h */,
+				3ED4FE911F89EB8800D299B6 /* osal_type.h */,
+				3ED4FE941F89EB8800D299B6 /* osal_platform.h */,
+				3ED4FE901F89EB8800D299B6 /* osal_event.h */,
+				3ED4FE931F89EB8800D299B6 /* osal_kernel.h */,
+				3ED4FE9E1F89EB9100D299B6 /* osal_kernel.cpp */,
+			);
+			name = kernel;
+			sourceTree = "<group>";
+		};
+		3ECE60551F7671CB007C3766 = {
+			isa = PBXGroup;
+			children = (
+				3E33DBF41F7673C700B3A90C /* kernel */,
+				3ED4FEA11F89EBA400D299B6 /* gfx */,
+				3ED4FE951F89EB8800D299B6 /* libosal.h */,
+				3ECE605F1F7671CB007C3766 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3ECE605F1F7671CB007C3766 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3ECE605E1F7671CB007C3766 /* libosal.a */,
+				3E8636FC1F77544B00A97811 /* libgraphite.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3ED4FEA11F89EBA400D299B6 /* gfx */ = {
+			isa = PBXGroup;
+			children = (
+				3ED4FE9D1F89EB9100D299B6 /* osal_gfx_renderer.cpp */,
+				3ED4FE8F1F89EB8800D299B6 /* osal_gfx_renderer.h */,
+			);
+			name = gfx;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3E8637051F7754D900A97811 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ED4FEAA1F89ECBC00D299B6 /* libosal.h in Headers */,
+				3ED4FEA41F89EC9600D299B6 /* osal_inc.h in Headers */,
+				3ED4FEA61F89EC9600D299B6 /* osal_platform.h in Headers */,
+				3ED4FEA51F89EC9600D299B6 /* osal_type.h in Headers */,
+				3ED4FEA71F89EC9600D299B6 /* osal_event.h in Headers */,
+				3ED4FEA81F89EC9600D299B6 /* osal_kernel.h in Headers */,
+				3ED4FEA91F89EC9600D299B6 /* osal_gfx_renderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3ECE605C1F7671CB007C3766 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ED4FE9C1F89EB8900D299B6 /* libosal.h in Headers */,
+				3ED4FE991F89EB8900D299B6 /* osal_inc.h in Headers */,
+				3ED4FE9B1F89EB8900D299B6 /* osal_platform.h in Headers */,
+				3ED4FE981F89EB8900D299B6 /* osal_type.h in Headers */,
+				3ED4FE971F89EB8900D299B6 /* osal_event.h in Headers */,
+				3ED4FE9A1F89EB8900D299B6 /* osal_kernel.h in Headers */,
+				3ED4FE961F89EB8900D299B6 /* osal_gfx_renderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3E8636FB1F77544B00A97811 /* libosal-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E8637021F77544B00A97811 /* Build configuration list for PBXNativeTarget "libosal-ios" */;
+			buildPhases = (
+				3E8636F81F77544B00A97811 /* Sources */,
+				3E8636F91F77544B00A97811 /* Frameworks */,
+				3E8637051F7754D900A97811 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libosal-ios";
+			productName = graphite;
+			productReference = 3E8636FC1F77544B00A97811 /* libgraphite.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3ECE605D1F7671CB007C3766 /* libosal-mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3ECE60621F7671CB007C3766 /* Build configuration list for PBXNativeTarget "libosal-mac" */;
+			buildPhases = (
+				3ECE605A1F7671CB007C3766 /* Sources */,
+				3ECE605B1F7671CB007C3766 /* Frameworks */,
+				3ECE605C1F7671CB007C3766 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libosal-mac";
+			productName = graphite;
+			productReference = 3ECE605E1F7671CB007C3766 /* libosal.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3ECE60561F7671CB007C3766 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = libpng;
+				TargetAttributes = {
+					3E8636FB1F77544B00A97811 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+					3ECE605D1F7671CB007C3766 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3ECE60591F7671CB007C3766 /* Build configuration list for PBXProject "libosal" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3ECE60551F7671CB007C3766;
+			productRefGroup = 3ECE605F1F7671CB007C3766 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3ECE605D1F7671CB007C3766 /* libosal-mac */,
+				3E8636FB1F77544B00A97811 /* libosal-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3E8636F81F77544B00A97811 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ED4FEA21F89EC8700D299B6 /* osal_kernel.cpp in Sources */,
+				3ED4FEA31F89EC8700D299B6 /* osal_gfx_renderer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3ECE605A1F7671CB007C3766 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ED4FEA01F89EB9100D299B6 /* osal_kernel.cpp in Sources */,
+				3ED4FE9F1F89EB9100D299B6 /* osal_gfx_renderer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3E8637031F77544B00A97811 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_VARIANTS = debug;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/ios";
+				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_IOS,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../dependency/include/generic,
+					../../dependency/include/ios,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				OBJROOT = ./build;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = libosal;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SYMROOT = ../lib;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3E8637041F77544B00A97811 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/ios";
+				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_IOS;
+				HEADER_SEARCH_PATHS = (
+					../../dependency/include/generic,
+					../../dependency/include/ios,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				OBJROOT = ./build;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = libosal;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SYMROOT = ../lib;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3ECE60601F7671CB007C3766 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3ECE60611F7671CB007C3766 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3ECE60631F7671CB007C3766 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_VARIANTS = debug;
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/mac";
+				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_MACOSX,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../dependency/include/generic,
+					../3rdparty/include/mac,
+				);
+				OBJROOT = ./build;
+				PRODUCT_NAME = libosal;
+				SYMROOT = ../lib;
+			};
+			name = Debug;
+		};
+		3ECE60641F7671CB007C3766 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/mac";
+				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "PLATFORM_MACOSX ";
+				HEADER_SEARCH_PATHS = (
+					../../dependency/include/generic,
+					../3rdparty/include/mac,
+				);
+				OBJROOT = ./build;
+				PRODUCT_NAME = libosal;
+				SYMROOT = ../lib;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3E8637021F77544B00A97811 /* Build configuration list for PBXNativeTarget "libosal-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E8637031F77544B00A97811 /* Debug */,
+				3E8637041F77544B00A97811 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3ECE60591F7671CB007C3766 /* Build configuration list for PBXProject "libosal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3ECE60601F7671CB007C3766 /* Debug */,
+				3ECE60611F7671CB007C3766 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3ECE60621F7671CB007C3766 /* Build configuration list for PBXNativeTarget "libosal-mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3ECE60631F7671CB007C3766 /* Debug */,
+				3ECE60641F7671CB007C3766 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3ECE60561F7671CB007C3766 /* Project object */;
+}
