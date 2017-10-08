@@ -29,6 +29,21 @@
     <Filter Include="libosal\kernel\platform\ios">
       <UniqueIdentifier>{6ce52a6f-e4e9-41a9-a680-fa0156f758a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libosal\graphics\platform">
+      <UniqueIdentifier>{44ab7906-b078-46fd-92e8-a5c029a60c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\graphics\platform\android">
+      <UniqueIdentifier>{7baaeaf9-0b72-4d93-be5a-5b602ba96fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\graphics\platform\ios">
+      <UniqueIdentifier>{a6366faa-d65e-4447-838e-f6f3297ae8bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\graphics\platform\mac">
+      <UniqueIdentifier>{a3362d12-cb8d-4c1f-9c94-457f99b77c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\graphics\platform\win">
+      <UniqueIdentifier>{924ec60f-d339-4f0d-932f-53d6c5e2566c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\osal_type.h">
@@ -82,6 +97,27 @@
     <ClInclude Include="..\include\osal_gfx_type.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_canvas.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_drawable.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\android\osal_gfx_canvas.h">
+      <Filter>libosal\graphics\platform\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ios\osal_gfx_canvas.h">
+      <Filter>libosal\graphics\platform\ios</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mac\osal_gfx_canvas.h">
+      <Filter>libosal\graphics\platform\mac</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\win\osal_gfx_canvas.h">
+      <Filter>libosal\graphics\platform\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_draw2d.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
@@ -107,6 +143,18 @@
     </ClCompile>
     <ClCompile Include="..\src\win\osal_util_log.cpp">
       <Filter>libosal\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_drawable.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\win\osal_gfx_canvas.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_draw2d.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_draw2d_shaders.cpp">
+      <Filter>libosal\graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

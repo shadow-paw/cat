@@ -37,4 +37,3 @@ private:
 }} // namespace osal::gfx
 
 #endif // __OSAL_GFX_TEX_H__
-

@@ -56,4 +56,3 @@ private:
 }} // namespace osal::gfx
 
 #endif // __OSAL_GFX_SHADER_H__
-

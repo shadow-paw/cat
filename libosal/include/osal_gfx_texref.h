@@ -20,4 +20,3 @@ public:
 }} // namespace osal::gfx
 
 #endif // __OSAL_GFX_TEXREF_H__
-

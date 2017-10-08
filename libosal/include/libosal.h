@@ -11,5 +11,6 @@
 #include "osal_gfx_tex.h"
 #include "osal_gfx_texref.h"
 #include "osal_gfx_shader.h"
+#include "osal_gfx_drawable.h"
 
 #endif

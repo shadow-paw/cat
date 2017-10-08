@@ -32,4 +32,3 @@ private:
 }} // namespace osal::gfx
 
 #endif // __OSAL_GFX_IBO_H__
-
