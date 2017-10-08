@@ -31,7 +31,7 @@ android {
         main {
             java.srcDirs = ['../../../glue/android/java']
             res.srcDirs= ['../../../glue/android/res']
-            assets.srcDirs = ['../../../res']
+            assets.srcDirs = ['../../../assets']
         }
     }
     externalNativeBuild {

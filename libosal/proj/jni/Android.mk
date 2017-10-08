@@ -18,9 +18,13 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_gfx_drawable.cpp \
                 ../../src/osal_gfx_draw2d.cpp \
                 ../../src/osal_gfx_draw2d_shaders.cpp \
+                ../../src/osal_storage_buffer.cpp \
+                ../../src/osal_storage_vfs.cpp \
                 ../../src/android/osal_jni.cpp \
                 ../../src/android/osal_util_log.cpp \
-                ../../src/android/osal_gfx_canvas.cpp               
+                ../../src/android/osal_gfx_canvas.cpp \
+                ../../src/android/osal_storage_driver_file.cpp \
+                ../../src/android/osal_storage_driver_asset.cpp
 
 include $(BUILD_STATIC_LIBRARY)
 

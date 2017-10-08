@@ -4,6 +4,7 @@
 #include "osal_platform.h"
 #include "osal_type.h"
 #include "osal_gfx_renderer.h"
+#include "osal_storage_vfs.h"
 
 namespace osal {
 // ----------------------------------------------------------------------------
@@ -31,6 +32,11 @@ public:
     Timestamp now() const;
 
 public:
+    const PlatformSpecificData* psd() { return &m_psd; }
+    gfx::Renderer*              renderer() { return &m_renderer; }
+    storage::VFS*               vfs() { return &m_vfs; }
+
+public:
     void startup();
     void shutdown();
     void context_lost();
@@ -50,13 +56,10 @@ protected:
     virtual void cb_resize(int width, int height) = 0;
     virtual void cb_render(gfx::Renderer* r, Timestamp now) = 0;
 
-protected:
-    const PlatformSpecificData* psd()      { return &m_psd;      }
-    gfx::Renderer*              renderer() { return &m_renderer; }
-
 private:
     PlatformSpecificData m_psd;
     gfx::Renderer        m_renderer;
+    storage::VFS         m_vfs;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal
