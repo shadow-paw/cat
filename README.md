@@ -12,7 +12,7 @@ The OSAL project provide an abstracted and consistent environment for applicatio
 - Camera and Sensor Access (if available)
 
 ## Build Environments
-You can build osal app on two environments, sadly you cannot build binaries for all platform with a single environment. Here is the matrix:
+You can build osal app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
 
 #### Windows Environment
 - Windows 32-bit App
@@ -89,7 +89,7 @@ cd dependency/setup
 #### Build libosal - mac & ios
 Open `libosal/proj/libosal.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
 
-#### Build example - windows
+#### Build example - mac & ios
 Open `example/hello/proj/example.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
 
 #### Build libosal - android
