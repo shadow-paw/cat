@@ -50,7 +50,7 @@
         │   ├── ios
         │   └── android
         ├── src             # Program logic
-        ├── res             # Resources
+        ├── assets          # Assets to be bundled
         │   ├── shader      # Shader
         │   └── ui          # UI images
         └── bin             # Output program
@@ -59,7 +59,7 @@
             │   ├── win32d
             │   ├── win64
             │   ├── win64d
-            │   └── res     # Clone of res
+            │   └── assets     # Clone of assets
             ├── mac
             ├── ios
             └── android     # APK Files
