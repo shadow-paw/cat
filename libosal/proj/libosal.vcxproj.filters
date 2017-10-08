@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="libosal">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="libosal\kernel">
+      <UniqueIdentifier>{b4b40726-2287-4f3d-9bbe-6fc47ee9cfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libosal\graphics">
+      <UniqueIdentifier>{8e818c28-2696-40be-94e8-34301cf474af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\osal_type.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_kernel.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_platform.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_event.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_inc.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_renderer.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libosal.h">
+      <Filter>libosal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\osal_gfx_renderer.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_kernel.cpp">
+      <Filter>libosal\kernel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

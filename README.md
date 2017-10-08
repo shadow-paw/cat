@@ -11,17 +11,97 @@ The OSAL project provide an abstracted and consistent environment for applicatio
 - Network Access
 - Camera and Sensor Access (if available)
 
-## Prerequisite
+## Build Environments
+You can build osal app on two environments, sadly you cannot build binaries for all platform with a single environment. Here is the matrix:
+
+#### Windows Environment
+- Windows 32-bit App
+- Windows 64-bit App
+- Android App
+
+#### Mac Environment
+- Mac OS X App
+- iOS App
+- Android App
+
+## Windows Environment
+#### Tools
 - [Visual Studio Community 2017][visualstudio-url]
-- [Xcode 9][xcode-url]
+- [Android Studio 3.0][android-url]
+- [Git Bash][git-url]
+
+#### Command Line Environment
+```
+export ANDROID_SDK=c:/android/sdk
+export ANDROID_NDK=c:/android/sdk/ndk-bundle
+```
+
+#### Setup dependency
+```
+cd dependency/setup
+./glm.sh
+./glew-win.sh
+./zlib-win.sh
+./libpng-win.sh
+./libpng-android.sh
+```
+
+#### Build libosal - windows
+Open `libosal/proj/libosal.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Libraries will be created under `libosal/lib/`.
+
+#### Build example - windows
+Open `example/hello/proj/example.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Excutables will be created under `example/hello/bin/`.
+
+#### Build libosal - android
+```
+cd libosal/proj/
+ndk-build.cmd -j4
+```
+
+#### Build example - android
+Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.
+
+## Mac Environment
+#### Tools
+- [Xcode 9][xcode-url] with command line tools
 - [Android Studio 3.0][android-url]
 
+#### Xcode command line tools
+```
+xcode-select --install
+```
+
+#### Command Line Environment
+```
+export ANDROID_SDK=/usr/local/android
+export ANDROID_NDK=/usr/local/android/ndk-bundle
+```
+
+#### Setup dependency
+```
+cd dependency/setup
+./glm.sh
+./libpng-mac.sh
+./libpng-ios.sh
+./libpng-android.sh
+```
+
+#### Build libosal - mac & ios
+Open `libosal/proj/libosal.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
+
+#### Build example - windows
+Open `example/hello/proj/example.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
+
+#### Build libosal - android
+```
+cd libosal/proj/
+ndk-build -j4
+```
+
+#### Build example - android
+Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.
+
 <sup>Note: To build windows app on mac, you need to bootcamp or VM into Windows.</sup>
-
-## Release History
-
-* 0.0.1
-    * Work in progress
 
 ## License
 
@@ -44,3 +124,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [visualstudio-url]: https://www.visualstudio.com/downloads/
 [xcode-url]: https://developer.apple.com/xcode/
 [android-url]: https://developer.android.com/studio/preview/index.html
+[git-url]: https://git-scm.com/downloads
