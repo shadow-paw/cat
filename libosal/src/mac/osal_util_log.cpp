@@ -1,6 +1,6 @@
+#include "osal_util_log.h"
 #include <stdio.h>
 #include <stdarg.h>
-#include "osal_util_log.h"
 
 using namespace osal::util;
 

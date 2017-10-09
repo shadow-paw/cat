@@ -32,7 +32,7 @@ void AppKernel::cb_resize(int width, int height) {
 }
 // ----------------------------------------------------------------------------
 void AppKernel::cb_render(gfx::Renderer* r, Timestamp now) {
-    gfx:Rect2i rect;
+    gfx::Rect2i rect;
     gfx::TextStyle style;
     rect.set(10, 10, 100, 40);
     style.color = 0xffff00ff;
