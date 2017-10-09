@@ -4,7 +4,7 @@
 using namespace osal;
 
 // ----------------------------------------------------------------------------
-Kernel::Kernel() {
+Kernel::Kernel() : m_res(&m_vfs) {
 }
 // ----------------------------------------------------------------------------
 Kernel::~Kernel() {
@@ -14,6 +14,7 @@ Kernel::~Kernel() {
 bool Kernel::init(const PlatformSpecificData& psd) {
     m_psd = psd;
     if (!m_renderer.init()) goto fail;
+    if (!m_res.init()) goto fail;
     return true;
 fail:
     fini();
@@ -21,6 +22,7 @@ fail:
 }
 // ----------------------------------------------------------------------------
 void Kernel::fini() {
+    m_res.fini();
     m_renderer.fini();
 }
 // ----------------------------------------------------------------------------
@@ -44,11 +46,13 @@ void Kernel::shutdown() {
 // ----------------------------------------------------------------------------
 void Kernel::context_lost() {
     cb_context_lost();
+    m_res.context_lost();
     m_renderer.context_lost();
 }
 // ----------------------------------------------------------------------------
 bool Kernel::context_restored() {
     m_renderer.context_restored();
+    m_res.context_restored();
     cb_context_restored();
     return true;
 }

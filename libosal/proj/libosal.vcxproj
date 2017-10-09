@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\osal_gfx_drawable.cpp" />
     <ClCompile Include="..\src\osal_gfx_ibo.cpp" />
     <ClCompile Include="..\src\osal_gfx_renderer.cpp" />
+    <ClCompile Include="..\src\osal_gfx_resmgr.cpp" />
     <ClCompile Include="..\src\osal_gfx_shader.cpp" />
     <ClCompile Include="..\src\osal_gfx_tex.cpp" />
     <ClCompile Include="..\src\osal_gfx_vbo.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="..\include\osal_gfx_drawable.h" />
     <ClInclude Include="..\include\osal_gfx_ibo.h" />
     <ClInclude Include="..\include\osal_gfx_renderer.h" />
+    <ClInclude Include="..\include\osal_gfx_resmgr.h" />
     <ClInclude Include="..\include\osal_gfx_shader.h" />
     <ClInclude Include="..\include\osal_gfx_tex.h" />
     <ClInclude Include="..\include\osal_gfx_texref.h" />

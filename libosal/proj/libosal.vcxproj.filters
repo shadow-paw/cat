@@ -31,6 +31,9 @@
     <ClInclude Include="..\include\osal_gfx_renderer.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_resmgr.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\libosal.h">
       <Filter>libosal</Filter>
     </ClInclude>
@@ -82,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
+      <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_resmgr.cpp">
       <Filter>libosal\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_kernel.cpp">

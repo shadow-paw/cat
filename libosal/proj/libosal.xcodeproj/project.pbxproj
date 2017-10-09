@@ -18,6 +18,10 @@
 		3E15D9051F8A3565004EC94C /* osal_gfx_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8FB1F8A3565004EC94C /* osal_gfx_type.h */; };
 		3E15D9061F8A3565004EC94C /* osal_gfx_drawable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8FC1F8A3565004EC94C /* osal_gfx_drawable.h */; };
 		3E15D9121F8A35E9004EC94C /* osal_platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D9111F8A35E9004EC94C /* osal_platform.h */; };
+		3E92B6DC1F8B883F00614529 /* osal_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */; };
+		3E92B6DE1F8B886000614529 /* osal_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */; };
+		3E92B6DF1F8B888F00614529 /* osal_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */; };
+		3E92B6E01F8B889C00614529 /* osal_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */; };
 		3ECE1AF81F8A382A009D9088 /* osal_util_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE1AF71F8A382A009D9088 /* osal_util_log.cpp */; };
 		3ECE1B021F8A391C009D9088 /* osal_gfx_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE1B011F8A3895009D9088 /* osal_gfx_renderer.cpp */; };
 		3ECE1B031F8A391C009D9088 /* osal_gfx_ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D7D401F8A36BF00F91EDF /* osal_gfx_ibo.cpp */; };
@@ -109,6 +113,8 @@
 		3E8D7D471F8A375200F91EDF /* osal_gfx_canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_canvas.h; path = ../include/android/osal_gfx_canvas.h; sourceTree = "<group>"; };
 		3E8D7D491F8A378400F91EDF /* osal_gfx_canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_canvas.cpp; path = ../src/win/osal_gfx_canvas.cpp; sourceTree = "<group>"; };
 		3E8D7D4A1F8A378400F91EDF /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/win/osal_util_log.cpp; sourceTree = "<group>"; };
+		3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_resmgr.h; path = ../include/osal_gfx_resmgr.h; sourceTree = "<group>"; };
+		3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_resmgr.cpp; path = ../src/osal_gfx_resmgr.cpp; sourceTree = "<group>"; };
 		3ECE1AF71F8A382A009D9088 /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/mac/osal_util_log.cpp; sourceTree = "<group>"; };
 		3ECE1AF91F8A3837009D9088 /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/ios/osal_util_log.cpp; sourceTree = "<group>"; };
 		3ECE1AFB1F8A3845009D9088 /* osal_gfx_canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_canvas.cpp; path = ../src/android/osal_gfx_canvas.cpp; sourceTree = "<group>"; };
@@ -354,6 +360,8 @@
 				3E15D8FA1F8A3565004EC94C /* osal_gfx_draw2d.h */,
 				3E8D7D451F8A36C000F91EDF /* osal_gfx_draw2d.cpp */,
 				3E8D7D441F8A36C000F91EDF /* osal_gfx_draw2d_shaders.cpp */,
+				3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */,
+				3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */,
 			);
 			name = gfx;
 			sourceTree = "<group>";
@@ -438,6 +446,7 @@
 				3ED3FD951F8A3FC6007BE517 /* osal_gfx_canvas.h in Headers */,
 				3ED3FD961F8A3FC6007BE517 /* osal_gfx_drawable.h in Headers */,
 				3ED3FD971F8A3FC6007BE517 /* osal_gfx_draw2d.h in Headers */,
+				3E92B6E01F8B889C00614529 /* osal_gfx_resmgr.h in Headers */,
 				3EF9A0FB1F8A695D008C00C0 /* osal_storage_buffer.h in Headers */,
 				3EF9A0FC1F8A695D008C00C0 /* osal_storage_driver.h in Headers */,
 				3EF9A0FD1F8A695D008C00C0 /* osal_storage_driver_file.h in Headers */,
@@ -466,6 +475,7 @@
 				3E15D9001F8A3565004EC94C /* osal_gfx_canvas.h in Headers */,
 				3E15D9061F8A3565004EC94C /* osal_gfx_drawable.h in Headers */,
 				3E15D9041F8A3565004EC94C /* osal_gfx_draw2d.h in Headers */,
+				3E92B6DC1F8B883F00614529 /* osal_gfx_resmgr.h in Headers */,
 				3EF9A0E31F8A6867008C00C0 /* osal_storage_buffer.h in Headers */,
 				3EF9A0E21F8A6867008C00C0 /* osal_storage_driver.h in Headers */,
 				3EF9A0E11F8A6867008C00C0 /* osal_storage_driver_file.h in Headers */,
@@ -562,10 +572,11 @@
 				3ED3FD861F8A3F8B007BE517 /* osal_gfx_vbo.cpp in Sources */,
 				3ED3FD871F8A3F8B007BE517 /* osal_gfx_tex.cpp in Sources */,
 				3ED3FD881F8A3F8B007BE517 /* osal_gfx_shader.cpp in Sources */,
+				3ED3FD8C1F8A3F92007BE517 /* osal_gfx_canvas.cpp in Sources */,
 				3ED3FD891F8A3F8B007BE517 /* osal_gfx_drawable.cpp in Sources */,
 				3ED3FD8A1F8A3F8B007BE517 /* osal_gfx_draw2d.cpp in Sources */,
 				3ED3FD8B1F8A3F8B007BE517 /* osal_gfx_draw2d_shaders.cpp in Sources */,
-				3ED3FD8C1F8A3F92007BE517 /* osal_gfx_canvas.cpp in Sources */,
+				3E92B6DF1F8B888F00614529 /* osal_gfx_resmgr.cpp in Sources */,
 				3EF9A0F91F8A693C008C00C0 /* osal_storage_buffer.cpp in Sources */,
 				3EF9A0FA1F8A693C008C00C0 /* osal_storage_vfs.cpp in Sources */,
 				3EF9A0F81F8A693C008C00C0 /* osal_storage_driver_file.cpp in Sources */,
@@ -583,10 +594,11 @@
 				3ECE1B041F8A391C009D9088 /* osal_gfx_vbo.cpp in Sources */,
 				3ECE1B051F8A391C009D9088 /* osal_gfx_tex.cpp in Sources */,
 				3ECE1B061F8A391C009D9088 /* osal_gfx_shader.cpp in Sources */,
+				3ECE1B0D1F8A3B42009D9088 /* osal_gfx_canvas.cpp in Sources */,
 				3ECE1B071F8A391C009D9088 /* osal_gfx_drawable.cpp in Sources */,
 				3ECE1B081F8A391C009D9088 /* osal_gfx_draw2d.cpp in Sources */,
 				3ECE1B091F8A391C009D9088 /* osal_gfx_draw2d_shaders.cpp in Sources */,
-				3ECE1B0D1F8A3B42009D9088 /* osal_gfx_canvas.cpp in Sources */,
+				3E92B6DE1F8B886000614529 /* osal_gfx_resmgr.cpp in Sources */,
 				3EF9A0EF1F8A68C1008C00C0 /* osal_storage_buffer.cpp in Sources */,
 				3EF9A0EE1F8A68C1008C00C0 /* osal_storage_vfs.cpp in Sources */,
 				3EF9A0F11F8A68E0008C00C0 /* osal_storage_driver_file.cpp in Sources */,
@@ -768,7 +780,7 @@
 				HEADER_SEARCH_PATHS = (
 					../include,
 					../../dependency/include/generic,
-					../3rdparty/include/mac,
+					../../dependency/include/mac,
 				);
 				OBJROOT = ./build;
 				PRODUCT_NAME = libosal;
@@ -786,7 +798,7 @@
 				HEADER_SEARCH_PATHS = (
 					../include,
 					../../dependency/include/generic,
-					../3rdparty/include/mac,
+					../../dependency/include/mac,
 				);
 				OBJROOT = ./build;
 				PRODUCT_NAME = libosal;

@@ -12,9 +12,22 @@ AppKernel::~AppKernel() {
 // ----------------------------------------------------------------------------
 bool AppKernel::cb_startup(Timestamp now) {
     storage::Buffer buf;
-    if (vfs()->read("/test.txt", buf)) {
+    if (vfs()->read("/assets/test.txt", buf)) {
         util::Logger::d("app", (const char*)buf.data());
     }
+    std::unordered_map<int, std::string> uniforms = {
+        { 1, "uScreenHalf" },
+        { 2, "uTex0" },
+        { 3, "uTime" }
+    };
+    std::unordered_map<int, std::string> attrs = {
+        { 1, "inPosition" },
+        { 2, "inColor"    },
+        { 3, "inTexcoord" }
+    };
+    const gfx::Shader* shader = res()->retain_shader("/assets/shader/test", uniforms, attrs);
+    util::Logger::d("app", "shader: %p", shader);
+    res()->release_shader(shader);
     return true;
 }
 // ----------------------------------------------------------------------------

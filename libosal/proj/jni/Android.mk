@@ -10,6 +10,8 @@ LOCAL_CFLAGS    :=-Werror -Wno-switch -DPLATFORM_ANDROID
 LOCAL_CPPFLAGS  :=-std=c++14 -frtti -fexceptions
 LOCAL_SRC_FILES := \
                 ../../src/osal_kernel.cpp \
+                ../../src/osal_storage_buffer.cpp \
+                ../../src/osal_storage_vfs.cpp \
                 ../../src/osal_gfx_renderer.cpp \
                 ../../src/osal_gfx_ibo.cpp \
                 ../../src/osal_gfx_vbo.cpp \
@@ -18,8 +20,7 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_gfx_drawable.cpp \
                 ../../src/osal_gfx_draw2d.cpp \
                 ../../src/osal_gfx_draw2d_shaders.cpp \
-                ../../src/osal_storage_buffer.cpp \
-                ../../src/osal_storage_vfs.cpp \
+                ../../src/osal_gfx_resmgr.cpp \
                 ../../src/android/osal_jni.cpp \
                 ../../src/android/osal_util_log.cpp \
                 ../../src/android/osal_gfx_canvas.cpp \

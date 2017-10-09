@@ -3,8 +3,9 @@
 
 #include "osal_platform.h"
 #include "osal_type.h"
-#include "osal_gfx_renderer.h"
 #include "osal_storage_vfs.h"
+#include "osal_gfx_renderer.h"
+#include "osal_gfx_resmgr.h"
 
 namespace osal {
 // ----------------------------------------------------------------------------
@@ -33,8 +34,9 @@ public:
 
 public:
     const PlatformSpecificData* psd() { return &m_psd; }
-    gfx::Renderer*              renderer() { return &m_renderer; }
     storage::VFS*               vfs() { return &m_vfs; }
+    gfx::Renderer*              renderer() { return &m_renderer; }
+    gfx::ResourceManager*       res() { return &m_res; }
 
 public:
     void startup();
@@ -58,8 +60,10 @@ protected:
 
 private:
     PlatformSpecificData m_psd;
-    gfx::Renderer        m_renderer;
     storage::VFS         m_vfs;
+    gfx::Renderer        m_renderer;
+    gfx::ResourceManager m_res;
+    
 };
 // ----------------------------------------------------------------------------
 } // namespace osal
