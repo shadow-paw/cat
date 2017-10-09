@@ -4,6 +4,7 @@
 #include "osal_platform.h"
 #include "osal_type.h"
 #include "osal_kernel.h"
+#include "osal_application.h"
 #include "osal_util_log.h"
 #include "osal_gfx_type.h"
 #include "osal_gfx_renderer.h"

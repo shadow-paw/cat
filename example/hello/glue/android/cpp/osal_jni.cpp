@@ -12,7 +12,7 @@ using namespace app;
 
 struct OSAL_INSTANCE {
     std::mutex mutex;
-    AppKernel* kernel;
+    Kernel*    kernel;
     jobject    rootview;
     jobject    asset_manager;
 };
@@ -24,7 +24,7 @@ Java_com_shadowpaw_osal_glue_OSALView_jniInit(JNIEnv *env, jobject self, jobject
     data->asset_manager = env->NewGlobalRef(assmgr);
     PlatformSpecificData psd;
     psd.rootview = data->rootview;
-    data->kernel = new AppKernel();
+    data->kernel = new Kernel();
     data->kernel->init(psd);
     data->kernel->vfs()->mount("/assets/", new storage::AssetDriver(data->asset_manager));
     return env->NewDirectByteBuffer((void*)data, sizeof(OSAL_INSTANCE));
@@ -45,6 +45,7 @@ Java_com_shadowpaw_osal_glue_OSALView_jniStartup(JNIEnv *env, jobject self, jobj
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
     std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->startup();
+    data->kernel->run(new MyApp());
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniShutdown(JNIEnv *env, jobject self, jobject handle) {

@@ -36,6 +36,7 @@
     <ClCompile Include="..\src\win\osal_util_log.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\osal_application.h" />
     <ClInclude Include="..\include\osal_gfx_draw2d.h" />
     <ClInclude Include="..\include\osal_gfx_drawable.h" />
     <ClInclude Include="..\include\osal_gfx_ibo.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\include\osal_gfx_type.h" />
     <ClInclude Include="..\include\osal_gfx_vbo.h" />
     <ClInclude Include="..\include\osal_kernel.h" />
+    <ClInclude Include="..\include\osal_kernel_api.h" />
     <ClInclude Include="..\include\osal_platform.h" />
     <ClInclude Include="..\include\libosal.h" />
     <ClInclude Include="..\include\osal_storage_buffer.h" />

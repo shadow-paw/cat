@@ -4,15 +4,15 @@ using namespace app;
 using namespace osal;
 
 // ----------------------------------------------------------------------------
-AppKernel::AppKernel() {
+MyApp::MyApp() {
 }
 // ----------------------------------------------------------------------------
-AppKernel::~AppKernel() {
+MyApp::~MyApp() {
 }
 // ----------------------------------------------------------------------------
-bool AppKernel::cb_startup(Timestamp now) {
+bool MyApp::cb_startup(Timestamp now) {
     storage::Buffer buf;
-    if (vfs()->read("/assets/test.txt", buf)) {
+    if (kernel()->vfs()->read("/assets/test.txt", buf)) {
         util::Logger::d("app", (const char*)buf.data());
     }
     std::unordered_map<int, std::string> uniforms = {
@@ -25,26 +25,32 @@ bool AppKernel::cb_startup(Timestamp now) {
         { 2, "inColor"    },
         { 3, "inTexcoord" }
     };
-    const gfx::Shader* shader = res()->retain_shader("/assets/shader/test", uniforms, attrs);
+    const gfx::Shader* shader = kernel()->res()->retain_shader("/assets/shader/test", uniforms, attrs);
     util::Logger::d("app", "shader: %p", shader);
-    res()->release_shader(shader);
+    kernel()->res()->release_shader(shader);
     return true;
 }
 // ----------------------------------------------------------------------------
-void AppKernel::cb_shutdown(Timestamp now) {
+void MyApp::cb_shutdown(Timestamp now) {
 }
 // ----------------------------------------------------------------------------
-bool AppKernel::cb_context_lost() {
+void MyApp::cb_pause() {
+}
+// ----------------------------------------------------------------------------
+void MyApp::cb_resume() {
+}
+// ----------------------------------------------------------------------------
+bool MyApp::cb_context_lost() {
     return true;
 }
 // ----------------------------------------------------------------------------
-void AppKernel::cb_context_restored() {
+void MyApp::cb_context_restored() {
 }
 // ----------------------------------------------------------------------------
-void AppKernel::cb_resize(int width, int height) {
+void MyApp::cb_resize(int width, int height) {
 }
 // ----------------------------------------------------------------------------
-void AppKernel::cb_render(gfx::Renderer* r, Timestamp now) {
+void MyApp::cb_render(gfx::Renderer* r, Timestamp now) {
     gfx::Rect2i rect;
     gfx::TextStyle style;
     rect.set(10, 10, 100, 40);

@@ -24,6 +24,7 @@ public:
     int height() const { return m_height; }
     bool is_dirty() const { return m_dirty; }
     void dirty() { m_dirty = true; }
+    bool ready() const { return m_contextready; }
 
 private:
     bool initGL();
