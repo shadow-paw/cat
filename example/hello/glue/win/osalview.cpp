@@ -124,15 +124,14 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         glViewport(0, 0, width, height);
         if (!view->m_kernel) break;
         view->m_kernel->resize(width, height);
-        view->m_kernel->render();
-        SwapBuffers(view->m_hdc);
+        InvalidateRect(hwnd, NULL, TRUE);
         break;
     }
     case WM_PAINT:
         if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         view->m_kernel->render();
         SwapBuffers(view->m_hdc);
-        return 0;
+        break;
     case WM_LBUTTONDOWN: {
         if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         if (view->m_mouse_capture==0) SetCapture(hwnd);
