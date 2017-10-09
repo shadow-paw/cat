@@ -64,7 +64,7 @@ bool OSALView::init(const char* title, int width, int height) {
     GetClientRect(m_hwnd, &rc);
     int win_w = width + width - (rc.right - rc.left);
     int win_h = height + height - (rc.bottom - rc.top);
-    SetWindowPos(m_hwnd, NULL, 0, 0, win_w, win_h, SWP_NOCOPYBITS | SWP_NOMOVE | SWP_NOREDRAW | SWP_NOZORDER | SWP_SHOWWINDOW);
+    SetWindowPos(m_hwnd, NULL, 0, 0, win_w, win_h, SWP_NOCOPYBITS | SWP_NOMOVE | SWP_NOZORDER | SWP_SHOWWINDOW);
     // size
     glViewport(0, 0, width, height);
     m_width = width;
