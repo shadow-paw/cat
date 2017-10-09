@@ -1,16 +1,17 @@
-#include "app.h"
+#include "bootapp.h"
 
 using namespace app;
 using namespace osal;
 
 // ----------------------------------------------------------------------------
-MyApp::MyApp() {
+BootApp::BootApp() {
 }
 // ----------------------------------------------------------------------------
-MyApp::~MyApp() {
+BootApp::~BootApp() {
 }
+// cb_startup is called upon kernel->run(app)
 // ----------------------------------------------------------------------------
-bool MyApp::cb_startup(Timestamp now) {
+bool BootApp::cb_startup(Timestamp now) {
     storage::Buffer buf;
     if (kernel()->vfs()->read("/assets/test.txt", buf)) {
         util::Logger::d("app", (const char*)buf.data());
@@ -30,27 +31,38 @@ bool MyApp::cb_startup(Timestamp now) {
     kernel()->res()->release_shader(shader);
     return true;
 }
+// // cb_shutdown is called after app->exit()
 // ----------------------------------------------------------------------------
-void MyApp::cb_shutdown(Timestamp now) {
+void BootApp::cb_shutdown(Timestamp now) {
 }
+// cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
-void MyApp::cb_pause() {
+void BootApp::cb_pause() {
 }
+// cb_resume is called when the program has resumed
 // ----------------------------------------------------------------------------
-void MyApp::cb_resume() {
+void BootApp::cb_resume() {
 }
+// cb_context_lost is called when the GL context is lost
+// you should release any manual created gfx resources here.
+// resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-bool MyApp::cb_context_lost() {
+bool BootApp::cb_context_lost() {
     return true;
 }
+// cb_context_restored is called when the GL context is restored
+// you should reload any manual created gfx resources here.
+// resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-void MyApp::cb_context_restored() {
+void BootApp::cb_context_restored() {
 }
+// cb_resize is called when the screen is resized, you may adjust ui scale here
 // ----------------------------------------------------------------------------
-void MyApp::cb_resize(int width, int height) {
+void BootApp::cb_resize(int width, int height) {
 }
+// cb_render is called in the render pipeline
 // ----------------------------------------------------------------------------
-void MyApp::cb_render(gfx::Renderer* r, Timestamp now) {
+void BootApp::cb_render(gfx::Renderer* r, Timestamp now) {
     gfx::Rect2i rect;
     gfx::TextStyle style;
     rect.set(10, 10, 100, 40);

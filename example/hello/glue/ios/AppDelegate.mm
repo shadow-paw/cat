@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import "OSALView.h"
-#include "app.h"
+#include "bootapp.h"
 
 // ----------------------------------------------------------------------------
 @interface AppDelegate()
@@ -25,7 +25,7 @@
     self.m_kernel->vfs()->mount("/assets/", new osal::storage::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
-    self.m_kernel->run(new Myapp());
+    self.m_kernel->run(new BootApp());
 	[view startAnimation];
     return YES;
 }

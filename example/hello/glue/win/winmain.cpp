@@ -1,5 +1,5 @@
 #include "osalview.h"
-#include "app.h"
+#include "bootapp.h"
 
 using namespace osal;
 using namespace osal::stub;
@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();
-    kernel->run(new MyApp());
+    kernel->run(new BootApp());
     MSG msg = { 0 };
     BOOL bRet;
     while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {

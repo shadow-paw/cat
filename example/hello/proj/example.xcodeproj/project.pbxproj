@@ -12,8 +12,8 @@
 		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
 		3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */; };
 		3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEB21F89ED2900D299B6 /* Main.storyboard */; };
-		3ED4FEBD1F89F15A00D299B6 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* app.cpp */; };
-		3ED4FEDA1F89F56400D299B6 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* app.cpp */; };
+		3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
+		3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
 		3ED4FEDB1F89F56400D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBF1F89F35100D299B6 /* main.m */; };
 		3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */; };
 		3ED4FEDD1F89F56400D299B6 /* OSALView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC51F89F35200D299B6 /* OSALView.mm */; };
@@ -113,8 +113,8 @@
 		3ED4FEB11F89ED2900D299B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../glue/mac/Info.plist; sourceTree = "<group>"; };
 		3ED4FEB21F89ED2900D299B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../glue/mac/Main.storyboard; sourceTree = "<group>"; };
 		3ED4FEB31F89ED2900D299B6 /* OSALView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSALView.h; path = ../glue/mac/OSALView.h; sourceTree = "<group>"; };
-		3ED4FEBB1F89F15A00D299B6 /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app.h; path = ../src/app.h; sourceTree = "<group>"; };
-		3ED4FEBC1F89F15A00D299B6 /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = app.cpp; path = ../src/app.cpp; sourceTree = "<group>"; };
+		3ED4FEBB1F89F15A00D299B6 /* bootapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bootapp.h; path = ../src/bootapp.h; sourceTree = "<group>"; };
+		3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bootapp.cpp; path = ../src/bootapp.cpp; sourceTree = "<group>"; };
 		3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../glue/ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3ED4FEBF1F89F35100D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/ios/main.m; sourceTree = "<group>"; };
 		3ED4FEC01F89F35100D299B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../glue/ios/Info.plist; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		3EB96B971F7F71C20067C170 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FEBC1F89F15A00D299B6 /* app.cpp */,
-				3ED4FEBB1F89F15A00D299B6 /* app.h */,
+				3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */,
+				3ED4FEBB1F89F15A00D299B6 /* bootapp.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -374,7 +374,7 @@
 				3ED4FEB41F89ED2900D299B6 /* main.m in Sources */,
 				3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */,
 				3ED4FEB51F89ED2900D299B6 /* OSALView.mm in Sources */,
-				3ED4FEBD1F89F15A00D299B6 /* app.cpp in Sources */,
+				3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +385,7 @@
 				3ED4FEDB1F89F56400D299B6 /* main.m in Sources */,
 				3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */,
 				3ED4FEDD1F89F56400D299B6 /* OSALView.mm in Sources */,
-				3ED4FEDA1F89F56400D299B6 /* app.cpp in Sources */,
+				3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

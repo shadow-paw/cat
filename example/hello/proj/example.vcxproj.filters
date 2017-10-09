@@ -24,22 +24,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\app.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\glue\win\osalview.cpp">
       <Filter>glue</Filter>
     </ClCompile>
     <ClCompile Include="..\glue\win\winmain.cpp">
       <Filter>glue</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\bootapp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\app.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\glue\win\osalview.h">
       <Filter>glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bootapp.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

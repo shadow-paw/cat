@@ -114,6 +114,7 @@ bool Kernel::run(Application* app) {
     if (m_renderer.ready()) {
         app->cb_context_restored();
     }
+    app->cb_resize(m_renderer.width(), m_renderer.height());
     app->cb_startup(now());
     return true;
 }

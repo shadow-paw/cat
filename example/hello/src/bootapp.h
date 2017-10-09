@@ -1,14 +1,14 @@
-#ifndef __APP_KERNEL_H__
-#define __APP_KERNEL_H__
+#ifndef __APP_BOOTAPP_H__
+#define __APP_BOOTAPP_H__
 
 #include "libosal.h"
 
 namespace app {
 // ----------------------------------------------------------------------------
-class MyApp : public osal::Application {
+class BootApp : public osal::Application {
 public:
-    MyApp();
-    virtual ~MyApp();
+    BootApp();
+    virtual ~BootApp();
 protected:
     virtual bool cb_startup(osal::Timestamp now);
     virtual void cb_shutdown(osal::Timestamp now);

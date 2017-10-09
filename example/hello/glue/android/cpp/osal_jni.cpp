@@ -5,7 +5,7 @@
 
 #include <jni.h>
 #include <mutex>
-#include "app.h"
+#include "bootapp.h"
 
 using namespace osal;
 using namespace app;
@@ -45,7 +45,7 @@ Java_com_shadowpaw_osal_glue_OSALView_jniStartup(JNIEnv *env, jobject self, jobj
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
     std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->startup();
-    data->kernel->run(new MyApp());
+    data->kernel->run(new BootApp());
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniShutdown(JNIEnv *env, jobject self, jobject handle) {

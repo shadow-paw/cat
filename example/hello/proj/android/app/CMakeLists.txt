@@ -18,7 +18,7 @@ include_directories(
 add_library(osal-app
             SHARED
             ${APP_BASE_PATH}/glue/android/cpp/osal_jni.cpp
-            ${APP_BASE_PATH}/src/app.cpp
+            ${APP_BASE_PATH}/src/bootapp.cpp
             )
 
 find_library(lib-android android)
