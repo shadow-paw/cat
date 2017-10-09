@@ -11,7 +11,6 @@ namespace osal {
 // ----------------------------------------------------------------------------
 struct PlatformSpecificData {
     jobject rootview;
-    jobject asset_manager;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal:
