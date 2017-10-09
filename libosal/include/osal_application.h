@@ -13,7 +13,7 @@ namespace osal {
 class Application {
 friend class Kernel;
 public:
-    Application() { m_kernelapi = nullptr; }
+    Application() { m_kernelapi = nullptr; m_running = false; }
     virtual ~Application() = default;
 protected:
     virtual bool cb_startup(Timestamp now) = 0;
@@ -26,8 +26,10 @@ protected:
     virtual void cb_render(gfx::Renderer* r, Timestamp now) = 0;
 protected:
     KernelAPI* kernel() const { return m_kernelapi; }
+    void exit() { m_running = false; }
 private:
     KernelAPI* m_kernelapi;
+    bool m_running;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal

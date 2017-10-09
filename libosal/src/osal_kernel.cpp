@@ -1,4 +1,6 @@
 #include "osal_kernel.h"
+#include "osal_util_log.h"
+
 #include <chrono>
 
 using namespace osal;
@@ -82,6 +84,15 @@ bool Kernel::touch(TouchEvent ev) {
 }
 // ----------------------------------------------------------------------------
 bool Kernel::timer() {
+    // Remove exited app
+    for (auto it = m_apps.begin(); it!=m_apps.end(); ) {
+        if ((*it)->m_running) {
+            ++it;
+        } else {
+            it = m_apps.erase(it);
+        }
+    }
+
     return false;
 }
 // ----------------------------------------------------------------------------
@@ -98,6 +109,7 @@ void Kernel::render() {
 // ----------------------------------------------------------------------------
 bool Kernel::run(Application* app) {
     app->m_kernelapi = this;
+    app->m_running = true;
     m_apps.push_back(std::unique_ptr<Application>(app));
     if (m_renderer.ready()) {
         app->cb_context_restored();
