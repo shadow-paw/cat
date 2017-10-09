@@ -1,6 +1,5 @@
 #ifndef __OSAL_PLATFORM_ANDROID_JNI_H__
 #define __OSAL_PLATFORM_ANDROID_JNI_H__
-#if defined(PLATFORM_ANDROID)
 
 #include <jni.h>
 
@@ -50,5 +49,4 @@ private:
 // ----------------------------------------------------------------------------
 } // namespace osal
 
-#endif // PLATFORM_ANDROID
 #endif // __OSAL_PLATFORM_ANDROID_JNI_H__

@@ -1,6 +1,5 @@
 #ifndef __OSAL_GFX_CANVAS_WIN_H__
 #define __OSAL_GFX_CANVAS_WIN_H__
-#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
 
 #include <stdint.h>
 #include "osal_platform.h"
@@ -38,5 +37,4 @@ private:
 // ----------------------------------------------------------------------------
 }} // namespace osal::gfx
 
-#endif // PLATFORM_WIN32 || PLATFORM_WIN64
 #endif // __OSAL_GFX_CANVAS_WIN_H__

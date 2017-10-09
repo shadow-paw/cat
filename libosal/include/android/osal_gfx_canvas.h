@@ -1,6 +1,5 @@
 #ifndef __OSAL_GFX_CANVAS_ANDROID_H__
 #define __OSAL_GFX_CANVAS_ANDROID_H__
-#if defined(PLATFORM_ANDROID)
 
 #include <stdint.h>
 #include "osal_platform.h"
@@ -40,5 +39,4 @@ private:
 // ----------------------------------------------------------------------------
 }} // namespace osal::gfx
 
-#endif // PLATFORM_ANDROID
 #endif // __OSAL_GFX_CANVAS_ANDROID_H__
