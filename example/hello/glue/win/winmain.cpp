@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 
     PlatformSpecificData psd;
     psd.rootview = view->hwnd();
-    AppKernel* kernel = new AppKernel();
+    osal::Kernel* kernel = new osal::Kernel();
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
     // mount our assets
@@ -22,6 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();
+    kernel->run(new MyApp());
     MSG msg = { 0 };
     BOOL bRet;
     while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {

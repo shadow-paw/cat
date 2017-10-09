@@ -82,6 +82,12 @@
     <ClInclude Include="..\include\win\osal_gfx_canvas.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_kernel_api.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_application.h">
+      <Filter>libosal\kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">

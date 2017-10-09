@@ -4,7 +4,7 @@
 
 // ----------------------------------------------------------------------------
 @interface AppDelegate()
-@property (nonatomic) app::AppKernel* m_kernel;
+@property (nonatomic) osal::Kernel* m_kernel;
 @end
 
 @implementation AppDelegate
@@ -19,7 +19,7 @@
 
     osal::PlatformSpecificData psd;
     psd.rootview = (__bridge void*)view;
-    self.m_kernel = new app::AppKernel();
+    self.m_kernel = new osal::Kernel();
     if (!self.m_kernel->init(psd)) {
         exit(0);
         return;
@@ -28,6 +28,7 @@
     self.m_kernel->vfs()->mount("/assets/", new osal::storage::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
+    self.m_kernel->run(new MyApp());
     [view startAnimation];
 }
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

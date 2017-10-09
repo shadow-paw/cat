@@ -36,16 +36,15 @@ Timestamp Kernel::now() const {
 // Kernel Signals
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
-    cb_startup(now());
-    m_renderer.dirty();
 }
 // ----------------------------------------------------------------------------
 void Kernel::shutdown() {
-    cb_shutdown(now());
 }
 // ----------------------------------------------------------------------------
 void Kernel::context_lost() {
-    cb_context_lost();
+    for (auto& app : m_apps) {
+        app->cb_context_lost();
+    }
     m_res.context_lost();
     m_renderer.context_lost();
 }
@@ -53,19 +52,28 @@ void Kernel::context_lost() {
 bool Kernel::context_restored() {
     m_renderer.context_restored();
     m_res.context_restored();
-    cb_context_restored();
-    return true;
+    for (auto& app : m_apps) {
+        app->cb_context_restored();
+    } return true;
 }
 // ----------------------------------------------------------------------------
 void Kernel::pause() {
+    for (auto& app : m_apps) {
+        app->cb_pause();
+    }
 }
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
+    for (auto& app : m_apps) {
+        app->cb_resume();
+    }
 }
 // ----------------------------------------------------------------------------
 void Kernel::resize(int width, int height) {
     m_renderer.resize(width, height);
-    cb_resize(width, height);
+    for (auto& app : m_apps) {
+        app->cb_resize(width, height);
+    }
 }
 // ----------------------------------------------------------------------------
 bool Kernel::touch(TouchEvent ev) {
@@ -80,7 +88,21 @@ bool Kernel::timer() {
 void Kernel::render() {
     Timestamp t = now();
     m_renderer.begin_render();
-    cb_render(&m_renderer, t);
+    for (auto& app : m_apps) {
+        app->cb_render(&m_renderer, t);
+    }
     m_renderer.end_render();
+}
+// ----------------------------------------------------------------------------
+// Application
+// ----------------------------------------------------------------------------
+bool Kernel::run(Application* app) {
+    app->m_kernelapi = this;
+    m_apps.push_back(std::unique_ptr<Application>(app));
+    if (m_renderer.ready()) {
+        app->cb_context_restored();
+    }
+    app->cb_startup(now());
+    return true;
 }
 // ----------------------------------------------------------------------------
