@@ -1,4 +1,3 @@
-#if defined(PLATFORM_ANDROID)
 #include "osal_util_log.h"
 #include <android/log.h>
 
@@ -19,4 +18,3 @@ void Logger::e(const char* tag, const char* fmt, ...) {
     va_end(va);
 }
 // ----------------------------------------------------------------------------
-#endif // PLATFORM_ANDROID

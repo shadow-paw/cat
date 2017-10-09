@@ -1,4 +1,3 @@
-#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #undef WIN32_LEAN_AND_MEAN
@@ -33,4 +32,3 @@ void Logger::e(const char* tag, const char* fmt, ...) {
     va_end(va);
 }
 // ----------------------------------------------------------------------------
-#endif // PLATFORM_WIN32 || PLATFORM_WIN64

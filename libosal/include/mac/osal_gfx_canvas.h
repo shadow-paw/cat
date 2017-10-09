@@ -1,6 +1,5 @@
 #ifndef __OSAL_GFX_CANVAS_MAC_H__
 #define __OSAL_GFX_CANVAS_MAC_H__
-#if defined(PLATFORM_MAC)
 
 #include <CoreGraphics/CoreGraphics.h>
 #include <CoreText/CoreText.h>
@@ -38,5 +37,4 @@ private:
 // ----------------------------------------------------------------------------
 }} // namespace osal::gfx
 
-#endif // PLATFORM_MAC
 #endif // __OSAL_GFX_CANVAS_MAC_H__

@@ -1,7 +1,6 @@
-#if defined(PLATFORM_MAC)
+#include "osal_util_log.h"
 #include <stdio.h>
 #include <stdarg.h>
-#include "osal_util_log.h"
 
 using namespace osal::util;
 
@@ -22,4 +21,3 @@ void Logger::e(const char* tag, const char* fmt, ...) {
     printf("\n");
 }
 // ----------------------------------------------------------------------------
-#endif // PLATFORM_MAC
