@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\osal_kernel.cpp" />
     <ClCompile Include="..\src\osal_storage_buffer.cpp" />
     <ClCompile Include="..\src\osal_storage_vfs.cpp" />
+    <ClCompile Include="..\src\osal_time_service.cpp" />
     <ClCompile Include="..\src\win\osal_gfx_canvas.cpp" />
     <ClCompile Include="..\src\win\osal_storage_driver_file.cpp" />
     <ClCompile Include="..\src\win\osal_util_log.cpp" />
@@ -55,6 +56,9 @@
     <ClInclude Include="..\include\osal_storage_driver.h" />
     <ClInclude Include="..\include\osal_storage_driver_file.h" />
     <ClInclude Include="..\include\osal_storage_vfs.h" />
+    <ClInclude Include="..\include\osal_time_queue.h" />
+    <ClInclude Include="..\include\osal_time_service.h" />
+    <ClInclude Include="..\include\osal_time_type.h" />
     <ClInclude Include="..\include\osal_type.h" />
     <ClInclude Include="..\include\osal_util_log.h" />
     <ClInclude Include="..\include\win\osal_gfx_canvas.h" />

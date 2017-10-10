@@ -7,29 +7,29 @@
 namespace osal { namespace time {
 // -----------------------------------------------------------
 template <typename T>
+class TimerHandler {
+public:
+    virtual bool cb_timer(Timestamp now, T msg) = 0;
+};
+// -----------------------------------------------------------
+template <typename T>
 class TimerQueue {
 public:
-    // -------------------------------------------------------
-    class Handler {
-    public:
-        virtual bool cb_timer(Timestamp now, T msg) = 0;
-    };
-    // -------------------------------------------------------
-    bool post(Handler* handler, Timestamp tick, const T& message);
-    bool get (Handler** handler, Timestamp tick, T* message);
-    void remove(Handler* handler);
+    bool post(TimerHandler<T>* handler, Timestamp tick, const T& message);
+    bool get (TimerHandler<T>** handler, Timestamp tick, T* message);
+    void remove(TimerHandler<T>* handler);
 private:
     struct NODE {
-        Timestamp tick;
-        Handler*  handler;
-        T         message;
+        Timestamp        tick;
+        TimerHandler<T>* handler;
+        T                message;
     };
     std::list<NODE> m_queue;
     unsigned long   m_tick;
 };
 // -----------------------------------------------------------
 template <typename T>
-bool TimerQueue<T>::post(TimerQueue<T>::Handler* handler, Timestamp tick, const T& message) {
+bool TimerQueue<T>::post(TimerHandler<T>* handler, Timestamp tick, const T& message) {
     if (!handler) return false;
     if (m_queue.size() == 0) {
         m_tick = 0;
@@ -49,7 +49,7 @@ bool TimerQueue<T>::post(TimerQueue<T>::Handler* handler, Timestamp tick, const 
 }
 // -----------------------------------------------------------
 template <typename T>
-bool TimerQueue<T>::get(TimerQueue<T>::Handler** handler, Timestamp tick, T* msg) {
+bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
 	auto node = m_queue.begin();
 	if (node == m_queue.end()) return false;
     m_tick += tick;
@@ -63,7 +63,7 @@ bool TimerQueue<T>::get(TimerQueue<T>::Handler** handler, Timestamp tick, T* msg
 }
 // -----------------------------------------------------------
 template <typename T>
-void TimerQueue<T>::remove(TimerQueue<T>::Handler* handler) {
+void TimerQueue<T>::remove(TimerHandler<T>* handler) {
     for (auto it = m_queue.begin(); it != m_queue.end();) {
         if (it->handler == handler) {
             it = m_queue.erase(it);

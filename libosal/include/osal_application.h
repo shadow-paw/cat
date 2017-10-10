@@ -10,7 +10,7 @@
 
 namespace osal {
 // ----------------------------------------------------------------------------
-class Application : public time::TimerQueue<int>::Handler {
+class Application : public time::TimerHandler<int> {
 friend class Kernel;
 public:
     Application() {

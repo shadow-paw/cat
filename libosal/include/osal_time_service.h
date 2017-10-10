@@ -12,8 +12,8 @@ public:
     
     Timestamp now() const;
     
-    bool post(TimerQueue<int>::Handler* handler, Timestamp, const int message);
-    void remove(TimerQueue<int>::Handler* handler);
+    bool post(TimerHandler<int>* handler, Timestamp, const int message);
+    void remove(TimerHandler<int>* handler);
     bool timer();
 private:
     time::TimerQueue<int> m_timequeue;

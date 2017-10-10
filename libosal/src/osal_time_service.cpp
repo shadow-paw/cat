@@ -11,17 +11,17 @@ TimeService::TimeService() {
 TimeService::~TimeService() {
 }
 // ----------------------------------------------------------------------------
-bool TimeService::post(TimerQueue<int>::Handler* handler, Timestamp tick, const int message) {
+bool TimeService::post(TimerHandler<int>* handler, Timestamp tick, const int message) {
     return m_timequeue.post(handler, tick, message);
 }
 // ----------------------------------------------------------------------------
-void TimeService::remove(TimerQueue<int>::Handler* handler) {
+void TimeService::remove(TimerHandler<int>* handler) {
     m_timequeue.remove(handler);
 }
 // ----------------------------------------------------------------------------
 bool TimeService::timer() {
     bool handled = false;
-    TimerQueue<int>::Handler* handler;
+    TimerHandler<int>* handler;
     int msg;
     Timestamp current_time = now();
     Timestamp dt = current_time - m_last;
