@@ -94,10 +94,10 @@ cd dependency/setup
 ```
 
 #### Build libosal - mac & ios
-Open `libosal/proj/libosal.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
+Open `libosal/proj/libosal.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
 
 #### Build example - mac & ios
-Open `example/hello/proj/example.xcodeproj` with Xcode. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
+Open `example/hello/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
 
 #### Build libosal - android
 ```
