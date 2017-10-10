@@ -6,6 +6,7 @@
 #include "osal_storage_vfs.h"
 #include "osal_gfx_renderer.h"
 #include "osal_gfx_resmgr.h"
+#include "osal_time_service.h"
 
 namespace osal {
 // ----------------------------------------------------------------------------
@@ -30,7 +31,7 @@ public:
     virtual storage::VFS*               vfs() = 0;
     virtual gfx::Renderer*              renderer() = 0;
     virtual gfx::ResourceManager*       res() = 0;
-
+    virtual time::TimeService*          time() = 0;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal

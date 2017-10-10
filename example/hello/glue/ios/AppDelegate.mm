@@ -25,7 +25,7 @@
     self.m_kernel->vfs()->mount("/assets/", new osal::storage::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
-    self.m_kernel->run(new BootApp());
+    self.m_kernel->run(new app::BootApp());
 	[view startAnimation];
     return YES;
 }

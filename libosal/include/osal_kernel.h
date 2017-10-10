@@ -8,6 +8,7 @@
 #include "osal_storage_vfs.h"
 #include "osal_gfx_renderer.h"
 #include "osal_gfx_resmgr.h"
+#include "osal_time_service.h"
 #include "osal_kernel_api.h"
 #include "osal_application.h"
 
@@ -20,8 +21,6 @@ public:
 
     bool init(const PlatformSpecificData& psd);
     void fini();
-    Timestamp now() const;
-
     bool run(Application* app);
 
 public:
@@ -43,12 +42,14 @@ public:
     virtual storage::VFS*               vfs() { return &m_vfs; }
     virtual gfx::Renderer*              renderer() { return &m_renderer; }
     virtual gfx::ResourceManager*       res() { return &m_res; }
+    virtual time::TimeService*          time() { return &m_time; }
 
 private:
-    PlatformSpecificData m_psd;
-    storage::VFS         m_vfs;
-    gfx::Renderer        m_renderer;
-    gfx::ResourceManager m_res;
+    PlatformSpecificData  m_psd;
+    storage::VFS          m_vfs;
+    gfx::Renderer         m_renderer;
+    gfx::ResourceManager  m_res;
+    time::TimeService     m_time;
     std::list<std::unique_ptr<Application>> m_apps;
 };
 // ----------------------------------------------------------------------------
