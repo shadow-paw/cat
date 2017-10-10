@@ -40,8 +40,10 @@ bool BootApp::cb_startup(time::Timestamp now) {
     pane1->set_draggable(true);
     kernel()->ui()->attach(pane1);
     auto label = new Label(kernel(), gfx::Rect2i(10, 10, 100, 40));
-    label->set_bgcolor(0xffff00ff);
+    label->set_bgcolor(0x40000000);
     label->set_text("hello");
+    label->set_textsize(20);
+    label->set_textcolor(0xff9966ff);
     pane1->attach(label);
     auto slider1 = new Slider(kernel(), gfx::Rect2i(20, 70, 200, 50), 3);
     slider1->set_texture(Slider::TexBackground, ui_image, 0, 80, 92, 118, 6, 6);

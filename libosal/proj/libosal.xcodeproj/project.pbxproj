@@ -22,6 +22,32 @@
 		3E92B6DE1F8B886000614529 /* osal_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */; };
 		3E92B6DF1F8B888F00614529 /* osal_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */; };
 		3E92B6E01F8B889C00614529 /* osal_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */; };
+		3EBBA7EF1F8D321A0053D8AE /* osal_ui_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E81F8D32190053D8AE /* osal_ui_handler.h */; };
+		3EBBA7F01F8D321A0053D8AE /* osal_ui_pane.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E91F8D321A0053D8AE /* osal_ui_pane.h */; };
+		3EBBA7F11F8D321A0053D8AE /* osal_ui_widget.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EA1F8D321A0053D8AE /* osal_ui_widget.h */; };
+		3EBBA7F21F8D321A0053D8AE /* osal_ui_slider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EB1F8D321A0053D8AE /* osal_ui_slider.h */; };
+		3EBBA7F31F8D321A0053D8AE /* osal_ui_label.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EC1F8D321A0053D8AE /* osal_ui_label.h */; };
+		3EBBA7F41F8D321A0053D8AE /* osal_ui_button.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7ED1F8D321A0053D8AE /* osal_ui_button.h */; };
+		3EBBA7F51F8D321A0053D8AE /* osal_ui_service.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EE1F8D321A0053D8AE /* osal_ui_service.h */; };
+		3EBBA7FC1F8D32230053D8AE /* osal_ui_slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F61F8D32220053D8AE /* osal_ui_slider.cpp */; };
+		3EBBA7FD1F8D32230053D8AE /* osal_ui_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F71F8D32230053D8AE /* osal_ui_label.cpp */; };
+		3EBBA7FE1F8D32230053D8AE /* osal_ui_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F81F8D32230053D8AE /* osal_ui_service.cpp */; };
+		3EBBA7FF1F8D32230053D8AE /* osal_ui_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F91F8D32230053D8AE /* osal_ui_button.cpp */; };
+		3EBBA8001F8D32230053D8AE /* osal_ui_pane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7FA1F8D32230053D8AE /* osal_ui_pane.cpp */; };
+		3EBBA8011F8D32230053D8AE /* osal_ui_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7FB1F8D32230053D8AE /* osal_ui_widget.cpp */; };
+		3EBBA8021F8D32A60053D8AE /* osal_ui_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F81F8D32230053D8AE /* osal_ui_service.cpp */; };
+		3EBBA8031F8D32A60053D8AE /* osal_ui_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F91F8D32230053D8AE /* osal_ui_button.cpp */; };
+		3EBBA8041F8D32A60053D8AE /* osal_ui_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F71F8D32230053D8AE /* osal_ui_label.cpp */; };
+		3EBBA8051F8D32A60053D8AE /* osal_ui_pane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7FA1F8D32230053D8AE /* osal_ui_pane.cpp */; };
+		3EBBA8061F8D32A60053D8AE /* osal_ui_slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F61F8D32220053D8AE /* osal_ui_slider.cpp */; };
+		3EBBA8071F8D32A60053D8AE /* osal_ui_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7FB1F8D32230053D8AE /* osal_ui_widget.cpp */; };
+		3EBBA8081F8D32BC0053D8AE /* osal_ui_service.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EE1F8D321A0053D8AE /* osal_ui_service.h */; };
+		3EBBA8091F8D32BC0053D8AE /* osal_ui_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E81F8D32190053D8AE /* osal_ui_handler.h */; };
+		3EBBA80A1F8D32BC0053D8AE /* osal_ui_button.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7ED1F8D321A0053D8AE /* osal_ui_button.h */; };
+		3EBBA80B1F8D32BC0053D8AE /* osal_ui_label.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EC1F8D321A0053D8AE /* osal_ui_label.h */; };
+		3EBBA80C1F8D32BC0053D8AE /* osal_ui_pane.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E91F8D321A0053D8AE /* osal_ui_pane.h */; };
+		3EBBA80D1F8D32BD0053D8AE /* osal_ui_slider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EB1F8D321A0053D8AE /* osal_ui_slider.h */; };
+		3EBBA80E1F8D32BD0053D8AE /* osal_ui_widget.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EA1F8D321A0053D8AE /* osal_ui_widget.h */; };
 		3ECE1AF81F8A382A009D9088 /* osal_util_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE1AF71F8A382A009D9088 /* osal_util_log.cpp */; };
 		3ECE1B021F8A391C009D9088 /* osal_gfx_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE1B011F8A3895009D9088 /* osal_gfx_renderer.cpp */; };
 		3ECE1B031F8A391C009D9088 /* osal_gfx_ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D7D401F8A36BF00F91EDF /* osal_gfx_ibo.cpp */; };
@@ -127,6 +153,19 @@
 		3E8D7D4A1F8A378400F91EDF /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/win/osal_util_log.cpp; sourceTree = "<group>"; };
 		3E92B6DB1F8B883F00614529 /* osal_gfx_resmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_gfx_resmgr.h; path = ../include/osal_gfx_resmgr.h; sourceTree = "<group>"; };
 		3E92B6DD1F8B885F00614529 /* osal_gfx_resmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_resmgr.cpp; path = ../src/osal_gfx_resmgr.cpp; sourceTree = "<group>"; };
+		3EBBA7E81F8D32190053D8AE /* osal_ui_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_handler.h; path = ../include/osal_ui_handler.h; sourceTree = "<group>"; };
+		3EBBA7E91F8D321A0053D8AE /* osal_ui_pane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_pane.h; path = ../include/osal_ui_pane.h; sourceTree = "<group>"; };
+		3EBBA7EA1F8D321A0053D8AE /* osal_ui_widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_widget.h; path = ../include/osal_ui_widget.h; sourceTree = "<group>"; };
+		3EBBA7EB1F8D321A0053D8AE /* osal_ui_slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_slider.h; path = ../include/osal_ui_slider.h; sourceTree = "<group>"; };
+		3EBBA7EC1F8D321A0053D8AE /* osal_ui_label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_label.h; path = ../include/osal_ui_label.h; sourceTree = "<group>"; };
+		3EBBA7ED1F8D321A0053D8AE /* osal_ui_button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_button.h; path = ../include/osal_ui_button.h; sourceTree = "<group>"; };
+		3EBBA7EE1F8D321A0053D8AE /* osal_ui_service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osal_ui_service.h; path = ../include/osal_ui_service.h; sourceTree = "<group>"; };
+		3EBBA7F61F8D32220053D8AE /* osal_ui_slider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_slider.cpp; path = ../src/osal_ui_slider.cpp; sourceTree = "<group>"; };
+		3EBBA7F71F8D32230053D8AE /* osal_ui_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_label.cpp; path = ../src/osal_ui_label.cpp; sourceTree = "<group>"; };
+		3EBBA7F81F8D32230053D8AE /* osal_ui_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_service.cpp; path = ../src/osal_ui_service.cpp; sourceTree = "<group>"; };
+		3EBBA7F91F8D32230053D8AE /* osal_ui_button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_button.cpp; path = ../src/osal_ui_button.cpp; sourceTree = "<group>"; };
+		3EBBA7FA1F8D32230053D8AE /* osal_ui_pane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_pane.cpp; path = ../src/osal_ui_pane.cpp; sourceTree = "<group>"; };
+		3EBBA7FB1F8D32230053D8AE /* osal_ui_widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_ui_widget.cpp; path = ../src/osal_ui_widget.cpp; sourceTree = "<group>"; };
 		3ECE1AF71F8A382A009D9088 /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/mac/osal_util_log.cpp; sourceTree = "<group>"; };
 		3ECE1AF91F8A3837009D9088 /* osal_util_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_util_log.cpp; path = ../src/ios/osal_util_log.cpp; sourceTree = "<group>"; };
 		3ECE1AFB1F8A3845009D9088 /* osal_gfx_canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osal_gfx_canvas.cpp; path = ../src/android/osal_gfx_canvas.cpp; sourceTree = "<group>"; };
@@ -337,6 +376,26 @@
 			name = android;
 			sourceTree = "<group>";
 		};
+		3EBBA7E71F8D32080053D8AE /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				3EBBA7EE1F8D321A0053D8AE /* osal_ui_service.h */,
+				3EBBA7F81F8D32230053D8AE /* osal_ui_service.cpp */,
+				3EBBA7E81F8D32190053D8AE /* osal_ui_handler.h */,
+				3EBBA7ED1F8D321A0053D8AE /* osal_ui_button.h */,
+				3EBBA7F91F8D32230053D8AE /* osal_ui_button.cpp */,
+				3EBBA7EC1F8D321A0053D8AE /* osal_ui_label.h */,
+				3EBBA7F71F8D32230053D8AE /* osal_ui_label.cpp */,
+				3EBBA7E91F8D321A0053D8AE /* osal_ui_pane.h */,
+				3EBBA7FA1F8D32230053D8AE /* osal_ui_pane.cpp */,
+				3EBBA7EB1F8D321A0053D8AE /* osal_ui_slider.h */,
+				3EBBA7F61F8D32220053D8AE /* osal_ui_slider.cpp */,
+				3EBBA7EA1F8D321A0053D8AE /* osal_ui_widget.h */,
+				3EBBA7FB1F8D32230053D8AE /* osal_ui_widget.cpp */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
 		3ECE60551F7671CB007C3766 = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +404,7 @@
 				3EF9A0DC1F8A6855008C00C0 /* storage */,
 				3EEE39751F8CB91100DF9B90 /* time */,
 				3E15D9071F8A356A004EC94C /* util */,
+				3EBBA7E71F8D32080053D8AE /* ui */,
 				3ED4FE951F89EB8800D299B6 /* libosal.h */,
 				3ECE605F1F7671CB007C3766 /* Products */,
 			);
@@ -481,6 +541,13 @@
 				3ED3FD961F8A3FC6007BE517 /* osal_gfx_drawable.h in Headers */,
 				3ED3FD971F8A3FC6007BE517 /* osal_gfx_draw2d.h in Headers */,
 				3E92B6E01F8B889C00614529 /* osal_gfx_resmgr.h in Headers */,
+				3EBBA8081F8D32BC0053D8AE /* osal_ui_service.h in Headers */,
+				3EBBA8091F8D32BC0053D8AE /* osal_ui_handler.h in Headers */,
+				3EBBA80E1F8D32BD0053D8AE /* osal_ui_widget.h in Headers */,
+				3EBBA80C1F8D32BC0053D8AE /* osal_ui_pane.h in Headers */,
+				3EBBA80B1F8D32BC0053D8AE /* osal_ui_label.h in Headers */,
+				3EBBA80A1F8D32BC0053D8AE /* osal_ui_button.h in Headers */,
+				3EBBA80D1F8D32BD0053D8AE /* osal_ui_slider.h in Headers */,
 				3EEE397E1F8CC03600DF9B90 /* osal_time_type.h in Headers */,
 				3EEE397F1F8CC03600DF9B90 /* osal_time_queue.h in Headers */,
 				3EEE39801F8CC03600DF9B90 /* osal_time_service.h in Headers */,
@@ -515,6 +582,13 @@
 				3E15D9061F8A3565004EC94C /* osal_gfx_drawable.h in Headers */,
 				3E15D9041F8A3565004EC94C /* osal_gfx_draw2d.h in Headers */,
 				3E92B6DC1F8B883F00614529 /* osal_gfx_resmgr.h in Headers */,
+				3EBBA7F51F8D321A0053D8AE /* osal_ui_service.h in Headers */,
+				3EBBA7EF1F8D321A0053D8AE /* osal_ui_handler.h in Headers */,
+				3EBBA7F11F8D321A0053D8AE /* osal_ui_widget.h in Headers */,
+				3EBBA7F01F8D321A0053D8AE /* osal_ui_pane.h in Headers */,
+				3EBBA7F31F8D321A0053D8AE /* osal_ui_label.h in Headers */,
+				3EBBA7F41F8D321A0053D8AE /* osal_ui_button.h in Headers */,
+				3EBBA7F21F8D321A0053D8AE /* osal_ui_slider.h in Headers */,
 				3EEE39811F8CC04400DF9B90 /* osal_time_type.h in Headers */,
 				3EEE39821F8CC04400DF9B90 /* osal_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* osal_time_service.h in Headers */,
@@ -619,6 +693,12 @@
 				3ED3FD8A1F8A3F8B007BE517 /* osal_gfx_draw2d.cpp in Sources */,
 				3ED3FD8B1F8A3F8B007BE517 /* osal_gfx_draw2d_shaders.cpp in Sources */,
 				3E92B6DF1F8B888F00614529 /* osal_gfx_resmgr.cpp in Sources */,
+				3EBBA8021F8D32A60053D8AE /* osal_ui_service.cpp in Sources */,
+				3EBBA8071F8D32A60053D8AE /* osal_ui_widget.cpp in Sources */,
+				3EBBA8051F8D32A60053D8AE /* osal_ui_pane.cpp in Sources */,
+				3EBBA8041F8D32A60053D8AE /* osal_ui_label.cpp in Sources */,
+				3EBBA8031F8D32A60053D8AE /* osal_ui_button.cpp in Sources */,
+				3EBBA8061F8D32A60053D8AE /* osal_ui_slider.cpp in Sources */,
 				3EEE397D1F8CC02300DF9B90 /* osal_time_service.cpp in Sources */,
 				3EF9A0F91F8A693C008C00C0 /* osal_storage_buffer.cpp in Sources */,
 				3EF9A0FA1F8A693C008C00C0 /* osal_storage_vfs.cpp in Sources */,
@@ -642,6 +722,12 @@
 				3ECE1B081F8A391C009D9088 /* osal_gfx_draw2d.cpp in Sources */,
 				3ECE1B091F8A391C009D9088 /* osal_gfx_draw2d_shaders.cpp in Sources */,
 				3E92B6DE1F8B886000614529 /* osal_gfx_resmgr.cpp in Sources */,
+				3EBBA7FE1F8D32230053D8AE /* osal_ui_service.cpp in Sources */,
+				3EBBA8011F8D32230053D8AE /* osal_ui_widget.cpp in Sources */,
+				3EBBA8001F8D32230053D8AE /* osal_ui_pane.cpp in Sources */,
+				3EBBA7FD1F8D32230053D8AE /* osal_ui_label.cpp in Sources */,
+				3EBBA7FF1F8D32230053D8AE /* osal_ui_button.cpp in Sources */,
+				3EBBA7FC1F8D32230053D8AE /* osal_ui_slider.cpp in Sources */,
 				3EEE397C1F8CC01700DF9B90 /* osal_time_service.cpp in Sources */,
 				3EF9A0EF1F8A68C1008C00C0 /* osal_storage_buffer.cpp in Sources */,
 				3EF9A0EE1F8A68C1008C00C0 /* osal_storage_vfs.cpp in Sources */,

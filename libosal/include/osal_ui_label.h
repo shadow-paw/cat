@@ -18,6 +18,7 @@ public:
     void             set_textstyle(const osal::gfx::TextStyle& style) { m_textstyle = style; }
     const osal::gfx::TextStyle& get_textstyle() const { return m_textstyle; }
     void             set_textsize(int size) { m_textstyle.fontsize = size; }
+    void             set_textcolor(uint32_t color) { m_textstyle.color = color; }    
 
 protected:
     virtual void cb_render(osal::gfx::Renderer* r, osal::time::Timestamp now);
