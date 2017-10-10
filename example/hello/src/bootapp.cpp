@@ -131,6 +131,17 @@ void BootApp::cb_context_restored() {
 // cb_resize is called when the screen is resized, you may adjust ui scale here
 // ----------------------------------------------------------------------------
 void BootApp::cb_resize(int width, int height) {
+    int preferredW, preferredH;
+    switch (kernel()->platform()) {
+    case Platform::Windows: preferredW = 1280; preferredH = 720; break;
+    case Platform::Mac:     preferredW = 1280; preferredH = 720; break;
+    case Platform::IOS:     preferredW = 512;  preferredH = 960; break;
+    case Platform::Android: preferredW = 512;  preferredH = 960; break;
+    default:                preferredW = 512;  preferredH = 960;
+    }
+    float scaleX = (float)width / preferredW;
+    float scaleY = (float)height / preferredH;
+    kernel()->ui()->scale(scaleX<scaleY ? scaleX : scaleY);
 }
 // cb_render is called in the render pipeline
 // ----------------------------------------------------------------------------
