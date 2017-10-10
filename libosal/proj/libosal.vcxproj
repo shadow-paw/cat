@@ -32,8 +32,11 @@
     <ClCompile Include="..\src\osal_storage_buffer.cpp" />
     <ClCompile Include="..\src\osal_storage_vfs.cpp" />
     <ClCompile Include="..\src\osal_time_service.cpp" />
+    <ClCompile Include="..\src\osal_ui_button.cpp" />
     <ClCompile Include="..\src\osal_ui_label.cpp" />
+    <ClCompile Include="..\src\osal_ui_pane.cpp" />
     <ClCompile Include="..\src\osal_ui_service.cpp" />
+    <ClCompile Include="..\src\osal_ui_slider.cpp" />
     <ClCompile Include="..\src\osal_ui_widget.cpp" />
     <ClCompile Include="..\src\win\osal_gfx_canvas.cpp" />
     <ClCompile Include="..\src\win\osal_storage_driver_file.cpp" />
@@ -63,9 +66,12 @@
     <ClInclude Include="..\include\osal_time_service.h" />
     <ClInclude Include="..\include\osal_time_type.h" />
     <ClInclude Include="..\include\osal_type.h" />
+    <ClInclude Include="..\include\osal_ui_button.h" />
     <ClInclude Include="..\include\osal_ui_handler.h" />
     <ClInclude Include="..\include\osal_ui_label.h" />
+    <ClInclude Include="..\include\osal_ui_pane.h" />
     <ClInclude Include="..\include\osal_ui_service.h" />
+    <ClInclude Include="..\include\osal_ui_slider.h" />
     <ClInclude Include="..\include\osal_ui_widget.h" />
     <ClInclude Include="..\include\osal_util_log.h" />
     <ClInclude Include="..\include\win\osal_gfx_canvas.h" />

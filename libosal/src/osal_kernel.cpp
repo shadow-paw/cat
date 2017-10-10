@@ -88,8 +88,7 @@ bool Kernel::timer() {
             it = m_apps.erase(it);
         }
     }
-    m_time.timer();
-    return false;
+    return m_time.timer();
 }
 // ----------------------------------------------------------------------------
 void Kernel::render() {

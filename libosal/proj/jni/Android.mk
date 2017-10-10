@@ -24,7 +24,10 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_time_service.cpp \
                 ../../src/osal_ui_service.cpp \
                 ../../src/osal_ui_widget.cpp \
+                ../../src/osal_ui_pane.cpp \
                 ../../src/osal_ui_label.cpp \
+                ../../src/osal_ui_button.cpp \
+                ../../src/osal_ui_slider.cpp \
                 ../../src/android/osal_jni.cpp \
                 ../../src/android/osal_util_log.cpp \
                 ../../src/android/osal_gfx_canvas.cpp \

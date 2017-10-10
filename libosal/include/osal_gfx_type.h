@@ -73,7 +73,7 @@ struct TextStyle {
     TextStyle() {
         appearance = TextStyle::Appearance::Normal;
         gravity = TextStyle::Gravity::Left | TextStyle::Gravity::Top;
-        fontsize = 14;
+        fontsize = 12;
         color = 0xffffffff;
         padding_x = padding_y = 0;
     }

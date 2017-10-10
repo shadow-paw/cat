@@ -3,12 +3,14 @@
 #include "osal_time_service.h"
 #include "osal_gfx_renderer.h"
 #include "osal_gfx_resmgr.h"
+#include "osal_util_log.h"
 
 using namespace osal;
 using namespace osal::ui;
+using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
-Widget::Widget(KernelApi* kernel, const gfx::Rect2i& rect, unsigned int id) {
+Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) {
     m_kernel = kernel;
     m_parent = nullptr;
     m_id = id;
@@ -29,6 +31,10 @@ Widget::~Widget() {
 }
 // ----------------------------------------------------------------------------
 bool Widget::attach(Widget* child) {
+    if (child->m_parent) {
+        util::Logger::e("osal", "UI.attach - widget already has a parent!");
+        return false;
+    }
     child->m_parent = this;
     m_childs.push_back(child);
     update_absrect();
@@ -84,7 +90,7 @@ void Widget::set_pos(int x, int y) {
     cb_resize();
 }
 // ----------------------------------------------------------------------------
-void Widget::set_pos(const gfx::Point2i& pos) {
+void Widget::set_pos(const Point2i& pos) {
     m_rect.origin = pos;
     update_absrect();
     cb_resize();
@@ -98,7 +104,7 @@ void Widget::set_size(int width, int height) {
     cb_resize();
 }
 // ----------------------------------------------------------------------------
-void Widget::set_size(const gfx::Size2i& size) {
+void Widget::set_size(const Size2i& size) {
     m_rect.size = size;
     m_absrect.size = size;
     cb_resize();
@@ -167,7 +173,7 @@ bool Widget::touch(const TouchEvent& ev, bool handled) {
     return handled;
 }
 // ----------------------------------------------------------------------------
-void Widget::render(gfx::Renderer* r, time::Timestamp now) {
+void Widget::render(Renderer* r, time::Timestamp now) {
     if (!m_visible) return;
     cb_render(r, now);
     for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {

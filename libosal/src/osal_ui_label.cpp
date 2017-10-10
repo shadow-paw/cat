@@ -3,9 +3,10 @@
 
 using namespace osal;
 using namespace osal::ui;
+using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
-Label::Label(KernelApi* ui, const osal::gfx::Rect2i& rect, unsigned int id) : Widget(ui, rect, id) {
+Label::Label(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
     m_texrefs.resize(1);
     // m_textstyle.gravity = TextStyle::Gravity::CenterHorizontal | TextStyle::Gravity::CenterVertical;
 }
