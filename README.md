@@ -9,10 +9,13 @@
 [![License][license-image]][license-url]
 
 The OSAL project provide an abstracted and consistent environment for application devlopment. The main features include:
-- Graphics rendering with OpenGL / OpenGL ES.
+- Graphics Rendering Service
 - UI Framework
+- Time Service
 - Network Access
-- Camera and Sensor Access (if available)
+- Audio Service
+- Media Service (camera, mic, media player)
+- Sensor Service
 
 ## Build Environments
 You can build osal app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
