@@ -6,7 +6,7 @@
 using namespace osal;
 
 // ----------------------------------------------------------------------------
-Kernel::Kernel() : m_res(&m_vfs) {
+Kernel::Kernel() : m_res(&m_vfs), m_ui(this) {
 }
 // ----------------------------------------------------------------------------
 Kernel::~Kernel() {
@@ -66,12 +66,15 @@ void Kernel::resume() {
 // ----------------------------------------------------------------------------
 void Kernel::resize(int width, int height) {
     m_renderer.resize(width, height);
+    m_ui.resize(width, height);
     for (auto& app : m_apps) {
         app->cb_resize(width, height);
     }
 }
 // ----------------------------------------------------------------------------
 bool Kernel::touch(TouchEvent ev) {
+    ev.timestamp = m_time.now();
+    m_ui.touch(ev);
     m_renderer.dirty();
     return false;
 }
@@ -85,8 +88,7 @@ bool Kernel::timer() {
             it = m_apps.erase(it);
         }
     }
-    m_time.timer();
-    return false;
+    return m_time.timer();
 }
 // ----------------------------------------------------------------------------
 void Kernel::render() {
@@ -95,6 +97,7 @@ void Kernel::render() {
     for (auto& app : m_apps) {
         app->cb_render(&m_renderer, t);
     }
+    m_ui.render(&m_renderer, t);
     m_renderer.end_render();
 }
 // ----------------------------------------------------------------------------

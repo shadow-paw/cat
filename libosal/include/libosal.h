@@ -18,5 +18,11 @@
 #include "osal_storage_buffer.h"
 #include "osal_storage_vfs.h"
 #include "osal_storage_driver_file.h"
+#include "osal_ui_service.h"
+#include "osal_ui_widget.h"
+#include "osal_ui_pane.h"
+#include "osal_ui_label.h"
+#include "osal_ui_button.h"
+#include "osal_ui_slider.h"
 
 #endif

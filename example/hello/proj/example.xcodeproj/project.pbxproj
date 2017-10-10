@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E28F7E11F8D37DE00DF627C /* testpane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E28F7DF1F8D37DE00DF627C /* testpane.cpp */; };
+		3E28F7E21F8D37DE00DF627C /* testpane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E28F7DF1F8D37DE00DF627C /* testpane.cpp */; };
 		3ED4FEB41F89ED2900D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAB1F89ED2800D299B6 /* main.m */; };
 		3ED4FEB51F89ED2900D299B6 /* OSALView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* OSALView.mm */; };
 		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
@@ -102,6 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E28F7DF1F8D37DE00DF627C /* testpane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = testpane.cpp; path = ../src/testpane.cpp; sourceTree = "<group>"; };
+		3E28F7E01F8D37DE00DF627C /* testpane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = testpane.h; path = ../src/testpane.h; sourceTree = "<group>"; };
 		3E859A121F77939A00F84D36 /* example-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "example-osx.app"; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 			children = (
 				3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */,
 				3ED4FEBB1F89F15A00D299B6 /* bootapp.h */,
+				3E28F7DF1F8D37DE00DF627C /* testpane.cpp */,
+				3E28F7E01F8D37DE00DF627C /* testpane.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -375,6 +381,7 @@
 				3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */,
 				3ED4FEB51F89ED2900D299B6 /* OSALView.mm in Sources */,
 				3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */,
+				3E28F7E11F8D37DE00DF627C /* testpane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 				3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */,
 				3ED4FEDD1F89F56400D299B6 /* OSALView.mm in Sources */,
 				3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */,
+				3E28F7E21F8D37DE00DF627C /* testpane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

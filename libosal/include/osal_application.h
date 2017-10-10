@@ -18,8 +18,7 @@ public:
         m_running = false;
     }
     virtual ~Application() {
-        // remove timer
-        kernel()->time()->remove(this);
+        kernel()->time()->remove_timer(this);
     }
 protected:
     virtual bool cb_startup(time::Timestamp now) = 0;
@@ -32,10 +31,10 @@ protected:
     virtual void cb_render(gfx::Renderer* r, time::Timestamp now) = 0;
     virtual bool cb_timer(time::Timestamp now, int msg) = 0;
 protected:
-    KernelAPI* kernel() const { return m_kernel; }
+    KernelApi* kernel() const { return m_kernel; }
     void exit() { m_running = false; }
 private:
-    KernelAPI* m_kernel;
+    KernelApi* m_kernel;
     bool m_running;
 };
 // ----------------------------------------------------------------------------

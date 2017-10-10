@@ -14,6 +14,7 @@
 
 namespace osal { namespace gfx {
 class Renderer;
+class ResourceManager;
 // ----------------------------------------------------------------------------
 class Draw2D {
 friend class Renderer;
@@ -39,6 +40,10 @@ public:
     // Text support
     void calctext(Size2i* size, const std::string& utf8, const TextStyle& style);
     void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style);
+
+    // Load compatible shader
+    const Shader* retain_2dshader(ResourceManager* res, const char* name);
+    void          release_2dshader(ResourceManager* res, const Shader* shader);
 
 private:
     Draw2D();

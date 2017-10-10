@@ -1,5 +1,6 @@
 #include "osal_gfx_draw2d.h"
 #include "osal_gfx_shader.h"
+#include "osal_gfx_resmgr.h"
 #include "osal_util_log.h"
 
 using namespace osal;
@@ -488,5 +489,13 @@ void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextSty
     entry.expired = false;
     entry.ready = false;
     m_texts.emplace(utf8, entry);
+}
+// ----------------------------------------------------------------------------
+const Shader* Draw2D::retain_2dshader(ResourceManager* res, const char* name) {
+    return res->retain_shader(name, s_uniforms, s_attrs);
+}
+// ----------------------------------------------------------------------------
+void Draw2D::release_2dshader(ResourceManager* res, const Shader* shader) {
+    res->release_shader(shader);
 }
 // ----------------------------------------------------------------------------
