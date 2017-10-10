@@ -184,10 +184,12 @@
     <ClCompile Include="..\glue\win\osalview.cpp" />
     <ClCompile Include="..\glue\win\winmain.cpp" />
     <ClCompile Include="..\src\bootapp.cpp" />
+    <ClCompile Include="..\src\testpane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\glue\win\osalview.h" />
     <ClInclude Include="..\src\bootapp.h" />
+    <ClInclude Include="..\src\testpane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

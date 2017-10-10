@@ -1,4 +1,5 @@
 #include "bootapp.h"
+#include "testpane.h"
 
 using namespace app;
 using namespace osal;
@@ -85,6 +86,12 @@ bool BootApp::cb_startup(time::Timestamp now) {
     pane3->attach(slider2);
     slider2->set_range(0, 2);
     slider2->set_pos(2);
+
+    auto testpane = new TestPane(kernel(), gfx::Rect2i(350, 50, 200, 200), 4);
+    testpane->set_bgcolor(0x80ffffff);
+    testpane->set_draggable(true);
+    testpane->set_bounded(true);
+    kernel()->ui()->attach(testpane);
 
     button1->ev_click += [](ui::Widget* w) -> bool {
         util::Logger::d("App", "Button Clicked!");
