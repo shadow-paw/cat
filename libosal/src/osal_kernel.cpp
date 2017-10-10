@@ -28,13 +28,6 @@ void Kernel::fini() {
     m_renderer.fini();
 }
 // ----------------------------------------------------------------------------
-// Useful Functions
-// ----------------------------------------------------------------------------
-Timestamp Kernel::now() const {
-    return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>
-        (std::chrono::system_clock::now().time_since_epoch()).count();
-}
-// ----------------------------------------------------------------------------
 // Kernel Signals
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
@@ -92,12 +85,12 @@ bool Kernel::timer() {
             it = m_apps.erase(it);
         }
     }
-
+    m_time.timer();
     return false;
 }
 // ----------------------------------------------------------------------------
 void Kernel::render() {
-    Timestamp t = now();
+    auto t = time()->now();
     m_renderer.begin_render();
     for (auto& app : m_apps) {
         app->cb_render(&m_renderer, t);
@@ -108,14 +101,14 @@ void Kernel::render() {
 // Application
 // ----------------------------------------------------------------------------
 bool Kernel::run(Application* app) {
-    app->m_kernelapi = this;
+    app->m_kernel = this;
     app->m_running = true;
     m_apps.push_back(std::unique_ptr<Application>(app));
     if (m_renderer.ready()) {
         app->cb_context_restored();
     }
     app->cb_resize(m_renderer.width(), m_renderer.height());
-    app->cb_startup(now());
+    app->cb_startup(time()->now());
     return true;
 }
 // ----------------------------------------------------------------------------

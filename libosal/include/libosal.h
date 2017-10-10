@@ -14,6 +14,7 @@
 #include "osal_gfx_texref.h"
 #include "osal_gfx_shader.h"
 #include "osal_gfx_drawable.h"
+#include "osal_time_service.h"
 #include "osal_storage_buffer.h"
 #include "osal_storage_vfs.h"
 #include "osal_storage_driver_file.h"

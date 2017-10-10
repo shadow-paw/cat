@@ -17,6 +17,9 @@
     <Filter Include="libosal\storage">
       <UniqueIdentifier>{7c6981e5-d6b6-48cd-9254-3f9dae35a49e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libosal\time">
+      <UniqueIdentifier>{2a804388-baa5-421b-812e-e9251ed59ea3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\osal_type.h">
@@ -88,6 +91,15 @@
     <ClInclude Include="..\include\osal_application.h">
       <Filter>libosal\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_time_queue.h">
+      <Filter>libosal\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_time_service.h">
+      <Filter>libosal\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_time_type.h">
+      <Filter>libosal\time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
@@ -134,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\src\win\osal_storage_driver_file.cpp">
       <Filter>libosal\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_time_service.cpp">
+      <Filter>libosal\time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

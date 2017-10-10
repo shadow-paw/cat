@@ -11,7 +11,7 @@ BootApp::~BootApp() {
 }
 // cb_startup is called upon kernel->run(app)
 // ----------------------------------------------------------------------------
-bool BootApp::cb_startup(Timestamp now) {
+bool BootApp::cb_startup(time::Timestamp now) {
     storage::Buffer buf;
     if (kernel()->vfs()->read("/assets/test.txt", buf)) {
         util::Logger::d("app", (const char*)buf.data());
@@ -29,11 +29,13 @@ bool BootApp::cb_startup(Timestamp now) {
     const gfx::Shader* shader = kernel()->res()->retain_shader("/assets/shader/test", uniforms, attrs);
     util::Logger::d("app", "shader: %p", shader);
     kernel()->res()->release_shader(shader);
+    
+    kernel()->time()->post(this, 1000, 1);
     return true;
 }
 // // cb_shutdown is called after app->exit()
 // ----------------------------------------------------------------------------
-void BootApp::cb_shutdown(Timestamp now) {
+void BootApp::cb_shutdown(time::Timestamp now) {
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
@@ -62,7 +64,7 @@ void BootApp::cb_resize(int width, int height) {
 }
 // cb_render is called in the render pipeline
 // ----------------------------------------------------------------------------
-void BootApp::cb_render(gfx::Renderer* r, Timestamp now) {
+void BootApp::cb_render(gfx::Renderer* r, time::Timestamp now) {
     gfx::Rect2i rect;
     gfx::TextStyle style;
     rect.set(10, 10, 100, 40);
@@ -70,3 +72,10 @@ void BootApp::cb_render(gfx::Renderer* r, Timestamp now) {
     r->draw2d.drawtext(rect, "Hello", style);
 }
 // ----------------------------------------------------------------------------
+bool BootApp::cb_timer(time::Timestamp now, int msg) {
+    util::Logger::d("app", "timer: %lu", now);
+    kernel()->time()->post(this, 1000, 1);
+    return true;
+}
+// ----------------------------------------------------------------------------
+
