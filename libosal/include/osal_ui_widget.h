@@ -9,6 +9,7 @@
 #include "osal_kernel_api.h"
 #include "osal_gfx_type.h"
 #include "osal_gfx_texref.h"
+#include "osal_gfx_draw2d.h"
 #include "osal_time_queue.h"
 #include "osal_ui_handler.h"
 
@@ -69,6 +70,8 @@ protected:
 protected:  // Helper function for widget
     void update_absrect();
     void post_timer(time::Timestamp delay, int code);
+    void remove_timer();
+    void capture(gfx::Texture& tex, const gfx::Rect2i& rect);
 
 protected:
     Widget* m_parent;
@@ -81,7 +84,7 @@ protected:
 
 private:
     // called from UISystem or internal signal propagate
-    void render(gfx::Renderer* r, unsigned long now);
+    void render(gfx::Renderer* r, time::Timestamp now);
     bool touch(const TouchEvent& ev, bool handled);
     void notify_uiscaled();
     void notify_visible(bool b);
@@ -89,6 +92,7 @@ private:
 
 protected:
     KernelApi* kernel() const { return m_kernel; }
+    osal::gfx::Draw2D* draw2d();
 private:
     KernelApi* m_kernel; // hide from widget, access throw helper
 };

@@ -3,6 +3,7 @@
 #include "osal_time_service.h"
 #include "osal_gfx_renderer.h"
 #include "osal_gfx_resmgr.h"
+#include "osal_gfx_draw2d.h"
 #include "osal_util_log.h"
 
 using namespace osal;
@@ -22,7 +23,7 @@ Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) {
 }
 // ----------------------------------------------------------------------------
 Widget::~Widget() {
-    m_kernel->time()->remove_timer(this);
+    remove_timer();
     remove_childs();
     for (auto& texref : m_texrefs) {
         if (texref.tex) m_kernel->res()->release_tex(texref.tex);
@@ -173,7 +174,7 @@ bool Widget::touch(const TouchEvent& ev, bool handled) {
     return handled;
 }
 // ----------------------------------------------------------------------------
-void Widget::render(Renderer* r, time::Timestamp now) {
+void Widget::render(gfx::Renderer* r, time::Timestamp now) {
     if (!m_visible) return;
     cb_render(r, now);
     for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
@@ -183,6 +184,18 @@ void Widget::render(Renderer* r, time::Timestamp now) {
 // ----------------------------------------------------------------------------
 void Widget::post_timer(time::Timestamp delay, int code) {
     m_kernel->time()->post_timer(this, delay, code);
+}
+// ----------------------------------------------------------------------------
+void Widget::remove_timer() {
+    m_kernel->time()->remove_timer(this);
+}
+// ----------------------------------------------------------------------------
+void Widget::capture(gfx::Texture& tex, const gfx::Rect2i& rect) {
+    m_kernel->ui()->capture(tex, rect);
+}
+// ----------------------------------------------------------------------------
+osal::gfx::Draw2D* Widget::draw2d() {
+    return &m_kernel->renderer()->draw2d;
 }
 // ----------------------------------------------------------------------------
 bool Widget::perform_click() {

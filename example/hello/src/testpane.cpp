@@ -7,7 +7,7 @@ using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pane(kernel, rect, id) {
-    m_shader = kernel->renderer()->draw2d.retain_2dshader(kernel->res(), "/assets/shader/test");
+    m_shader = draw2d()->retain_2dshader(kernel->res(), "/assets/shader/test");
 
     const char* ui_image = "/assets/ui/default_ui.png";
     auto button = new Button(kernel, Rect2i((rect.size.width - 120) / 2, (rect.size.height - 40) / 2, 120, 40), 3);
@@ -26,11 +26,11 @@ TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pan
 }
 // ----------------------------------------------------------------------------
 TestPane::~TestPane() {
-    kernel()->renderer()->draw2d.release_2dshader(kernel()->res(), m_shader);
+    draw2d()->release_2dshader(kernel()->res(), m_shader);
 }
 // ----------------------------------------------------------------------------
 void TestPane::cb_render(Renderer* r, unsigned long now) {
-    kernel()->ui()->capture(m_effect_tex, m_absrect);
+    capture(m_effect_tex, m_absrect);
     r->draw2d.fill(m_absrect, 0xffffffff, &m_effect_tex, now, m_shader);
     post_timer(33, 0);
     Pane::cb_render(r, now);
