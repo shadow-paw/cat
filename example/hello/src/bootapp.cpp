@@ -30,7 +30,12 @@ bool BootApp::cb_startup(time::Timestamp now) {
     util::Logger::d("app", "shader: %p", shader);
     kernel()->res()->release_shader(shader);
     
-    kernel()->time()->post(this, 1000, 1);
+    auto widget = new ui::Label(kernel(), gfx::Rect2i(10, 10, 100, 100));
+    widget->set_bgcolor(0xffff00ff);
+    widget->set_text("hello");
+    kernel()->ui()->attach(widget);
+
+    kernel()->time()->post_timer(this, 1000, 1);
     return true;
 }
 // // cb_shutdown is called after app->exit()
@@ -74,7 +79,7 @@ void BootApp::cb_render(gfx::Renderer* r, time::Timestamp now) {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(time::Timestamp now, int msg) {
     util::Logger::d("app", "timer: %lu", now);
-    kernel()->time()->post(this, 1000, 1);
+    kernel()->time()->post_timer(this, 1000, 1);
     return true;
 }
 // ----------------------------------------------------------------------------

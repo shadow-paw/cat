@@ -20,6 +20,9 @@
     <Filter Include="libosal\time">
       <UniqueIdentifier>{2a804388-baa5-421b-812e-e9251ed59ea3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libosal\ui">
+      <UniqueIdentifier>{e96e06b1-80fc-4708-8ab4-4649704fde49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\osal_type.h">
@@ -100,6 +103,18 @@
     <ClInclude Include="..\include\osal_time_type.h">
       <Filter>libosal\time</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_ui_service.h">
+      <Filter>libosal\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_ui_widget.h">
+      <Filter>libosal\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_ui_handler.h">
+      <Filter>libosal\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_ui_label.h">
+      <Filter>libosal\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
@@ -149,6 +164,15 @@
     </ClCompile>
     <ClCompile Include="..\src\osal_time_service.cpp">
       <Filter>libosal\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_ui_service.cpp">
+      <Filter>libosal\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_ui_widget.cpp">
+      <Filter>libosal\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_ui_label.cpp">
+      <Filter>libosal\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

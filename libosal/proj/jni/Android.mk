@@ -22,6 +22,9 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_gfx_draw2d_shaders.cpp \
                 ../../src/osal_gfx_resmgr.cpp \
                 ../../src/osal_time_service.cpp \
+                ../../src/osal_ui_service.cpp \
+                ../../src/osal_ui_widget.cpp \
+                ../../src/osal_ui_label.cpp \
                 ../../src/android/osal_jni.cpp \
                 ../../src/android/osal_util_log.cpp \
                 ../../src/android/osal_gfx_canvas.cpp \

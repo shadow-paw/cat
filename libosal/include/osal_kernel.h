@@ -9,12 +9,13 @@
 #include "osal_gfx_renderer.h"
 #include "osal_gfx_resmgr.h"
 #include "osal_time_service.h"
+#include "osal_ui_service.h"
 #include "osal_kernel_api.h"
 #include "osal_application.h"
 
 namespace osal {
 // ----------------------------------------------------------------------------
-class Kernel : public KernelAPI {
+class Kernel : public KernelApi {
 public:
     Kernel();
     virtual ~Kernel();
@@ -43,6 +44,7 @@ public:
     virtual gfx::Renderer*              renderer() { return &m_renderer; }
     virtual gfx::ResourceManager*       res() { return &m_res; }
     virtual time::TimeService*          time() { return &m_time; }
+    virtual ui::UIService*              ui() { return &m_ui; }
 
 private:
     PlatformSpecificData  m_psd;
@@ -50,6 +52,7 @@ private:
     gfx::Renderer         m_renderer;
     gfx::ResourceManager  m_res;
     time::TimeService     m_time;
+    ui::UIService         m_ui;
     std::list<std::unique_ptr<Application>> m_apps;
 };
 // ----------------------------------------------------------------------------

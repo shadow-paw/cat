@@ -11,11 +11,11 @@ TimeService::TimeService() {
 TimeService::~TimeService() {
 }
 // ----------------------------------------------------------------------------
-bool TimeService::post(TimerHandler<int>* handler, Timestamp tick, const int message) {
+bool TimeService::post_timer(TimerHandler<int>* handler, Timestamp tick, const int message) {
     return m_timequeue.post(handler, tick, message);
 }
 // ----------------------------------------------------------------------------
-void TimeService::remove(TimerHandler<int>* handler) {
+void TimeService::remove_timer(TimerHandler<int>* handler) {
     m_timequeue.remove(handler);
 }
 // ----------------------------------------------------------------------------
