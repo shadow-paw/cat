@@ -60,7 +60,7 @@ bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
     if (m_tick >= node->tick) {
         m_tick -= node->tick;
         *handler = node->handler;
-        *msg = std::move(node->message);
+        *msg = node->message;
         m_queue.erase(node);
         return true;
     } return false;
