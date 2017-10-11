@@ -3,8 +3,7 @@
 #include <string.h>
 #include <glm/gtc/type_ptr.hpp>
 
-using namespace osal::util;
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 Shader::Shader() {

@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include "osal_platform.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class IBO {
 public:
@@ -28,6 +28,6 @@ private:
     size_t m_count, m_size;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_IBO_H__

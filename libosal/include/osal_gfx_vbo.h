@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include "osal_platform.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class VBO {
 public:
@@ -29,6 +29,6 @@ private:
     GLenum m_type;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_VBO_H__

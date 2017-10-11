@@ -2,7 +2,6 @@
 #include "osal_gfx_canvas.h"
 
 using namespace osal;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 DrawableCanvas::DrawableCanvas() {

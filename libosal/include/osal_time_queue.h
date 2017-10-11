@@ -4,7 +4,7 @@
 #include <list>
 #include "osal_time_type.h"
 
-namespace osal { namespace time {
+namespace osal {
 // -----------------------------------------------------------
 template <typename T>
 class TimerHandler {
@@ -56,7 +56,7 @@ bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
     if (m_tick >= node->tick) {
         m_tick -= node->tick;
         *handler = node->handler;
-        *msg = node->message;
+        *msg = std::move(node->message);
         m_queue.erase(node);
         return true;
     } return false;
@@ -73,6 +73,6 @@ void TimerQueue<T>::remove(TimerHandler<T>* handler) {
     }
 }
 // -----------------------------------------------------------
-}} // namespace osal::time
+} // namespace osal
 
 #endif // __OSAL_TIME_QUEUE_H__

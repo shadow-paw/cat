@@ -1,7 +1,7 @@
 #ifndef __OSAL_UTIL_LOG_H__
 #define __OSAL_UTIL_LOG_H__
 
-namespace osal { namespace util {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Logger {
 public:
@@ -9,7 +9,7 @@ public:
     static void e(const char* tag, const char* fmt, ...);
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::util
+} // namespace osal
 // ----------------------------------------------------------------------------
 
 #endif // __OSAL_UTIL_LOG_H__

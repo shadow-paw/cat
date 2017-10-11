@@ -4,7 +4,7 @@
 #include "osal_ui_label.h"
 #include "osal_gfx_type.h"
 
-namespace osal { namespace ui {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Button : public Label {
 public:
@@ -15,7 +15,7 @@ public:
     // Event Handlers
     EventHandlers<bool> ev_check;
 
-    Button(osal::KernelApi* kernel, const osal::gfx::Rect2i& rect, unsigned int id = 0);
+    Button(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Button();
 
     void set_checkable(bool b) { m_checkable = b; }
@@ -25,13 +25,13 @@ public:
 
 protected:
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
-    virtual void cb_render(osal::gfx::Renderer* r, osal::time::Timestamp now);
+    virtual void cb_render(Renderer* r, Timestamp now);
 
 protected:
     bool m_checkable;
     bool m_checked, m_pressed;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_BUTTON_H__

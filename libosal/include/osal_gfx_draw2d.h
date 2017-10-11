@@ -12,7 +12,7 @@
 #include "osal_gfx_texref.h"
 #include "osal_gfx_drawable.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 class Renderer;
 class ResourceManager;
 // ----------------------------------------------------------------------------
@@ -112,6 +112,6 @@ private:
     } m_textcursor;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_DRAW2D_H__

@@ -10,12 +10,12 @@ namespace osal {
 // ----------------------------------------------------------------------------
 struct TouchEvent {
     enum EventType { TouchDown, TouchUp, TouchMove, Scroll };
-    EventType       type;
-    time::Timestamp timestamp;
-    int             pointer_id;
-    int             x, y;
-    int             scroll;
-    unsigned int    button;
+    EventType    type;
+    Timestamp    timestamp;
+    int          pointer_id;
+    int          x, y;
+    int          scroll;
+    unsigned int button;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal

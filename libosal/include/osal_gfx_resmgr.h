@@ -12,11 +12,11 @@
 #include "osal_gfx_shader.h"
 #include "osal_gfx_tex.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class ResourceManager {
 public:
-    ResourceManager(osal::storage::VFS* vfs);
+    ResourceManager(VFS* vfs);
     ~ResourceManager();
 
     bool init();
@@ -40,16 +40,16 @@ private:
     bool reload_tex   (Texture* tex, const std::string& name);
 
 private:
-    bool load_tex_png(Texture* tex, osal::storage::Buffer& buf);
+    bool load_tex_png(Texture* tex, Buffer& buf);
 
 private:
     bool m_contextready;
-    osal::storage::VFS* m_vfs;
+    VFS* m_vfs;
     // map { name, pair { res, refcount} }
     std::unordered_map<std::string, std::pair<SHADER_DATA, int>>  m_shaders;
     std::unordered_map<std::string, std::pair<Texture*, int>> m_texs;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_RESMGR_H__

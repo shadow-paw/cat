@@ -2,14 +2,12 @@
 #include "osal_gfx_renderer.h"
 
 using namespace osal;
-using namespace osal::ui;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 Button::Button(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Label(kernel, rect, id) {
     m_texrefs.resize(3);
-    m_textstyle.appearance = osal::gfx::TextStyle::Appearance::Bold | osal::gfx::TextStyle::Appearance::Shadow;
-    m_textstyle.gravity = osal::gfx::TextStyle::Gravity::CenterHorizontal | osal::gfx::TextStyle::Gravity::CenterVertical;
+    m_textstyle.appearance = TextStyle::Appearance::Bold | TextStyle::Appearance::Shadow;
+    m_textstyle.gravity = TextStyle::Gravity::CenterHorizontal | TextStyle::Gravity::CenterVertical;
     m_textstyle.fontsize = 10;
     m_textstyle.color = 0xffffffff;
     m_pressed = false;
@@ -45,7 +43,7 @@ bool Button::cb_touch(const TouchEvent& ev, bool handled) {
     } return false;
 }
 // ----------------------------------------------------------------------------
-void Button::cb_render(Renderer* r, osal::time::Timestamp now) {
+void Button::cb_render(Renderer* r, Timestamp now) {
     int tex = TexNormal;
     if (m_pressed) tex = TexPressed;
     else if (m_checkable && m_checked!=0) tex = TexChecked;

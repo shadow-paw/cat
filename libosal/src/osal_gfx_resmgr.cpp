@@ -2,10 +2,10 @@
 #include "libpng/png.h"
 #include <string.h>
 
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
-ResourceManager::ResourceManager(osal::storage::VFS* vfs) {
+ResourceManager::ResourceManager(VFS* vfs) {
     m_contextready = false;
     m_vfs = vfs;
 }
@@ -53,7 +53,7 @@ bool ResourceManager::context_restored() {
 // ----------------------------------------------------------------------------
 const Shader* ResourceManager::retain_shader(const char* name, const std::unordered_map<int, std::string>& uniforms, const std::unordered_map<int, std::string>& attrs) {
     std::string path(name);
-    osal::storage::Buffer vs, fs;
+    Buffer vs, fs;
     auto cached = m_shaders.find(path);
     if (cached!=m_shaders.end()) {
         auto& pair = cached->second;
@@ -84,7 +84,7 @@ const Shader* ResourceManager::retain_shader(const char* name, const std::unorde
 // ----------------------------------------------------------------------------
 bool ResourceManager::reload_shader(SHADER_DATA* sd, const std::string& name) {
     std::string path(name);
-    osal::storage::Buffer vs, fs;
+    Buffer vs, fs;
     if (!m_vfs->read((path + ".vs").c_str(), vs)) return false;
     if (!m_vfs->read((path + ".fs").c_str(), fs)) return false;
     if (!sd->shader->init((const char*)vs.data(), (const char*)fs.data())) return false;
@@ -126,7 +126,7 @@ bool ResourceManager::release_shader(const Shader* shader) {
 }
 // ----------------------------------------------------------------------------
 const Texture* ResourceManager::retain_tex(const char* name) {
-    osal::storage::Buffer buf;
+    Buffer buf;
     auto cached = m_texs.find(name);
     if (cached!=m_texs.end()) {
         auto& pair = cached->second;
@@ -147,7 +147,7 @@ const Texture* ResourceManager::retain_tex(const char* name) {
 }
 // ----------------------------------------------------------------------------
 bool ResourceManager::reload_tex(Texture* tex, const std::string& name) {
-    osal::storage::Buffer buf;
+    Buffer buf;
     if (!m_vfs->read(name.c_str(), buf)) return false;
     return load_tex_png(tex, buf);
 }
@@ -180,7 +180,7 @@ bool ResourceManager::release_tex(const Texture* tex) {
 // PNG Helper
 // ----------------------------------------------------------------------------
 typedef struct {
-    osal::storage::Buffer* buffer;
+    Buffer* buffer;
     size_t offset;
 } PNGBufferReader;
 // ----------------------------------------------------------------------------
@@ -192,7 +192,7 @@ void _png_read(png_structp png, png_bytep data, png_size_t size) {
     }
 }
 // ----------------------------------------------------------------------------
-bool ResourceManager::load_tex_png(Texture* tex, osal::storage::Buffer& buf) {
+bool ResourceManager::load_tex_png(Texture* tex, Buffer& buf) {
     // image
     Texture::Format format;
     unsigned int width, height;

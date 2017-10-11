@@ -8,13 +8,8 @@
 #include "osal_gfx_renderer.h"
 #include "osal_kernel_api.h"
 
-// Forward declaration, sadly c++ does not allowg short class gfx::Renderer;
-// ----------------------------------------------------------------------------
 namespace osal {
 class Kernel;
-}
-
-namespace osal { namespace ui {
 // ----------------------------------------------------------------------------
 class UIService {
 friend class osal::Kernel;
@@ -25,10 +20,10 @@ public:
     bool attach(Widget* w);
     void detach(Widget* w);
     void scale(float factor);
-    void capture(gfx::Texture& tex, const gfx::Rect2i& rect);
+    void capture(Texture& tex, const Rect2i& rect);
 
 private:    // call from Kernel
-    void render(gfx::Renderer* renderer, time::Timestamp now);
+    void render(Renderer* r, Timestamp now);
     void resize(int width, int height);
     bool touch(TouchEvent ev);
 
@@ -39,6 +34,6 @@ private:
     Widget* m_desktop;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_SERVICE_H__

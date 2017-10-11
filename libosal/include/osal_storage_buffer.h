@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-namespace osal { namespace storage {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Buffer {
 public:
@@ -20,6 +20,6 @@ private:
     size_t   m_size;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::storage
+} // namespace osal
 
 #endif // __OSAL_STORAGE_BUFFER_H__

@@ -3,10 +3,10 @@
 
 #include "osal_platform.h"
 
-namespace osal { namespace time {
+namespace osal {
 // ----------------------------------------------------------------------------
 typedef unsigned long Timestamp;
 // ----------------------------------------------------------------------------
-}} // namespace osal::time
+} // namespace osal
 
 #endif // __OSAL_TIME_TYPE_H__

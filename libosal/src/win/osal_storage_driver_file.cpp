@@ -1,7 +1,7 @@
 #include "osal_storage_driver_file.h"
 #include <stdio.h>
 
-using namespace osal::storage;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 FileDriver::FileDriver(const std::string& base) {

@@ -7,7 +7,7 @@
 #include "osal_gfx_type.h"
 #include "osal_gfx_tex.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class DrawableCanvas {
 public:
@@ -35,6 +35,6 @@ private:
     void     update_rgba();
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_CANVAS_WIN_H__

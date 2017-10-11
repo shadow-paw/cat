@@ -1,11 +1,11 @@
 #include "osal_gfx_draw2d.h"
 
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 // Plain Color Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_col_v = R"GLSL(
+const char* Draw2D::m_shader_col_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -24,7 +24,7 @@ const char* osal::gfx::Draw2D::m_shader_col_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_col_f = R"GLSL(
+const char* Draw2D::m_shader_col_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -45,7 +45,7 @@ const char* osal::gfx::Draw2D::m_shader_col_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Simple Texture Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_tex_v = R"GLSL(
+const char* Draw2D::m_shader_tex_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -69,7 +69,7 @@ const char* osal::gfx::Draw2D::m_shader_tex_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_tex_f = R"GLSL(
+const char* Draw2D::m_shader_tex_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -93,7 +93,7 @@ const char* osal::gfx::Draw2D::m_shader_tex_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Gray Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_gray_v = R"GLSL(
+const char* Draw2D::m_shader_gray_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -117,7 +117,7 @@ const char* osal::gfx::Draw2D::m_shader_gray_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_gray_f = R"GLSL(
+const char* Draw2D::m_shader_gray_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -143,7 +143,7 @@ const char* osal::gfx::Draw2D::m_shader_gray_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Blur Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_blur_v = R"GLSL(
+const char* Draw2D::m_shader_blur_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -167,7 +167,7 @@ const char* osal::gfx::Draw2D::m_shader_blur_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_blur_f = R"GLSL(
+const char* Draw2D::m_shader_blur_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -207,7 +207,7 @@ const char* osal::gfx::Draw2D::m_shader_blur_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Ripple Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_ripple_v = R"GLSL(
+const char* Draw2D::m_shader_ripple_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -231,7 +231,7 @@ const char* osal::gfx::Draw2D::m_shader_ripple_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_ripple_f = R"GLSL(
+const char* Draw2D::m_shader_ripple_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -260,7 +260,7 @@ const char* osal::gfx::Draw2D::m_shader_ripple_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Fish Eye Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_fisheye_v = R"GLSL(
+const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -284,7 +284,7 @@ const char* osal::gfx::Draw2D::m_shader_fisheye_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_fisheye_f = R"GLSL(
+const char* Draw2D::m_shader_fisheye_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -326,7 +326,7 @@ const char* osal::gfx::Draw2D::m_shader_fisheye_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Dream Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_dream_v = R"GLSL(
+const char* Draw2D::m_shader_dream_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -350,7 +350,7 @@ const char* osal::gfx::Draw2D::m_shader_dream_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_dream_f = R"GLSL(
+const char* Draw2D::m_shader_dream_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -390,7 +390,7 @@ const char* osal::gfx::Draw2D::m_shader_dream_f = R"GLSL(
 // ----------------------------------------------------------------------------
 // Thermo Shader
 // ----------------------------------------------------------------------------
-const char* osal::gfx::Draw2D::m_shader_thermo_v = R"GLSL(
+const char* Draw2D::m_shader_thermo_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
@@ -414,7 +414,7 @@ const char* osal::gfx::Draw2D::m_shader_thermo_v = R"GLSL(
       gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
   }
 )GLSL";
-const char* osal::gfx::Draw2D::m_shader_thermo_f = R"GLSL(
+const char* Draw2D::m_shader_thermo_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif

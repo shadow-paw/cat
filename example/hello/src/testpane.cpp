@@ -2,8 +2,6 @@
 
 using namespace app;
 using namespace osal;
-using namespace osal::ui;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pane(kernel, rect, id) {
@@ -20,7 +18,7 @@ TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pan
     attach(button);
 
     button->ev_click += [](Widget* w) -> bool {
-        util::Logger::d("App", "TestPane Button Clicked!");
+        Logger::d("App", "TestPane Button Clicked!");
         return true;
     };
 }
@@ -32,7 +30,7 @@ TestPane::~TestPane() {
 void TestPane::cb_render(Renderer* r, unsigned long now) {
     capture(m_effect_tex, m_absrect);
     r->draw2d.fill(m_absrect, 0xffffffff, &m_effect_tex, now, m_shader);
-    post_timer(33, 0);
     Pane::cb_render(r, now);
+    r->dirty();
 }
 // ----------------------------------------------------------------------------

@@ -5,7 +5,7 @@
   #define glClearDepthf(x) glClearDepth(x)
 #endif
 
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 Renderer::Renderer() {

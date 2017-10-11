@@ -24,9 +24,9 @@ Java_com_shadowpaw_osal_glue_OSALView_jniInit(JNIEnv *env, jobject self, jobject
     data->asset_manager = env->NewGlobalRef(assmgr);
     PlatformSpecificData psd;
     psd.rootview = data->rootview;
-    data->kernel = new Kernel();
+    data->kernel = new osal::Kernel();
     data->kernel->init(psd);
-    data->kernel->vfs()->mount("/assets/", new storage::AssetDriver(data->asset_manager));
+    data->kernel->vfs()->mount("/assets/", new osal::AssetDriver(data->asset_manager));
     return env->NewDirectByteBuffer((void*)data, sizeof(OSAL_INSTANCE));
 }
 extern "C" JNIEXPORT void JNICALL

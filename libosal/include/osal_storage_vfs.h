@@ -7,7 +7,7 @@
 #include "osal_storage_buffer.h"
 #include "osal_storage_driver.h"
 
-namespace osal { namespace storage {
+namespace osal {
 // ----------------------------------------------------------------------------
 class VFS {
 public:
@@ -22,6 +22,6 @@ private:
     std::unordered_map<std::string,std::unique_ptr<Driver>> m_mounts;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::storage
+} // namespace osal
 
 #endif // __OSAL_STORAGE_VFS_H__

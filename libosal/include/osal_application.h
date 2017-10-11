@@ -10,7 +10,7 @@
 
 namespace osal {
 // ----------------------------------------------------------------------------
-class Application : public time::TimerHandler<int> {
+class Application : public TimerHandler<int> {
 friend class Kernel;
 public:
     Application() {
@@ -21,15 +21,15 @@ public:
         kernel()->time()->remove_timer(this);
     }
 protected:
-    virtual bool cb_startup(time::Timestamp now) = 0;
-    virtual void cb_shutdown(time::Timestamp now) = 0;
+    virtual bool cb_startup(Timestamp now) = 0;
+    virtual void cb_shutdown(Timestamp now) = 0;
     virtual void cb_pause() = 0;
     virtual void cb_resume() = 0;
     virtual bool cb_context_lost() = 0;
     virtual void cb_context_restored() = 0;
     virtual void cb_resize(int width, int height) = 0;
-    virtual void cb_render(gfx::Renderer* r, time::Timestamp now) = 0;
-    virtual bool cb_timer(time::Timestamp now, int msg) = 0;
+    virtual void cb_render(Renderer* r, Timestamp now) = 0;
+    virtual bool cb_timer(Timestamp now, int msg) = 0;
 protected:
     KernelApi* kernel() const { return m_kernel; }
     void exit() { m_running = false; }

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <android/asset_manager_jni.h>
 
-using namespace osal::storage;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 AssetDriver::AssetDriver(jobject asset_manager) {

@@ -3,8 +3,6 @@
 #include "osal_ui_service.h"
 
 using namespace osal;
-using namespace osal::ui;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 Pane::Pane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
@@ -60,15 +58,15 @@ bool Pane::cb_touch(const TouchEvent& ev, bool handled) {
     } return false;
 }
 // ----------------------------------------------------------------------------
-bool Pane::cb_timer(osal::time::Timestamp now, int code) {
+bool Pane::cb_timer(Timestamp now, int code) {
     return true;
 }
 // ----------------------------------------------------------------------------
-void Pane::cb_render(Renderer* r, osal::time::Timestamp now) {
-    if (m_effect != osal::gfx::Draw2D::Effect::None) {
+void Pane::cb_render(Renderer* r, Timestamp now) {
+    if (m_effect != Draw2D::Effect::None) {
         kernel()->ui()->capture(m_effect_tex, m_absrect);
         r->draw2d.fill(m_absrect, 0xffffffff, &m_effect_tex, now, m_effect);
-        post_timer(33, 0);
+        r->dirty();
     }
     r->draw2d.fill(m_absrect, m_bgcolor, m_texrefs[TexBackground], now);
 }

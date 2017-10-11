@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "ios/osal_gfx_canvas.h"
 
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 DrawableCanvas::DrawableCanvas() {

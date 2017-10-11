@@ -22,7 +22,7 @@
     self.m_kernel = new osal::Kernel();
     if (!self.m_kernel->init(psd)) return NO;
     [view setKernel:self.m_kernel];
-    self.m_kernel->vfs()->mount("/assets/", new osal::storage::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
+    self.m_kernel->vfs()->mount("/assets/", new osal::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
     self.m_kernel->run(new app::BootApp());

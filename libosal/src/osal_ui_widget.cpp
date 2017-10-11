@@ -7,8 +7,6 @@
 #include "osal_util_log.h"
 
 using namespace osal;
-using namespace osal::ui;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) {
@@ -33,7 +31,7 @@ Widget::~Widget() {
 // ----------------------------------------------------------------------------
 bool Widget::attach(Widget* child) {
     if (child->m_parent) {
-        util::Logger::e("osal", "UI.attach - widget already has a parent!");
+        Logger::e("osal", "UI.attach - widget already has a parent!");
         return false;
     }
     child->m_parent = this;
@@ -136,7 +134,7 @@ void Widget::set_bgcolor(uint32_t color) {
 // -----------------------------------------------------------
 void Widget::set_texture(unsigned int index, const char* name, int u0, int v0, int u1, int v1, int border_u, int border_v) {
     if (index >= m_texrefs.size()) return;
-    const gfx::Texture* oldtex = m_texrefs[index].tex;
+    const Texture* oldtex = m_texrefs[index].tex;
     m_texrefs[index].tex = name ? m_kernel->res()->retain_tex(name) : nullptr;
     m_texrefs[index].u1 = u0;
     m_texrefs[index].v1 = v0;
@@ -174,7 +172,7 @@ bool Widget::touch(const TouchEvent& ev, bool handled) {
     return handled;
 }
 // ----------------------------------------------------------------------------
-void Widget::render(gfx::Renderer* r, time::Timestamp now) {
+void Widget::render(Renderer* r, Timestamp now) {
     if (!m_visible) return;
     cb_render(r, now);
     for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
@@ -182,7 +180,7 @@ void Widget::render(gfx::Renderer* r, time::Timestamp now) {
     }
 }
 // ----------------------------------------------------------------------------
-void Widget::post_timer(time::Timestamp delay, int code) {
+void Widget::post_timer(Timestamp delay, int code) {
     m_kernel->time()->post_timer(this, delay, code);
 }
 // ----------------------------------------------------------------------------
@@ -190,11 +188,11 @@ void Widget::remove_timer() {
     m_kernel->time()->remove_timer(this);
 }
 // ----------------------------------------------------------------------------
-void Widget::capture(gfx::Texture& tex, const gfx::Rect2i& rect) {
+void Widget::capture(Texture& tex, const Rect2i& rect) {
     m_kernel->ui()->capture(tex, rect);
 }
 // ----------------------------------------------------------------------------
-osal::gfx::Draw2D* Widget::draw2d() {
+Draw2D* Widget::draw2d() {
     return &m_kernel->renderer()->draw2d;
 }
 // ----------------------------------------------------------------------------

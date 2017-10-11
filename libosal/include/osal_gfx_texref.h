@@ -3,7 +3,7 @@
 
 #include "osal_gfx_tex.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class TextureRef {
 public:
@@ -17,6 +17,6 @@ public:
     }
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_TEXREF_H__

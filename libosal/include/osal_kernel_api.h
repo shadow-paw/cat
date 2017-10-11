@@ -4,23 +4,14 @@
 #include "osal_platform.h"
 #include "osal_type.h"
 
-// Forward declaration, sadly c++ does not allowg short class gfx::Renderer;
-// ----------------------------------------------------------------------------
-namespace osal { namespace gfx {
-    class Renderer;
-    class ResourceManager;
-}}
-namespace osal { namespace time {
-    class TimeService;
-}}
-namespace osal { namespace storage {
-    class VFS;
-}}
-namespace osal { namespace ui {
-    class UIService;
-}}
-
 namespace osal {
+// ----------------------------------------------------------------------------
+class Renderer;
+class ResourceManager;
+class VFS;
+class TimeService;
+class UIService;
+class Application;
 // ----------------------------------------------------------------------------
 class KernelApi {
 public:
@@ -39,12 +30,14 @@ public:
     }
 
 public:
+    virtual bool run(Application* app) = 0;
+
     virtual const PlatformSpecificData* psd() = 0;
-    virtual storage::VFS*               vfs() = 0;
-    virtual gfx::Renderer*              renderer() = 0;
-    virtual gfx::ResourceManager*       res() = 0;
-    virtual time::TimeService*          time() = 0;
-    virtual ui::UIService*              ui() = 0;
+    virtual VFS*             vfs() = 0;
+    virtual Renderer*        renderer() = 0;
+    virtual ResourceManager* res() = 0;
+    virtual TimeService*     time() = 0;
+    virtual UIService*       ui() = 0;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal

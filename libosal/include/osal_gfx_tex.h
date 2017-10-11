@@ -6,7 +6,7 @@
 #include "osal_platform.h"
 #include "osal_gfx_type.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Texture {
 public:
@@ -34,6 +34,6 @@ private:
     GLuint m_tex;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_TEX_H__

@@ -1,7 +1,7 @@
 #include "osal_util_log.h"
 #include <android/log.h>
 
-using namespace osal::util;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 void Logger::d(const char* tag, const char* fmt, ...) {

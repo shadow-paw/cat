@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 #include "osal_platform.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 #define OSAL_GFX_OFFSETOF(struc,member) ((void*)((size_t) &((struc*)0)->member))
 class Shader {
@@ -53,6 +53,6 @@ private:
     GLint  m_uniform[64];
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_SHADER_H__

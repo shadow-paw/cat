@@ -13,23 +13,23 @@
 #include "osal_time_queue.h"
 #include "osal_ui_handler.h"
 
-namespace osal { namespace ui {
+namespace osal {
 // ----------------------------------------------------------------------------
-class Widget : public time::TimerHandler<int> {
+class Widget : public TimerHandler<int> {
 friend class UIService;
 public:
     // Event Handlers
     EventHandlers<> ev_click;
 
-    Widget(KernelApi* kernel, const gfx::Rect2i& rect, unsigned int id = 0);
+    Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Widget();
 
     // ------------------------------------------------------------------ Size and Position
     void set_pos(int x, int y);
     void set_size(int width, int height);
-    void set_pos(const gfx::Point2i& pos);
-    void set_size(const gfx::Size2i& size);
-    const gfx::Size2i& get_size() const { return m_rect.size; }
+    void set_pos(const Point2i& pos);
+    void set_size(const Size2i& size);
+    const Size2i& get_size() const { return m_rect.size; }
     void bring_tofront();
     // ------------------------------------------------------------------ Size and Position
 
@@ -63,28 +63,28 @@ protected:
     virtual void cb_visible(bool b) {}
     virtual void cb_enable(bool b) {}
     virtual void cb_resize() {}
-    virtual bool cb_timer(time::Timestamp now, int code) { return false; }
+    virtual bool cb_timer(Timestamp now, int code) { return false; }
     virtual bool cb_touch(const TouchEvent& ev, bool handled) { return false; }
-    virtual void cb_render(gfx::Renderer* r, time::Timestamp now) {}
+    virtual void cb_render(Renderer* r, Timestamp now) {}
 
 protected:  // Helper function for widget
     void update_absrect();
-    void post_timer(time::Timestamp delay, int code);
+    void post_timer(Timestamp delay, int code);
     void remove_timer();
-    void capture(gfx::Texture& tex, const gfx::Rect2i& rect);
+    void capture(Texture& tex, const Rect2i& rect);
 
 protected:
     Widget* m_parent;
     std::list<Widget*> m_childs;
     unsigned int m_id;
-    gfx::Rect2i  m_rect, m_absrect;
+    Rect2i  m_rect, m_absrect;
     uint32_t     m_bgcolor;
-    std::vector<gfx::TextureRef> m_texrefs;
+    std::vector<TextureRef> m_texrefs;
     bool         m_enable, m_visible;
 
 private:
     // called from UISystem or internal signal propagate
-    void render(gfx::Renderer* r, time::Timestamp now);
+    void render(Renderer* r, Timestamp now);
     bool touch(const TouchEvent& ev, bool handled);
     void notify_uiscaled();
     void notify_visible(bool b);
@@ -92,12 +92,12 @@ private:
 
 protected:
     KernelApi* kernel() const { return m_kernel; }
-    osal::gfx::Draw2D* draw2d();
+    Draw2D* draw2d();
 private:
     KernelApi* m_kernel; // hide from widget, access throw helper
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_WIDGET_H__
 

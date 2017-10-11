@@ -9,7 +9,7 @@
 #include "osal_gfx_type.h"
 #include "osal_gfx_tex.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class DrawableCanvas {
 public:
@@ -35,6 +35,6 @@ private:
     CFAttributedStringRef create_string(const char* utf8);
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_CANVAS_MAC_H__

@@ -1,7 +1,7 @@
 #include "osal_time_service.h"
 #include <chrono>
 
-using namespace osal::time;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 TimeService::TimeService() {
@@ -34,7 +34,7 @@ bool TimeService::timer() {
 // ----------------------------------------------------------------------------
 Timestamp TimeService::now() const {
     return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>
-    (std::chrono::system_clock::now().time_since_epoch()).count();
+            (std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
 // ----------------------------------------------------------------------------

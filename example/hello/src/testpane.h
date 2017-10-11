@@ -5,15 +5,15 @@
 
 namespace app {
 // ----------------------------------------------------------------------------
-class TestPane : public osal::ui::Pane {
+class TestPane : public osal::Pane {
 public:
-    TestPane(osal::KernelApi* kernel, const osal::gfx::Rect2i& rect, unsigned int id = 0);
+    TestPane(osal::KernelApi* kernel, const osal::Rect2i& rect, unsigned int id = 0);
     virtual ~TestPane();
 
 protected:
-    virtual void cb_render(osal::gfx::Renderer* r, osal::time::Timestamp now);
+    virtual void cb_render(osal::Renderer* r, osal::Timestamp now);
 private:
-    const osal::gfx::Shader* m_shader;
+    const osal::Shader* m_shader;
 };
 // ----------------------------------------------------------------------------
 } // namespace app

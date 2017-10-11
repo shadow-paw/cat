@@ -5,9 +5,9 @@
 #include "osal_storage_buffer.h"
 #include "osal_storage_driver.h"
 
-namespace osal { namespace storage {
+namespace osal {
 // ----------------------------------------------------------------------------
-class FileDriver : public Driver {
+class FileDriver: public Driver {
 public:
     FileDriver(const std::string& base);
     virtual ~FileDriver();
@@ -17,6 +17,6 @@ private:
     std::string m_base;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::storage
+} // namespace osal
 
 #endif // __OSAL_STORAGE_DRIVER_FILE_H__

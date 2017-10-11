@@ -4,7 +4,7 @@
 #include "osal_ui_widget.h"
 #include "osal_gfx_type.h"
 
-namespace osal { namespace ui {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Slider : public Widget {
 public:
@@ -15,7 +15,7 @@ public:
     // Event Handlers
     EventHandlers<int> ev_slide;
 
-    Slider(osal::KernelApi* kernel, const osal::gfx::Rect2i& rect, unsigned int id = 0);
+    Slider(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Slider();
 
     void       set_orentation(Orentation o);
@@ -31,18 +31,18 @@ public:
 protected:
     virtual void cb_resize();
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
-    virtual void cb_render(osal::gfx::Renderer* r, osal::time::Timestamp now);
+    virtual void cb_render(Renderer* r, Timestamp now);
 
 protected:
     Orentation m_orentation;
     int    m_min, m_max, m_pos;
-    osal::gfx::Rect2i m_thumbrc;
+    Rect2i m_thumbrc;
     bool   m_dragging;
     int    m_dragx, m_dragy;
     void update_thumbrc();
     int choose_pos(int x, int y) const;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_SILDER_H__

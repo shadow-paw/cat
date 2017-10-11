@@ -1,7 +1,7 @@
 #include "osal_gfx_ibo.h"
 #include <stdlib.h>
 
-using namespace osal::gfx;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 IBO::IBO() {

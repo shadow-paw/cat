@@ -4,8 +4,6 @@
 #include "osal_util_log.h"
 
 using namespace osal;
-using namespace osal::gfx;
-using namespace osal::util;
 
 // Fix android
 #if defined(PLATFORM_ANDROID)

@@ -4,30 +4,30 @@
 #include "osal_ui_widget.h"
 #include "osal_gfx_type.h"
 
-namespace osal { namespace ui {
+namespace osal {
 // ----------------------------------------------------------------------------
-class Label : public Widget {
+class Label: public Widget {
 public:
     static const int TexBackground = 0;
 
-    Label(osal::KernelApi* kernel, const osal::gfx::Rect2i& rect, unsigned int id = 0);
+    Label(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Label();
 
     void             set_text(const std::string& s) { m_text = s; }
     std::string      get_text() const { return m_text; }
-    void             set_textstyle(const osal::gfx::TextStyle& style) { m_textstyle = style; }
-    const osal::gfx::TextStyle& get_textstyle() const { return m_textstyle; }
+    void             set_textstyle(const TextStyle& style) { m_textstyle = style; }
+    const TextStyle& get_textstyle() const { return m_textstyle; }
     void             set_textsize(int size) { m_textstyle.fontsize = size; }
     void             set_textcolor(uint32_t color) { m_textstyle.color = color; }    
 
 protected:
-    virtual void cb_render(osal::gfx::Renderer* r, osal::time::Timestamp now);
+    virtual void cb_render(Renderer* r, Timestamp now);
 
 protected:
     std::string  m_text;
-    osal::gfx::TextStyle m_textstyle;
+    TextStyle m_textstyle;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_LABEL_H__

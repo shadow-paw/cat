@@ -1,7 +1,7 @@
 #include "osal_storage_buffer.h"
 #include <stdlib.h>
 
-using namespace osal::storage;
+using namespace osal;
 
 // ----------------------------------------------------------------------------
 Buffer::Buffer() {

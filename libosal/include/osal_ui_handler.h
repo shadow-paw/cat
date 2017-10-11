@@ -4,7 +4,7 @@
 #include <functional>
 #include <list>
 
-namespace osal { namespace ui {
+namespace osal {
 class Widget;
 // ----------------------------------------------------------------------------
 template <class... ARG>
@@ -28,6 +28,6 @@ private:
     std::list<HANDLER> m_handlers;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::ui
+} // namespace osal
 
 #endif // __OSAL_UI_HANDLER_H__

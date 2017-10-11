@@ -2,7 +2,6 @@
 #include "bootapp.h"
 
 using namespace osal;
-using namespace osal::stub;
 using namespace app;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow) {
@@ -18,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
     // mount our assets
-    kernel->vfs()->mount("/assets/", new osal::storage::FileDriver("../"));
+    kernel->vfs()->mount("/assets/", new osal::FileDriver("../"));
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();

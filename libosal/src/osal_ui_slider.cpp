@@ -2,8 +2,6 @@
 #include "osal_gfx_renderer.h"
 
 using namespace osal;
-using namespace osal::ui;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 Slider::Slider(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
@@ -174,7 +172,7 @@ void Slider::update_thumbrc() {
     }
 }
 // ----------------------------------------------------------------------------
-void Slider::cb_render(Renderer* r, osal::time::Timestamp now) {
+void Slider::cb_render(Renderer* r, Timestamp now) {
     r->draw2d.fill(m_absrect, 0xffffffff, m_texrefs[TexBackground], now);
     r->draw2d.fill(m_thumbrc, 0xffffffff, m_texrefs[TexThumb], now);
 }

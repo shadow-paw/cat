@@ -7,7 +7,7 @@
 #include "osal_gfx_tex.h"
 #include "osal_gfx_canvas.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Drawable {
 public:
@@ -36,6 +36,6 @@ private:
     DrawableCanvas m_canvas;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_DRAWABLE_H__

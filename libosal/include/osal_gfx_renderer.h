@@ -4,7 +4,7 @@
 #include "osal_type.h"
 #include "osal_gfx_draw2d.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Renderer {
 public:
@@ -35,6 +35,6 @@ private:
     int  m_width, m_height;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal
 
 #endif // __OSAL_GFX_RENDERER_H__

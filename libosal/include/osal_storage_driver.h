@@ -4,7 +4,7 @@
 #include <string>
 #include "osal_storage_buffer.h"
 
-namespace osal { namespace storage {
+namespace osal {
 // ----------------------------------------------------------------------------
 class Driver {
 public:
@@ -14,6 +14,6 @@ public:
     virtual bool write(const std::string& name, const Buffer& buffer) = 0;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::storage
+} // namespace osal
 
 #endif // __OSAL_STORAGE_DRIVER_H__

@@ -22,7 +22,6 @@ public:
 
     bool init(const PlatformSpecificData& psd);
     void fini();
-    bool run(Application* app);
 
 public:
     // Called from glue
@@ -39,20 +38,21 @@ public:
 
 public:
     // Kernel API
+    virtual bool run(Application* app);
     virtual const PlatformSpecificData* psd() { return &m_psd; }
-    virtual storage::VFS*               vfs() { return &m_vfs; }
-    virtual gfx::Renderer*              renderer() { return &m_renderer; }
-    virtual gfx::ResourceManager*       res() { return &m_res; }
-    virtual time::TimeService*          time() { return &m_time; }
-    virtual ui::UIService*              ui() { return &m_ui; }
+    virtual VFS*             vfs() { return &m_vfs; }
+    virtual Renderer*        renderer() { return &m_renderer; }
+    virtual ResourceManager* res() { return &m_res; }
+    virtual TimeService*     time() { return &m_time; }
+    virtual UIService*       ui() { return &m_ui; }
 
 private:
     PlatformSpecificData  m_psd;
-    storage::VFS          m_vfs;
-    gfx::Renderer         m_renderer;
-    gfx::ResourceManager  m_res;
-    time::TimeService     m_time;
-    ui::UIService         m_ui;
+    VFS             m_vfs;
+    Renderer        m_renderer;
+    ResourceManager m_res;
+    TimeService     m_time;
+    UIService       m_ui;
     std::list<std::unique_ptr<Application>> m_apps;
 };
 // ----------------------------------------------------------------------------

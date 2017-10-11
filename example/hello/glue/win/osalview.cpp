@@ -1,7 +1,6 @@
 #include "osalview.h"
 
 using namespace osal;
-using namespace osal::stub;
 
 // ----------------------------------------------------------------------------
 OSALView::OSALView() {

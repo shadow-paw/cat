@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 using namespace osal;
-using namespace osal::gfx;
 
 // ----------------------------------------------------------------------------
 Texture::Texture() {

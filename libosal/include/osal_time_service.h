@@ -3,13 +3,8 @@
 
 #include "osal_time_queue.h"
 
-// Forward declaration, sadly c++ does not allowg short class gfx::Renderer;
-// ----------------------------------------------------------------------------
 namespace osal {
-    class Kernel;
-}
-
-namespace osal { namespace time {
+class Kernel;
 // ----------------------------------------------------------------------------
 class TimeService {
 friend class osal::Kernel;
@@ -27,10 +22,10 @@ private:
     bool timer();
 
 private:
-    time::TimerQueue<int> m_timequeue;
+    TimerQueue<int> m_timequeue;
     Timestamp m_last;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::time
+} // namespace osal
 
 #endif // __OSAL_TIME_SERVICE_H__

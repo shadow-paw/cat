@@ -3,7 +3,7 @@
 
 #include "libosal.h"
 
-namespace osal { namespace stub {
+namespace osal {
 // ----------------------------------------------------------------------------
 class OSALView {
 public:
@@ -32,6 +32,6 @@ private:
     static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::stun
+} // namespace osal
 
 #endif // __GRAPHITE_VIEW_H__

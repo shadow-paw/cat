@@ -3,7 +3,7 @@
 
 #include "osal_platform.h"
 
-namespace osal { namespace gfx {
+namespace osal {
 // ----------------------------------------------------------------------------
 // Shader Data
 // ----------------------------------------------------------------------------
@@ -79,6 +79,6 @@ struct TextStyle {
     }
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::gfx
+} // namespace osal::gfx
 
 #endif // __OSAL_GFX_TYPE_H__
