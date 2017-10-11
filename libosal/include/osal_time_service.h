@@ -23,7 +23,7 @@ private:
 
 private:
     TimerQueue<int> m_timequeue;
-    Timestamp m_last;
+    Timestamp m_last, m_tick;
 };
 // ----------------------------------------------------------------------------
 } // namespace osal

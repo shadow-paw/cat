@@ -88,7 +88,8 @@ bool Kernel::timer() {
             it = m_apps.erase(it);
         }
     }
-    return m_time.timer();
+    if (m_time.timer()) m_renderer.dirty();
+    return m_renderer.is_dirty();
 }
 // ----------------------------------------------------------------------------
 void Kernel::render() {

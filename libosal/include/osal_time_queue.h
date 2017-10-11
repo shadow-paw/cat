@@ -2,6 +2,7 @@
 #define __OSAL_TIME_QUEUE_H__
 
 #include <list>
+#include <mutex>
 #include "osal_time_type.h"
 
 namespace osal {
@@ -24,6 +25,7 @@ private:
         TimerHandler<T>* handler;
         T                message;
     };
+    std::mutex      m_mutex;
     std::list<NODE> m_queue;
     unsigned long   m_tick;
 };
@@ -31,6 +33,7 @@ private:
 template <typename T>
 bool TimerQueue<T>::post(TimerHandler<T>* handler, Timestamp tick, const T& message) {
     if (!handler) return false;
+    std::lock_guard<std::mutex> lock(m_mutex);
     if (m_queue.size() == 0) {
         m_tick = 0;
     } else {
@@ -50,7 +53,8 @@ bool TimerQueue<T>::post(TimerHandler<T>* handler, Timestamp tick, const T& mess
 // -----------------------------------------------------------
 template <typename T>
 bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
-	auto node = m_queue.begin();
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto node = m_queue.begin();
 	if (node == m_queue.end()) return false;
     m_tick += tick;
     if (m_tick >= node->tick) {
@@ -64,6 +68,7 @@ bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
 // -----------------------------------------------------------
 template <typename T>
 void TimerQueue<T>::remove(TimerHandler<T>* handler) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     for (auto it = m_queue.begin(); it != m_queue.end();) {
         if (it->handler == handler) {
             it = m_queue.erase(it);

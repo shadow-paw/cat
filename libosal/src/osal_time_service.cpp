@@ -5,7 +5,7 @@ using namespace osal;
 
 // ----------------------------------------------------------------------------
 TimeService::TimeService() {
-    m_last = 0;
+    m_last = now();
 }
 // ----------------------------------------------------------------------------
 TimeService::~TimeService() {
@@ -36,5 +36,4 @@ Timestamp TimeService::now() const {
     return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>
             (std::chrono::system_clock::now().time_since_epoch()).count();
 }
-
 // ----------------------------------------------------------------------------

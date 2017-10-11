@@ -109,6 +109,7 @@ bool BootApp::cb_startup(Timestamp now) {
         return true;
     };
     kernel()->time()->post_timer(this, 1000, 1);
+    kernel()->time()->post_timer(this, 2000, 2);
     return true;
 }
 // // cb_shutdown is called after app->exit()
@@ -162,8 +163,16 @@ void BootApp::cb_render(Renderer* r, Timestamp now) {
 }
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(Timestamp now, int msg) {
-    Logger::d("app", "timer: %lu", now);
-    kernel()->time()->post_timer(this, 1000, 1);
+    switch (msg) {
+    case 1:
+        Logger::d("app", "timer 1: %lu", now);
+        kernel()->time()->post_timer(this, 1000, 1);
+        break;
+    case 2:
+        Logger::d("app", "timer 2: %lu", now);
+        kernel()->time()->post_timer(this, 2000, 2);
+        break;
+    }
     return true;
 }
 // ----------------------------------------------------------------------------
