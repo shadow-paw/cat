@@ -17,7 +17,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     m_native_ctrl = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|ES_AUTOHSCROLL,
         0, 0, 0, 0,
         kernel->psd()->rootview, NULL,
-        (HINSTANCE)GetWindowLongPtr(get_psd()->rootview, GWLP_HINSTANCE),
+        (HINSTANCE)GetWindowLongPtr(kernel->psd()->rootview, GWLP_HINSTANCE),
         NULL);
 #elif defined(PLATFORM_MAC)
     NSView* rootview = (__bridge NSView*)kernel->psd()->rootview;
