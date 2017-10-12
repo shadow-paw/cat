@@ -17,22 +17,22 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_gfx_vbo.cpp \
                 ../../src/osal_gfx_tex.cpp \
                 ../../src/osal_gfx_shader.cpp \
+                ../../src/osal_gfx_canvas.cpp \
                 ../../src/osal_gfx_drawable.cpp \
                 ../../src/osal_gfx_draw2d.cpp \
                 ../../src/osal_gfx_draw2d_shaders.cpp \
                 ../../src/osal_gfx_resmgr.cpp \
                 ../../src/osal_time_service.cpp \
+                ../../src/osal_util_jni.cpp \
+                ../../src/osal_util_log.cpp \
+                ../../src/osal_storage_driver_file.cpp \
+                ../../src/osal_storage_driver_asset.cpp \
                 ../../src/osal_ui_service.cpp \
                 ../../src/osal_ui_widget.cpp \
                 ../../src/osal_ui_pane.cpp \
                 ../../src/osal_ui_label.cpp \
                 ../../src/osal_ui_button.cpp \
-                ../../src/osal_ui_slider.cpp \
-                ../../src/android/osal_jni.cpp \
-                ../../src/android/osal_util_log.cpp \
-                ../../src/android/osal_gfx_canvas.cpp \
-                ../../src/android/osal_storage_driver_file.cpp \
-                ../../src/android/osal_storage_driver_asset.cpp
+                ../../src/osal_ui_slider.cpp
 
 include $(BUILD_STATIC_LIBRARY)
 

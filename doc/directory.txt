@@ -22,15 +22,7 @@
 │   │   ├── xcodeproj
 │   │   └── ndk-build
 │   ├── include             # Public accessible headers
-│   │   ├── win             # Platform-dependent headers
-│   │   ├── mac             # ..
-│   │   ├── ios             # ..
-│   │   └── android         # ..
 │   ├── src                 # Platform-independent sources and private headers
-│   │   ├── win             # Platform-dependent sources and private headers
-│   │   ├── mac             # ..
-│   │   ├── ios             # ..
-│   │   └── android         # ..
 │   └── lib                 # Output Library
 │       ├── win32
 │       ├── win64

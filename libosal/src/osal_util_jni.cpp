@@ -1,4 +1,5 @@
-#include "android/osal_jni.h"
+#include "osal_util_jni.h"
+#if defined(PLATFORM_ANDROID)
 
 using namespace osal;
 
@@ -33,3 +34,4 @@ JNIHelper::~JNIHelper() {
     m_attached = false;
 }
 // ----------------------------------------------------------------------------
+#endif // PLATFORM_ANDROID

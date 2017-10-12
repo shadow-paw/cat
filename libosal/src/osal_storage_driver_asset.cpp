@@ -1,4 +1,5 @@
-#include "android/osal_storage_driver_asset.h"
+#if defined(PLATFORM_ANDROID)
+#include "osal_storage_driver_asset.h"
 #include <stdio.h>
 #include <android/asset_manager_jni.h>
 
@@ -33,3 +34,4 @@ bool AssetDriver::write(const std::string& name, const Buffer& buffer) {
     return false;    
 }
 // ----------------------------------------------------------------------------
+#endif // PLATFORM_ANDROID

@@ -82,12 +82,6 @@
     <ClInclude Include="..\include\osal_storage_driver_file.h">
       <Filter>libosal\storage</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\win\osal_platform.h">
-      <Filter>libosal\kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\win\osal_gfx_canvas.h">
-      <Filter>libosal\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\osal_kernel_api.h">
       <Filter>libosal\kernel</Filter>
     </ClInclude>
@@ -124,6 +118,15 @@
     <ClInclude Include="..\include\osal_ui_slider.h">
       <Filter>libosal\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_util_jni.h">
+      <Filter>libosal\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_storage_driver_asset.h">
+      <Filter>libosal\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\osal_gfx_canvas.h">
+      <Filter>libosal\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
@@ -147,13 +150,7 @@
     <ClCompile Include="..\src\osal_gfx_vbo.cpp">
       <Filter>libosal\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\win\osal_util_log.cpp">
-      <Filter>libosal\util</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\osal_gfx_drawable.cpp">
-      <Filter>libosal\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\win\osal_gfx_canvas.cpp">
       <Filter>libosal\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_gfx_draw2d.cpp">
@@ -166,9 +163,6 @@
       <Filter>libosal\storage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_storage_vfs.cpp">
-      <Filter>libosal\storage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\win\osal_storage_driver_file.cpp">
       <Filter>libosal\storage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_time_service.cpp">
@@ -191,6 +185,21 @@
     </ClCompile>
     <ClCompile Include="..\src\osal_ui_slider.cpp">
       <Filter>libosal\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_util_jni.cpp">
+      <Filter>libosal\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_util_log.cpp">
+      <Filter>libosal\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_storage_driver_file.cpp">
+      <Filter>libosal\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_storage_driver_asset.cpp">
+      <Filter>libosal\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_gfx_canvas.cpp">
+      <Filter>libosal\graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

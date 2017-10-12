@@ -1,5 +1,6 @@
 #ifndef __OSAL_STORAGE_DRIVER_ASSET_H__
 #define __OSAL_STORAGE_DRIVER_ASSET_H__
+#if defined(PLATFORM_ANDROID)
 
 #include <string>
 #include <android/asset_manager_jni.h>
@@ -21,4 +22,5 @@ private:
 // ----------------------------------------------------------------------------
 } // namespace osal::storage
 
+#endif // PLATFORM_ANDROID
 #endif // __OSAL_STORAGE_DRIVER_ASSET_H__
