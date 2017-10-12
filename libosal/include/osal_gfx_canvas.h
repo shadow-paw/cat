@@ -7,6 +7,13 @@
 #include "osal_gfx_type.h"
 #include "osal_gfx_tex.h"
 
+#if defined(PLATFORM_MAC)
+  #include <ApplicationServices/ApplicationServices.h>
+#elif defined(PLATFORM_IOS)
+  #include <CoreGraphics/CoreGraphics.h>
+  #include <CoreText/CoreText.h>
+#endif
+
 namespace osal {
 // ----------------------------------------------------------------------------
 class DrawableCanvas {

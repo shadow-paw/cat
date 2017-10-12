@@ -1,6 +1,3 @@
-#if defined(PLATFORM_MAC)
-  #include <ApplicationServices/ApplicationServices.h>
-#endif
 #include <stdlib.h>
 #include "osal_gfx_canvas.h"
 
