@@ -61,9 +61,8 @@ Open `example/hello/proj/example.vcxproj` with Visual Studio. There are four tar
 #### Build libosal - android
 ```
 cd libosal/proj/
-ndk-build.cmd
+ndk-build.cmd -j4
 ```
-<sup>Note that we have a post-build event to move output libraries, which currently does not work with `-j` option.</sup>
   
 #### Build example - android
 Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.
@@ -102,9 +101,8 @@ Open `example/hello/proj/example.xcodeproj` with Xcode. Edit scheme and choose `
 #### Build libosal - android
 ```
 cd libosal/proj/
-ndk-build
+ndk-build -j4
 ```
-<sup>Note that we have a post-build event to move output libraries, which currently does not work with `-j` option.</sup>
 
 #### Build example - android
 Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.

@@ -7,7 +7,7 @@
 #include "osal_storage_buffer.h"
 #include "osal_storage_driver.h"
 
-namespace osal { namespace storage {
+namespace osal {
 // ----------------------------------------------------------------------------
 class AssetDriver : public Driver {
 public:
@@ -19,6 +19,6 @@ private:
     AAssetManager* m_manager;
 };
 // ----------------------------------------------------------------------------
-}} // namespace osal::storage
+} // namespace osal::storage
 
 #endif // __OSAL_STORAGE_DRIVER_ASSET_H__
