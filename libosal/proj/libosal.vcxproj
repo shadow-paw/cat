@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\osal_gfx_canvas.cpp" />
     <ClCompile Include="..\src\osal_gfx_draw2d.cpp" />
     <ClCompile Include="..\src\osal_gfx_draw2d_shaders.cpp" />
     <ClCompile Include="..\src\osal_gfx_drawable.cpp" />
@@ -30,6 +31,8 @@
     <ClCompile Include="..\src\osal_gfx_vbo.cpp" />
     <ClCompile Include="..\src\osal_kernel.cpp" />
     <ClCompile Include="..\src\osal_storage_buffer.cpp" />
+    <ClCompile Include="..\src\osal_storage_driver_asset.cpp" />
+    <ClCompile Include="..\src\osal_storage_driver_file.cpp" />
     <ClCompile Include="..\src\osal_storage_vfs.cpp" />
     <ClCompile Include="..\src\osal_time_service.cpp" />
     <ClCompile Include="..\src\osal_ui_button.cpp" />
@@ -38,12 +41,12 @@
     <ClCompile Include="..\src\osal_ui_service.cpp" />
     <ClCompile Include="..\src\osal_ui_slider.cpp" />
     <ClCompile Include="..\src\osal_ui_widget.cpp" />
-    <ClCompile Include="..\src\win\osal_gfx_canvas.cpp" />
-    <ClCompile Include="..\src\win\osal_storage_driver_file.cpp" />
-    <ClCompile Include="..\src\win\osal_util_log.cpp" />
+    <ClCompile Include="..\src\osal_util_jni.cpp" />
+    <ClCompile Include="..\src\osal_util_log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\osal_application.h" />
+    <ClInclude Include="..\include\osal_gfx_canvas.h" />
     <ClInclude Include="..\include\osal_gfx_draw2d.h" />
     <ClInclude Include="..\include\osal_gfx_drawable.h" />
     <ClInclude Include="..\include\osal_gfx_ibo.h" />
@@ -60,6 +63,7 @@
     <ClInclude Include="..\include\libosal.h" />
     <ClInclude Include="..\include\osal_storage_buffer.h" />
     <ClInclude Include="..\include\osal_storage_driver.h" />
+    <ClInclude Include="..\include\osal_storage_driver_asset.h" />
     <ClInclude Include="..\include\osal_storage_driver_file.h" />
     <ClInclude Include="..\include\osal_storage_vfs.h" />
     <ClInclude Include="..\include\osal_time_queue.h" />
@@ -73,9 +77,8 @@
     <ClInclude Include="..\include\osal_ui_service.h" />
     <ClInclude Include="..\include\osal_ui_slider.h" />
     <ClInclude Include="..\include\osal_ui_widget.h" />
+    <ClInclude Include="..\include\osal_util_jni.h" />
     <ClInclude Include="..\include\osal_util_log.h" />
-    <ClInclude Include="..\include\win\osal_gfx_canvas.h" />
-    <ClInclude Include="..\include\win\osal_platform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
