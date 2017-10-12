@@ -17,6 +17,18 @@ TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pan
     button->set_checkable(true);
     attach(button);
 
+    auto edit = new Editbox(kernel, Rect2i(10, 10, 120, 40), 1);
+    edit->set_bgcolor(0x30000000);
+    edit->set_text("edit1");
+    edit->set_textsize(10);
+    attach(edit);
+
+    auto edit2 = new Editbox(kernel, Rect2i(10, 60, 120, 40), 1);
+    edit2->set_bgcolor(0x30000000);
+    edit2->set_text("edit2");
+    edit2->set_textsize(12);
+    attach(edit2);
+    
     button->ev_click += [](Widget* w) -> bool {
         Logger::d("App", "TestPane Button Clicked!");
         return true;

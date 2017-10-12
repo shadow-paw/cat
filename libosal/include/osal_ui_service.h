@@ -20,6 +20,9 @@ public:
     bool attach(Widget* w);
     void detach(Widget* w);
     void scale(float factor);
+    float get_scale() const { return m_scale; }
+    int get_width() const { return m_width; }
+    int get_height() const { return m_height; }
     void capture(Texture& tex, const Rect2i& rect);
 
 private:    // call from Kernel

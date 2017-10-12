@@ -86,7 +86,7 @@ bool BootApp::cb_startup(Timestamp now) {
     slider2->set_range(0, 2);
     slider2->set_pos(2);
 
-    auto testpane = new TestPane(kernel(), Rect2i(350, 50, 200, 200), 4);
+    auto testpane = new TestPane(kernel(), Rect2i(350, 50, 400, 400), 4);
     testpane->set_bgcolor(0x80ffffff);
     testpane->set_draggable(true);
     testpane->set_bounded(true);

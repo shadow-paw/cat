@@ -32,7 +32,8 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_ui_pane.cpp \
                 ../../src/osal_ui_label.cpp \
                 ../../src/osal_ui_button.cpp \
-                ../../src/osal_ui_slider.cpp
+                ../../src/osal_ui_slider.cpp \
+                ../../src/osal_ui_edit.cpp
 
 include $(BUILD_STATIC_LIBRARY)
 

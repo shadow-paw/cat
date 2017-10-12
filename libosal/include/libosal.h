@@ -25,5 +25,6 @@
 #include "osal_ui_label.h"
 #include "osal_ui_button.h"
 #include "osal_ui_slider.h"
+#include "osal_ui_edit.h"
 
 #endif

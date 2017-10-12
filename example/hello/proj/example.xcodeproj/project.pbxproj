@@ -106,7 +106,7 @@
 /* Begin PBXFileReference section */
 		3E28F7DF1F8D37DE00DF627C /* testpane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = testpane.cpp; path = ../src/testpane.cpp; sourceTree = "<group>"; };
 		3E28F7E01F8D37DE00DF627C /* testpane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = testpane.h; path = ../src/testpane.h; sourceTree = "<group>"; };
-		3E859A121F77939A00F84D36 /* example-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "example-osx.app"; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E859A121F77939A00F84D36 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "example.app"; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
 		3ED4FEAC1F89ED2800D299B6 /* OSALView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSALView.mm; path = ../glue/mac/OSALView.mm; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		3E859A131F77939A00F84D36 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E859A121F77939A00F84D36 /* example-osx.app */,
+				3E859A121F77939A00F84D36 /* example.app */,
 				3EFB3A631F8105C50097445D /* example.app */,
 			);
 			name = Products;
@@ -289,7 +289,7 @@
 			);
 			name = "example-mac";
 			productName = example;
-			productReference = 3E859A121F77939A00F84D36 /* example-osx.app */;
+			productReference = 3E859A121F77939A00F84D36 /* example.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3EFB3A621F8105C50097445D /* example-ios */ = {

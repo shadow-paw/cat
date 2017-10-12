@@ -118,6 +118,9 @@
     <ClInclude Include="..\include\osal_ui_slider.h">
       <Filter>libosal\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_ui_edit.h">
+      <Filter>libosal\ui</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\osal_util_jni.h">
       <Filter>libosal\util</Filter>
     </ClInclude>
@@ -184,6 +187,9 @@
       <Filter>libosal\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_ui_slider.cpp">
+      <Filter>libosal\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_ui_edit.cpp">
       <Filter>libosal\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\osal_util_jni.cpp">

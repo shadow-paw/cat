@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\osal_ui_pane.cpp" />
     <ClCompile Include="..\src\osal_ui_service.cpp" />
     <ClCompile Include="..\src\osal_ui_slider.cpp" />
+    <ClCompile Include="..\src\osal_ui_edit.cpp" />
     <ClCompile Include="..\src\osal_ui_widget.cpp" />
     <ClCompile Include="..\src\osal_util_jni.cpp" />
     <ClCompile Include="..\src\osal_util_log.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="..\include\osal_ui_pane.h" />
     <ClInclude Include="..\include\osal_ui_service.h" />
     <ClInclude Include="..\include\osal_ui_slider.h" />
+    <ClInclude Include="..\include\osal_ui_edit.h" />
     <ClInclude Include="..\include\osal_ui_widget.h" />
     <ClInclude Include="..\include\osal_util_jni.h" />
     <ClInclude Include="..\include\osal_util_log.h" />
