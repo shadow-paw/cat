@@ -14,6 +14,7 @@ Kernel::~Kernel() {
 }
 // ----------------------------------------------------------------------------
 bool Kernel::init(const PlatformSpecificData& psd) {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     m_psd = psd;
     if (!m_renderer.init()) goto fail;
     if (!m_res.init()) goto fail;
@@ -24,6 +25,7 @@ fail:
 }
 // ----------------------------------------------------------------------------
 void Kernel::fini() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     m_res.fini();
     m_renderer.fini();
 }
@@ -31,12 +33,15 @@ void Kernel::fini() {
 // Kernel Signals
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
 }
 // ----------------------------------------------------------------------------
 void Kernel::shutdown() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
 }
 // ----------------------------------------------------------------------------
 void Kernel::context_lost() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     for (auto& app : m_apps) {
         app->cb_context_lost();
     }
@@ -45,6 +50,7 @@ void Kernel::context_lost() {
 }
 // ----------------------------------------------------------------------------
 bool Kernel::context_restored() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     m_renderer.context_restored();
     m_res.context_restored();
     for (auto& app : m_apps) {
@@ -53,18 +59,23 @@ bool Kernel::context_restored() {
 }
 // ----------------------------------------------------------------------------
 void Kernel::pause() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     for (auto& app : m_apps) {
         app->cb_pause();
     }
+    m_time.pause();
 }
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
+    m_time.resume();
     for (auto& app : m_apps) {
         app->cb_resume();
     }
 }
 // ----------------------------------------------------------------------------
 void Kernel::resize(int width, int height) {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     m_renderer.resize(width, height);
     m_ui.resize(width, height);
     for (auto& app : m_apps) {
@@ -73,6 +84,7 @@ void Kernel::resize(int width, int height) {
 }
 // ----------------------------------------------------------------------------
 bool Kernel::touch(TouchEvent ev) {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     ev.timestamp = m_time.now();
     m_ui.touch(ev);
     m_renderer.dirty();
@@ -80,6 +92,7 @@ bool Kernel::touch(TouchEvent ev) {
 }
 // ----------------------------------------------------------------------------
 bool Kernel::timer() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     // Remove exited app
     for (auto it = m_apps.begin(); it!=m_apps.end(); ) {
         if ((*it)->m_running) {
@@ -93,6 +106,7 @@ bool Kernel::timer() {
 }
 // ----------------------------------------------------------------------------
 void Kernel::render() {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     auto t = time()->now();
     m_renderer.begin_render();
     for (auto& app : m_apps) {
@@ -105,6 +119,7 @@ void Kernel::render() {
 // Application
 // ----------------------------------------------------------------------------
 bool Kernel::run(Application* app) {
+    std::lock_guard<std::mutex> lock(m_bigkernellock);
     app->m_kernel = this;
     app->m_running = true;
     m_apps.push_back(std::unique_ptr<Application>(app));

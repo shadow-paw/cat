@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <list>
+#include <mutex>
 #include "osal_platform.h"
 #include "osal_type.h"
 #include "osal_storage_vfs.h"
@@ -47,6 +48,7 @@ public:
     virtual UIService*       ui() { return &m_ui; }
 
 private:
+    std::mutex      m_bigkernellock;
     PlatformSpecificData  m_psd;
     VFS             m_vfs;
     Renderer        m_renderer;

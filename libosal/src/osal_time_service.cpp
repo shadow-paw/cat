@@ -32,6 +32,13 @@ bool TimeService::timer() {
     } return handled;
 }
 // ----------------------------------------------------------------------------
+void TimeService::pause() {
+}
+// ----------------------------------------------------------------------------
+void TimeService::resume() {
+    m_last = now();
+}
+// ----------------------------------------------------------------------------
 Timestamp TimeService::now() const {
     return (unsigned long)std::chrono::duration_cast<std::chrono::milliseconds>
             (std::chrono::system_clock::now().time_since_epoch()).count();

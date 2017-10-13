@@ -20,6 +20,8 @@ public:
 private:
     // called from kernel
     bool timer();
+    void pause();
+    void resume();
 
 private:
     TimerQueue<int> m_timequeue;

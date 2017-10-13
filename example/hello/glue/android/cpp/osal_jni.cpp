@@ -11,7 +11,6 @@ using namespace osal;
 using namespace app;
 
 struct OSAL_INSTANCE {
-    std::mutex mutex;
     Kernel*    kernel;
     jobject    rootview;
     jobject    asset_manager;
@@ -43,56 +42,47 @@ Java_com_shadowpaw_osal_glue_OSALView_jniFini(JNIEnv *env, jobject self, jobject
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniStartup(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->startup();
     data->kernel->run(new BootApp());
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniShutdown(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->shutdown();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniContextRestored(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->context_restored();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniContextLost(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->context_lost();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniPause(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->pause();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniResume(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->resume();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniResize(JNIEnv *env, jobject self, jobject handle, jint width, jint height) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->resize(width, height);
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniRender(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->render();
 }
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniTouch(JNIEnv *env, jobject self, jobject handle, jint type, jint pointerId, jint x, jint y) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     TouchEvent ev;
     switch (type) {
         case 1: ev.type = TouchEvent::EventType::TouchDown; break;
@@ -109,6 +99,5 @@ Java_com_shadowpaw_osal_glue_OSALView_jniTouch(JNIEnv *env, jobject self, jobjec
 extern "C" JNIEXPORT void JNICALL
 Java_com_shadowpaw_osal_glue_OSALView_jniTimer(JNIEnv *env, jobject self, jobject handle) {
     OSAL_INSTANCE* data = (OSAL_INSTANCE*)env->GetDirectBufferAddress(handle);
-    std::lock_guard<std::mutex> lock(data->mutex);
     data->kernel->timer();
 }
