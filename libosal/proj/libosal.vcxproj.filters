@@ -127,7 +127,7 @@
     <ClInclude Include="..\include\osal_storage_driver_asset.h">
       <Filter>libosal\storage</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\osal_gfx_canvas.h">
+    <ClInclude Include="..\include\osal_gfx_drawablecanvas.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -204,7 +204,7 @@
     <ClCompile Include="..\src\osal_storage_driver_asset.cpp">
       <Filter>libosal\storage</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\osal_gfx_canvas.cpp">
+    <ClCompile Include="..\src\osal_gfx_drawablecanvas.cpp">
       <Filter>libosal\graphics</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,7 +5,7 @@
 #include "osal_platform.h"
 #include "osal_gfx_type.h"
 #include "osal_gfx_tex.h"
-#include "osal_gfx_canvas.h"
+#include "osal_gfx_drawablecanvas.h"
 
 namespace osal {
 // ----------------------------------------------------------------------------

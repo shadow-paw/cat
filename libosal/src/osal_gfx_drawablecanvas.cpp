@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "osal_gfx_canvas.h"
+#include "osal_gfx_drawablecanvas.h"
 
 using namespace osal;
 

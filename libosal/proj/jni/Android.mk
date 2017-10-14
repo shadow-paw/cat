@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := \
                 ../../src/osal_gfx_vbo.cpp \
                 ../../src/osal_gfx_tex.cpp \
                 ../../src/osal_gfx_shader.cpp \
-                ../../src/osal_gfx_canvas.cpp \
+                ../../src/osal_gfx_drawablecanvas.cpp \
                 ../../src/osal_gfx_drawable.cpp \
                 ../../src/osal_gfx_draw2d.cpp \
                 ../../src/osal_gfx_draw2d_shaders.cpp \

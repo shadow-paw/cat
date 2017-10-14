@@ -1,5 +1,5 @@
-#ifndef __OSAL_GFX_CANVAS_H__
-#define __OSAL_GFX_CANVAS_H__
+#ifndef __OSAL_GFX_DRAWABLECANVAS_H__
+#define __OSAL_GFX_DRAWABLECANVAS_H__
 
 #include <stdint.h>
 #include "osal_platform.h"
@@ -66,4 +66,4 @@ private:
 // ----------------------------------------------------------------------------
 } // namespace osal
 
-#endif // __OSAL_GFX_CANVAS_H__
+#endif // __OSAL_GFX_DRAWABLECANVAS_H__
