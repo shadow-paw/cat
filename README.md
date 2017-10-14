@@ -8,7 +8,7 @@
 [![C++ Version][cpp-image]][cpp-url]
 [![License][license-image]][license-url]
 
-The OSAL project provide an abstracted and consistent environment for application devlopment. The main features include:
+The OSAL project provide an abstracted and consistent environment for application development. The main features include:
 - Graphics Rendering Service
 - UI Framework
 - Time Service
