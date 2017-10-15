@@ -11,7 +11,9 @@
 │   │   └── android
 │   └── lib                 # Libraries
 │       ├── win32
+│       ├── win32d
 │       ├── win64
+│       ├── win64d
 │       ├── mac
 │       ├── ios
 │       └── android
@@ -25,7 +27,9 @@
 │   ├── src                 # Platform-independent sources and private headers
 │   └── lib                 # Output Library
 │       ├── win32
+│       ├── win32d
 │       ├── win64
+│       ├── win64d
 │       ├── mac
 │       ├── ios
 │       └── android
