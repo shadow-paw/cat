@@ -37,22 +37,22 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jcontext = rootview.getContext();
-    jobject jcontext = jni.call_object(kernel->psd()->rootview, "getContext", "()Landroid/content/Context;");
+    jobject jcontext = jni.CallObjectMethod(kernel->psd()->rootview, "getContext", "()Landroid/content/Context;");
     // lp = new LayoutParam(0, 0);
-    jobject jlp = jni.new_object("android/view/ViewGroup$LayoutParams", "(II)V", 0, 0);
+    jobject jlp = jni.NewObject("android/view/ViewGroup$LayoutParams", "(II)V", 0, 0);
     // jedit = new EditText(context);
-    jobject jedit = jni.new_object("android/widget/EditText", "(Landroid/content/Context;)V", jcontext);
+    jobject jedit = jni.NewObject("android/widget/EditText", "(Landroid/content/Context;)V", jcontext);
     // jedit.setBackground(null);
-    jni.call_void(jedit, "setBackground", "(Landroid/graphics/drawable/Drawable;)V", nullptr);
+    jni.CallVoidMethod(jedit, "setBackground", "(Landroid/graphics/drawable/Drawable;)V", nullptr);
     // jedit.setPadding(0,0,0,0);
-    jni.call_void(jedit, "setPadding", "(IIII)V", 0, 0, 0, 0);
+    jni.CallVoidMethod(jedit, "setPadding", "(IIII)V", 0, 0, 0, 0);
     // jedit.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     const int TYPE_TEXT_FLAG_NO_SUGGESTIONS = 0x00080000;
-    jni.call_void(jedit, "setInputType", "(I)V", TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+    jni.CallVoidMethod(jedit, "setInputType", "(I)V", TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     // jedit.setSingleLine();
-    jni.call_void(jedit, "setSingleLine", "()V");
+    jni.CallVoidMethod(jedit, "setSingleLine", "()V");
     // rootview.addView(jedit, lp);
-    jni.call_void(kernel->psd()->rootview, "addView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V", jedit, jlp);
+    jni.CallVoidMethod(kernel->psd()->rootview, "addView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V", jedit, jlp);
     // Retain Reference
     m_native_ctrl = jni.NewGlobalRef(jedit);
 #else
@@ -84,7 +84,7 @@ Editbox::~Editbox() {
     if (m_native_ctrl) {
         JNIHelper jni;
         // rootview.removeView(edit);
-        jni.call_void(kernel()->psd()->rootview, "removeView", "(Landroid/view/View;)V", m_native_ctrl);
+        jni.CallVoidMethod(kernel()->psd()->rootview, "removeView", "(Landroid/view/View;)V", m_native_ctrl);
         jni.DeleteGlobalRef(m_native_ctrl);
         m_native_ctrl = nullptr;
     }
@@ -112,7 +112,7 @@ void Editbox::cb_visible(bool b) {
     const int VISIBLE = 0;
     const int INVISIBLE = 4;
     // ctrl.setVisibility( b ? VISIBLE : INVISIBLE);
-    jni.call_void(m_native_ctrl, "setVisibility", "(I)V", b ? VISIBLE : INVISIBLE);
+    jni.CallVoidMethod(m_native_ctrl, "setVisibility", "(I)V", b ? VISIBLE : INVISIBLE);
 #else
   #error Not Implemented!
 #endif
@@ -142,16 +142,15 @@ void Editbox::cb_resize() {
     JNIHelper jni;
     Rect2i scaled_rect = m_absrect * kernel()->ui()->get_scale();
     // lp = ctrl.getLayoutParams();
-    jobject jlp = jni.call_object(m_native_ctrl, "getLayoutParams", "()Landroid/view/ViewGroup$LayoutParams;");
+    jobject jlp = jni.CallObjectMethod(m_native_ctrl, "getLayoutParams", "()Landroid/view/ViewGroup$LayoutParams;");
     // lp.leftMargin = x; lp.topMargin = y;
     // lp.width = width; lp.height = height;
-    jclass jlp_class = (jclass)jni.env()->FindClass("android/view/ViewGroup$MarginLayoutParams");
-    jni.env()->SetIntField(jlp, jni.env()->GetFieldID(jlp_class, "leftMargin", "I"), scaled_rect.origin.x);
-    jni.env()->SetIntField(jlp, jni.env()->GetFieldID(jlp_class, "topMargin", "I"), scaled_rect.origin.y);
-    jni.env()->SetIntField(jlp, jni.env()->GetFieldID(jlp_class, "width", "I"), scaled_rect.size.width);
-    jni.env()->SetIntField(jlp, jni.env()->GetFieldID(jlp_class, "height", "I"), scaled_rect.size.height);
+    jni.SetIntField(jlp, "leftMargin", scaled_rect.origin.x);
+    jni.SetIntField(jlp, "topMargin", scaled_rect.origin.y);
+    jni.SetIntField(jlp, "width", scaled_rect.size.width);
+    jni.SetIntField(jlp, "height", scaled_rect.size.height);
     // ctrl.setLayoutParams(lp);
-    jni.call_void(m_native_ctrl, "setLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)V", jlp);
+    jni.CallVoidMethod(m_native_ctrl, "setLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)V", jlp);
 #else
   #error Not Implemented!
 #endif
@@ -177,10 +176,7 @@ void Editbox::set_text(const std::string& s) {
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jedit.setText(s);
-    //jclass jedit_class = (jclass)jni.env()->GetObjectClass(m_native_ctrl);
-    //jmethodID jedit_setText = jni.env()->GetMethodID(jedit_class, "setText", "(Ljava/lang/CharSequence;)V");
-    //jni.env()->CallVoidMethod(m_native_ctrl, jedit_setText, jni.env()->NewStringUTF(s.c_str()));
-    jni.call_void(m_native_ctrl, "setText", "(Ljava/lang/CharSequence;)V", jni.env()->NewStringUTF(s.c_str()));
+    jni.CallVoidMethod(m_native_ctrl, "setText", "(Ljava/lang/CharSequence;)V", jni.env()->NewStringUTF(s.c_str()));
 #else
   #error Not Implemented!
 #endif
@@ -202,10 +198,10 @@ std::string Editbox::get_text() const {
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jseq = jedit.getText();
-    jobject jseq = jni.call_object(m_native_ctrl, "getText", "()Ljava/lang/CharSequence;");
+    jobject jseq = jni.CallObjectMethod(m_native_ctrl, "getText", "()Ljava/lang/CharSequence;");
     // jstr = jseq.toString();
-    jstring jstr = (jstring)jni.call_object(jseq, "toString", "()Ljava/lang/String;");
-    const char* s = jni.env()->GetStringUTFChars(jstr, 0);
+    jstring jstr = (jstring)jni.CallObjectMethod(jseq, "toString", "()Ljava/lang/String;");
+    const char* s = jni.GetStringUTFChars(jstr);
     return std::string(s);
 #else
   #error Not Implemented!
@@ -244,7 +240,7 @@ void Editbox::update_font() {
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jedit.setTextSize(s);
-    jni.call_void(m_native_ctrl, "setTextSize", "(F)V", (float)m_textstyle.fontsize);
+    jni.CallVoidMethod(m_native_ctrl, "setTextSize", "(F)V", (float)m_textstyle.fontsize);
 #else
   #error Not Implemented!
 #endif
@@ -274,7 +270,7 @@ void Editbox::update_textcolor() {
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jedit.setTextColor(c);
-    jni.call_void(m_native_ctrl, "setTextColor", "(I)V", m_textstyle.color);
+    jni.CallVoidMethod(m_native_ctrl, "setTextColor", "(I)V", m_textstyle.color);
 #else
   #error Not Implemented!
 #endif

@@ -33,11 +33,16 @@ void Kernel::fini() {
 // Kernel Signals
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
-    std::lock_guard<std::mutex> lock(m_bigkernellock);
+    //std::lock_guard<std::mutex> lock(m_bigkernellock);
 }
 // ----------------------------------------------------------------------------
 void Kernel::shutdown() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    // Remove all app
+    for (auto it = m_apps.begin(); it != m_apps.end(); ) {
+        (*it)->cb_shutdown(m_time.now());
+        it = m_apps.erase(it);
+    }
 }
 // ----------------------------------------------------------------------------
 void Kernel::context_lost() {
@@ -98,6 +103,7 @@ bool Kernel::timer() {
         if ((*it)->m_running) {
             ++it;
         } else {
+            (*it)->cb_shutdown(m_time.now());
             it = m_apps.erase(it);
         }
     }
@@ -119,7 +125,6 @@ void Kernel::render() {
 // Application
 // ----------------------------------------------------------------------------
 bool Kernel::run(Application* app) {
-    std::lock_guard<std::mutex> lock(m_bigkernellock);
     app->m_kernel = this;
     app->m_running = true;
     m_apps.push_back(std::unique_ptr<Application>(app));
