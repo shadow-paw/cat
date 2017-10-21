@@ -24,7 +24,7 @@ bool FileDriver::read(const std::string& name, Buffer& buffer) {
     fseek(fp, 0, SEEK_END);
     off_t length = ftello(fp);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
     fseek(fp, 0, SEEK_SET);
     if (!buffer.alloc((size_t)length + 1)) goto fail;

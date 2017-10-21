@@ -60,7 +60,7 @@ private:
         jobject bitmap, canvas, paint, rect;
     } m_jni; 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 };
 // ----------------------------------------------------------------------------

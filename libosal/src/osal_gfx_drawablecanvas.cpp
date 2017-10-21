@@ -28,7 +28,7 @@ DrawableCanvas::DrawableCanvas() {
     m_jni.paint = nullptr;
     m_jni.rect = nullptr; 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ fail:
     release();
     return false;
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -192,7 +192,7 @@ void DrawableCanvas::release() {
         m_jni.rect = nullptr;
     }
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -213,7 +213,7 @@ void DrawableCanvas::texImage2D(Texture& tex) {
     jni.CallStaticVoidMethod(m_jni.glut_class, m_jni.glut_texImage2D, GL_TEXTURE_2D, 0, m_jni.bitmap, 0);
     tex.unbind(0); 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -240,7 +240,7 @@ void DrawableCanvas::clear(unsigned int color) {
     JNIHelper jni;
     jni.CallVoidMethod(m_jni.bitmap, m_jni.bitmap_eraseColor, color); 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -263,7 +263,7 @@ void DrawableCanvas::set_textcolor(unsigned int color) {
     jni.CallVoidMethod(m_jni.paint, m_jni.paint_setARGB,
                 color >> 24, 0xFF & (color >> 16), 0xFF & (color >> 8), 0xFF & color);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -320,7 +320,7 @@ void DrawableCanvas::set_textstyle(const TextStyle& style) {
     jni.CallVoidMethod(m_jni.paint, m_jni.paint_setTextSize, (float)style.fontsize);
     // TODO: Bold with Typeface.DEFAULT_BOLD
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -359,7 +359,7 @@ void DrawableCanvas::calctext(const char* utf8, int* w, int* h) {
     *w = jni.CallIntMethod(m_jni.rect, m_jni.rect_width) + 1; // reserve +1 for shadow
     *h = jni.CallIntMethod(m_jni.rect, m_jni.rect_height) + 1;
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -384,7 +384,7 @@ void DrawableCanvas::drawtext(const char* utf8, int x, int y, int w, int h) {
     jstring s = jni.NewStringUTF(utf8);
     jni.CallVoidMethod(m_jni.canvas, m_jni.canvas_drawText, s, (float)x, (float)(m_height - y - 2), m_jni.paint); 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -416,7 +416,7 @@ void DrawableCanvas::line(unsigned int color, int x1, int y1, int x2, int y2) {
     JNIHelper jni;
     jni.CallVoidMethod(m_jni.canvas, m_jni.canvas_drawLine, (float)x1, (float)(m_height - y1), (float)x2, (float)(m_height - y2), m_jni.paint);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -439,7 +439,7 @@ void DrawableCanvas::fill(unsigned int color, int x1, int y1, int x2, int y2) {
     CGColorSpaceRelease(cspace);
 #elif defined (PLATFORM_ANDROID)
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------

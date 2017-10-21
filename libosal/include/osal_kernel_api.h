@@ -16,17 +16,17 @@ class Application;
 class KernelApi {
 public:
     Platform platform() const {
-#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-        return Platform::Windows;
-#elif defined(PLATFORM_MAC)
-        return Platform::Mac;
-#elif defined(PLATFORM_IOS)
-        return Platform::IOS;
-#elif defined(PLATFORM_ANDROID)
-        return Platform::Android;
-#else
-#error Not Implemented!
-#endif
+        #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+            return Platform::Windows;
+        #elif defined(PLATFORM_MAC)
+            return Platform::Mac;
+        #elif defined(PLATFORM_IOS)
+            return Platform::IOS;
+        #elif defined(PLATFORM_ANDROID)
+            return Platform::Android;
+        #else
+            #error Not Implemented!
+        #endif
     }
 
 public:

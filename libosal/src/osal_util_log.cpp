@@ -112,5 +112,5 @@ void Logger::e(const char* tag, const char* fmt, ...) {
 }
 // ----------------------------------------------------------------------------
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif

@@ -56,7 +56,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     // Retain Reference
     m_native_ctrl = jni.NewGlobalRef(jedit);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
     update_font();
     update_textcolor();
@@ -89,7 +89,7 @@ Editbox::~Editbox() {
         m_native_ctrl = nullptr;
     }
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -114,7 +114,7 @@ void Editbox::cb_visible(bool b) {
     // ctrl.setVisibility( b ? VISIBLE : INVISIBLE);
     jni.CallVoidMethod(m_native_ctrl, "setVisibility", "(I)V", b ? VISIBLE : INVISIBLE);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -152,7 +152,7 @@ void Editbox::cb_resize() {
     // ctrl.setLayoutParams(lp);
     jni.CallVoidMethod(m_native_ctrl, "setLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)V", jlp);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -178,7 +178,7 @@ void Editbox::set_text(const std::string& s) {
     // jedit.setText(s);
     jni.CallVoidMethod(m_native_ctrl, "setText", "(Ljava/lang/CharSequence;)V", jni.env()->NewStringUTF(s.c_str()));
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -204,7 +204,7 @@ std::string Editbox::get_text() const {
     const char* s = jni.GetStringUTFChars(jstr);
     return std::string(s);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -242,7 +242,7 @@ void Editbox::update_font() {
     // jedit.setTextSize(s);
     jni.CallVoidMethod(m_native_ctrl, "setTextSize", "(F)V", (float)m_textstyle.fontsize);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -272,7 +272,7 @@ void Editbox::update_textcolor() {
     // jedit.setTextColor(c);
     jni.CallVoidMethod(m_native_ctrl, "setTextColor", "(I)V", m_textstyle.color);
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------

@@ -3,21 +3,21 @@
 
 // ----------------------------------------------------------------------------
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-  #define WIN32_LEAN_AND_MEAN
-  #include <Windows.h>
-  #include <WindowsX.h>
-  #undef WIN32_LEAN_AND_MEAN
-  #include "glew/glew.h"
+    #define WIN32_LEAN_AND_MEAN
+    #include <Windows.h>
+    #include <WindowsX.h>
+    #undef WIN32_LEAN_AND_MEAN
+    #include "glew/glew.h"
 #elif defined(PLATFORM_MAC)
-  #include <OpenGL/gl.h>
-  #include <GLUT/glut.h>
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
 #elif defined(PLATFORM_IOS)
-  #include <OpenGLES/ES2/gl.h>
-  #include <OpenGLES/ES2/glext.h>
+    #include <OpenGLES/ES2/gl.h>
+    #include <OpenGLES/ES2/glext.h>
 #elif defined(PLATFORM_ANDROID)
-  #include <jni.h>
-  #include <GLES2/gl2.h>
-  #include "osal_util_jni.h"
+    #include <jni.h>
+    #include <GLES2/gl2.h>
+    #include "osal_util_jni.h"
 #else
     #error Not Implemented!
 #endif
@@ -41,7 +41,7 @@ struct PlatformSpecificData {
 #elif defined(PLATFORM_ANDROID)
     jobject rootview; 
 #else
-  #error Not Implemented!
+    #error Not Implemented!
 #endif
 };
 // ----------------------------------------------------------------------------
