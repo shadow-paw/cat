@@ -1,7 +1,7 @@
 #include "testpane.h"
 
 using namespace app;
-using namespace osal;
+using namespace cat;
 
 // ----------------------------------------------------------------------------
 TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pane(kernel, rect, id) {

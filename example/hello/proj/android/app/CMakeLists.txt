@@ -6,18 +6,18 @@
 cmake_minimum_required(VERSION 3.4.1)
 set(CMAKE_CXX_STANDARD 14)
 
-set (OSAL_BASE_PATH ${CMAKE_SOURCE_DIR}/../../../../../)
+set (CAT_BASE_PATH ${CMAKE_SOURCE_DIR}/../../../../../)
 set (APP_BASE_PATH ${CMAKE_SOURCE_DIR}/../../../)
 
 include_directories(
-    ${OSAL_BASE_PATH}/dependency/include/generic
-    ${OSAL_BASE_PATH}/dependency/include/android
-    ${OSAL_BASE_PATH}/libosal/include
+    ${CAT_BASE_PATH}/dependency/include/generic
+    ${CAT_BASE_PATH}/dependency/include/android
+    ${CAT_BASE_PATH}/libcat/include
     ${APP_BASE_PATH}/src/
 )
 add_library(osal-app
             SHARED
-            ${APP_BASE_PATH}/glue/android/cpp/osal_jni.cpp
+            ${APP_BASE_PATH}/glue/android/cpp/jni.cpp
             ${APP_BASE_PATH}/src/bootapp.cpp
             ${APP_BASE_PATH}/src/testpane.cpp
             )
@@ -33,8 +33,8 @@ find_library(lib-EGL EGL)
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries(osal-app
-                      ${OSAL_BASE_PATH}/libosal/lib/android/${ANDROID_ABI}/libosal.a
-                      ${OSAL_BASE_PATH}/dependency/lib/android/${ANDROID_ABI}/libpng.a
+                      ${CAT_BASE_PATH}/libcat/lib/android/${ANDROID_ABI}/libcat.a
+                      ${CAT_BASE_PATH}/dependency/lib/android/${ANDROID_ABI}/libpng.a
                       ${lib-EGL}
                       ${lib-GLESv2}
                       ${lib-z}

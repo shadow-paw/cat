@@ -1,7 +1,7 @@
-#include "osalview.h"
+#include "catview.h"
 #include "bootapp.h"
 
-using namespace osal;
+using namespace cat;
 using namespace app;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow) {
@@ -13,11 +13,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 
     PlatformSpecificData psd;
     psd.rootview = view->hwnd();
-    osal::Kernel* kernel = new osal::Kernel();
+    cat::Kernel* kernel = new cat::Kernel();
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
     // mount our assets
-    kernel->vfs()->mount("/assets/", new osal::FileDriver("../"));
+    kernel->vfs()->mount("/assets/", new cat::FileDriver("../"));
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();

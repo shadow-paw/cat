@@ -1,5 +1,5 @@
-# Operating System Abstraction Layer
-> Write your program once with C++, and deliver Windows, Mac, iOS and Android app.
+# C++ Application Tool
+> Write your program once with C++, and create Windows, Mac, iOS and Android app.
 
 ![win](https://img.shields.io/badge/win-pass-brightgreen.svg)
 ![mac](https://img.shields.io/badge/mac-pass-brightgreen.svg)
@@ -8,17 +8,17 @@
 [![C++ Version][cpp-image]][cpp-url]
 [![License][license-image]][license-url]
 
-The OSAL project provide an abstracted and consistent environment for application development. The main features include:
+**CAT** provides an abstract and consistent environment for application development. The main features include:
 - Graphics Rendering Service
 - UI Framework
 - Time Service
-- Network Access
+- Network Service
 - Audio Service
 - Media Service (camera, mic, media player)
 - Sensor Service
 
 ## Build Environments
-You can build osal app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
+You can build app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
 
 #### Windows Environment
 - Windows 32-bit App
@@ -52,15 +52,15 @@ cd dependency/setup
 ./libpng-android.sh
 ```
 
-#### Build libosal - windows
-Open `libosal/proj/libosal.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Libraries will be created under `libosal/lib/`.
+#### Build libcat - windows
+Open `libcat/proj/libcat.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Libraries will be created under `libcat/lib/`.
 
 #### Build example - windows
 Open `example/hello/proj/example.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Excutables will be created under `example/hello/bin/`.
 
-#### Build libosal - android
+#### Build libcat - android
 ```
-cd libosal/proj/
+cd libcat/proj/
 ndk-build.cmd -j4
 ```
   
@@ -92,15 +92,15 @@ cd dependency/setup
 ./libpng-android.sh
 ```
 
-#### Build libosal - mac & ios
-Open `libosal/proj/libosal.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
+#### Build libcat - mac & ios
+Open `libcat/proj/libosal.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
 
 #### Build example - mac & ios
 Open `example/hello/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
 
-#### Build libosal - android
+#### Build libcat - android
 ```
-cd libosal/proj/
+cd libcat/proj/
 ndk-build -j4
 ```
 
@@ -115,7 +115,7 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-1. Fork it (<https://github.com/shadow-paw/osal/fork>)
+1. Fork it (<https://github.com/shadow-paw/cat/fork>)
 2. Create your feature branch (`git checkout origin/master -b feature-foobar`)
 3. Commit your changes (`git commit -am 'Add some foobar'`)
 4. Push to the branch (`git push origin feature-foobar:feature-foobar`)

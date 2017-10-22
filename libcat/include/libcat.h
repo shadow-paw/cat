@@ -1,0 +1,30 @@
+#ifndef __LIBOSAL_H__
+#define __LIBOSAL_H__
+
+#include "cat_platform.h"
+#include "cat_type.h"
+#include "cat_kernel.h"
+#include "cat_application.h"
+#include "cat_util_log.h"
+#include "cat_gfx_type.h"
+#include "cat_gfx_renderer.h"
+#include "cat_gfx_ibo.h"
+#include "cat_gfx_vbo.h"
+#include "cat_gfx_tex.h"
+#include "cat_gfx_texref.h"
+#include "cat_gfx_shader.h"
+#include "cat_gfx_drawable.h"
+#include "cat_time_service.h"
+#include "cat_storage_buffer.h"
+#include "cat_storage_vfs.h"
+#include "cat_storage_driver_file.h"
+#include "cat_storage_driver_asset.h"
+#include "cat_ui_service.h"
+#include "cat_ui_widget.h"
+#include "cat_ui_pane.h"
+#include "cat_ui_label.h"
+#include "cat_ui_button.h"
+#include "cat_ui_slider.h"
+#include "cat_ui_edit.h"
+
+#endif

@@ -10,7 +10,7 @@
 		3E28F7E11F8D37DE00DF627C /* testpane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E28F7DF1F8D37DE00DF627C /* testpane.cpp */; };
 		3E28F7E21F8D37DE00DF627C /* testpane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E28F7DF1F8D37DE00DF627C /* testpane.cpp */; };
 		3ED4FEB41F89ED2900D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAB1F89ED2800D299B6 /* main.m */; };
-		3ED4FEB51F89ED2900D299B6 /* OSALView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* OSALView.mm */; };
+		3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* CatView.mm */; };
 		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
 		3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */; };
 		3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEB21F89ED2900D299B6 /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 		3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
 		3ED4FEDB1F89F56400D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBF1F89F35100D299B6 /* main.m */; };
 		3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */; };
-		3ED4FEDD1F89F56400D299B6 /* OSALView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC51F89F35200D299B6 /* OSALView.mm */; };
+		3ED4FEDD1F89F56400D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC51F89F35200D299B6 /* CatView.mm */; };
 		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
@@ -109,14 +109,14 @@
 		3E859A121F77939A00F84D36 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "example.app"; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
-		3ED4FEAC1F89ED2800D299B6 /* OSALView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSALView.mm; path = ../glue/mac/OSALView.mm; sourceTree = "<group>"; };
+		3ED4FEAC1F89ED2800D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/mac/CatView.mm; sourceTree = "<group>"; };
 		3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../glue/mac/Assets.xcassets; sourceTree = "<group>"; };
 		3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../glue/mac/AppDelegate.mm; sourceTree = "<group>"; };
 		3ED4FEAF1F89ED2800D299B6 /* example.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = example.entitlements; path = ../glue/mac/example.entitlements; sourceTree = "<group>"; };
 		3ED4FEB01F89ED2900D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/mac/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEB11F89ED2900D299B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../glue/mac/Info.plist; sourceTree = "<group>"; };
 		3ED4FEB21F89ED2900D299B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../glue/mac/Main.storyboard; sourceTree = "<group>"; };
-		3ED4FEB31F89ED2900D299B6 /* OSALView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSALView.h; path = ../glue/mac/OSALView.h; sourceTree = "<group>"; };
+		3ED4FEB31F89ED2900D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/mac/CatView.h; sourceTree = "<group>"; };
 		3ED4FEBB1F89F15A00D299B6 /* bootapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bootapp.h; path = ../src/bootapp.h; sourceTree = "<group>"; };
 		3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bootapp.cpp; path = ../src/bootapp.cpp; sourceTree = "<group>"; };
 		3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../glue/ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -126,8 +126,8 @@
 		3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../glue/ios/AppDelegate.mm; sourceTree = "<group>"; };
 		3ED4FEC31F89F35200D299B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../glue/ios/Main.storyboard; sourceTree = "<group>"; };
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
-		3ED4FEC51F89F35200D299B6 /* OSALView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSALView.mm; path = ../glue/ios/OSALView.mm; sourceTree = "<group>"; };
-		3ED4FEC61F89F35200D299B6 /* OSALView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSALView.h; path = ../glue/ios/OSALView.h; sourceTree = "<group>"; };
+		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
+		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
 		3EF9A0C91F8A67CA008C00C0 /* test.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fs; sourceTree = "<group>"; };
 		3EF9A0CA1F8A67CA008C00C0 /* test.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vs; sourceTree = "<group>"; };
 		3EF9A0CB1F8A67CA008C00C0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
@@ -187,8 +187,8 @@
 				3ED4FEAB1F89ED2800D299B6 /* main.m */,
 				3ED4FEB01F89ED2900D299B6 /* AppDelegate.h */,
 				3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */,
-				3ED4FEB31F89ED2900D299B6 /* OSALView.h */,
-				3ED4FEAC1F89ED2800D299B6 /* OSALView.mm */,
+				3ED4FEB31F89ED2900D299B6 /* CatView.h */,
+				3ED4FEAC1F89ED2800D299B6 /* CatView.mm */,
 				3ED4FEB11F89ED2900D299B6 /* Info.plist */,
 				3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */,
 				3ED4FEB21F89ED2900D299B6 /* Main.storyboard */,
@@ -259,8 +259,8 @@
 				3ED4FEBF1F89F35100D299B6 /* main.m */,
 				3ED4FEC41F89F35200D299B6 /* AppDelegate.h */,
 				3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */,
-				3ED4FEC61F89F35200D299B6 /* OSALView.h */,
-				3ED4FEC51F89F35200D299B6 /* OSALView.mm */,
+				3ED4FEC61F89F35200D299B6 /* CatView.h */,
+				3ED4FEC51F89F35200D299B6 /* CatView.mm */,
 				3ED4FEC01F89F35100D299B6 /* Info.plist */,
 				3ED4FEC11F89F35100D299B6 /* Assets.xcassets */,
 				3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */,
@@ -379,7 +379,7 @@
 			files = (
 				3ED4FEB41F89ED2900D299B6 /* main.m in Sources */,
 				3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */,
-				3ED4FEB51F89ED2900D299B6 /* OSALView.mm in Sources */,
+				3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */,
 				3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */,
 				3E28F7E11F8D37DE00DF627C /* testpane.cpp in Sources */,
 			);
@@ -391,7 +391,7 @@
 			files = (
 				3ED4FEDB1F89F56400D299B6 /* main.m in Sources */,
 				3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */,
-				3ED4FEDD1F89F56400D299B6 /* OSALView.mm in Sources */,
+				3ED4FEDD1F89F56400D299B6 /* CatView.mm in Sources */,
 				3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */,
 				3E28F7E21F8D37DE00DF627C /* testpane.cpp in Sources */,
 			);
@@ -519,22 +519,22 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../src,
-					../../../libosal/include,
+					../../../libcat/include,
 					../../../dependency/include/generic,
 					../../../dependency/include/mac,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../glue/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../../../libosal/lib/mac,
+					../../../libcat/lib/mac,
 					../../../dependency/lib/mac,
 				);
 				OTHER_LDFLAGS = (
-					"-losal",
+					"-lcat",
 					"-lpng",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.osal.app.hello;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
 				SYMROOT = ./.build;
 			};
@@ -551,22 +551,22 @@
 				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_MAC;
 				HEADER_SEARCH_PATHS = (
 					../src,
-					../../../libosal/include,
+					../../../libcat/include,
 					../../../dependency/include/generic,
 					../../../dependency/include/mac,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../glue/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../../../libosal/lib/mac,
+					../../../libcat/lib/mac,
 					../../../dependency/lib/mac,
 				);
 				OTHER_LDFLAGS = (
-					"-losal",
+					"-lcat",
 					"-lpng",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.osal.app.hello;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
 				SYMROOT = ./.build;
 			};
@@ -585,7 +585,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../src,
-					../../../libosal/include,
+					../../../libcat/include,
 					../../../dependency/include/generic,
 					../../../dependency/include/ios,
 				);
@@ -593,15 +593,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../../../libosal/lib/ios,
+					../../../libcat/lib/ios,
 					../../../dependency/lib/ios,
 				);
 				OTHER_LDFLAGS = (
-					"-losal",
+					"-lcat",
 					"-lpng",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.osal.app.hello;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -617,7 +617,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_IOS;
 				HEADER_SEARCH_PATHS = (
 					../src,
-					../../../libosal/include,
+					../../../libcat/include,
 					../../../dependency/include/generic,
 					../../../dependency/include/ios,
 				);
@@ -625,15 +625,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../../../libosal/lib/ios,
+					../../../libcat/lib/ios,
 					../../../dependency/lib/ios,
 				);
 				OTHER_LDFLAGS = (
-					"-losal",
+					"-lcat",
 					"-lpng",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.osal.app.hello;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

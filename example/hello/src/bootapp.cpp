@@ -2,7 +2,7 @@
 #include "testpane.h"
 
 using namespace app;
-using namespace osal;
+using namespace cat;
 
 // ----------------------------------------------------------------------------
 BootApp::BootApp() {

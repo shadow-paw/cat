@@ -1,19 +1,19 @@
 #ifndef __APP_TESTPANE_H__
 #define __APP_TESTPANE_H__
 
-#include "libosal.h"
+#include "libcat.h"
 
 namespace app {
 // ----------------------------------------------------------------------------
-class TestPane : public osal::Pane {
+class TestPane : public cat::Pane {
 public:
-    TestPane(osal::KernelApi* kernel, const osal::Rect2i& rect, unsigned int id = 0);
+    TestPane(cat::KernelApi* kernel, const cat::Rect2i& rect, unsigned int id = 0);
     virtual ~TestPane();
 
 protected:
-    virtual void cb_render(osal::Renderer* r, osal::Timestamp now);
+    virtual void cb_render(cat::Renderer* r, cat::Timestamp now);
 private:
-    const osal::Shader* m_shader;
+    const cat::Shader* m_shader;
 };
 // ----------------------------------------------------------------------------
 } // namespace app

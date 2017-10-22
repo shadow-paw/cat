@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="libcat">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="libcat\kernel">
+      <UniqueIdentifier>{b4b40726-2287-4f3d-9bbe-6fc47ee9cfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\graphics">
+      <UniqueIdentifier>{8e818c28-2696-40be-94e8-34301cf474af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\util">
+      <UniqueIdentifier>{8be5ec90-31cb-4397-adc8-b89b9b01fffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\storage">
+      <UniqueIdentifier>{7c6981e5-d6b6-48cd-9254-3f9dae35a49e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\time">
+      <UniqueIdentifier>{2a804388-baa5-421b-812e-e9251ed59ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\ui">
+      <UniqueIdentifier>{e96e06b1-80fc-4708-8ab4-4649704fde49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\cat_type.h">
+      <Filter>libcat\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_kernel.h">
+      <Filter>libcat\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_platform.h">
+      <Filter>libcat\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_renderer.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_resmgr.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libcat.h">
+      <Filter>libcat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_ibo.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_shader.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_tex.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_texref.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_vbo.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_util_log.h">
+      <Filter>libcat\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_type.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_drawable.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_draw2d.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_storage_buffer.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_storage_vfs.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_storage_driver.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_storage_driver_file.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_kernel_api.h">
+      <Filter>libcat\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_application.h">
+      <Filter>libcat\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_time_queue.h">
+      <Filter>libcat\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_time_service.h">
+      <Filter>libcat\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_time_type.h">
+      <Filter>libcat\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_service.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_widget.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_handler.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_label.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_button.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_pane.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_slider.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_edit.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_util_jni.h">
+      <Filter>libcat\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_storage_driver_asset.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_drawablecanvas.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_util_string.h">
+      <Filter>libcat\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\cat_gfx_renderer.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_resmgr.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_kernel.cpp">
+      <Filter>libcat\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_ibo.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_shader.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_tex.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_vbo.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_drawable.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_draw2d.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_draw2d_shaders.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_storage_buffer.cpp">
+      <Filter>libcat\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_storage_vfs.cpp">
+      <Filter>libcat\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_time_service.cpp">
+      <Filter>libcat\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_service.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_widget.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_label.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_button.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_pane.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_slider.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_edit.cpp">
+      <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_util_jni.cpp">
+      <Filter>libcat\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_util_log.cpp">
+      <Filter>libcat\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_storage_driver_file.cpp">
+      <Filter>libcat\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_storage_driver_asset.cpp">
+      <Filter>libcat\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_gfx_drawablecanvas.cpp">
+      <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_util_string.cpp">
+      <Filter>libcat\util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
