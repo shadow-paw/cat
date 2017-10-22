@@ -12,7 +12,7 @@ public:
     NetService();
     ~NetService();
 
-    bool http(const char* url, const void* data, size_t datalen, std::function<void(bool,const uint8_t*,size_t)>);
+    bool http(const char* url, const std::unordered_map<std::string, std::string>* headers, const void* data, size_t datalen, std::function<void(bool,const uint8_t*,size_t)>);
 private:
     // called from kernel
     void pause();

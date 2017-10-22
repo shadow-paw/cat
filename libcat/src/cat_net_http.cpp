@@ -37,12 +37,13 @@ void HttpManager::poll() {
     }
 }
 // ----------------------------------------------------------------------------
-bool HttpManager::http(const char* url, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
+bool HttpManager::http(const char* url, const std::unordered_map<std::string, std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
     if (!url) {
         cb(false, nullptr, 0);
         return false;
     }
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    URL_COMPONENTS url_components = { 0 };
     Session* session = nullptr;
     if (!m_internet) {
         m_internet = InternetOpen(L"Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0",
@@ -57,19 +58,37 @@ bool HttpManager::http(const char* url, const void* data, size_t datalen, std::f
     DWORD url_escape_len = 1;
     std::basic_string<TCHAR> url_escape;
     std::basic_string<TCHAR> url_t = StringUtil::string2tchar(url);
+    std::basic_string<TCHAR> server;
     InternetCanonicalizeUrl(url_t.c_str(), tmp, &url_escape_len, ICU_ENCODE_PERCENT);
     if (url_escape_len <= 1) return false;
     url_escape.resize(url_escape_len);
     if (!InternetCanonicalizeUrl(url_t.c_str(), &url_escape[0], &url_escape_len, ICU_ENCODE_PERCENT)) goto fail;
     url_escape.resize(url_escape_len);
+    url_components.dwStructSize = sizeof(url_components);
+    url_components.dwHostNameLength = 1;
+    url_components.dwUrlPathLength = 1;
+    InternetCrackUrl(url_escape.c_str(), 0, 0, &url_components);
+    server.assign(url_components.lpszHostName, url_components.dwHostNameLength);
+
     session = new Session();
     session->manager = this;
     session->cb = cb;
+    session->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
+    if (!session->hconnect) goto fail;
+    PCTSTR accept_types[] = { L"*/*", NULL };
+    session->handle = HttpOpenRequest(session->hconnect, data?L"POST":L"GET", url_components.lpszUrlPath, NULL, NULL, accept_types,
+        INTERNET_FLAG_HYPERLINK|
+        INTERNET_FLAG_KEEP_CONNECTION|INTERNET_FLAG_NO_CACHE_WRITE|
+        INTERNET_FLAG_SECURE|INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
+        (DWORD_PTR)session);
+    HttpSendRequest(session->handle, NULL, 0, const_cast<void*>(data), (DWORD)datalen);
+    /*  
     InternetOpenUrl(m_internet, url_escape.c_str(), NULL, 0,
         INTERNET_FLAG_HYPERLINK |
         INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE |
         INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
         (DWORD_PTR)session);
+    */
     return true;
 fail:
     delete session;
@@ -128,6 +147,7 @@ void HttpManager::cb_inet_status(Session* session, HINTERNET handle, DWORD statu
             }
         }
         InternetCloseHandle(session->handle);
+        InternetCloseHandle(session->hconnect);
         session->handle = nullptr;
         {
             std::lock_guard<std::mutex> lock(m_mutex);

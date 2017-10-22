@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <functional>
 #include <forward_list>
+#include <unordered_map>
 #include <mutex>
 #include "cat_storage_buffer.h"
 
@@ -23,7 +24,7 @@ public:
     HttpManager();
     ~HttpManager();
 
-    bool http(const char* url, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)>);
+    bool http(const char* url, const std::unordered_map<std::string,std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)>);
 private:
     // called from NetService
     void pause();
@@ -34,7 +35,7 @@ private:
     class Session {
     public:
         HttpManager* manager;
-        HINTERNET    handle;
+        HINTERNET    hconnect, handle;
         bool         success;
         uint8_t*     buffer;
         size_t       buflen;
