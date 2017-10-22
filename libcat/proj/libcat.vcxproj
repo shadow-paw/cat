@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_kernel.cpp" />
+    <ClCompile Include="..\src\cat_net_http.cpp" />
+    <ClCompile Include="..\src\cat_net_service.cpp" />
     <ClCompile Include="..\src\cat_util_jni.cpp" />
     <ClCompile Include="..\src\cat_util_log.cpp" />
     <ClCompile Include="..\src\cat_gfx_renderer.cpp" />
@@ -47,6 +49,8 @@
     <ClCompile Include="..\src\cat_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\cat_net_http.h" />
+    <ClInclude Include="..\include\cat_net_service.h" />
     <ClInclude Include="..\include\libcat.h" />
     <ClInclude Include="..\include\cat_platform.h" />
     <ClInclude Include="..\include\cat_type.h" />
