@@ -130,6 +130,9 @@
     <ClInclude Include="..\include\osal_gfx_drawablecanvas.h">
       <Filter>libosal\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\osal_util_string.h">
+      <Filter>libosal\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\osal_gfx_renderer.cpp">
@@ -206,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="..\src\osal_gfx_drawablecanvas.cpp">
       <Filter>libosal\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\osal_util_string.cpp">
+      <Filter>libosal\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

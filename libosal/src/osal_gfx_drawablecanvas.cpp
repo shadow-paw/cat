@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <string>
 #include "osal_gfx_drawablecanvas.h"
+#include "osal_util_string.h"
 
 using namespace osal;
 
@@ -326,10 +328,9 @@ void DrawableCanvas::set_textstyle(const TextStyle& style) {
 // ----------------------------------------------------------------------------
 void DrawableCanvas::calctext(const char* utf8, int* w, int* h) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    TCHAR      text[256];
     RECT rc = { 0 };
-    MultiByteToWideChar(CP_UTF8, 0, utf8, -1, text, 256);
-    ::DrawText(m_hdc, text, -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE | DT_CALCRECT);
+    std::basic_string<TCHAR> text = StringUtil::string2tchar(utf8);
+    ::DrawText(m_hdc, text.c_str(), -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE | DT_CALCRECT);
     *w = rc.right - rc.left + 2;    // reserve +1 for shadow
     *h = rc.bottom - rc.top + 2;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
@@ -364,11 +365,11 @@ void DrawableCanvas::calctext(const char* utf8, int* w, int* h) {
 }
 // ----------------------------------------------------------------------------
 void DrawableCanvas::drawtext(const char* utf8, int x, int y, int w, int h) {
+    if (!utf8) return;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    TCHAR	text[256];
-    RECT rc = { x, y, x+w, y+h };
-    MultiByteToWideChar(CP_UTF8, 0, utf8, -1, text, 256);
-    ::DrawText(m_hdc, text, -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE);
+    RECT rc = { x, y, x + w, y + h };
+    std::basic_string<TCHAR> text = StringUtil::string2tchar(utf8);
+    ::DrawText(m_hdc, text.c_str(), -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE);
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     if (utf8 == NULL) return;
     // CGContextSetRGBFillColor (context, 1, 0, 1, 1);

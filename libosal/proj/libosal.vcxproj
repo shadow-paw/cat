@@ -44,6 +44,7 @@
     <ClCompile Include="..\src\osal_ui_pane.cpp" />
     <ClCompile Include="..\src\osal_ui_slider.cpp" />
     <ClCompile Include="..\src\osal_ui_edit.cpp" />
+    <ClCompile Include="..\src\osal_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\libosal.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="..\include\osal_ui_pane.h" />
     <ClInclude Include="..\include\osal_ui_slider.h" />
     <ClInclude Include="..\include\osal_ui_edit.h" />
+    <ClInclude Include="..\include\osal_util_string.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

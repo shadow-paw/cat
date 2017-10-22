@@ -39,8 +39,9 @@ private:
     void*     m_bmpixel;
     int       m_width, m_height;
     uint32_t* m_pixel;
-    COLORREF rgba2gdicolor(uint32_t color);
+    static COLORREF rgba2gdicolor(uint32_t color);
     void     update_rgba();
+
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     int   m_width, m_height;
     uint32_t* m_pixel;

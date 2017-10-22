@@ -1,6 +1,7 @@
 #include "osal_ui_edit.h"
 #include "osal_gfx_renderer.h"
 #include "osal_ui_service.h"
+#include "osal_util_string.h"
 #if defined(PLATFORM_MAC)
   #import <Cocoa/Cocoa.h>
 #elif defined(PLATFORM_IOS)
@@ -162,11 +163,8 @@ void Editbox::cb_render(Renderer* r, unsigned long now) {
 // ----------------------------------------------------------------------------
 void Editbox::set_text(const std::string& s) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    size_t len = s.length() +4;
-    TCHAR* text = new TCHAR[len];
-    MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, text, (int)len);
-    SetWindowText(m_native_ctrl, text);
-    delete text;
+    std::basic_string<TCHAR> text = StringUtil::string2tchar(s);
+    SetWindowText(m_native_ctrl, text.c_str()); 
 #elif defined(PLATFORM_MAC)
     NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
     [tv setStringValue:[NSString stringWithUTF8String:s.c_str()]];
@@ -185,10 +183,8 @@ void Editbox::set_text(const std::string& s) {
 std::string Editbox::get_text() const {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     TCHAR	text[512];
-    char des[512] = { 0 };
     GetWindowText(m_native_ctrl, text, 512);
-    WideCharToMultiByte(CP_UTF8, 0, text, -1, des, (int)sizeof(des), NULL, NULL);
-    return std::string(des);
+    return StringUtil::tchar2string(text);
 #elif defined(PLATFORM_MAC)
     NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
     return [[tv stringValue] UTF8String];
