@@ -81,7 +81,16 @@ bool HttpManager::http(const char* url, const std::unordered_map<std::string, st
         INTERNET_FLAG_KEEP_CONNECTION|INTERNET_FLAG_NO_CACHE_WRITE|
         INTERNET_FLAG_SECURE|INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
         (DWORD_PTR)session);
-    HttpSendRequest(session->handle, NULL, 0, const_cast<void*>(data), (DWORD)datalen);
+    if (headers) {
+        std::string s;
+        for (auto it = headers->begin(); it != headers->end(); ++it) {
+            s = s + it->first + ": " + it->second + "\r\n";
+        }
+        std::basic_string<TCHAR> headers_t = StringUtil::string2tchar(s);
+        HttpSendRequest(session->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<void*>(data), (DWORD)datalen);
+    } else {
+        HttpSendRequest(session->handle, NULL, 0, const_cast<void*>(data), (DWORD)datalen);
+    }
     /*  
     InternetOpenUrl(m_internet, url_escape.c_str(), NULL, 0,
         INTERNET_FLAG_HYPERLINK |

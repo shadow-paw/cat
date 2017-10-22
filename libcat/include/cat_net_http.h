@@ -24,7 +24,16 @@ public:
     HttpManager();
     ~HttpManager();
 
-    bool http(const char* url, const std::unordered_map<std::string,std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)>);
+    bool http(const char* url, const std::unordered_map<std::string, std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb);
+    bool http(const char* url, std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http(url, nullptr, nullptr, 0, cb);
+    }
+    bool http(const char* url, const std::unordered_map<std::string, std::string>* headers, std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http(url, headers, nullptr, 0, cb);
+    }
+    bool http(const char* url, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http(url, nullptr, data, datalen, cb);
+    }
 private:
     // called from NetService
     void pause();
