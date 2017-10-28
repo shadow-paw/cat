@@ -31,13 +31,13 @@ public:
     HTTP_ID http_fetch(const std::string& url,
                        const std::string& data,
                        std::function<void(int, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(data), cb);
+        return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(data.c_str(), data.length()), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        std::unordered_multimap<std::string, std::string>&& headers,
                        const std::string& data,
                        std::function<void(int, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, std::move(headers), Buffer(data), cb);
+        return http_fetch(url, std::move(headers), Buffer(data.c_str(), data.length()), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        std::unordered_multimap<std::string, std::string>&& headers,

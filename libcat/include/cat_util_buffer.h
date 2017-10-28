@@ -10,7 +10,7 @@ namespace cat {
 class Buffer {
 public:
     Buffer();
-    Buffer(const std::string& o);
+    Buffer(const void* p, size_t size);
     Buffer(Buffer&& o);
     ~Buffer();
 

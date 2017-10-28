@@ -20,11 +20,11 @@ Buffer::Buffer(Buffer&& o) {
     o.m_size = 0;
 }
 // ----------------------------------------------------------------------------
-Buffer::Buffer(const std::string& o) {
+Buffer::Buffer(const void* p, size_t size) {
     m_buffer = nullptr;
     m_size = 0;
-    alloc(o.size() + 1);
-    memcpy(m_buffer, o.c_str(), o.size() + 1);
+    alloc(size);
+    memcpy(m_buffer, p, size);
 }
 // ----------------------------------------------------------------------------
 Buffer& Buffer::operator=(Buffer&& o) {

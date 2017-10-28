@@ -200,11 +200,13 @@ bool HttpManager::cb_session_created(Session* session) {
     session->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
     if (!session->hconnect) goto fail;
     PCTSTR accept_types[] = { L"*/*", NULL };
-    session->handle = HttpOpenRequest(session->hconnect, session->request.data ? L"POST" : L"GET", url_components.lpszUrlPath, NULL, NULL, accept_types,
-        INTERNET_FLAG_HYPERLINK |
-        INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE |
-        INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
-        (DWORD_PTR)param);
+    DWORD flags = INTERNET_FLAG_HYPERLINK | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE;
+    if (url_components.nScheme == INTERNET_SCHEME_HTTPS) flags |= INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP;
+    session->handle = HttpOpenRequest(session->hconnect,
+                                      session->request.data ? L"POST" : L"GET",
+                                      url_components.lpszUrlPath, NULL, NULL,
+                                      accept_types,
+                                      flags, (DWORD_PTR)param);
     if (session->request.headers.size()>0) {
         std::string s;
         for (auto it = session->request.headers.begin(); it != session->request.headers.end(); ++it) {
