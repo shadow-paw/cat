@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <mutex>
 #include <thread>
+#include <atomic>
 #include "cat_net_type.h"
 #include "cat_util_buffer.h"
 #include "cat_util_uniqueid.h"
@@ -63,6 +64,7 @@ private:
     #error Not Implemented!
 #endif
     };
+    std::atomic<bool> m_thread_started;
     std::thread m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
     std::list<Session> m_added, m_working, m_completed;

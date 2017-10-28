@@ -51,6 +51,8 @@ HttpManager::Session::~Session() {
 // ----------------------------------------------------------------------------
 HttpManager::HttpManager() {
     m_unique.init(5000, 1, 0x7ffffff0);
+    m_thread_started = false;
+    m_worker_running = false;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     m_internet = nullptr;
 #else
@@ -70,13 +72,17 @@ HttpManager::~HttpManager() {
 }
 // ----------------------------------------------------------------------------
 void HttpManager::pause() {
-    m_worker_running = false;
-    m_thread.join();
+    if (m_thread_started) {
+        m_worker_running = false;
+        m_thread.join();
+    }
 }
 // ----------------------------------------------------------------------------
 void HttpManager::resume() {
-    m_worker_running = true;
-    m_thread = std::thread(&HttpManager::worker_thread, this);
+    if (m_thread_started) {
+        m_worker_running = true;
+        m_thread = std::thread(&HttpManager::worker_thread, this);
+    }
 }
 // ----------------------------------------------------------------------------
 void HttpManager::poll() {
@@ -89,6 +95,17 @@ void HttpManager::poll() {
     for (auto it = list.begin(); it != list.end(); ++it) {
         it->cb(it->response.code, it->response.data.ptr(), it->response.data.size());
         m_unique.release(TimeService::now(), it->id);
+    }
+    {
+        std::lock_guard<std::mutex> lock(m_working_mutex);
+        if (m_working.size() == 0) {
+            bool expect = true;
+            if (m_thread_started.compare_exchange_strong(expect, false)) {
+                // no more session, stop worker
+                m_worker_running = false;
+                m_thread.join();
+            }
+        }
     }
 }
 // ----------------------------------------------------------------------------
@@ -131,6 +148,11 @@ HTTP_ID HttpManager::fetch(const std::string& url,
     session.cb = cb;
     std::lock_guard<std::mutex> lock(m_added_mutex);
     m_added.push_back(std::move(session));
+    bool expect = false;
+    if (m_thread_started.compare_exchange_strong(expect, true)) {
+        m_worker_running = true;
+        m_thread = std::thread(&HttpManager::worker_thread, this);
+    }
     return http_id;
 }
 // ----------------------------------------------------------------------------
@@ -159,7 +181,6 @@ void HttpManager::worker_thread() {
             }
         }
         m_working_mutex.unlock();
-
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
