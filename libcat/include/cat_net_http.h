@@ -30,7 +30,7 @@ public:
     HTTP_ID fetch(const std::string& url,
                   std::unordered_multimap<std::string, std::string>&& headers,
                   Buffer&& data,
-                  std::function<void(bool, const uint8_t*, size_t)> cb);
+                  std::function<void(int, const uint8_t*, size_t)> cb);
     bool cancel(HTTP_ID session_id);
 
 private:
@@ -44,14 +44,14 @@ private:
         enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLING, CANCELLED, FAILED };
         HTTP_ID    id;
         State      state;
-        bool       success;
-        std::function<void(bool, const uint8_t*, size_t)> cb;
+        std::function<void(int, const uint8_t*, size_t)> cb;
         struct {
             std::string url;
             std::unordered_multimap<std::string, std::string> headers;
             Buffer data;
         } request;
         struct {
+            int    code;
             Buffer data;
         } response;
         Session();

@@ -15,34 +15,34 @@ public:
 
     // HTTP
     HTTP_ID http_fetch(const std::string& url,
-                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+                       std::function<void(int, const uint8_t*, size_t)> cb) {
         return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        std::unordered_multimap<std::string, std::string>&& headers,
-                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+                       std::function<void(int, const uint8_t*, size_t)> cb) {
         return http_fetch(url, std::move(headers), Buffer(), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        Buffer&& data,
-                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+                       std::function<void(int, const uint8_t*, size_t)> cb) {
         return http_fetch(url, std::unordered_multimap<std::string, std::string>(), std::move(data), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        const std::string& data,
-                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+                       std::function<void(int, const uint8_t*, size_t)> cb) {
         return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(data), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        std::unordered_multimap<std::string, std::string>&& headers,
                        const std::string& data,
-                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+                       std::function<void(int, const uint8_t*, size_t)> cb) {
         return http_fetch(url, std::move(headers), Buffer(data), cb);
     }
     HTTP_ID http_fetch(const std::string& url,
                        std::unordered_multimap<std::string, std::string>&& headers,
                        Buffer&& data,
-                       std::function<void(bool, const uint8_t*, size_t)> cb);
+                       std::function<void(int, const uint8_t*, size_t)> cb);
     bool http_cancel(HTTP_ID http_id);
 
 private:

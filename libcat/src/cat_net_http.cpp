@@ -11,7 +11,7 @@ using namespace cat;
 HttpManager::Session::Session() {
     id = 0;
     state = State::INVALID;
-    success = false;
+    response.code = 0;
     cb = nullptr;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     hconnect = nullptr;
@@ -24,11 +24,11 @@ HttpManager::Session::Session() {
 HttpManager::Session::Session(Session&& o) {
     id = o.id;
     state = o.state;
-    success = o.success;
+    response.code = o.response.code;
     cb = o.cb;
     o.id = 0;
     o.state = State::INVALID;
-    o.success = false;
+    o.response.code = 0;
     o.cb = nullptr;
 
     request.url = std::move(o.request.url);
@@ -87,7 +87,7 @@ void HttpManager::poll() {
         list.splice(list.end(), m_completed);
     }
     for (auto it = list.begin(); it != list.end(); ++it) {
-        it->cb(it->success, it->response.data.ptr(), it->response.data.size());
+        it->cb(it->response.code, it->response.data.ptr(), it->response.data.size());
         m_unique.release(TimeService::now(), it->id);
     }
 }
@@ -120,7 +120,7 @@ bool HttpManager::cancel(HTTP_ID http_id) {
 HTTP_ID HttpManager::fetch(const std::string& url,
                            std::unordered_multimap<std::string, std::string>&& headers,
                            Buffer&& data,
-                           std::function<void(bool, const uint8_t*, size_t)> cb) {
+                           std::function<void(int, const uint8_t*, size_t)> cb) {
     Session session;
     HTTP_ID http_id = m_unique.fetch(TimeService::now());
     session.state = Session::State::CREATED;
@@ -274,20 +274,27 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
             });
             if (session == m_working.end()) break;
 
-            session->success = rez->dwResult != 0;
-            if (session->success) {
+            bool success = rez->dwResult != 0;
+            if (success) {
                 DWORD bodylen = 0;
                 if (!InternetQueryDataAvailable(session->handle, &bodylen, 0, 0)) {
-                    session->success = false;
+                    success = false;
                 } else {
                     session->response.data.alloc(bodylen + 1);
                     DWORD rlen = 0;
                     if (!InternetReadFile(session->handle, session->response.data, bodylen, &rlen)) {
-                        session->success = false;
+                        success = false;
                     } else {
                         if (rlen <= bodylen+1) session->response.data[rlen] = 0;
                         session->response.data.shrink((size_t)rlen);
                     }
+                }
+                // response code
+                {
+                    DWORD code = 0;
+                    DWORD codesize = (DWORD)sizeof(code);
+                    HttpQueryInfo(session->handle, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &code, &codesize, 0);
+                    session->response.code = (int)code;
                 }
             }
             InternetCloseHandle(session->handle);
