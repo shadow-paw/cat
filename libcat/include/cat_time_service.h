@@ -12,8 +12,8 @@ public:
     TimeService();
     ~TimeService();
     
-    Timestamp now() const;
-    
+    static Timestamp now();
+
     bool post_timer(TimerHandler<int>* handler, Timestamp, const int message);
     void remove_timer(TimerHandler<int>* handler);
 
