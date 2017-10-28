@@ -10,7 +10,6 @@ LOCAL_CFLAGS    :=-Werror -Wno-switch -DPLATFORM_ANDROID
 LOCAL_CPPFLAGS  :=-std=c++14 -frtti -fexceptions
 LOCAL_SRC_FILES := \
                 ../../src/cat_kernel.cpp \
-                ../../src/cat_storage_buffer.cpp \
                 ../../src/cat_storage_vfs.cpp \
                 ../../src/cat_gfx_renderer.cpp \
                 ../../src/cat_gfx_ibo.cpp \
@@ -25,6 +24,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_time_service.cpp \
                 ../../src/cat_util_jni.cpp \
                 ../../src/cat_util_log.cpp \
+                ../../src/cat_util_buffer.cpp \
                 ../../src/cat_storage_driver_file.cpp \
                 ../../src/cat_storage_driver_asset.cpp \
                 ../../src/cat_ui_service.cpp \

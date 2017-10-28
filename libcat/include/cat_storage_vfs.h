@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
-#include "cat_storage_buffer.h"
+#include "cat_util_buffer.h"
 #include "cat_storage_driver.h"
 
 namespace cat {

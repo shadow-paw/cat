@@ -64,7 +64,7 @@ const Shader* ResourceManager::retain_shader(const char* name, const std::unorde
     if (m_contextready) {
         if (!m_vfs->read((path + ".vs").c_str(), vs)) return nullptr;
         if (!m_vfs->read((path + ".fs").c_str(), fs)) return nullptr;
-        if (!shader->init((const char*)vs.data(), (const char*)fs.data())) {
+        if (!shader->init((const char*)vs.ptr(), (const char*)fs.ptr())) {
             delete shader;
             return nullptr;
         }
@@ -87,7 +87,7 @@ bool ResourceManager::reload_shader(SHADER_DATA* sd, const std::string& name) {
     Buffer vs, fs;
     if (!m_vfs->read((path + ".vs").c_str(), vs)) return false;
     if (!m_vfs->read((path + ".fs").c_str(), fs)) return false;
-    if (!sd->shader->init((const char*)vs.data(), (const char*)fs.data())) return false;
+    if (!sd->shader->init((const char*)vs.ptr(), (const char*)fs.ptr())) return false;
     // set uniforms and attrs
     sd->shader->bind();
     for (auto it : sd->uniforms) {
@@ -187,7 +187,7 @@ typedef struct {
 void _png_read(png_structp png, png_bytep data, png_size_t size) {
     PNGBufferReader* br = (PNGBufferReader*) png_get_io_ptr(png);
     if ( br->offset + size <= br->buffer->size() ) {
-        memcpy ( data, br->buffer->data() + br->offset, size );
+        memcpy ( data, br->buffer->ptr() + br->offset, size );
         br->offset += size;
     }
 }
@@ -204,7 +204,7 @@ bool ResourceManager::load_tex_png(Texture* tex, Buffer& buf) {
     size_t row_bytes;
     PNGBufferReader bufreader;
 
-    if (png_sig_cmp(buf.data(), 0, 8)) goto fail;
+    if (png_sig_cmp(buf.ptr(), 0, 8)) goto fail;
     png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (png == NULL) goto fail;
     info = png_create_info_struct(png);

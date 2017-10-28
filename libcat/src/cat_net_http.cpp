@@ -1,17 +1,17 @@
 #include "cat_net_http.h"
 #include <algorithm>
+#include <chrono>
 #include "cat_util_string.h"
 #include "cat_time_service.h"
+#include "cat_util_log.h"
 
 using namespace cat;
 
 // ----------------------------------------------------------------------------
 HttpManager::Session::Session() {
     id = 0;
-    cancelled = false;
+    state = State::INVALID;
     success = false;
-    buffer = nullptr;
-    buflen = 0;
     cb = nullptr;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     hconnect = nullptr;
@@ -23,17 +23,19 @@ HttpManager::Session::Session() {
 // ----------------------------------------------------------------------------
 HttpManager::Session::Session(Session&& o) {
     id = o.id;
-    cancelled = o.cancelled;
+    state = o.state;
     success = o.success;
-    buffer = o.buffer;
-    buflen = o.buflen;
     cb = o.cb;
     o.id = 0;
-    o.cancelled = false;
+    o.state = State::INVALID;
     o.success = false;
-    o.buffer = nullptr;
-    o.buflen = 0;
     o.cb = nullptr;
+
+    request.url = std::move(o.request.url);
+    request.headers = std::move(o.request.headers);
+    request.data = std::move(o.request.data);
+    response.data = std::move(o.response.data);
+
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     hconnect = o.hconnect;
     handle = o.handle;
@@ -45,7 +47,6 @@ HttpManager::Session::Session(Session&& o) {
 }
 // ----------------------------------------------------------------------------
 HttpManager::Session::~Session() {
-    if (buffer) { delete buffer; buffer = nullptr; }
 }
 // ----------------------------------------------------------------------------
 HttpManager::HttpManager() {
@@ -69,66 +70,119 @@ HttpManager::~HttpManager() {
 }
 // ----------------------------------------------------------------------------
 void HttpManager::pause() {
+    m_worker_running = false;
+    m_thread.join();
 }
 // ----------------------------------------------------------------------------
 void HttpManager::resume() {
+    m_worker_running = true;
+    m_thread = std::thread(&HttpManager::worker_thread, this);
 }
 // ----------------------------------------------------------------------------
 void HttpManager::poll() {
     std::list<Session> list;
     {
-        std::lock_guard<std::mutex> lock(m_complete_mutex);
-        if (m_complete.empty()) return;
-        list.swap(m_complete);
+        std::lock_guard<std::mutex> lock(m_completed_mutex);
+        if (m_completed.empty()) return;
+        list.splice(list.end(), m_completed);
     }
     for (auto it = list.begin(); it != list.end(); ++it) {
-        it->cb(it->success, it->buffer, it->buflen);
+        it->cb(it->success, it->response.data.ptr(), it->response.data.size());
         m_unique.release(TimeService::now(), it->id);
     }
 }
 // ----------------------------------------------------------------------------
-bool HttpManager::cancel(HTTP_ID http_id){
-    std::lock_guard<std::mutex> lock(m_progress_mutex);
-    auto session = std::find_if(m_progress.begin(), m_progress.end(), [&http_id](const Session& session) {
-        return session.id == http_id;
-    });
-    if (session == m_progress.end()) return false;
-    if (session->cancelled || session->success) return false;
-    session->cancelled = true;
-#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    InternetCloseHandle(session->handle);
-#else
-    #error Not Implemented!
-#endif
-    return true;
+bool HttpManager::cancel(HTTP_ID http_id) {
+    { // check add list
+        std::lock_guard<std::mutex> lock(m_added_mutex);
+        auto session = std::find_if(m_added.begin(), m_added.end(), [&http_id](const Session& session) {
+            return session.id == http_id;
+        });
+        if (session != m_added.end()) {
+            if (session->state == Session::State::CREATED || session->state == Session::State::PROGRESS) {
+                session->state = Session::State::CANCELLING;
+            } return true;
+        }
+    }
+    { // check working list
+        std::lock_guard<std::mutex> lock(m_working_mutex);
+        auto session = std::find_if(m_working.begin(), m_working.end(), [&http_id](const Session& session) {
+            return session.id == http_id;
+        });
+        if (session != m_working.end()) {
+            if (session->state == Session::State::CREATED || session->state == Session::State::PROGRESS) {
+                session->state = Session::State::CANCELLING;
+            } return true;
+        }
+    } return false;
 }
 // ----------------------------------------------------------------------------
-HTTP_ID HttpManager::fetch(const char* url, const std::unordered_map<std::string, std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
-    if (!url) {
-        cb(false, nullptr, 0);
-        return false;
+HTTP_ID HttpManager::fetch(const std::string& url,
+                           std::unordered_multimap<std::string, std::string>&& headers,
+                           Buffer&& data,
+                           std::function<void(bool, const uint8_t*, size_t)> cb) {
+    Session session;
+    HTTP_ID http_id = m_unique.fetch(TimeService::now());
+    session.state = Session::State::CREATED;
+    session.id = http_id;
+    session.request.url = url;
+    session.request.headers = std::move(headers);
+    session.request.data = std::move(data);
+    session.cb = cb;
+    std::lock_guard<std::mutex> lock(m_added_mutex);
+    m_added.push_back(std::move(session));
+    return http_id;
+}
+// ----------------------------------------------------------------------------
+void HttpManager::worker_thread() {
+    while (m_worker_running) {
+        m_working_mutex.lock();
+        {
+            std::lock_guard<std::mutex> lock(m_added_mutex);
+            m_working.splice(m_working.end(), m_added);
+        }
+        for (auto it=m_working.begin(); it!=m_working.end(); ) {
+            switch (it->state) {
+            case Session::State::CREATED:
+                cb_session_created(&(*it));
+                ++it;
+                break;
+            case Session::State::CANCELLING:
+                if (!cb_session_cancelling(&(*it))) {
+                    std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+                    m_completed.splice(m_completed.end(), m_working, it);
+                    it = m_working.begin();
+                } else ++it;
+                break;
+            default:
+                ++it;
+            }
+        }
+        m_working_mutex.unlock();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+}
+// ----------------------------------------------------------------------------
+bool HttpManager::cb_session_created(Session* session) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     URL_COMPONENTS url_components = { 0 };
+    TCHAR tmp[4];
+    DWORD url_escape_len = 1;
+    std::basic_string<TCHAR> url_escape;
+    std::basic_string<TCHAR> url_t = StringUtil::string2tchar(session->request.url);
+    std::basic_string<TCHAR> server;
     INET_PARAM* param = nullptr;
-    HTTP_ID http_id;
-    Session session;
-    std::lock_guard<std::mutex> lock(m_progress_mutex);
 
     if (!m_internet) {
         m_internet = InternetOpen(L"Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0",
             INTERNET_OPEN_TYPE_PRECONFIG,
             NULL, NULL,
             INTERNET_FLAG_ASYNC);
-        if (!m_internet) return false;
+        if (!m_internet) goto fail;
         InternetSetStatusCallback(m_internet, cb_inet_status);
     }
-    // Create Handle
-    TCHAR tmp[4];
-    DWORD url_escape_len = 1;
-    std::basic_string<TCHAR> url_escape;
-    std::basic_string<TCHAR> url_t = StringUtil::string2tchar(url);
-    std::basic_string<TCHAR> server;
+
     InternetCanonicalizeUrl(url_t.c_str(), tmp, &url_escape_len, ICU_ENCODE_PERCENT);
     if (url_escape_len <= 1) return false;
     url_escape.resize(url_escape_len);
@@ -140,38 +194,50 @@ HTTP_ID HttpManager::fetch(const char* url, const std::unordered_map<std::string
     InternetCrackUrl(url_escape.c_str(), 0, 0, &url_components);
     server.assign(url_components.lpszHostName, url_components.dwHostNameLength);
 
-    http_id = m_unique.fetch(TimeService::now());
     param = new INET_PARAM();
     param->manager = this;
-    param->http_id = http_id;
-    session.id = http_id;
-    session.cb = cb;
-    session.hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
-    if (!session.hconnect) goto fail;
+    param->http_id = session->id;
+    session->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
+    if (!session->hconnect) goto fail;
     PCTSTR accept_types[] = { L"*/*", NULL };
-    session.handle = HttpOpenRequest(session.hconnect, data?L"POST":L"GET", url_components.lpszUrlPath, NULL, NULL, accept_types,
-        INTERNET_FLAG_HYPERLINK|
-        INTERNET_FLAG_KEEP_CONNECTION|INTERNET_FLAG_NO_CACHE_WRITE|
-        INTERNET_FLAG_SECURE|INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
+    session->handle = HttpOpenRequest(session->hconnect, session->request.data ? L"POST" : L"GET", url_components.lpszUrlPath, NULL, NULL, accept_types,
+        INTERNET_FLAG_HYPERLINK |
+        INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE |
+        INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP,
         (DWORD_PTR)param);
-    if (headers) {
+    if (session->request.headers.size()>0) {
         std::string s;
-        for (auto it = headers->begin(); it != headers->end(); ++it) {
+        for (auto it = session->request.headers.begin(); it != session->request.headers.end(); ++it) {
             s = s + it->first + ": " + it->second + "\r\n";
         }
         std::basic_string<TCHAR> headers_t = StringUtil::string2tchar(s);
-        HttpSendRequest(session.handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<void*>(data), (DWORD)datalen);
+        HttpSendRequest(session->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
     } else {
-        HttpSendRequest(session.handle, NULL, 0, const_cast<void*>(data), (DWORD)datalen);
+        HttpSendRequest(session->handle, NULL, 0, const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
     }
-    m_progress.push_back(std::move(session));
-    return http_id;
+    session->state = Session::State::PROGRESS;
+    return true;
 fail:
     if (param) delete param;
-    cb(false, nullptr, 0);
-    return 0;
+    session->state = Session::State::FAILED;
+    session->cb(false, nullptr, 0);
+    return false;
 #else
 #error Not Implemented!
+#endif
+}
+// ----------------------------------------------------------------------------
+bool HttpManager::cb_session_cancelling(Session* session) {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    session->state = Session::State::CANCELLED;
+    if (session->hconnect) { InternetCloseHandle(session->hconnect); session->hconnect = nullptr; }
+    if (session->handle) {
+        InternetCloseHandle(session->handle); 
+        session->handle = nullptr;
+        return true;
+    } return false;
+#else
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
@@ -202,11 +268,11 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
     case INTERNET_STATUS_REQUEST_COMPLETE: {
             INTERNET_ASYNC_RESULT* rez = (INTERNET_ASYNC_RESULT*)info;
             HTTP_ID http_id = param->http_id;
-            std::lock_guard<std::mutex> lock(m_progress_mutex);
-            auto session = std::find_if(m_progress.begin(), m_progress.end(), [&http_id](const Session& session) {
+            std::lock_guard<std::mutex> lock(m_working_mutex);
+            auto session = std::find_if(m_working.begin(), m_working.end(), [&http_id](const Session& session) {
                 return session.id == http_id;
             });
-            if (session == m_progress.end()) break;
+            if (session == m_working.end()) break;
 
             session->success = rez->dwResult != 0;
             if (session->success) {
@@ -214,13 +280,13 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
                 if (!InternetQueryDataAvailable(session->handle, &bodylen, 0, 0)) {
                     session->success = false;
                 } else {
-                    session->buffer = new uint8_t[bodylen + 1];
+                    session->response.data.alloc(bodylen + 1);
                     DWORD rlen = 0;
-                    if (!InternetReadFile(session->handle, session->buffer, bodylen, &rlen)) {
+                    if (!InternetReadFile(session->handle, session->response.data, bodylen, &rlen)) {
                         session->success = false;
                     } else {
-                        session->buflen = (size_t)rlen;
-                        session->buffer[session->buflen] = 0;
+                        if (rlen <= bodylen+1) session->response.data[rlen] = 0;
+                        session->response.data.shrink((size_t)rlen);
                     }
                 }
             }
@@ -228,8 +294,9 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
             InternetCloseHandle(session->hconnect);
             session->handle = nullptr;
             session->hconnect = nullptr;
-            std::lock_guard<std::mutex> lock_complete(m_complete_mutex);
-            m_complete.splice(m_complete.end(), m_progress, session);
+            session->state = Session::State::COMPLETED;
+            std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+            m_completed.splice(m_completed.end(), m_working, session);
             delete param;
             break;
         }

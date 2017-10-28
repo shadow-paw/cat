@@ -34,9 +34,11 @@ void Kernel::fini() {
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
     //std::lock_guard<std::mutex> lock(m_bigkernellock);
+    resume();
 }
 // ----------------------------------------------------------------------------
 void Kernel::shutdown() {
+    pause();
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     // Remove all app
     for (auto it = m_apps.begin(); it != m_apps.end(); ) {

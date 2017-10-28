@@ -14,18 +14,35 @@ public:
     ~NetService();
 
     // HTTP
-    HTTP_ID http_fetch(const char* url, std::function<void(bool, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, nullptr, nullptr, 0, cb);
+    HTTP_ID http_fetch(const std::string& url,
+                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(), cb);
     }
-    HTTP_ID http_fetch(const char* url, const std::unordered_map<std::string, std::string>& headers, std::function<void(bool, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, &headers, nullptr, 0, cb);
+    HTTP_ID http_fetch(const std::string& url,
+                       std::unordered_multimap<std::string, std::string>&& headers,
+                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http_fetch(url, std::move(headers), Buffer(), cb);
     }
-    HTTP_ID http_fetch(const char* url, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, nullptr, data, datalen, cb);
+    HTTP_ID http_fetch(const std::string& url,
+                       Buffer&& data,
+                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http_fetch(url, std::unordered_multimap<std::string, std::string>(), std::move(data), cb);
     }
-    HTTP_ID http_fetch(const char* url, const std::unordered_map<std::string, std::string>& headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb) {
-        return http_fetch(url, &headers, data, datalen, cb);
+    HTTP_ID http_fetch(const std::string& url,
+                       const std::string& data,
+                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http_fetch(url, std::unordered_multimap<std::string, std::string>(), Buffer(data), cb);
     }
+    HTTP_ID http_fetch(const std::string& url,
+                       std::unordered_multimap<std::string, std::string>&& headers,
+                       const std::string& data,
+                       std::function<void(bool, const uint8_t*, size_t)> cb) {
+        return http_fetch(url, std::move(headers), Buffer(data), cb);
+    }
+    HTTP_ID http_fetch(const std::string& url,
+                       std::unordered_multimap<std::string, std::string>&& headers,
+                       Buffer&& data,
+                       std::function<void(bool, const uint8_t*, size_t)> cb);
     bool http_cancel(HTTP_ID http_id);
 
 private:
@@ -35,7 +52,6 @@ private:
     void poll();
 private:
     HttpManager m_http;
-    HTTP_ID http_fetch(const char* url, const std::unordered_map<std::string, std::string>* headers, const void* data, size_t datalen, std::function<void(bool, const uint8_t*, size_t)> cb);
 };
 // ----------------------------------------------------------------------------
 } // namespace cat
