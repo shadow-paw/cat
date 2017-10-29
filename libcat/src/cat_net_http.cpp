@@ -8,7 +8,9 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-HttpManager::Session::Session() {
+// HttpConnection
+// ----------------------------------------------------------------------------
+HttpManager::HttpConnection::HttpConnection() {
     id = 0;
     state = State::INVALID;
     response.code = 0;
@@ -17,11 +19,11 @@ HttpManager::Session::Session() {
     hconnect = nullptr;
     handle = nullptr;
 #else
-    #error Not Implemented!
+#error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
-HttpManager::Session::Session(Session&& o) {
+HttpManager::HttpConnection::HttpConnection(HttpConnection&& o) {
     id = o.id;
     state = o.state;
     response.code = o.response.code;
@@ -42,12 +44,14 @@ HttpManager::Session::Session(Session&& o) {
     o.hconnect = nullptr;
     o.handle = nullptr;
 #else
-    #error Not Implemented!
+#error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
-HttpManager::Session::~Session() {
+HttpManager::HttpConnection::~HttpConnection() {
 }
+// ----------------------------------------------------------------------------
+// HttpManager
 // ----------------------------------------------------------------------------
 HttpManager::HttpManager() {
     m_unique.init(5000, 1, 0x7ffffff0);
@@ -88,55 +92,29 @@ void HttpManager::resume() {
 void HttpManager::poll() {
     std::unique_lock<std::mutex> lock(m_completed_mutex);
     if (m_completed.empty()) return;
-    std::list<Session> list;
+    std::list<HttpConnection> list;
     list.swap(m_completed);
     lock.unlock();
-
     for (auto it = list.begin(); it != list.end(); ++it) {
         it->cb(it->response);
         m_unique.release(TimeService::now(), it->id);
     }
 }
 // ----------------------------------------------------------------------------
-bool HttpManager::cancel(HTTP_ID http_id) {
-    { // check add list
-        std::lock_guard<std::mutex> lock(m_added_mutex);
-        auto session = std::find_if(m_added.begin(), m_added.end(), [&http_id](const Session& session) {
-            return session.id == http_id;
-        });
-        if (session != m_added.end()) {
-            if (session->state == Session::State::CREATED || session->state == Session::State::PROGRESS) {
-                session->state = Session::State::CANCELLING;
-            } return true;
-        }
-    }
-    { // check working list
-        std::lock_guard<std::mutex> lock(m_working_mutex);
-        auto session = std::find_if(m_working.begin(), m_working.end(), [&http_id](const Session& session) {
-            return session.id == http_id;
-        });
-        if (session != m_working.end()) {
-            if (session->state == Session::State::CREATED || session->state == Session::State::PROGRESS) {
-                session->state = Session::State::CANCELLING;
-            } return true;
-        }
-    } return false;
-}
-// ----------------------------------------------------------------------------
 HTTP_ID HttpManager::fetch(const std::string& url,
                            std::unordered_multimap<std::string, std::string>&& headers,
                            Buffer&& data,
                            std::function<void(const HTTP_RESPONSE&)> cb) {
-    Session session;
     HTTP_ID http_id = m_unique.fetch(TimeService::now());
-    session.state = Session::State::CREATED;
-    session.id = http_id;
-    session.request.url = url;
-    session.request.headers = std::move(headers);
-    session.request.data = std::move(data);
-    session.cb = cb;
+    HttpConnection conn;
+    conn.state = HttpConnection::State::CREATED;
+    conn.id = http_id;
+    conn.request.url = url;
+    conn.request.headers = std::move(headers);
+    conn.request.data = std::move(data);
+    conn.cb = cb;
     std::lock_guard<std::mutex> lock(m_added_mutex);
-    m_added.push_back(std::move(session));
+    m_added.push_back(std::move(conn));
     m_added_condvar.notify_all();
     // start the thread if not already
     bool expect = false;
@@ -147,6 +125,31 @@ HTTP_ID HttpManager::fetch(const std::string& url,
     return http_id;
 }
 // ----------------------------------------------------------------------------
+bool HttpManager::cancel(HTTP_ID http_id) {
+    { // check add list
+        std::lock_guard<std::mutex> lock(m_added_mutex);
+        auto conn = std::find_if(m_added.begin(), m_added.end(), [&http_id](const HttpConnection& conn) {
+            return conn.id == http_id;
+        });
+        if (conn != m_added.end()) {
+            if (conn->state == HttpConnection::State::CREATED || conn->state == HttpConnection::State::PROGRESS) {
+                conn->state = HttpConnection::State::CANCELLED;
+            } return true;
+        }
+    }
+    { // check working list
+        std::lock_guard<std::mutex> lock(m_working_mutex);
+        auto conn = std::find_if(m_working.begin(), m_working.end(), [&http_id](const HttpConnection& conn) {
+            return conn.id == http_id;
+        });
+        if (conn != m_working.end()) {
+            if (conn->state == HttpConnection::State::CREATED || conn->state == HttpConnection::State::PROGRESS) {
+                conn->state = HttpConnection::State::CANCELLED;
+            } return true;
+        }
+    } return false;
+}
+// ----------------------------------------------------------------------------
 void HttpManager::worker_thread() {
     while (m_worker_running) {
         std::unique_lock<std::mutex> lock_added(m_added_mutex);
@@ -154,7 +157,7 @@ void HttpManager::worker_thread() {
             m_added_condvar.wait_for(lock_added, std::chrono::milliseconds(POLL_INTERVAL));
             if (m_added.size() == 0) continue;
         }
-        std::list<Session> added_list;
+        std::list<HttpConnection> added_list;
         added_list.swap(m_added);
         lock_added.unlock();
 
@@ -164,15 +167,25 @@ void HttpManager::worker_thread() {
         for (auto it=m_working.begin(); it!=m_working.end(); ) {
             bool list_changed = false;
             switch (it->state) {
-            case Session::State::CREATED:
-                cb_session_created(&(*it));
-                break;
-            case Session::State::CANCELLING:
-                if (!cb_session_cancelling(&(*it))) {
+            case HttpConnection::State::CREATED:
+                    cb_conn_created(&(*it));
+                    break;
+            case HttpConnection::State::CANCELLED:
+                    if (!cb_conn_cancelled(&(*it))) {
+                        std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+                        m_completed.splice(m_completed.end(), m_working, it);
+                        list_changed = true;
+                    } break;
+            case HttpConnection::State::COMPLETED:
+            case HttpConnection::State::FAILED: {
                     std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
                     m_completed.splice(m_completed.end(), m_working, it);
                     list_changed = true;
-                } break;
+                    break;
+                }
+            case HttpConnection::State::PROGRESS:
+                    cb_conn_progress(&(*it));
+                    break;
             }
             if (list_changed) it = m_working.begin();
             else ++it;
@@ -180,13 +193,13 @@ void HttpManager::worker_thread() {
     }
 }
 // ----------------------------------------------------------------------------
-bool HttpManager::cb_session_created(Session* session) {
+bool HttpManager::cb_conn_created(HttpConnection* conn) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     URL_COMPONENTS url_components = { 0 };
     TCHAR tmp[4];
     DWORD url_escape_len = 1;
     std::basic_string<TCHAR> url_escape;
-    std::basic_string<TCHAR> url_t = StringUtil::make_tstring(session->request.url);
+    std::basic_string<TCHAR> url_t = StringUtil::make_tstring(conn->request.url);
     std::basic_string<TCHAR> server;
     INET_PARAM* param = nullptr;
 
@@ -212,46 +225,45 @@ bool HttpManager::cb_session_created(Session* session) {
 
     param = new INET_PARAM();
     param->manager = this;
-    param->http_id = session->id;
-    session->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
-    if (!session->hconnect) goto fail;
+    param->http_id = conn->id;
+    conn->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);
+    if (!conn->hconnect) goto fail;
     PCTSTR accept_types[] = { L"*/*", NULL };
     DWORD flags = INTERNET_FLAG_HYPERLINK | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE;
     if (url_components.nScheme == INTERNET_SCHEME_HTTPS) flags |= INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP;
-    session->handle = HttpOpenRequest(session->hconnect,
-                                      session->request.data ? L"POST" : L"GET",
-                                      url_components.lpszUrlPath, NULL, NULL,
-                                      accept_types,
-                                      flags, (DWORD_PTR)param);
-    if (session->request.headers.size()>0) {
+    conn->handle = HttpOpenRequest(conn->hconnect,
+                                   conn->request.data ? L"POST" : L"GET",
+                                   url_components.lpszUrlPath, NULL, NULL,
+                                   accept_types,
+                                   flags, (DWORD_PTR)param);
+    if (conn->request.headers.size()>0) {
         std::string s;
-        for (auto it = session->request.headers.begin(); it != session->request.headers.end(); ++it) {
+        for (auto it=conn->request.headers.begin(); it!=conn->request.headers.end(); ++it) {
             s = s + it->first + ": " + it->second + "\r\n";
         }
         std::basic_string<TCHAR> headers_t = StringUtil::make_tstring(s);
-        HttpSendRequest(session->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
+        HttpSendRequest(conn->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(conn->request.data.ptr()), (DWORD)conn->request.data.size());
     } else {
-        HttpSendRequest(session->handle, NULL, 0, const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
+        HttpSendRequest(conn->handle, NULL, 0, const_cast<uint8_t*>(conn->request.data.ptr()), (DWORD)conn->request.data.size());
     }
-    session->state = Session::State::PROGRESS;
+    conn->state = HttpConnection::State::PROGRESS;
     return true;
 fail:
     if (param) delete param;
-    session->state = Session::State::FAILED;
-    session->cb(session->response);
+    conn->state = HttpConnection::State::FAILED;
     return false;
 #else
 #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
-bool HttpManager::cb_session_cancelling(Session* session) {
+bool HttpManager::cb_conn_cancelled(HttpConnection* conn) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    session->state = Session::State::CANCELLED;
-    if (session->hconnect) { InternetCloseHandle(session->hconnect); session->hconnect = nullptr; }
-    if (session->handle) {
-        InternetCloseHandle(session->handle); 
-        session->handle = nullptr;
+    conn->state = HttpConnection::State::CANCELLED;
+    if (conn->hconnect) { InternetCloseHandle(conn->hconnect); conn->hconnect = nullptr; }
+    if (conn->handle) {
+        InternetCloseHandle(conn->handle);
+        conn->handle = nullptr;
         return true;
     } return false;
 #else
@@ -259,14 +271,18 @@ bool HttpManager::cb_session_cancelling(Session* session) {
 #endif
 }
 // ----------------------------------------------------------------------------
+bool HttpManager::cb_conn_progress(HttpConnection* conn) {
+    return true;
+}
+// ----------------------------------------------------------------------------
 // Platform Specific: Windows
 // ----------------------------------------------------------------------------
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
 void CALLBACK HttpManager::cb_inet_status(HINTERNET handle, DWORD_PTR ud, DWORD status, LPVOID info, DWORD infolen) {
     INET_PARAM* param = reinterpret_cast<INET_PARAM*>(ud);
-    if (param) param->manager->cb_inet_status(param, handle, status, info, infolen);
+    if (param) param->manager->cb_inet_status(handle, param, status, info, infolen);
 }
-void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD status, LPVOID info, DWORD infolen) {
+void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD status, LPVOID info, DWORD infolen) {
     switch (status) {
     case INTERNET_STATUS_DETECTING_PROXY:
     case INTERNET_STATUS_RESOLVING_NAME:
@@ -287,55 +303,56 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
             INTERNET_ASYNC_RESULT* rez = (INTERNET_ASYNC_RESULT*)info;
             HTTP_ID http_id = param->http_id;
             std::lock_guard<std::mutex> lock(m_working_mutex);
-            auto session = std::find_if(m_working.begin(), m_working.end(), [&http_id](const Session& session) {
-                return session.id == http_id;
+            auto conn = std::find_if(m_working.begin(), m_working.end(), [&http_id](const HttpConnection& conn) {
+                return conn.id == http_id;
             });
-            if (session == m_working.end()) break;
+            if (conn == m_working.end()) break;
 
             bool success = rez->dwResult != 0;
             if (success) {
                 DWORD bodylen = 0;
-                if (!InternetQueryDataAvailable(session->handle, &bodylen, 0, 0)) {
+                if (!InternetQueryDataAvailable(conn->handle, &bodylen, 0, 0)) {
                     success = false;
                 } else {
-                    session->response.body.alloc(bodylen + 1);
+                    conn->response.body.alloc(bodylen + 1);
                     DWORD rlen = 0;
-                    if (!InternetReadFile(session->handle, session->response.body, bodylen, &rlen)) {
+                    if (!InternetReadFile(conn->handle, conn->response.body, bodylen, &rlen)) {
                         success = false;
                     } else {
-                        if (rlen <= bodylen+1) session->response.body[rlen] = 0;
-                        session->response.body.shrink((size_t)rlen);
+                        if (rlen <= bodylen+1) conn->response.body[rlen] = 0;
+                        conn->response.body.shrink((size_t)rlen);
                     }
                 }
                 {   // response code
                     DWORD code = 0;
                     DWORD codesize = (DWORD)sizeof(code);
-                    HttpQueryInfo(session->handle, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &code, &codesize, nullptr);
-                    session->response.code = (int)code;
+                    HttpQueryInfo(conn->handle, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &code, &codesize, nullptr);
+                    conn->response.code = (int)code;
                     // response headers
                     DWORD headersize = 0;
-                    HttpQueryInfo(session->handle, HTTP_QUERY_RAW_HEADERS, nullptr, &headersize, nullptr);
+                    HttpQueryInfo(conn->handle, HTTP_QUERY_RAW_HEADERS, nullptr, &headersize, nullptr);
                     if (headersize > 0) {
                         std::unique_ptr<TCHAR> header_tstrings(new TCHAR[headersize]);
-                        HttpQueryInfo(session->handle, HTTP_QUERY_RAW_HEADERS, header_tstrings.get(), &headersize, nullptr);
-                        StringUtil::tstrings_each(header_tstrings.get(), [&session](const std::string& header) -> bool {
+                        HttpQueryInfo(conn->handle, HTTP_QUERY_RAW_HEADERS, header_tstrings.get(), &headersize, nullptr);
+                        StringUtil::tstrings_each(header_tstrings.get(), [&conn](const std::string& header) -> bool {
                             auto pos = header.find(":");
                             if (pos != std::string::npos) {
                                 std::string key(header, 0, pos);
                                 std::string value(header, pos+1);
-                                session->response.headers.insert(std::pair<std::string,std::string>(StringUtil::trim(key), StringUtil::trim(value)));
+                                conn->response.headers.insert(std::pair<std::string,std::string>(StringUtil::trim(key), StringUtil::trim(value)));
                             } return true;
                         });
                     }
                 }
             }
-            InternetCloseHandle(session->handle);
-            InternetCloseHandle(session->hconnect);
-            session->handle = nullptr;
-            session->hconnect = nullptr;
-            session->state = Session::State::COMPLETED;
+            InternetSetStatusCallback(conn->handle, NULL);
+            InternetCloseHandle(conn->handle);
+            InternetCloseHandle(conn->hconnect);
+            conn->handle = nullptr;
+            conn->hconnect = nullptr;
+            if (conn->state!=HttpConnection::State::CANCELLED) conn->state = HttpConnection::State::COMPLETED;
             std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
-            m_completed.splice(m_completed.end(), m_working, session);
+            m_completed.splice(m_completed.end(), m_working, conn);
             delete param;
             break;
         }

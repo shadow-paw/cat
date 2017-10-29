@@ -41,35 +41,39 @@ private:
     void resume();
     void poll();
 private:
-    static const int POLL_INTERVAL = 100;
-    class Session {
+    class HttpConnection {
     public:
-        enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLING, CANCELLED, FAILED };
+        enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLED, FAILED };
         HTTP_ID id;
         State   state;
         std::function<void(const HTTP_RESPONSE&)> cb;
         HTTP_REQUEST  request;
         HTTP_RESPONSE response;
-        Session();
-        Session(Session&& o);
-        ~Session();
+
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
         HINTERNET    hconnect, handle;
 #else
-    #error Not Implemented!
+#error Not Implemented!
 #endif
+
+        HttpConnection();
+        HttpConnection(HttpConnection&& o);
+        ~HttpConnection();
     };
+private:
+    static const int POLL_INTERVAL = 100;
     std::atomic<bool> m_thread_started;
     std::thread m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
     std::condition_variable m_added_condvar;
-    std::list<Session> m_added, m_working, m_completed;
+    std::list<HttpConnection> m_added, m_working, m_completed;
     UniqueId_r<HTTP_ID> m_unique;
     bool m_worker_running;
 
     void worker_thread();
-    bool cb_session_created(Session* session);
-    bool cb_session_cancelling(Session* session);
+    bool cb_conn_created(HttpConnection* conn);
+    bool cb_conn_cancelled(HttpConnection* conn);
+    bool cb_conn_progress(HttpConnection* conn);
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     HINTERNET  m_internet;
@@ -78,7 +82,7 @@ private:
         HTTP_ID      http_id;
     };
     static void CALLBACK cb_inet_status(HINTERNET handle, DWORD_PTR ud, DWORD status, LPVOID info, DWORD infolen);
-    void cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD status, LPVOID info, DWORD infolen);
+    void cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD status, LPVOID info, DWORD infolen);
 #else
     #error Not Implemented!
 #endif
