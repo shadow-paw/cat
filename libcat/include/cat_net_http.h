@@ -31,7 +31,7 @@ public:
     HTTP_ID fetch(const std::string& url,
                   std::unordered_multimap<std::string, std::string>&& headers,
                   Buffer&& data,
-                  std::function<void(int, const uint8_t*, size_t)> cb);
+                  std::function<void(const HTTP_RESPONSE&)> cb);
     bool cancel(HTTP_ID session_id);
 
 private:
@@ -43,18 +43,11 @@ private:
     class Session {
     public:
         enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLING, CANCELLED, FAILED };
-        HTTP_ID    id;
-        State      state;
-        std::function<void(int, const uint8_t*, size_t)> cb;
-        struct {
-            std::string url;
-            std::unordered_multimap<std::string, std::string> headers;
-            Buffer data;
-        } request;
-        struct {
-            int    code;
-            Buffer data;
-        } response;
+        HTTP_ID id;
+        State   state;
+        std::function<void(const HTTP_RESPONSE&)> cb;
+        HTTP_REQUEST  request;
+        HTTP_RESPONSE response;
         Session();
         Session(Session&& o);
         ~Session();

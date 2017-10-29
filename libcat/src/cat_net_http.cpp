@@ -34,7 +34,7 @@ HttpManager::Session::Session(Session&& o) {
     request.url = std::move(o.request.url);
     request.headers = std::move(o.request.headers);
     request.data = std::move(o.request.data);
-    response.data = std::move(o.response.data);
+    response.body = std::move(o.response.body);
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     hconnect = o.hconnect;
@@ -93,7 +93,7 @@ void HttpManager::poll() {
         list.splice(list.end(), m_completed);
     }
     for (auto it = list.begin(); it != list.end(); ++it) {
-        it->cb(it->response.code, it->response.data.ptr(), it->response.data.size());
+        it->cb(it->response);
         m_unique.release(TimeService::now(), it->id);
     }
     {
@@ -137,7 +137,7 @@ bool HttpManager::cancel(HTTP_ID http_id) {
 HTTP_ID HttpManager::fetch(const std::string& url,
                            std::unordered_multimap<std::string, std::string>&& headers,
                            Buffer&& data,
-                           std::function<void(int, const uint8_t*, size_t)> cb) {
+                           std::function<void(const HTTP_RESPONSE&)> cb) {
     Session session;
     HTTP_ID http_id = m_unique.fetch(TimeService::now());
     session.state = Session::State::CREATED;
@@ -191,7 +191,7 @@ bool HttpManager::cb_session_created(Session* session) {
     TCHAR tmp[4];
     DWORD url_escape_len = 1;
     std::basic_string<TCHAR> url_escape;
-    std::basic_string<TCHAR> url_t = StringUtil::string2tchar(session->request.url);
+    std::basic_string<TCHAR> url_t = StringUtil::make_tstring(session->request.url);
     std::basic_string<TCHAR> server;
     INET_PARAM* param = nullptr;
 
@@ -233,7 +233,7 @@ bool HttpManager::cb_session_created(Session* session) {
         for (auto it = session->request.headers.begin(); it != session->request.headers.end(); ++it) {
             s = s + it->first + ": " + it->second + "\r\n";
         }
-        std::basic_string<TCHAR> headers_t = StringUtil::string2tchar(s);
+        std::basic_string<TCHAR> headers_t = StringUtil::make_tstring(s);
         HttpSendRequest(session->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
     } else {
         HttpSendRequest(session->handle, NULL, 0, const_cast<uint8_t*>(session->request.data.ptr()), (DWORD)session->request.data.size());
@@ -243,7 +243,7 @@ bool HttpManager::cb_session_created(Session* session) {
 fail:
     if (param) delete param;
     session->state = Session::State::FAILED;
-    session->cb(false, nullptr, 0);
+    session->cb(session->response);
     return false;
 #else
 #error Not Implemented!
@@ -303,21 +303,35 @@ void HttpManager::cb_inet_status(INET_PARAM* param, HINTERNET handle, DWORD stat
                 if (!InternetQueryDataAvailable(session->handle, &bodylen, 0, 0)) {
                     success = false;
                 } else {
-                    session->response.data.alloc(bodylen + 1);
+                    session->response.body.alloc(bodylen + 1);
                     DWORD rlen = 0;
-                    if (!InternetReadFile(session->handle, session->response.data, bodylen, &rlen)) {
+                    if (!InternetReadFile(session->handle, session->response.body, bodylen, &rlen)) {
                         success = false;
                     } else {
-                        if (rlen <= bodylen+1) session->response.data[rlen] = 0;
-                        session->response.data.shrink((size_t)rlen);
+                        if (rlen <= bodylen+1) session->response.body[rlen] = 0;
+                        session->response.body.shrink((size_t)rlen);
                     }
                 }
-                // response code
-                {
+                {   // response code
                     DWORD code = 0;
                     DWORD codesize = (DWORD)sizeof(code);
-                    HttpQueryInfo(session->handle, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &code, &codesize, 0);
+                    HttpQueryInfo(session->handle, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &code, &codesize, nullptr);
                     session->response.code = (int)code;
+                    // response headers
+                    DWORD headersize = 0;
+                    HttpQueryInfo(session->handle, HTTP_QUERY_RAW_HEADERS, nullptr, &headersize, nullptr);
+                    if (headersize > 0) {
+                        std::unique_ptr<TCHAR> header_tstrings(new TCHAR[headersize]);
+                        HttpQueryInfo(session->handle, HTTP_QUERY_RAW_HEADERS, header_tstrings.get(), &headersize, nullptr);
+                        StringUtil::tstrings_each(header_tstrings.get(), [&session](const std::string& header) -> bool {
+                            auto pos = header.find(":");
+                            if (pos != std::string::npos) {
+                                std::string key(header, 0, pos);
+                                std::string value(header, pos+1);
+                                session->response.headers.insert(std::pair<std::string,std::string>(StringUtil::trim(key), StringUtil::trim(value)));
+                            } return true;
+                        });
+                    }
                 }
             }
             InternetCloseHandle(session->handle);

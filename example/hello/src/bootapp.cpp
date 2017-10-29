@@ -111,14 +111,17 @@ bool BootApp::cb_startup(Timestamp now) {
     kernel()->time()->post_timer(this, 1000, 1);
     kernel()->time()->post_timer(this, 2000, 2);
     auto http_id = kernel()->net()->http_fetch(
-            "http://httpbin.org/post",
-            {   // custom headers
-                { "foo", "bar" },
-                { "foo2", "dumb" }
-            },
-            "Post data",
-            [](int code, const uint8_t* body, size_t bodylen) -> void {
-        Logger::d("app", "http -> %d - %s", code, body);
+                "http://httpbin.org/post",
+                {   // custom headers
+                    { "foo", "bar" },
+                    { "foo2", "dumb" }
+                },
+                "Post data",
+                [](const HTTP_RESPONSE& res) -> void {
+        for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
+            Logger::d("app", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
+        }
+        Logger::d("app", "http -> %d - %s", res.code, res.body.ptr());
     });
     //kernel()->net()->http_cancel(http_id);
     return true;

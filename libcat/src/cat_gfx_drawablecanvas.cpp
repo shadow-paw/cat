@@ -329,7 +329,7 @@ void DrawableCanvas::set_textstyle(const TextStyle& style) {
 void DrawableCanvas::calctext(const char* utf8, int* w, int* h) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     RECT rc = { 0 };
-    std::basic_string<TCHAR> text = StringUtil::string2tchar(utf8);
+    std::basic_string<TCHAR> text = StringUtil::make_tstring(utf8);
     ::DrawText(m_hdc, text.c_str(), -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE | DT_CALCRECT);
     *w = rc.right - rc.left + 2;    // reserve +1 for shadow
     *h = rc.bottom - rc.top + 2;
@@ -368,7 +368,7 @@ void DrawableCanvas::drawtext(const char* utf8, int x, int y, int w, int h) {
     if (!utf8) return;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     RECT rc = { x, y, x + w, y + h };
-    std::basic_string<TCHAR> text = StringUtil::string2tchar(utf8);
+    std::basic_string<TCHAR> text = StringUtil::make_tstring(utf8);
     ::DrawText(m_hdc, text.c_str(), -1, &rc, DT_NOCLIP | DT_NOPREFIX | DT_LEFT | DT_TOP | DT_SINGLELINE);
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     if (utf8 == NULL) return;

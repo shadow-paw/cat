@@ -22,6 +22,8 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_gfx_draw2d_shaders.cpp \
                 ../../src/cat_gfx_resmgr.cpp \
                 ../../src/cat_time_service.cpp \
+                ../../src/cat_net_service.cpp \
+                ../../src/cat_net_http.cpp \
                 ../../src/cat_util_jni.cpp \
                 ../../src/cat_util_log.cpp \
                 ../../src/cat_util_buffer.cpp \
