@@ -86,26 +86,15 @@ void HttpManager::resume() {
 }
 // ----------------------------------------------------------------------------
 void HttpManager::poll() {
+    std::unique_lock<std::mutex> lock(m_completed_mutex);
+    if (m_completed.empty()) return;
     std::list<Session> list;
-    {
-        std::lock_guard<std::mutex> lock(m_completed_mutex);
-        if (m_completed.empty()) return;
-        list.splice(list.end(), m_completed);
-    }
+    list.swap(m_completed);
+    lock.unlock();
+
     for (auto it = list.begin(); it != list.end(); ++it) {
         it->cb(it->response);
         m_unique.release(TimeService::now(), it->id);
-    }
-    {
-        std::lock_guard<std::mutex> lock(m_working_mutex);
-        if (m_working.size() == 0) {
-            bool expect = true;
-            if (m_thread_started.compare_exchange_strong(expect, false)) {
-                // no more session, stop worker
-                m_worker_running = false;
-                m_thread.join();
-            }
-        }
     }
 }
 // ----------------------------------------------------------------------------
@@ -148,6 +137,8 @@ HTTP_ID HttpManager::fetch(const std::string& url,
     session.cb = cb;
     std::lock_guard<std::mutex> lock(m_added_mutex);
     m_added.push_back(std::move(session));
+    m_added_condvar.notify_all();
+    // start the thread if not already
     bool expect = false;
     if (m_thread_started.compare_exchange_strong(expect, true)) {
         m_worker_running = true;
@@ -158,30 +149,34 @@ HTTP_ID HttpManager::fetch(const std::string& url,
 // ----------------------------------------------------------------------------
 void HttpManager::worker_thread() {
     while (m_worker_running) {
-        m_working_mutex.lock();
-        {
-            std::lock_guard<std::mutex> lock(m_added_mutex);
-            m_working.splice(m_working.end(), m_added);
+        std::unique_lock<std::mutex> lock_added(m_added_mutex);
+        if (m_added.size() == 0) {
+            m_added_condvar.wait_for(lock_added, std::chrono::milliseconds(POLL_INTERVAL));
+            if (m_added.size() == 0) continue;
         }
+        std::list<Session> added_list;
+        added_list.swap(m_added);
+        lock_added.unlock();
+
+        std::lock_guard<std::mutex> lock_working(m_working_mutex);
+        m_working.splice(m_working.end(), added_list);
+
         for (auto it=m_working.begin(); it!=m_working.end(); ) {
+            bool list_changed = false;
             switch (it->state) {
             case Session::State::CREATED:
                 cb_session_created(&(*it));
-                ++it;
                 break;
             case Session::State::CANCELLING:
                 if (!cb_session_cancelling(&(*it))) {
                     std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
                     m_completed.splice(m_completed.end(), m_working, it);
-                    it = m_working.begin();
-                } else ++it;
-                break;
-            default:
-                ++it;
+                    list_changed = true;
+                } break;
             }
+            if (list_changed) it = m_working.begin();
+            else ++it;
         }
-        m_working_mutex.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 // ----------------------------------------------------------------------------

@@ -13,6 +13,7 @@
 #include <list>
 #include <unordered_map>
 #include <mutex>
+#include <condition_variable>
 #include <thread>
 #include <atomic>
 #include "cat_net_type.h"
@@ -40,6 +41,7 @@ private:
     void resume();
     void poll();
 private:
+    static const int POLL_INTERVAL = 100;
     class Session {
     public:
         enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLING, CANCELLED, FAILED };
@@ -60,6 +62,7 @@ private:
     std::atomic<bool> m_thread_started;
     std::thread m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
+    std::condition_variable m_added_condvar;
     std::list<Session> m_added, m_working, m_completed;
     UniqueId_r<HTTP_ID> m_unique;
     bool m_worker_running;
@@ -67,6 +70,7 @@ private:
     void worker_thread();
     bool cb_session_created(Session* session);
     bool cb_session_cancelling(Session* session);
+
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     HINTERNET  m_internet;
     struct INET_PARAM {
