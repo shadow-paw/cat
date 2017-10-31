@@ -332,7 +332,7 @@ void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD stat
                     DWORD headersize = 0;
                     HttpQueryInfo(conn->handle, HTTP_QUERY_RAW_HEADERS, nullptr, &headersize, nullptr);
                     if (headersize > 0) {
-                        std::unique_ptr<TCHAR> header_tstrings(new TCHAR[headersize]);
+                        std::unique_ptr<TCHAR[]> header_tstrings(new TCHAR[headersize]);
                         HttpQueryInfo(conn->handle, HTTP_QUERY_RAW_HEADERS, header_tstrings.get(), &headersize, nullptr);
                         StringUtil::tstrings_each(header_tstrings.get(), [&conn](const std::string& header) -> bool {
                             auto pos = header.find(":");
