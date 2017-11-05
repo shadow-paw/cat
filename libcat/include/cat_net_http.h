@@ -6,6 +6,10 @@
     #include <windows.h>
     #include <wininet.h>
     #undef WIN32_LEAN_AND_MEAN
+#elif defined(PLATFORM_ANDROID)
+    #include "cat_util_jni.h"
+#else
+    #error Not Implemented!
 #endif
 
 #include <stdint.h>
@@ -17,7 +21,6 @@
 #include <thread>
 #include <atomic>
 #include "cat_net_type.h"
-#include "cat_util_buffer.h"
 #include "cat_util_uniqueid.h"
 
 namespace cat {
@@ -52,8 +55,10 @@ private:
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
         HINTERNET    hconnect, handle;
+#elif defined(PLATFORM_ANDROID)
+        jobject conn, istream, ostream;
 #else
-#error Not Implemented!
+    #error Not Implemented!
 #endif
 
         HttpConnection();

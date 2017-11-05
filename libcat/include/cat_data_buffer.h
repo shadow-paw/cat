@@ -1,5 +1,5 @@
-#ifndef __CAT_UTIL_BUFFER_H__
-#define __CAT_UTIL_BUFFER_H__
+#ifndef __CAT_DATA_BUFFER_H__
+#define __CAT_DATA_BUFFER_H__
 
 #include <stdint.h>
 #include <stddef.h>
@@ -31,4 +31,4 @@ private:
 // ----------------------------------------------------------------------------
 } // namespace cat
 
-#endif // __CAT_UTIL_BUFFER_H__
+#endif // __CAT_DATA_BUFFER_H__

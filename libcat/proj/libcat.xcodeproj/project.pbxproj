@@ -117,13 +117,13 @@
 		3EEE39871F8CC06000DF9B90 /* cat_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EEE397B1F8CBFBD00DF9B90 /* cat_application.h */; };
 		3EF9A0E11F8A6867008C00C0 /* cat_storage_driver_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DD1F8A6867008C00C0 /* cat_storage_driver_file.h */; };
 		3EF9A0E21F8A6867008C00C0 /* cat_storage_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DE1F8A6867008C00C0 /* cat_storage_driver.h */; };
-		3EF9A0E31F8A6867008C00C0 /* cat_storage_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* cat_storage_buffer.h */; };
+		3EF9A0E31F8A6867008C00C0 /* cat_data_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */; };
 		3EF9A0E41F8A6867008C00C0 /* cat_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */; };
 		3EF9A0EE1F8A68C1008C00C0 /* cat_storage_vfs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */; };
-		3EF9A0EF1F8A68C1008C00C0 /* cat_storage_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* cat_storage_buffer.cpp */; };
-		3EF9A0F91F8A693C008C00C0 /* cat_storage_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* cat_storage_buffer.cpp */; };
+		3EF9A0EF1F8A68C1008C00C0 /* cat_data_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */; };
+		3EF9A0F91F8A693C008C00C0 /* cat_data_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */; };
 		3EF9A0FA1F8A693C008C00C0 /* cat_storage_vfs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */; };
-		3EF9A0FB1F8A695D008C00C0 /* cat_storage_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* cat_storage_buffer.h */; };
+		3EF9A0FB1F8A695D008C00C0 /* cat_data_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */; };
 		3EF9A0FC1F8A695D008C00C0 /* cat_storage_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DE1F8A6867008C00C0 /* cat_storage_driver.h */; };
 		3EF9A0FD1F8A695D008C00C0 /* cat_storage_driver_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DD1F8A6867008C00C0 /* cat_storage_driver_file.h */; };
 		3EF9A0FE1F8A695D008C00C0 /* cat_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */; };
@@ -188,10 +188,10 @@
 		3EEE397B1F8CBFBD00DF9B90 /* cat_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cat_application.h; path = ../include/cat_application.h; sourceTree = "<group>"; };
 		3EF9A0DD1F8A6867008C00C0 /* cat_storage_driver_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_driver_file.h; path = ../include/cat_storage_driver_file.h; sourceTree = "<group>"; };
 		3EF9A0DE1F8A6867008C00C0 /* cat_storage_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_driver.h; path = ../include/cat_storage_driver.h; sourceTree = "<group>"; };
-		3EF9A0DF1F8A6867008C00C0 /* cat_storage_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_buffer.h; path = ../include/cat_storage_buffer.h; sourceTree = "<group>"; };
+		3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_buffer.h; path = ../include/cat_data_buffer.h; sourceTree = "<group>"; };
 		3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_vfs.h; path = ../include/cat_storage_vfs.h; sourceTree = "<group>"; };
 		3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_vfs.cpp; path = ../src/cat_storage_vfs.cpp; sourceTree = "<group>"; };
-		3EF9A0ED1F8A68C1008C00C0 /* cat_storage_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_buffer.cpp; path = ../src/cat_storage_buffer.cpp; sourceTree = "<group>"; };
+		3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_data_buffer.cpp; path = ../src/cat_data_buffer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,8 +323,8 @@
 		3EF9A0DC1F8A6855008C00C0 /* storage */ = {
 			isa = PBXGroup;
 			children = (
-				3EF9A0DF1F8A6867008C00C0 /* cat_storage_buffer.h */,
-				3EF9A0ED1F8A68C1008C00C0 /* cat_storage_buffer.cpp */,
+				3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */,
+				3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */,
 				3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */,
 				3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */,
 				3EF9A0DE1F8A6867008C00C0 /* cat_storage_driver.h */,
@@ -365,7 +365,7 @@
 				3EEE397E1F8CC03600DF9B90 /* cat_time_type.h in Headers */,
 				3EEE397F1F8CC03600DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39801F8CC03600DF9B90 /* cat_time_service.h in Headers */,
-				3EF9A0FB1F8A695D008C00C0 /* cat_storage_buffer.h in Headers */,
+				3EF9A0FB1F8A695D008C00C0 /* cat_data_buffer.h in Headers */,
 				3EF9A0FE1F8A695D008C00C0 /* cat_storage_vfs.h in Headers */,
 				3EF9A0FC1F8A695D008C00C0 /* cat_storage_driver.h in Headers */,
 				3EF9A0FD1F8A695D008C00C0 /* cat_storage_driver_file.h in Headers */,
@@ -407,7 +407,7 @@
 				3EEE39811F8CC04400DF9B90 /* cat_time_type.h in Headers */,
 				3EEE39821F8CC04400DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* cat_time_service.h in Headers */,
-				3EF9A0E31F8A6867008C00C0 /* cat_storage_buffer.h in Headers */,
+				3EF9A0E31F8A6867008C00C0 /* cat_data_buffer.h in Headers */,
 				3EF9A0E41F8A6867008C00C0 /* cat_storage_vfs.h in Headers */,
 				3EF9A0E21F8A6867008C00C0 /* cat_storage_driver.h in Headers */,
 				3EF9A0E11F8A6867008C00C0 /* cat_storage_driver_file.h in Headers */,
@@ -517,7 +517,7 @@
 				3ED3FD8B1F8A3F8B007BE517 /* cat_gfx_draw2d_shaders.cpp in Sources */,
 				3E92B6DF1F8B888F00614529 /* cat_gfx_resmgr.cpp in Sources */,
 				3EEE397D1F8CC02300DF9B90 /* cat_time_service.cpp in Sources */,
-				3EF9A0F91F8A693C008C00C0 /* cat_storage_buffer.cpp in Sources */,
+				3EF9A0F91F8A693C008C00C0 /* cat_data_buffer.cpp in Sources */,
 				3EF9A0FA1F8A693C008C00C0 /* cat_storage_vfs.cpp in Sources */,
 				3EAED9751F8FCF9A00E0B461 /* cat_storage_driver_asset.cpp in Sources */,
 				3EAED9761F8FCF9A00E0B461 /* cat_storage_driver_file.cpp in Sources */,
@@ -549,7 +549,7 @@
 				3ECE1B091F8A391C009D9088 /* cat_gfx_draw2d_shaders.cpp in Sources */,
 				3E92B6DE1F8B886000614529 /* cat_gfx_resmgr.cpp in Sources */,
 				3EEE397C1F8CC01700DF9B90 /* cat_time_service.cpp in Sources */,
-				3EF9A0EF1F8A68C1008C00C0 /* cat_storage_buffer.cpp in Sources */,
+				3EF9A0EF1F8A68C1008C00C0 /* cat_data_buffer.cpp in Sources */,
 				3EF9A0EE1F8A68C1008C00C0 /* cat_storage_vfs.cpp in Sources */,
 				3EAED96E1F8FCF3600E0B461 /* cat_storage_driver_file.cpp in Sources */,
 				3EAED96F1F8FCF3600E0B461 /* cat_storage_driver_asset.cpp in Sources */,

@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\cat_data_buffer.cpp" />
     <ClCompile Include="..\src\cat_kernel.cpp" />
     <ClCompile Include="..\src\cat_net_http.cpp" />
     <ClCompile Include="..\src\cat_net_service.cpp" />
-    <ClCompile Include="..\src\cat_util_buffer.cpp" />
     <ClCompile Include="..\src\cat_util_jni.cpp" />
     <ClCompile Include="..\src\cat_util_log.cpp" />
     <ClCompile Include="..\src\cat_gfx_renderer.cpp" />
@@ -49,10 +49,10 @@
     <ClCompile Include="..\src\cat_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\cat_data_buffer.h" />
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
     <ClInclude Include="..\include\cat_net_type.h" />
-    <ClInclude Include="..\include\cat_util_buffer.h" />
     <ClInclude Include="..\include\cat_util_uniqueid.h" />
     <ClInclude Include="..\include\libcat.h" />
     <ClInclude Include="..\include\cat_platform.h" />

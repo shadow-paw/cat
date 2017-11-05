@@ -2,7 +2,7 @@
 #define __CAT_NET_TYPE_H__
 
 #include <unordered_map>
-#include "cat_util_buffer.h"
+#include "cat_data_buffer.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------

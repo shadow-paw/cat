@@ -13,7 +13,7 @@ VFS::~VFS() {
 bool VFS::mount(const std::string& path, Driver* driver) {
     // force tail /
     auto pair = m_mounts.emplace(path.back() == '/' ? path : path + "/", std::unique_ptr<Driver>(driver));
-    return  pair.second;
+    return pair.second;
 }
 // ----------------------------------------------------------------------------
 bool VFS::unmount(const std::string& path) {

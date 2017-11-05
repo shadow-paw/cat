@@ -26,6 +26,9 @@
     <Filter Include="libcat\net">
       <UniqueIdentifier>{1365f117-45aa-4697-9c81-508d118bd4bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libcat\data">
+      <UniqueIdentifier>{8da296d4-c227-4893-afc0-efb5ab9b984b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cat_type.h">
@@ -145,8 +148,8 @@
     <ClInclude Include="..\include\cat_net_type.h">
       <Filter>libcat\net</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cat_util_buffer.h">
-      <Filter>libcat\util</Filter>
+    <ClInclude Include="..\include\cat_data_buffer.h">
+      <Filter>libcat\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,8 +234,8 @@
     <ClCompile Include="..\src\cat_net_http.cpp">
       <Filter>libcat\net</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cat_util_buffer.cpp">
-      <Filter>libcat\util</Filter>
+    <ClCompile Include="..\src\cat_data_buffer.cpp">
+      <Filter>libcat\data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
