@@ -314,7 +314,7 @@ void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD stat
                 if (!InternetQueryDataAvailable(conn->handle, &bodylen, 0, 0)) {
                     success = false;
                 } else {
-                    conn->response.body.alloc(bodylen + 1);
+                    conn->response.body.realloc(bodylen + 1);
                     DWORD rlen = 0;
                     if (!InternetReadFile(conn->handle, conn->response.body, bodylen, &rlen)) {
                         success = false;

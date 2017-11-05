@@ -10,14 +10,14 @@ namespace cat {
 class Buffer {
 public:
     Buffer();
-    Buffer(const void* p, size_t size);
     Buffer(Buffer&& o);
+    Buffer(const void* p, size_t size);
     ~Buffer();
 
     uint8_t* ptr() const { return m_buffer; }
     size_t   size() const { return m_size; }
-    bool alloc(size_t size);
-    void release();
+    bool realloc(size_t size);
+    void free();
     void shrink(size_t s);
 
     Buffer& operator=(Buffer&& o);
@@ -26,7 +26,7 @@ public:
 
 private:
     uint8_t* m_buffer;
-    size_t   m_size;
+    size_t   m_size, m_allocated;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

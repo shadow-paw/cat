@@ -6,10 +6,6 @@
     #include <windows.h>
     #include <wininet.h>
     #undef WIN32_LEAN_AND_MEAN
-#elif defined(PLATFORM_ANDROID)
-    #include "cat_util_jni.h"
-#else
-    #error Not Implemented!
 #endif
 
 #include <stdint.h>
@@ -20,6 +16,7 @@
 #include <condition_variable>
 #include <thread>
 #include <atomic>
+#include "cat_platform.h"
 #include "cat_net_type.h"
 #include "cat_util_uniqueid.h"
 
@@ -88,6 +85,8 @@ private:
     };
     static void CALLBACK cb_inet_status(HINTERNET handle, DWORD_PTR ud, DWORD status, LPVOID info, DWORD infolen);
     void cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD status, LPVOID info, DWORD infolen);
+#elif defined(PLATFORM_ANDROID)
+    // Nothing
 #else
     #error Not Implemented!
 #endif
