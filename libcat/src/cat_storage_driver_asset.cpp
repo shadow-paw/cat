@@ -1,5 +1,6 @@
-#if defined(PLATFORM_ANDROID)
 #include "cat_storage_driver_asset.h"
+
+#if defined(PLATFORM_ANDROID)
 #include <stdio.h>
 #include <android/asset_manager_jni.h>
 

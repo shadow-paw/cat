@@ -1,3 +1,5 @@
+#include "cat_util_log.h"
+
 // ----------------------------------------------------------------------------
 // Windows
 // ----------------------------------------------------------------------------
@@ -7,7 +9,6 @@
 #undef WIN32_LEAN_AND_MEAN
 #include <stdarg.h>
 #include <stdio.h>
-#include "cat_util_log.h"
 #include "cat_util_string.h"
 
 using namespace cat;
@@ -38,7 +39,6 @@ void Logger::e(const char* tag, const char* fmt, ...) {
 // MAC
 // ----------------------------------------------------------------------------
 #elif defined(PLATFORM_MAC)
-#include "cat_util_log.h"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -64,7 +64,6 @@ void Logger::e(const char* tag, const char* fmt, ...) {
 // IOS
 // ----------------------------------------------------------------------------
 #elif defined(PLATFORM_IOS)
-#include "cat_util_log.h"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -90,7 +89,6 @@ void Logger::e(const char* tag, const char* fmt, ...) {
 // Android
 // ----------------------------------------------------------------------------
 #elif defined(PLATFORM_ANDROID)
-#include "cat_util_log.h"
 #include <android/log.h>
 
 using namespace cat;

@@ -1,6 +1,6 @@
 #include "cat_gfx_resmgr.h"
-#include "libpng/png.h"
 #include <string.h>
+#include "libpng/png.h"
 
 using namespace cat;
 

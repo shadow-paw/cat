@@ -1,8 +1,6 @@
 #include "cat_kernel.h"
 #include "cat_util_log.h"
 
-#include <chrono>
-
 using namespace cat;
 
 // ----------------------------------------------------------------------------

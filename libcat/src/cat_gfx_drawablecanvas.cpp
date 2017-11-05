@@ -1,6 +1,6 @@
+#include "cat_gfx_drawablecanvas.h"
 #include <stdlib.h>
 #include <string>
-#include "cat_gfx_drawablecanvas.h"
 #include "cat_util_string.h"
 
 using namespace cat;
