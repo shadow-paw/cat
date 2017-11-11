@@ -17,37 +17,49 @@ HttpManager::HttpConnection::HttpConnection() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     hconnect = nullptr;
     handle = nullptr;
+#elif defined(PLATFORM_ANDROID)
+    j_conn = nullptr;
+    j_istream = nullptr;
+    j_rbuf = nullptr;
 #else
-#error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 HttpManager::HttpConnection::HttpConnection(HttpConnection&& o) {
-    id = o.id;
-    state = o.state;
-    response.code = o.response.code;
-    cb = o.cb;
-    o.id = 0;
-    o.state = State::INVALID;
-    o.response.code = 0;
-    o.cb = nullptr;
-
+    id = o.id;                       o.id = 0;
+    state = o.state;                 o.state = State::INVALID;
+    response.code = o.response.code; o.response.code = 0;
+    cb = o.cb;                       o.cb = nullptr;
     request.url = std::move(o.request.url);
     request.headers = std::move(o.request.headers);
     request.data = std::move(o.request.data);
     response.body = std::move(o.response.body);
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    hconnect = o.hconnect;
-    handle = o.handle;
-    o.hconnect = nullptr;
-    o.handle = nullptr;
+    hconnect = o.hconnect; o.hconnect = nullptr;
+    handle = o.handle;     o.handle = nullptr;
+#elif defined(PLATFORM_ANDROID)
+    j_conn = o.j_conn;       o.j_conn = nullptr;
+    j_istream = o.j_istream; o.j_istream = nullptr;
+    j_rbuf = o.j_rbuf;       o.j_rbuf = nullptr;
 #else
-#error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 HttpManager::HttpConnection::~HttpConnection() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    if (handle) { InternetCloseHandle(handle); handle = nullptr; }
+    if (hconnect) { InternetCloseHandle(hconnect); hconnect = nullptr; }
+#elif defined(PLATFORM_ANDROID)
+    JNIHelper jni;
+    if (j_conn)    { jni.DeleteGlobalRef(j_conn);    j_conn = nullptr;    }
+    if (j_istream) { jni.DeleteGlobalRef(j_istream); j_istream = nullptr; }
+    if (j_rbuf)    { jni.DeleteGlobalRef(j_rbuf);    j_rbuf = nullptr;    }
+#else
+    #error Not Implemented!
+#endif
 }
 // ----------------------------------------------------------------------------
 // HttpManager
@@ -56,35 +68,43 @@ HttpManager::HttpManager() {
     m_unique.init(5000, 1, 0x7ffffff0);
     m_thread_started = false;
     m_worker_running = false;
+    m_thread = nullptr;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     m_internet = nullptr;
+#elif defined(PLATFORM_ANDROID)
+    // Nothing
 #else
     #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 HttpManager::~HttpManager() {
+    pause();
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     if (m_internet) {
         InternetCloseHandle(m_internet);
         m_internet = nullptr;
     }
+#elif defined(PLATFORM_ANDROID)
+    // Nothing
 #else
     #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 void HttpManager::pause() {
-    if (m_thread_started) {
+    if (m_thread) {
         m_worker_running = false;
-        m_thread.join();
+        m_thread->join();
+        delete m_thread;
+        m_thread = nullptr;
     }
 }
 // ----------------------------------------------------------------------------
 void HttpManager::resume() {
     if (m_thread_started) {
         m_worker_running = true;
-        m_thread = std::thread(&HttpManager::worker_thread, this);
+        m_thread = new std::thread(&HttpManager::worker_thread, this);
     }
 }
 // ----------------------------------------------------------------------------
@@ -119,7 +139,7 @@ HTTP_ID HttpManager::fetch(const std::string& url,
     bool expect = false;
     if (m_thread_started.compare_exchange_strong(expect, true)) {
         m_worker_running = true;
-        m_thread = std::thread(&HttpManager::worker_thread, this);
+        m_thread = new std::thread(&HttpManager::worker_thread, this);
     }
     return http_id;
 }
@@ -151,24 +171,34 @@ bool HttpManager::cancel(HTTP_ID http_id) {
 // ----------------------------------------------------------------------------
 void HttpManager::worker_thread() {
     while (m_worker_running) {
+        bool added = false;
         std::unique_lock<std::mutex> lock_added(m_added_mutex);
         if (m_added.size() == 0) {
             m_added_condvar.wait_for(lock_added, std::chrono::milliseconds(POLL_INTERVAL));
-            if (m_added.size() == 0) continue;
         }
         std::list<HttpConnection> added_list;
-        added_list.swap(m_added);
+        if (m_added.size() > 0) {
+            added_list.swap(m_added);
+            added = true;
+        }
         lock_added.unlock();
 
         std::lock_guard<std::mutex> lock_working(m_working_mutex);
-        m_working.splice(m_working.end(), added_list);
-
+        if (added) {
+            m_working.splice(m_working.end(), added_list);
+        }
         for (auto it=m_working.begin(); it!=m_working.end(); ) {
             bool list_changed = false;
             switch (it->state) {
             case HttpConnection::State::CREATED:
-                    cb_conn_created(&(*it));
-                    break;
+                    if (!cb_conn_created(&(*it))) {
+                        it->state = HttpConnection::State::FAILED;
+                        std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+                        m_completed.splice(m_completed.end(), m_working, it);
+                        list_changed = true;
+                    } else {
+                        it->state = HttpConnection::State::PROGRESS;
+                    } break;
             case HttpConnection::State::CANCELLED:
                     if (!cb_conn_cancelled(&(*it))) {
                         std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
@@ -183,8 +213,12 @@ void HttpManager::worker_thread() {
                     break;
                 }
             case HttpConnection::State::PROGRESS:
-                    cb_conn_progress(&(*it));
-                    break;
+                    if (!cb_conn_progress(&(*it))) it->state = HttpConnection::State::FAILED;
+                    if (it->state == HttpConnection::State::FAILED || it->state== HttpConnection::State::COMPLETED) {
+                        std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+                        m_completed.splice(m_completed.end(), m_working, it);
+                        list_changed = true;
+                    } break;
             }
             if (list_changed) it = m_working.begin();
             else ++it;
@@ -245,33 +279,90 @@ bool HttpManager::cb_conn_created(HttpConnection* conn) {
     } else {
         HttpSendRequest(conn->handle, NULL, 0, const_cast<uint8_t*>(conn->request.data.ptr()), (DWORD)conn->request.data.size());
     }
-    conn->state = HttpConnection::State::PROGRESS;
     return true;
 fail:
     if (param) delete param;
-    conn->state = HttpConnection::State::FAILED;
+    return false;
+#elif defined(PLATFORM_ANDROID)
+    JNIHelper jni;
+    // URL j_url = new URL(conn->request.url);
+    jobject j_url = jni.NewObject("java/net/URL", "(Ljava/lang/String;)V", jni.NewStringUTF(conn->request.url));
+    if (!j_url) return false;
+    // HttpURLConnection j_conn = j_url.openConnection();
+    jobject j_conn = jni.CallObjectMethod(j_url, "openConnection", "()Ljava/net/URLConnection;");
+    if (!j_conn) return false;
+    conn->j_conn = jni.NewGlobalRef(j_conn);
+    // Request Header
+    for (auto it = conn->request.headers.begin(); it != conn->request.headers.end(); ++it) {
+        jni.CallVoidMethod(j_conn, "addRequestProperty", "(Ljava/lang/String;Ljava/lang/String;)V", jni.NewStringUTF(it->first), jni.NewStringUTF(it->second));
+    }
+    // Post
+    if (conn->request.data.ptr() && conn->request.data.size() > 0) {
+        Logger::d("libcat", "http post");
+        // j_conn.setDoOutput(true);
+        jni.CallVoidMethod(j_conn, "setDoOutput", "(Z)V", JNI_TRUE);
+        // j_conn.setFixedLengthStreamingMode(postlen);
+        jni.CallVoidMethod(j_conn, "setFixedLengthStreamingMode", "(I)V", (jint)conn->request.data.size());
+        // OutputStream j_os = j_conn.getOutputStream();
+        jobject j_os = jni.CallObjectMethod(j_conn, "getOutputStream", "()Ljava/io/OutputStream;");
+        // j_os.write(conn->request.data); 
+        jni.CallVoidMethod(j_os, "write", "([B)V", jni.NewByteArray(conn->request.data.ptr(), conn->request.data.size()));
+    }
+    // InputStream j_in = new BufferedInputStream(j_conn.getInputStream());
+    jobject j_istream = jni.NewObject("java/io/BufferedInputStream", "(Ljava/io/InputStream;)V", jni.CallObjectMethod(j_conn, "getInputStream", "()Ljava/io/InputStream;"));
+    conn->j_istream = jni.NewGlobalRef(j_istream);
+    conn->j_rbuf = (jbyteArray)jni.NewGlobalRef(jni.NewByteArray(RBUF_SIZE));
+    Logger::d("libcat", "http connection created.");
+    return true;
+fail:
     return false;
 #else
-#error Not Implemented!
+    #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 bool HttpManager::cb_conn_cancelled(HttpConnection* conn) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    conn->state = HttpConnection::State::CANCELLED;
     if (conn->hconnect) { InternetCloseHandle(conn->hconnect); conn->hconnect = nullptr; }
-    if (conn->handle) {
+    if (conn->handle) {   
         InternetCloseHandle(conn->handle);
         conn->handle = nullptr;
-        return true;
-    } return false;
+        return false;   // do not remove entry from list, let the callback do cleanup
+    } return true;
+#elif defined(PLATFORM_ANDROID)
+    // TODO
+    Logger::d("libcat", "http connection cancelled.");
+    return true;
 #else
     #error Not Implemented!
 #endif
 }
 // ----------------------------------------------------------------------------
 bool HttpManager::cb_conn_progress(HttpConnection* conn) {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     return true;
+#elif defined(PLATFORM_ANDROID)
+    Logger::d("libcat", "http connection poll.");
+    JNIHelper jni;
+    int len = jni.CallIntMethod(conn->j_istream, "read", "([B)I", conn->j_rbuf);
+    if (len == -1) {    // done
+        conn->response.code = jni.CallIntMethod(conn->j_conn, "getResponseCode", "()I");
+        for (int i=0; i<1024; i++) {
+            jstring j_key   = (jstring)jni.CallObjectMethod(conn->j_conn, "getHeaderFieldKey", "(I)Ljava/lang/String;", i);
+            jstring j_value = (jstring)jni.CallObjectMethod(conn->j_conn, "getHeaderField", "(I)Ljava/lang/String;", i);
+            if (!j_key || !j_value) break;
+            conn->response.headers.emplace(std::make_pair(jni.GetStringUTFChars(j_key), jni.GetStringUTFChars(j_value)));
+        }
+        conn->state = HttpConnection::State::COMPLETED;
+    } else if (len > 0) {
+        size_t cursor = conn->response.body.size();
+        if (!conn->response.body.realloc(cursor + len)) return false;
+        jni.GetByteArrayRegion(conn->j_rbuf, conn->response.body.ptr() + cursor, 0, (size_t)len);
+    }
+    return true;
+#else
+    #error Not Implemented!
+#endif
 }
 // ----------------------------------------------------------------------------
 // Platform Specific: Windows
@@ -345,10 +436,8 @@ void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD stat
                 }
             }
             InternetSetStatusCallback(conn->handle, NULL);
-            InternetCloseHandle(conn->handle);
-            InternetCloseHandle(conn->hconnect);
-            conn->handle = nullptr;
-            conn->hconnect = nullptr;
+            InternetCloseHandle(conn->handle);   conn->handle = nullptr;
+            InternetCloseHandle(conn->hconnect); conn->hconnect = nullptr;
             if (conn->state!=HttpConnection::State::CANCELLED) conn->state = HttpConnection::State::COMPLETED;
             std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
             m_completed.splice(m_completed.end(), m_working, conn);

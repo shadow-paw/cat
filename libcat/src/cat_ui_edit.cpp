@@ -197,8 +197,7 @@ std::string Editbox::get_text() const {
     jobject jseq = jni.CallObjectMethod(m_native_ctrl, "getText", "()Ljava/lang/CharSequence;");
     // jstr = jseq.toString();
     jstring jstr = (jstring)jni.CallObjectMethod(jseq, "toString", "()Ljava/lang/String;");
-    const char* s = jni.GetStringUTFChars(jstr);
-    return std::string(s);
+    return jni.GetStringUTFChars(jstr);
 #else
     #error Not Implemented!
 #endif

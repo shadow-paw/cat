@@ -53,7 +53,8 @@ private:
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
         HINTERNET    hconnect, handle;
 #elif defined(PLATFORM_ANDROID)
-        jobject conn, istream, ostream;
+        jobject j_conn, j_istream;
+        jbyteArray j_rbuf;
 #else
     #error Not Implemented!
 #endif
@@ -63,9 +64,9 @@ private:
         ~HttpConnection();
     };
 private:
-    static const int POLL_INTERVAL = 100;
+    const int POLL_INTERVAL = 100;
     std::atomic<bool> m_thread_started;
-    std::thread m_thread;
+    std::thread* m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
     std::condition_variable m_added_condvar;
     std::list<HttpConnection> m_added, m_working, m_completed;
@@ -86,7 +87,7 @@ private:
     static void CALLBACK cb_inet_status(HINTERNET handle, DWORD_PTR ud, DWORD status, LPVOID info, DWORD infolen);
     void cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD status, LPVOID info, DWORD infolen);
 #elif defined(PLATFORM_ANDROID)
-    // Nothing
+    static const size_t RBUF_SIZE = 4096;
 #else
     #error Not Implemented!
 #endif

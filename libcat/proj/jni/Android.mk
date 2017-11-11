@@ -42,4 +42,3 @@ include $(BUILD_STATIC_LIBRARY)
 all: $(LOCAL_BUILT_MODULE) post_build
 post_build: $(LOCAL_BUILT_MODULE)
 	cp -rf ../lib/android/local/* ../lib/android/
-	rm -rf ../lib/android/local/

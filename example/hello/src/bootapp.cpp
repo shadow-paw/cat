@@ -113,6 +113,7 @@ bool BootApp::cb_startup(Timestamp now) {
     auto http_id = kernel()->net()->http_fetch(
                 "http://httpbin.org/post",
                 {   // custom headers
+                    { "Content-Type", "text/plain; charset=utf-8" },
                     { "foo", "bar" },
                     { "foo2", "dumb" }
                 },
@@ -123,7 +124,7 @@ bool BootApp::cb_startup(Timestamp now) {
         }
         Logger::d("app", "http -> %d - %s", res.code, res.body.ptr());
     });
-    //kernel()->net()->http_cancel(http_id);
+    // kernel()->net()->http_cancel(http_id);
     return true;
 }
 // // cb_shutdown is called after app->exit()
