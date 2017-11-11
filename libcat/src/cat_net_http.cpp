@@ -392,7 +392,8 @@ fail:
         conn->response.code = (int)hres.statusCode;
         conn->response.body.realloc((size_t)data.length+1);
         conn->response.body.copy(0, data.bytes, (size_t)data.length);
-        conn->response.body[data.length] = 0;
+        conn->response.body[data.length] = 0;      // put a zero after payload for convenience
+        conn->response.body.shrink(data.length);   // length not include that zero
         conn->state = HttpConnection::State::COMPLETED;
         
         std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
@@ -464,6 +465,8 @@ bool HttpManager::cb_conn_progress(HttpConnection* conn) {
         size_t cursor = conn->response.body.size();
         if (!conn->response.body.realloc(cursor + len)) return false;
         jni.GetByteArrayRegion(conn->j_rbuf, conn->response.body.ptr() + cursor, 0, (size_t)len);
+        conn->response.body[cursor + len] = 0;      // put a zero after payload for convenience
+        conn->response.body.shrink(cursor + len);   // length not include that zero
     }
     return true;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
