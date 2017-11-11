@@ -110,15 +110,13 @@ bool BootApp::cb_startup(Timestamp now) {
     };
     kernel()->time()->post_timer(this, 1000, 1);
     kernel()->time()->post_timer(this, 2000, 2);
-    auto http_id = kernel()->net()->http_fetch(
-                "http://httpbin.org/post",
-                {   // custom headers
-                    { "Content-Type", "text/plain; charset=utf-8" },
-                    { "foo", "bar" },
-                    { "foo2", "dumb" }
-                },
-                "Post data",
-                [](const HTTP_RESPONSE& res) -> void {
+
+    // Http Test
+    HttpRequest request("http://httpbin.org/post");
+    request.add_header("foo", "bar");
+    request.add_header("foo2", "dumb");
+    request.post("Post Data", "text/plain; charset=utf-8");
+    auto http_id = kernel()->net()->http_fetch(std::move(request), [](const HttpResponse& res) -> void {
         for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
             Logger::d("app", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
         }

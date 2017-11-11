@@ -52,7 +52,6 @@
     <ClInclude Include="..\include\cat_data_buffer.h" />
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
-    <ClInclude Include="..\include\cat_net_type.h" />
     <ClInclude Include="..\include\cat_util_uniqueid.h" />
     <ClInclude Include="..\include\libcat.h" />
     <ClInclude Include="..\include\cat_platform.h" />

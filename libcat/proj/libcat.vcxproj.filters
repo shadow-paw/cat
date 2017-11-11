@@ -145,9 +145,6 @@
     <ClInclude Include="..\include\cat_util_uniqueid.h">
       <Filter>libcat\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cat_net_type.h">
-      <Filter>libcat\net</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\cat_data_buffer.h">
       <Filter>libcat\data</Filter>
     </ClInclude>

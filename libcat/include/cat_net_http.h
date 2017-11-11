@@ -17,11 +17,43 @@
 #include <thread>
 #include <atomic>
 #include "cat_platform.h"
-#include "cat_net_type.h"
+#include "cat_data_buffer.h"
 #include "cat_util_uniqueid.h"
 
 namespace cat {
 class NetService;
+class HttpManager;
+// ----------------------------------------------------------------------------
+typedef unsigned int HTTP_ID;
+// ----------------------------------------------------------------------------
+class HttpRequest {
+friend class HttpManager;
+public:
+    HttpRequest();
+    HttpRequest(const std::string& url);
+    HttpRequest(HttpRequest&& o);
+    HttpRequest& operator=(HttpRequest&& o);
+
+    void set_url(const std::string& url);
+    void add_header(const std::string& key, const std::string& value);
+    void post(Buffer&& data, const std::string& mime);
+    void post(const std::string& data, const std::string& mime);
+private:
+    std::string m_url;
+    std::unordered_multimap<std::string, std::string> m_headers;
+    Buffer m_data;
+};
+// ----------------------------------------------------------------------------
+class HttpResponse {
+public:
+    int code;
+    std::unordered_multimap<std::string, std::string> headers;
+    Buffer body;
+
+    HttpResponse();
+    HttpResponse(HttpResponse&& o);
+    HttpResponse& operator=(HttpResponse&& o);
+};
 // ----------------------------------------------------------------------------
 class HttpManager {
 friend class cat::NetService;
@@ -29,10 +61,7 @@ public:
     HttpManager();
     ~HttpManager();
 
-    HTTP_ID fetch(const std::string& url,
-                  std::unordered_multimap<std::string, std::string>&& headers,
-                  Buffer&& data,
-                  std::function<void(const HTTP_RESPONSE&)> cb);
+    HTTP_ID fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb);
     bool cancel(HTTP_ID session_id);
 
 private:
@@ -46,9 +75,9 @@ private:
         enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLED, FAILED };
         HTTP_ID id;
         State   state;
-        std::function<void(const HTTP_RESPONSE&)> cb;
-        HTTP_REQUEST  request;
-        HTTP_RESPONSE response;
+        std::function<void(const HttpResponse&)> cb;
+        HttpRequest  request;
+        HttpResponse response;
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
         HINTERNET    hconnect, handle;

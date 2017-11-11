@@ -7,6 +7,56 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
+// HttpRequest
+// ----------------------------------------------------------------------------
+HttpRequest::HttpRequest() {
+}
+HttpRequest::HttpRequest(const std::string& url) {
+    m_url = url;
+}
+HttpRequest::HttpRequest(HttpRequest&& o) {
+    m_url = std::move(o.m_url);         o.m_url.clear();
+    m_headers = std::move(o.m_headers); o.m_headers.clear();
+    m_data = std::move(o.m_data);       o.m_data.free();
+}
+HttpRequest& HttpRequest::operator=(HttpRequest&& o) {
+    m_url = std::move(o.m_url);         o.m_url.clear();
+    m_headers = std::move(o.m_headers); o.m_headers.clear();
+    m_data = std::move(o.m_data);       o.m_data.free();
+    return *this;
+}
+void HttpRequest::set_url(const std::string& url) {
+    m_url = url;
+}
+void HttpRequest::add_header(const std::string& key, const std::string& value) {
+    m_headers.emplace(std::make_pair(key, value));
+}
+void HttpRequest::post(Buffer&& data, const std::string& mime) {
+    m_data = std::move(data);
+    m_headers.emplace(std::make_pair("Content-Type", mime));
+}
+void HttpRequest::post(const std::string& data, const std::string& mime) {
+    Buffer buf(data.c_str(), data.size());
+    post(std::move(buf), mime);
+}
+// ----------------------------------------------------------------------------
+// HttpResponse
+// ----------------------------------------------------------------------------
+HttpResponse::HttpResponse() {
+    code = 0;
+}
+HttpResponse::HttpResponse(HttpResponse&& o) {
+    code = o.code; o.code = 0;
+    headers = std::move(o.headers); o.headers.clear();
+    body = std::move(o.body);       o.body.free();
+}
+HttpResponse& HttpResponse::operator=(HttpResponse&& o) {
+    code = o.code; o.code = 0;
+    headers = std::move(o.headers); o.headers.clear();
+    body = std::move(o.body);       o.body.free();
+    return *this;
+}
+// ----------------------------------------------------------------------------
 // HttpConnection
 // ----------------------------------------------------------------------------
 HttpManager::HttpConnection::HttpConnection() {
@@ -31,9 +81,8 @@ HttpManager::HttpConnection::HttpConnection(HttpConnection&& o) {
     state = o.state;                 o.state = State::INVALID;
     response.code = o.response.code; o.response.code = 0;
     cb = o.cb;                       o.cb = nullptr;
-    request.url = std::move(o.request.url);
-    request.headers = std::move(o.request.headers);
-    request.data = std::move(o.request.data);
+    request = std::move(o.request);  
+
     response.body = std::move(o.response.body);
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
@@ -120,17 +169,12 @@ void HttpManager::poll() {
     }
 }
 // ----------------------------------------------------------------------------
-HTTP_ID HttpManager::fetch(const std::string& url,
-                           std::unordered_multimap<std::string, std::string>&& headers,
-                           Buffer&& data,
-                           std::function<void(const HTTP_RESPONSE&)> cb) {
+HTTP_ID HttpManager::fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb) {
     HTTP_ID http_id = m_unique.fetch(TimeService::now());
     HttpConnection conn;
     conn.state = HttpConnection::State::CREATED;
     conn.id = http_id;
-    conn.request.url = url;
-    conn.request.headers = std::move(headers);
-    conn.request.data = std::move(data);
+    conn.request = std::move(request);
     conn.cb = cb;
     std::lock_guard<std::mutex> lock(m_added_mutex);
     m_added.push_back(std::move(conn));
@@ -232,7 +276,7 @@ bool HttpManager::cb_conn_created(HttpConnection* conn) {
     TCHAR tmp[4];
     DWORD url_escape_len = 1;
     std::basic_string<TCHAR> url_escape;
-    std::basic_string<TCHAR> url_t = StringUtil::make_tstring(conn->request.url);
+    std::basic_string<TCHAR> url_t = StringUtil::make_tstring(conn->request.m_url);
     std::basic_string<TCHAR> server;
     INET_PARAM* param = nullptr;
 
@@ -265,19 +309,19 @@ bool HttpManager::cb_conn_created(HttpConnection* conn) {
     DWORD flags = INTERNET_FLAG_HYPERLINK | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE;
     if (url_components.nScheme == INTERNET_SCHEME_HTTPS) flags |= INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP;
     conn->handle = HttpOpenRequest(conn->hconnect,
-                                   conn->request.data ? L"POST" : L"GET",
+                                   conn->request.m_data ? L"POST" : L"GET",
                                    url_components.lpszUrlPath, NULL, NULL,
                                    accept_types,
                                    flags, (DWORD_PTR)param);
-    if (conn->request.headers.size()>0) {
+    if (conn->request.m_headers.size()>0) {
         std::string s;
-        for (auto it=conn->request.headers.begin(); it!=conn->request.headers.end(); ++it) {
+        for (auto it=conn->request.m_headers.begin(); it!=conn->request.m_headers.end(); ++it) {
             s = s + it->first + ": " + it->second + "\r\n";
         }
         std::basic_string<TCHAR> headers_t = StringUtil::make_tstring(s);
-        HttpSendRequest(conn->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(conn->request.data.ptr()), (DWORD)conn->request.data.size());
+        HttpSendRequest(conn->handle, headers_t.c_str(), (DWORD)headers_t.size(), const_cast<uint8_t*>(conn->request.m_data.ptr()), (DWORD)conn->request.m_data.size());
     } else {
-        HttpSendRequest(conn->handle, NULL, 0, const_cast<uint8_t*>(conn->request.data.ptr()), (DWORD)conn->request.data.size());
+        HttpSendRequest(conn->handle, NULL, 0, const_cast<uint8_t*>(conn->request.m_data.ptr()), (DWORD)conn->request.m_data.size());
     }
     return true;
 fail:
@@ -286,33 +330,32 @@ fail:
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // URL j_url = new URL(conn->request.url);
-    jobject j_url = jni.NewObject("java/net/URL", "(Ljava/lang/String;)V", jni.NewStringUTF(conn->request.url));
+    jobject j_url = jni.NewObject("java/net/URL", "(Ljava/lang/String;)V", jni.NewStringUTF(conn->request.m_url));
     if (!j_url) return false;
     // HttpURLConnection j_conn = j_url.openConnection();
     jobject j_conn = jni.CallObjectMethod(j_url, "openConnection", "()Ljava/net/URLConnection;");
     if (!j_conn) return false;
     conn->j_conn = jni.NewGlobalRef(j_conn);
     // Request Header
-    for (auto it = conn->request.headers.begin(); it != conn->request.headers.end(); ++it) {
+    for (auto it = conn->request.m_headers.begin(); it != conn->request.m_headers.end(); ++it) {
         jni.CallVoidMethod(j_conn, "addRequestProperty", "(Ljava/lang/String;Ljava/lang/String;)V", jni.NewStringUTF(it->first), jni.NewStringUTF(it->second));
     }
     // Post
-    if (conn->request.data.ptr() && conn->request.data.size() > 0) {
+    if (conn->request.m_data.ptr() && conn->request.m_data.size() > 0) {
         Logger::d("libcat", "http post");
         // j_conn.setDoOutput(true);
         jni.CallVoidMethod(j_conn, "setDoOutput", "(Z)V", JNI_TRUE);
         // j_conn.setFixedLengthStreamingMode(postlen);
-        jni.CallVoidMethod(j_conn, "setFixedLengthStreamingMode", "(I)V", (jint)conn->request.data.size());
+        jni.CallVoidMethod(j_conn, "setFixedLengthStreamingMode", "(I)V", (jint)conn->request.m_data.size());
         // OutputStream j_os = j_conn.getOutputStream();
         jobject j_os = jni.CallObjectMethod(j_conn, "getOutputStream", "()Ljava/io/OutputStream;");
         // j_os.write(conn->request.data); 
-        jni.CallVoidMethod(j_os, "write", "([B)V", jni.NewByteArray(conn->request.data.ptr(), conn->request.data.size()));
+        jni.CallVoidMethod(j_os, "write", "([B)V", jni.NewByteArray(conn->request.m_data.ptr(), conn->request.m_data.size()));
     }
     // InputStream j_in = new BufferedInputStream(j_conn.getInputStream());
     jobject j_istream = jni.NewObject("java/io/BufferedInputStream", "(Ljava/io/InputStream;)V", jni.CallObjectMethod(j_conn, "getInputStream", "()Ljava/io/InputStream;"));
     conn->j_istream = jni.NewGlobalRef(j_istream);
     conn->j_rbuf = (jbyteArray)jni.NewGlobalRef(jni.NewByteArray(RBUF_SIZE));
-    Logger::d("libcat", "http connection created.");
     return true;
 fail:
     return false;
@@ -330,8 +373,6 @@ bool HttpManager::cb_conn_cancelled(HttpConnection* conn) {
         return false;   // do not remove entry from list, let the callback do cleanup
     } return true;
 #elif defined(PLATFORM_ANDROID)
-    // TODO
-    Logger::d("libcat", "http connection cancelled.");
     return true;
 #else
     #error Not Implemented!
@@ -342,7 +383,6 @@ bool HttpManager::cb_conn_progress(HttpConnection* conn) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     return true;
 #elif defined(PLATFORM_ANDROID)
-    Logger::d("libcat", "http connection poll.");
     JNIHelper jni;
     int len = jni.CallIntMethod(conn->j_istream, "read", "([B)I", conn->j_rbuf);
     if (len == -1) {    // done

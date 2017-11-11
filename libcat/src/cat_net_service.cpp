@@ -21,11 +21,8 @@ void NetService::poll() {
     m_http.poll();
 }
 // ----------------------------------------------------------------------------
-HTTP_ID NetService::http_fetch(const std::string& url,
-                               std::unordered_multimap<std::string, std::string>&& headers,
-                               Buffer&& data,
-                               std::function<void(const HTTP_RESPONSE&)> cb) {
-    return m_http.fetch(url, std::move(headers), std::move(data), cb);
+HTTP_ID NetService::http_fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb) {
+    return m_http.fetch(std::move(request), cb);
 }
 // ----------------------------------------------------------------------------
 bool NetService::http_cancel(HTTP_ID http_id) {
