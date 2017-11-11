@@ -112,7 +112,7 @@ bool BootApp::cb_startup(Timestamp now) {
     kernel()->time()->post_timer(this, 2000, 2);
 
     // Http Test
-    HttpRequest request("http://httpbin.org/post");
+    HttpRequest request("https://httpbin.org/post");
     request.add_header("foo", "bar");
     request.add_header("foo2", "dumb");
     request.post("Post Data", "text/plain; charset=utf-8");

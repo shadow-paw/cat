@@ -19,11 +19,12 @@ public:
     bool realloc(size_t size);
     void free();
     void shrink(size_t s);
+    bool assign(const void* p, size_t size);
+    bool copy(size_t offset, const void* p, size_t size);
 
     Buffer& operator=(Buffer&& o);
     Buffer& operator=(const std::string& o);
     operator uint8_t*() const { return m_buffer; }
-
 private:
     uint8_t* m_buffer;
     size_t   m_size, m_allocated;

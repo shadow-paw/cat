@@ -3,6 +3,11 @@
 #include "cat_util_string.h"
 #include "cat_time_service.h"
 #include "cat_util_log.h"
+#if defined(PLATFORM_MAC)
+  #import <Cocoa/Cocoa.h>
+#elif defined(PLATFORM_IOS)
+  #import <UIKit/UIKit.h>
+#endif
 
 using namespace cat;
 
@@ -71,6 +76,8 @@ HttpManager::HttpConnection::HttpConnection() {
     j_conn = nullptr;
     j_istream = nullptr;
     j_rbuf = nullptr;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    task = nullptr;
 #else
     #error Not Implemented!
 #endif
@@ -81,8 +88,7 @@ HttpManager::HttpConnection::HttpConnection(HttpConnection&& o) {
     state = o.state;                 o.state = State::INVALID;
     response.code = o.response.code; o.response.code = 0;
     cb = o.cb;                       o.cb = nullptr;
-    request = std::move(o.request);  
-
+    request = std::move(o.request);
     response.body = std::move(o.response.body);
 
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
@@ -92,6 +98,8 @@ HttpManager::HttpConnection::HttpConnection(HttpConnection&& o) {
     j_conn = o.j_conn;       o.j_conn = nullptr;
     j_istream = o.j_istream; o.j_istream = nullptr;
     j_rbuf = o.j_rbuf;       o.j_rbuf = nullptr;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    task = o.task; o.task = nullptr;
 #else
     #error Not Implemented!
 #endif
@@ -106,6 +114,11 @@ HttpManager::HttpConnection::~HttpConnection() {
     if (j_conn)    { jni.DeleteGlobalRef(j_conn);    j_conn = nullptr;    }
     if (j_istream) { jni.DeleteGlobalRef(j_istream); j_istream = nullptr; }
     if (j_rbuf)    { jni.DeleteGlobalRef(j_rbuf);    j_rbuf = nullptr;    }
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    if (task) {
+        NSURLSessionTask* nstask __attribute__ ((unused)) = (__bridge_transfer NSURLSessionTask*)task;
+        task = nullptr;
+    }
 #else
     #error Not Implemented!
 #endif
@@ -122,6 +135,8 @@ HttpManager::HttpManager() {
     m_internet = nullptr;
 #elif defined(PLATFORM_ANDROID)
     // Nothing
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // Nothing
 #else
     #error Not Implemented!
 #endif
@@ -135,6 +150,8 @@ HttpManager::~HttpManager() {
         m_internet = nullptr;
     }
 #elif defined(PLATFORM_ANDROID)
+    // Nothing
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     // Nothing
 #else
     #error Not Implemented!
@@ -263,6 +280,8 @@ void HttpManager::worker_thread() {
                         m_completed.splice(m_completed.end(), m_working, it);
                         list_changed = true;
                     } break;
+            case HttpConnection::State::INVALID:
+                    break;
             }
             if (list_changed) it = m_working.begin();
             else ++it;
@@ -359,6 +378,49 @@ fail:
     return true;
 fail:
     return false;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    HTTP_ID http_id = conn->id;
+    // completion handler
+    void (^cb_complete)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+        std::lock_guard<std::mutex> lock(m_working_mutex);
+        auto conn = std::find_if(m_working.begin(), m_working.end(), [&http_id](const HttpConnection& conn) {
+            return conn.id == http_id;
+        });
+        if (conn == m_working.end()) return;
+    
+        NSHTTPURLResponse* hres = (NSHTTPURLResponse*)response;
+        conn->response.code = (int)hres.statusCode;
+        conn->response.body.realloc((size_t)data.length+1);
+        conn->response.body.copy(0, data.bytes, (size_t)data.length);
+        conn->response.body[data.length] = 0;
+        conn->state = HttpConnection::State::COMPLETED;
+        
+        std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
+        m_completed.splice(m_completed.end(), m_working, conn);
+    };
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    // Request Header
+    if (conn->request.m_headers.size() > 0) {
+        NSMutableDictionary* headers = [[NSMutableDictionary alloc] init];
+        for (auto it = conn->request.m_headers.begin(); it != conn->request.m_headers.end(); ++it) {
+            [headers setValue:[NSString stringWithUTF8String:it->second.c_str()] forKey:[NSString stringWithUTF8String:it->first.c_str()]];
+        }
+        config.HTTPAdditionalHeaders = headers;
+    }
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    NSURL* url = [NSURL URLWithString:[NSString stringWithUTF8String:conn->request.m_url.c_str()]];
+    // Post
+    if (conn->request.m_data.ptr() && conn->request.m_data.size() > 0) {
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        request.HTTPMethod = @"POST";
+        NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:[NSData dataWithBytes:conn->request.m_data.ptr() length:conn->request.m_data.size()] completionHandler:cb_complete];
+        [uploadTask resume];
+        conn->task = (__bridge_retained void*)uploadTask;
+    } else {
+        NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:cb_complete];
+        [dataTask resume];
+        conn->task = (__bridge_retained void*)dataTask;
+    } return true;
 #else
     #error Not Implemented!
 #endif
@@ -373,6 +435,10 @@ bool HttpManager::cb_conn_cancelled(HttpConnection* conn) {
         return false;   // do not remove entry from list, let the callback do cleanup
     } return true;
 #elif defined(PLATFORM_ANDROID)
+    return true;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    NSURLSessionTask* nstask = (__bridge NSURLSessionTask*)conn->task;
+    [nstask cancel];
     return true;
 #else
     #error Not Implemented!
@@ -399,6 +465,8 @@ bool HttpManager::cb_conn_progress(HttpConnection* conn) {
         if (!conn->response.body.realloc(cursor + len)) return false;
         jni.GetByteArrayRegion(conn->j_rbuf, conn->response.body.ptr() + cursor, 0, (size_t)len);
     }
+    return true;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     return true;
 #else
     #error Not Implemented!

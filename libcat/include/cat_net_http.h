@@ -84,6 +84,8 @@ private:
 #elif defined(PLATFORM_ANDROID)
         jobject j_conn, j_istream;
         jbyteArray j_rbuf;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+        void* task;
 #else
     #error Not Implemented!
 #endif
@@ -117,6 +119,8 @@ private:
     void cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD status, LPVOID info, DWORD infolen);
 #elif defined(PLATFORM_ANDROID)
     static const size_t RBUF_SIZE = 4096;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // Nothing
 #else
     #error Not Implemented!
 #endif

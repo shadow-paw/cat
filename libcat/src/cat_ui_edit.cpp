@@ -34,7 +34,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     UIView* rootview = (__bridge UIView*)kernel->psd()->rootview;
     UITextField* tv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     [rootview addSubview:tv];
-    m_native_ctrl = (__bridge void*)tv;
+    m_native_ctrl = (__bridge_retained void*)tv;
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jcontext = rootview.getContext();
@@ -74,13 +74,13 @@ Editbox::~Editbox() {
         m_font = nullptr;
     }
 #elif defined(PLATFORM_MAC)
-    NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
-    [tv removeFromSuperview];
+    NSTextField* tv = (__bridge_transfer NSTextField*)m_native_ctrl;
     m_native_ctrl = nullptr;
+    [tv removeFromSuperview];
 #elif defined(PLATFORM_IOS)
-    UITextField* tv = (__bridge UITextField*)m_native_ctrl;
-    [tv removeFromSuperview];
+    UITextField* tv = (__bridge_transfer UITextField*)m_native_ctrl;
     m_native_ctrl = nullptr;
+    [tv removeFromSuperview];
 #elif defined(PLATFORM_ANDROID)
     if (m_native_ctrl) {
         JNIHelper jni;

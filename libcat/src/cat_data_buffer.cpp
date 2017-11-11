@@ -70,3 +70,16 @@ void Buffer::shrink(size_t s) {
     if (m_size > s) m_size = s;
 }
 // ----------------------------------------------------------------------------
+bool Buffer::assign(const void* p, size_t size) {
+    if (!realloc(size)) return false;
+    memcpy(m_buffer, p, size);
+    m_size = size;
+    return true;
+}
+// ----------------------------------------------------------------------------
+bool Buffer::copy(size_t offset, const void* p, size_t size) {
+    if (offset + size > m_size) return false;
+    memcpy(m_buffer + offset, p, size);
+    return true;
+}
+// ----------------------------------------------------------------------------
