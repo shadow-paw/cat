@@ -23,6 +23,12 @@
     <Filter Include="libcat\ui">
       <UniqueIdentifier>{e96e06b1-80fc-4708-8ab4-4649704fde49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libcat\net">
+      <UniqueIdentifier>{1365f117-45aa-4697-9c81-508d118bd4bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcat\data">
+      <UniqueIdentifier>{8da296d4-c227-4893-afc0-efb5ab9b984b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cat_type.h">
@@ -69,9 +75,6 @@
     </ClInclude>
     <ClInclude Include="..\include\cat_gfx_draw2d.h">
       <Filter>libcat\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\cat_storage_buffer.h">
-      <Filter>libcat\storage</Filter>
     </ClInclude>
     <ClInclude Include="..\include\cat_storage_vfs.h">
       <Filter>libcat\storage</Filter>
@@ -133,6 +136,18 @@
     <ClInclude Include="..\include\cat_util_string.h">
       <Filter>libcat\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_net_service.h">
+      <Filter>libcat\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_net_http.h">
+      <Filter>libcat\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_util_uniqueid.h">
+      <Filter>libcat\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_data_buffer.h">
+      <Filter>libcat\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
@@ -164,9 +179,6 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_gfx_draw2d_shaders.cpp">
       <Filter>libcat\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cat_storage_buffer.cpp">
-      <Filter>libcat\storage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cat_storage_vfs.cpp">
       <Filter>libcat\storage</Filter>
@@ -212,6 +224,15 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_util_string.cpp">
       <Filter>libcat\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_net_service.cpp">
+      <Filter>libcat\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_net_http.cpp">
+      <Filter>libcat\net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_data_buffer.cpp">
+      <Filter>libcat\data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

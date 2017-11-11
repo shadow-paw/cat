@@ -34,7 +34,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     UIView* rootview = (__bridge UIView*)kernel->psd()->rootview;
     UITextField* tv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     [rootview addSubview:tv];
-    m_native_ctrl = (__bridge void*)tv;
+    m_native_ctrl = (__bridge_retained void*)tv;
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jcontext = rootview.getContext();
@@ -74,13 +74,13 @@ Editbox::~Editbox() {
         m_font = nullptr;
     }
 #elif defined(PLATFORM_MAC)
-    NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
-    [tv removeFromSuperview];
+    NSTextField* tv = (__bridge_transfer NSTextField*)m_native_ctrl;
     m_native_ctrl = nullptr;
+    [tv removeFromSuperview];
 #elif defined(PLATFORM_IOS)
-    UITextField* tv = (__bridge UITextField*)m_native_ctrl;
-    [tv removeFromSuperview];
+    UITextField* tv = (__bridge_transfer UITextField*)m_native_ctrl;
     m_native_ctrl = nullptr;
+    [tv removeFromSuperview];
 #elif defined(PLATFORM_ANDROID)
     if (m_native_ctrl) {
         JNIHelper jni;
@@ -163,7 +163,7 @@ void Editbox::cb_render(Renderer* r, unsigned long now) {
 // ----------------------------------------------------------------------------
 void Editbox::set_text(const std::string& s) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    std::basic_string<TCHAR> text = StringUtil::string2tchar(s);
+    std::basic_string<TCHAR> text = StringUtil::make_tstring(s);
     SetWindowText(m_native_ctrl, text.c_str()); 
 #elif defined(PLATFORM_MAC)
     NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
@@ -184,7 +184,7 @@ std::string Editbox::get_text() const {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     TCHAR	text[512];
     GetWindowText(m_native_ctrl, text, 512);
-    return StringUtil::tchar2string(text);
+    return StringUtil::make_string(text);
 #elif defined(PLATFORM_MAC)
     NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
     return [[tv stringValue] UTF8String];
@@ -197,8 +197,7 @@ std::string Editbox::get_text() const {
     jobject jseq = jni.CallObjectMethod(m_native_ctrl, "getText", "()Ljava/lang/CharSequence;");
     // jstr = jseq.toString();
     jstring jstr = (jstring)jni.CallObjectMethod(jseq, "toString", "()Ljava/lang/String;");
-    const char* s = jni.GetStringUTFChars(jstr);
-    return std::string(s);
+    return jni.GetStringUTFChars(jstr);
 #else
     #error Not Implemented!
 #endif

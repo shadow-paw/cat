@@ -15,7 +15,7 @@ BootApp::~BootApp() {
 bool BootApp::cb_startup(Timestamp now) {
     Buffer buf;
     if (kernel()->vfs()->read("/assets/test.txt", buf)) {
-        Logger::d("app", (const char*)buf.data());
+        Logger::d("app", (const char*)buf.ptr());
     }
     std::unordered_map<int, std::string> uniforms = {
         { 1, "uScreenHalf" },
@@ -110,6 +110,19 @@ bool BootApp::cb_startup(Timestamp now) {
     };
     kernel()->time()->post_timer(this, 1000, 1);
     kernel()->time()->post_timer(this, 2000, 2);
+
+    // Http Test
+    HttpRequest request("https://httpbin.org/post");
+    request.add_header("foo", "bar");
+    request.add_header("foo2", "dumb");
+    request.post("Post Data", "text/plain; charset=utf-8");
+    auto http_id = kernel()->net()->http_fetch(std::move(request), [](const HttpResponse& res) -> void {
+        for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
+            Logger::d("app", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
+        }
+        Logger::d("app", "http -> %d - %s", res.code, res.body.ptr());
+    });
+    // kernel()->net()->http_cancel(http_id);
     return true;
 }
 // // cb_shutdown is called after app->exit()
@@ -165,11 +178,11 @@ void BootApp::cb_render(Renderer* r, Timestamp now) {
 bool BootApp::cb_timer(Timestamp now, int msg) {
     switch (msg) {
     case 1:
-        Logger::d("app", "timer 1: %lu", now);
+        // Logger::d("app", "timer 1: %lu", now);
         kernel()->time()->post_timer(this, 1000, 1);
         break;
     case 2:
-        Logger::d("app", "timer 2: %lu", now);
+        // Logger::d("app", "timer 2: %lu", now);
         kernel()->time()->post_timer(this, 2000, 2);
         break;
     }

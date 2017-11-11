@@ -1,7 +1,7 @@
 #include "cat_gfx_shader.h"
-#include "cat_util_log.h"
 #include <string.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "cat_util_log.h"
 
 using namespace cat;
 

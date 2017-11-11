@@ -1,6 +1,5 @@
-#include "cat_type.h"
-#include "cat_kernel_api.h"
 #include "cat_ui_service.h"
+#include "cat_kernel_api.h"
 #include "cat_gfx_renderer.h"
 
 using namespace cat;

@@ -27,10 +27,10 @@ bool FileDriver::read(const std::string& name, Buffer& buffer) {
     #error Not Implemented!
 #endif
     fseek(fp, 0, SEEK_SET);
-    if (!buffer.alloc((size_t)length + 1)) goto fail;
-    if (fread(buffer.data(), (size_t)length, 1, fp) != 1) goto fail;
+    if (!buffer.realloc((size_t)length + 1)) goto fail;
+    if (fread(buffer, (size_t)length, 1, fp) != 1) goto fail;
     fclose(fp);
-    buffer.data()[length] = 0; // zero pad
+    buffer[length] = 0; // zero pad
     return true;
 fail:
     fclose(fp);

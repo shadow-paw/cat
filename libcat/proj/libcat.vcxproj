@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\cat_data_buffer.cpp" />
     <ClCompile Include="..\src\cat_kernel.cpp" />
+    <ClCompile Include="..\src\cat_net_http.cpp" />
+    <ClCompile Include="..\src\cat_net_service.cpp" />
     <ClCompile Include="..\src\cat_util_jni.cpp" />
     <ClCompile Include="..\src\cat_util_log.cpp" />
     <ClCompile Include="..\src\cat_gfx_renderer.cpp" />
@@ -32,7 +35,6 @@
     <ClCompile Include="..\src\cat_gfx_drawable.cpp" />
     <ClCompile Include="..\src\cat_gfx_draw2d.cpp" />
     <ClCompile Include="..\src\cat_gfx_draw2d_shaders.cpp" />
-    <ClCompile Include="..\src\cat_storage_buffer.cpp" />
     <ClCompile Include="..\src\cat_storage_vfs.cpp" />
     <ClCompile Include="..\src\cat_storage_driver_asset.cpp" />
     <ClCompile Include="..\src\cat_storage_driver_file.cpp" />
@@ -47,6 +49,10 @@
     <ClCompile Include="..\src\cat_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\cat_data_buffer.h" />
+    <ClInclude Include="..\include\cat_net_http.h" />
+    <ClInclude Include="..\include\cat_net_service.h" />
+    <ClInclude Include="..\include\cat_util_uniqueid.h" />
     <ClInclude Include="..\include\libcat.h" />
     <ClInclude Include="..\include\cat_platform.h" />
     <ClInclude Include="..\include\cat_type.h" />
@@ -66,7 +72,6 @@
     <ClInclude Include="..\include\cat_gfx_drawablecanvas.h" />
     <ClInclude Include="..\include\cat_gfx_drawable.h" />
     <ClInclude Include="..\include\cat_gfx_draw2d.h" />
-    <ClInclude Include="..\include\cat_storage_buffer.h" />
     <ClInclude Include="..\include\cat_storage_vfs.h" />
     <ClInclude Include="..\include\cat_storage_driver.h" />
     <ClInclude Include="..\include\cat_storage_driver_asset.h" />

@@ -10,8 +10,15 @@ LOCAL_CFLAGS    :=-Werror -Wno-switch -DPLATFORM_ANDROID
 LOCAL_CPPFLAGS  :=-std=c++14 -frtti -fexceptions
 LOCAL_SRC_FILES := \
                 ../../src/cat_kernel.cpp \
-                ../../src/cat_storage_buffer.cpp \
+                ../../src/cat_data_buffer.cpp \
+                ../../src/cat_util_jni.cpp \
+                ../../src/cat_util_log.cpp \
+                ../../src/cat_time_service.cpp \
+                ../../src/cat_net_service.cpp \
+                ../../src/cat_net_http.cpp \
                 ../../src/cat_storage_vfs.cpp \
+                ../../src/cat_storage_driver_file.cpp \
+                ../../src/cat_storage_driver_asset.cpp \
                 ../../src/cat_gfx_renderer.cpp \
                 ../../src/cat_gfx_ibo.cpp \
                 ../../src/cat_gfx_vbo.cpp \
@@ -22,11 +29,6 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_gfx_draw2d.cpp \
                 ../../src/cat_gfx_draw2d_shaders.cpp \
                 ../../src/cat_gfx_resmgr.cpp \
-                ../../src/cat_time_service.cpp \
-                ../../src/cat_util_jni.cpp \
-                ../../src/cat_util_log.cpp \
-                ../../src/cat_storage_driver_file.cpp \
-                ../../src/cat_storage_driver_asset.cpp \
                 ../../src/cat_ui_service.cpp \
                 ../../src/cat_ui_widget.cpp \
                 ../../src/cat_ui_pane.cpp \
@@ -40,4 +42,3 @@ include $(BUILD_STATIC_LIBRARY)
 all: $(LOCAL_BUILT_MODULE) post_build
 post_build: $(LOCAL_BUILT_MODULE)
 	cp -rf ../lib/android/local/* ../lib/android/
-	rm -rf ../lib/android/local/

@@ -1,8 +1,6 @@
 #include "cat_kernel.h"
 #include "cat_util_log.h"
 
-#include <chrono>
-
 using namespace cat;
 
 // ----------------------------------------------------------------------------
@@ -34,9 +32,11 @@ void Kernel::fini() {
 // ----------------------------------------------------------------------------
 void Kernel::startup() {
     //std::lock_guard<std::mutex> lock(m_bigkernellock);
+    resume();
 }
 // ----------------------------------------------------------------------------
 void Kernel::shutdown() {
+    pause();
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     // Remove all app
     for (auto it = m_apps.begin(); it != m_apps.end(); ) {
@@ -69,10 +69,12 @@ void Kernel::pause() {
         app->cb_pause();
     }
     m_time.pause();
+    m_net.pause();
 }
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    m_net.resume();
     m_time.resume();
     for (auto& app : m_apps) {
         app->cb_resume();
@@ -107,6 +109,7 @@ bool Kernel::timer() {
             it = m_apps.erase(it);
         }
     }
+    m_net.poll();
     if (m_time.timer()) m_renderer.dirty();
     return m_renderer.is_dirty();
 }

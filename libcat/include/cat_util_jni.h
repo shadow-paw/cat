@@ -3,6 +3,7 @@
 #if defined (PLATFORM_ANDROID)
 
 #include <jni.h>
+#include <string>
 
 namespace cat {
 // ----------------------------------------------------------------------------
@@ -40,11 +41,17 @@ public:
     jstring NewStringUTF(const char* utf) {
         return m_env->NewStringUTF(utf);
     }
+    jstring NewStringUTF(const std::string& utf) {
+        return m_env->NewStringUTF(utf.c_str());
+    }
     jsize GetStringLength(jstring s) {
         return m_env->GetStringLength(s);
     }
-    const char* GetStringUTFChars(jstring s) {
-        return m_env->GetStringUTFChars(s, NULL);
+    std::string GetStringUTFChars(jstring s) {
+        const char* cstr = m_env->GetStringUTFChars(s, NULL);
+        std::string result(cstr);
+        m_env->ReleaseStringUTFChars(s, cstr);
+        return result;
     }
     // New Object
     // ------------------------------------------------------------------------
@@ -58,6 +65,23 @@ public:
     jobject NewObject(jclass clazz, const char* sig, ARG... arg) {
         jmethodID jctor = m_env->GetMethodID(clazz, "<init>", sig);
         return m_env->NewObject(clazz, jctor, arg...);
+    }
+    // Byte Array
+    // ------------------------------------------------------------------------
+    jbyteArray NewByteArray(size_t len) {
+        return m_env->NewByteArray(len);
+    }
+    jbyteArray NewByteArray(void* buf, size_t len) {
+        jbyteArray j_array = m_env->NewByteArray(len);
+        if (j_array && buf) {
+            m_env->SetByteArrayRegion(j_array, 0, (jsize)len, reinterpret_cast<jbyte*>(buf));
+        } return j_array;
+    }
+    size_t GetByteArrayLength(jbyteArray j_array) {
+        return (size_t)m_env->GetArrayLength(j_array);
+    }
+    void GetByteArrayRegion(jbyteArray j_array, void* dest, size_t offset, size_t len) {
+        m_env->GetByteArrayRegion(j_array, (jsize)offset, (jsize)len, reinterpret_cast<jbyte*>(dest));
     }
     // Calling Method
     // ------------------------------------------------------------------------
