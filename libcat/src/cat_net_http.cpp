@@ -390,6 +390,10 @@ fail:
     
         NSHTTPURLResponse* hres = (NSHTTPURLResponse*)response;
         conn->response.code = (int)hres.statusCode;
+        for (NSString* key in hres.allHeaderFields) {
+            NSString* value = hres.allHeaderFields[key];
+            conn->response.headers.emplace(std::make_pair(key.UTF8String, value.UTF8String));
+        }
         conn->response.body.realloc((size_t)data.length+1);
         conn->response.body.copy(0, data.bytes, (size_t)data.length);
         conn->response.body[data.length] = 0;      // put a zero after payload for convenience
