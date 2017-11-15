@@ -195,7 +195,7 @@ HTTP_ID HttpManager::fetch(HttpRequest&& request, std::function<void(const HttpR
     conn.cb = cb;
     std::lock_guard<std::mutex> lock(m_added_mutex);
     m_added.push_back(std::move(conn));
-    m_added_condvar.notify_all();
+    m_condvar.notify_all();
     // start the thread if not already
     bool expect = false;
     if (m_thread_started.compare_exchange_strong(expect, true)) {
@@ -234,10 +234,10 @@ void HttpManager::worker_thread() {
     while (m_worker_running) {
         bool added = false;
         std::unique_lock<std::mutex> lock_added(m_added_mutex);
-        if (m_added.size() == 0) {
-            m_added_condvar.wait_for(lock_added, std::chrono::milliseconds(POLL_INTERVAL));
-        }
         std::list<HttpConnection> added_list;
+        if (m_added.size() == 0) {
+            m_condvar.wait_for(lock_added, std::chrono::milliseconds(POLL_INTERVAL));
+        }
         if (m_added.size() > 0) {
             added_list.swap(m_added);
             added = true;
@@ -283,8 +283,10 @@ void HttpManager::worker_thread() {
             case HttpConnection::State::INVALID:
                     break;
             }
-            if (list_changed) it = m_working.begin();
-            else ++it;
+            if (list_changed) {
+                it = m_working.begin();
+                m_condvar.notify_all();
+            } else ++it;
         }
     }
 }
@@ -557,6 +559,7 @@ void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD stat
             std::lock_guard<std::mutex> lock_complete(m_completed_mutex);
             m_completed.splice(m_completed.end(), m_working, conn);
             delete param;
+            m_condvar.notify_all();
             break;
         }
     }

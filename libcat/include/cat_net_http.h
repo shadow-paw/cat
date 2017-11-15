@@ -99,7 +99,7 @@ private:
     std::atomic<bool> m_thread_started;
     std::thread* m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
-    std::condition_variable m_added_condvar;
+    std::condition_variable m_condvar;
     std::list<HttpConnection> m_added, m_working, m_completed;
     UniqueId_r<HTTP_ID> m_unique;
     bool m_worker_running;
