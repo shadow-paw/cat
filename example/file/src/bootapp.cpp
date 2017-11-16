@@ -5,7 +5,6 @@ using namespace cat;
 
 // ----------------------------------------------------------------------------
 BootApp::BootApp() {
-    m_counter = 0;
 }
 // ----------------------------------------------------------------------------
 BootApp::~BootApp() {
@@ -17,24 +16,16 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
+    Buffer buf;
+    if (kernel()->vfs()->read("/assets/test.txt", buf)) {
+        Logger::d("App", (const char*)buf.ptr());
+    }
     return true;
 }
 // cb_resume is called when the program has resumed
 // ----------------------------------------------------------------------------
 void BootApp::cb_resume() {
     Logger::d("App", "cb_resume");
-    // Http Test
-    HttpRequest request("https://httpbin.org/post");
-    request.add_header("foo", "bar");
-    request.add_header("foo2", "dumb");
-    request.post("Post Data", "text/plain; charset=utf-8");
-    auto http_id = kernel()->net()->http_fetch(std::move(request), [](const HttpResponse& res) -> void {
-        for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
-            Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
-        }
-        Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
-    });
-    // kernel()->net()->http_cancel(http_id);
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
@@ -92,19 +83,8 @@ void BootApp::cb_render(Renderer* r, Timestamp now) {
 }
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(Timestamp now, int msg) {
-    Logger::d("App", "cb_timer: %d - time: %llu", msg, now);
-    switch (msg) {
-    case 1:
-        kernel()->time()->post_timer(this, 1, 1000);
-        break;
-    case 2:
-        m_counter ++;
-        if (m_counter < 5) {
-            kernel()->time()->post_timer(this, 2, 2000);
-        } else {
-           kernel()->time()->remove_timer(this, 1);
-        } break;
-    } return true;
+    Logger::d("App", "cb_timer");
+    return true;
 }
 // ----------------------------------------------------------------------------
 
