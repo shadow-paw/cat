@@ -33,18 +33,12 @@
     <ClCompile Include="..\src\bootapp.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testpane.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\glue\win\catview.h">
       <Filter>glue</Filter>
     </ClInclude>
     <ClInclude Include="..\src\bootapp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\testpane.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

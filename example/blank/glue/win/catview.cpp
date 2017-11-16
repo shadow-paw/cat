@@ -3,17 +3,17 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-OSALView::OSALView() {
+CATView::CATView() {
     m_kernel = nullptr;
     m_hwnd = nullptr;
     m_mouse_capture = 0;
 }
 // ----------------------------------------------------------------------------
-OSALView::~OSALView() {
+CATView::~CATView() {
     fini();
 }
 // ----------------------------------------------------------------------------
-bool OSALView::init(const char* title, int width, int height) {
+bool CATView::init(const char* title, int width, int height) {
     m_mouse_capture = 0;
 
     TCHAR	t_title[256];
@@ -76,7 +76,7 @@ fail:
     return false;
 }
 // ----------------------------------------------------------------------------
-void OSALView::fini() {
+void CATView::fini() {
     if (m_gl) {
         wglMakeCurrent(NULL, NULL);
         wglDeleteContext(m_gl);
@@ -92,15 +92,15 @@ void OSALView::fini() {
     }
 }
 // ----------------------------------------------------------------------------
-void OSALView::set_kernel(Kernel* kernel) {
+void CATView::set_kernel(Kernel* kernel) {
     m_kernel = kernel;
 }
 // ----------------------------------------------------------------------------
-LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    OSALView* view;
+LRESULT CALLBACK CATView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    CATView* view;
     switch (msg) {
     case WM_CREATE:
-        view = static_cast<OSALView*>((void*)((CREATESTRUCT*)lParam)->lpCreateParams);
+        view = static_cast<CATView*>((void*)((CREATESTRUCT*)lParam)->lpCreateParams);
         SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)view);
         return 0;
     case WM_DESTROY:
@@ -110,14 +110,14 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
     case WM_TIMER:
         switch (wParam) {
         case IDT_RENDER:
-            if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+            if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
             if (view->m_kernel->timer()) {
                 view->m_kernel->render();
                 SwapBuffers(view->m_hdc);
             } break;
         } return 0;
     case WM_SIZE: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         int width = (int)LOWORD(lParam);
         int height = (int)HIWORD(lParam);
         glViewport(0, 0, width, height);
@@ -127,12 +127,12 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         break;
     }
     case WM_PAINT:
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         view->m_kernel->render();
         SwapBuffers(view->m_hdc);
         break;
     case WM_LBUTTONDOWN: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         if (view->m_mouse_capture==0) SetCapture(hwnd);
         view->m_mouse_capture++;
         TouchEvent ev;
@@ -147,7 +147,7 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         return 0;
     }
     case WM_LBUTTONUP: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         view->m_mouse_capture--;
         if (view->m_mouse_capture == 0) ReleaseCapture();
         TouchEvent ev;
@@ -162,7 +162,7 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         return 0;
     }
     case WM_RBUTTONDOWN: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         if (view->m_mouse_capture == 0) SetCapture(hwnd);
         view->m_mouse_capture++;
         TouchEvent ev;
@@ -177,7 +177,7 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         return 0;
     }
     case WM_RBUTTONUP: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         view->m_mouse_capture--;
         if (view->m_mouse_capture == 0) ReleaseCapture();
         TouchEvent ev;
@@ -192,7 +192,7 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         return 0;
     }
     case WM_MOUSEMOVE: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         TouchEvent ev;
         ev.type = TouchEvent::EventType::TouchMove;
         ev.pointer_id = 0;
@@ -205,7 +205,7 @@ LRESULT CALLBACK OSALView::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
         return 0;
     }
     case WM_MOUSEWHEEL: {
-        if ((view = static_cast<OSALView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
+        if ((view = static_cast<CATView*> ((void*)GetWindowLongPtr(hwnd, GWLP_USERDATA))) == NULL) break;
         POINT mouse;
         GetCursorPos(&mouse);
         ScreenToClient(hwnd, &mouse);

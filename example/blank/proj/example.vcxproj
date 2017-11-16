@@ -184,12 +184,10 @@
     <ClCompile Include="..\glue\win\catview.cpp" />
     <ClCompile Include="..\glue\win\winmain.cpp" />
     <ClCompile Include="..\src\bootapp.cpp" />
-    <ClCompile Include="..\src\testpane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\glue\win\catview.h" />
     <ClInclude Include="..\src\bootapp.h" />
-    <ClInclude Include="..\src\testpane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
