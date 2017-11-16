@@ -5,6 +5,7 @@ using namespace cat;
 
 // ----------------------------------------------------------------------------
 Kernel::Kernel() : m_res(&m_vfs), m_ui(this) {
+    m_resumed = false;
 }
 // ----------------------------------------------------------------------------
 Kernel::~Kernel() {
@@ -70,10 +71,12 @@ void Kernel::pause() {
     }
     m_time.pause();
     m_net.pause();
+    m_resumed = false;
 }
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    m_resumed = true;
     m_net.resume();
     m_time.resume();
     for (auto& app : m_apps) {
@@ -136,6 +139,7 @@ bool Kernel::run(Application* app) {
     }
     app->cb_resize(m_renderer.width(), m_renderer.height());
     app->cb_startup(time()->now());
+    if (m_resumed) app->cb_resume();
     return true;
 }
 // ----------------------------------------------------------------------------

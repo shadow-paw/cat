@@ -50,6 +50,7 @@ public:
     virtual UIService*       ui() { return &m_ui; }
 
 private:
+    bool m_resumed;
     std::mutex      m_bigkernellock;
     PlatformSpecificData  m_psd;
     VFS             m_vfs;
