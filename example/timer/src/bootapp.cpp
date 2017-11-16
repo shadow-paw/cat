@@ -17,14 +17,14 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
+    kernel()->time()->post_timer(this, 1, 1000);
+    kernel()->time()->post_timer(this, 2, 2000);
     return true;
 }
 // cb_resume is called when the program has resumed
 // ----------------------------------------------------------------------------
 void BootApp::cb_resume() {
     Logger::d("App", "cb_resume");
-    kernel()->time()->post_timer(this, 1, 1000);
-    kernel()->time()->post_timer(this, 2, 2000);
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
