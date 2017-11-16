@@ -116,7 +116,7 @@ cd dependency/setup
 ```
 
 #### Build libcat - mac & ios
-Open `libcat/proj/libosal.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libosal/lib/`.
+Open `libcat/proj/libcat.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libcat/lib/`.
 
 #### Build example - mac & ios
 Open `example/hello/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
