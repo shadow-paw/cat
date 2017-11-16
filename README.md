@@ -17,6 +17,29 @@
 - Media Service (camera, mic, media player)
 - Sensor Service
 
+## Examples
+- [Blank skeleton](blob/master/example/blank/src/bootapp.cpp)
+- [Builtin UI](blob/master/example/ui_builtin/src/bootapp.cpp)
+- [Custom UI](blob/master/example/ui_custom/src/bootapp.cpp)
+- [Timer](blob/master/example/timer/src/bootapp.cpp)
+```
+kernel()->time()->post_timer(this, 1, 1000);
+kernel()->time()->remove_timer(this, 1);
+```
+- [HTTP](blob/master/example/http/src/bootapp.cpp)
+```
+HttpRequest request("https://httpbin.org/post");
+request.add_header("foo", "bar");
+request.add_header("foo2", "dumb");
+request.post("Post Data", "text/plain; charset=utf-8");
+auto http_id = kernel()->net()->http_fetch(std::move(request), [](const HttpResponse& res) -> void {
+    for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
+        Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
+    }
+    Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
+});
+```
+
 ## Build Environments
 You can build app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
 
