@@ -19,6 +19,7 @@ public:
     bool post(TimerHandler<T>* handler, Timestamp tick, const T& message);
     bool get (TimerHandler<T>** handler, Timestamp tick, T* message);
     void remove(TimerHandler<T>* handler);
+    void remove(std::function<bool(const TimerHandler<T>* handler, const T& data)> comparator);
 private:
     struct NODE {
         Timestamp        tick;
@@ -71,6 +72,18 @@ void TimerQueue<T>::remove(TimerHandler<T>* handler) {
     std::lock_guard<std::mutex> lock(m_mutex);
     for (auto it = m_queue.begin(); it != m_queue.end();) {
         if (it->handler == handler) {
+            it = m_queue.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+// -----------------------------------------------------------
+template <typename T>
+void TimerQueue<T>::remove(std::function<bool(const TimerHandler<T>* handler, const T& data)> comparator) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    for (auto it = m_queue.begin(); it != m_queue.end();) {
+        if (comparator(it->handler, it->message)) {
             it = m_queue.erase(it);
         } else {
             ++it;

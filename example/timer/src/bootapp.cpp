@@ -5,6 +5,7 @@ using namespace cat;
 
 // ----------------------------------------------------------------------------
 BootApp::BootApp() {
+    m_counter = 0;
 }
 // ----------------------------------------------------------------------------
 BootApp::~BootApp() {
@@ -22,6 +23,8 @@ bool BootApp::cb_startup(Timestamp now) {
 // ----------------------------------------------------------------------------
 void BootApp::cb_resume() {
     Logger::d("App", "cb_resume");
+    kernel()->time()->post_timer(this, 1, 1000);
+    kernel()->time()->post_timer(this, 2, 2000);
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
@@ -79,8 +82,19 @@ void BootApp::cb_render(Renderer* r, Timestamp now) {
 }
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(Timestamp now, int msg) {
-    Logger::d("App", "cb_timer");
-    return true;
+    Logger::d("App", "cb_timer: %d - time: %llu", msg, now);
+    switch (msg) {
+    case 1:
+        kernel()->time()->post_timer(this, 1, 1000);
+        break;
+    case 2:
+        m_counter ++;
+        if (m_counter < 5) {
+            kernel()->time()->post_timer(this, 2, 2000);
+        } else {
+           kernel()->time()->remove_timer(this, 1);
+        } break;
+    } return true;
 }
 // ----------------------------------------------------------------------------
 

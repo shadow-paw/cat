@@ -14,8 +14,9 @@ public:
     
     static Timestamp now();
 
-    bool post_timer(TimerHandler<int>* handler, Timestamp, const int message);
+    bool post_timer(TimerHandler<int>* handler, int message, Timestamp tick);
     void remove_timer(TimerHandler<int>* handler);
+    void remove_timer(TimerHandler<int>* handler, int message);
 
 private:
     // called from kernel
