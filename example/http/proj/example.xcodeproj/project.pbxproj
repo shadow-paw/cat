@@ -21,13 +21,7 @@
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
 		3EF9A0D21F8A67E3008C00C0 /* default_ui.png in assets/ui */ = {isa = PBXBuildFile; fileRef = 3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */; };
-		3EF9A0D31F8A67E9008C00C0 /* test.fs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0C91F8A67CA008C00C0 /* test.fs */; };
-		3EF9A0D41F8A67E9008C00C0 /* test.vs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0CA1F8A67CA008C00C0 /* test.vs */; };
-		3EF9A0D61F8A680C008C00C0 /* test.txt in assets/ */ = {isa = PBXBuildFile; fileRef = 3EF9A0CB1F8A67CA008C00C0 /* test.txt */; };
 		3EF9A0D71F8A681E008C00C0 /* default_ui.png in res/ui (1 item) */ = {isa = PBXBuildFile; fileRef = 3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */; };
-		3EF9A0D81F8A682C008C00C0 /* test.fs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0C91F8A67CA008C00C0 /* test.fs */; };
-		3EF9A0D91F8A682C008C00C0 /* test.vs in assets/shader */ = {isa = PBXBuildFile; fileRef = 3EF9A0CA1F8A67CA008C00C0 /* test.vs */; };
-		3EF9A0DB1F8A683D008C00C0 /* test.txt in assets/ */ = {isa = PBXBuildFile; fileRef = 3EF9A0CB1F8A67CA008C00C0 /* test.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,8 +42,6 @@
 			dstPath = shader;
 			dstSubfolderSpec = 7;
 			files = (
-				3EF9A0D31F8A67E9008C00C0 /* test.fs in assets/shader */,
-				3EF9A0D41F8A67E9008C00C0 /* test.vs in assets/shader */,
 			);
 			name = assets/shader;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,8 +52,6 @@
 			dstPath = shader;
 			dstSubfolderSpec = 7;
 			files = (
-				3EF9A0D81F8A682C008C00C0 /* test.fs in assets/shader */,
-				3EF9A0D91F8A682C008C00C0 /* test.vs in assets/shader */,
 			);
 			name = assets/shader;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,7 +73,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3EF9A0D61F8A680C008C00C0 /* test.txt in assets/ */,
 			);
 			name = assets/;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,7 +83,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3EF9A0DB1F8A683D008C00C0 /* test.txt in assets/ */,
 			);
 			name = assets/;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,9 +112,6 @@
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
 		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
-		3EF9A0C91F8A67CA008C00C0 /* test.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fs; sourceTree = "<group>"; };
-		3EF9A0CA1F8A67CA008C00C0 /* test.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vs; sourceTree = "<group>"; };
-		3EF9A0CB1F8A67CA008C00C0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		3EF9A0CD1F8A67CA008C00C0 /* default_ui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_ui.png; sourceTree = "<group>"; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -223,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				3EF9A0C81F8A67CA008C00C0 /* shader */,
-				3EF9A0CB1F8A67CA008C00C0 /* test.txt */,
 				3EF9A0CC1F8A67CA008C00C0 /* ui */,
 			);
 			name = assets;
@@ -233,8 +217,6 @@
 		3EF9A0C81F8A67CA008C00C0 /* shader */ = {
 			isa = PBXGroup;
 			children = (
-				3EF9A0C91F8A67CA008C00C0 /* test.fs */,
-				3EF9A0CA1F8A67CA008C00C0 /* test.vs */,
 			);
 			path = shader;
 			sourceTree = "<group>";
