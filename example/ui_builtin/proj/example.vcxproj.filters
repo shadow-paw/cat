@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="res\shader">
+      <UniqueIdentifier>{21a562c7-f5bc-4385-977c-2f47b6a36608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glue">
+      <UniqueIdentifier>{7b5b95d5-8eab-43cf-a997-b74af5712876}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\test.fs">
+      <Filter>res\shader</Filter>
+    </None>
+    <None Include="res\shader\test.vs">
+      <Filter>res\shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\glue\win\catview.cpp">
+      <Filter>glue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glue\win\winmain.cpp">
+      <Filter>glue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bootapp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\glue\win\catview.h">
+      <Filter>glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bootapp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
