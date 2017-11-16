@@ -1,4 +1,5 @@
 #include "bootapp.h"
+#include "testpane.h"
 
 using namespace app;
 using namespace cat;
@@ -55,27 +56,11 @@ bool BootApp::cb_startup(Timestamp now) {
     edit->set_textsize(10);
     pane1->attach(edit);    // NOTE: editbox will always be topmost
 
-    auto pane2 = new Pane(kernel(), Rect2i(300, 100, 400, 300));
-    pane2->set_bgcolor(0x80ffffff);
-    pane2->set_bgeffect(Draw2D::Effect::Blur);
-    pane2->set_bounded(true);
-    pane2->set_draggable(true);
-    kernel()->ui()->attach(pane2);
-
-    auto pane3 = new Pane(kernel(), Rect2i(400, 200, 500, 500));
-    pane3->set_bgcolor(0x80ffffff);
-    pane3->set_bgeffect(Draw2D::Effect::Ripple);
-    pane3->set_bounded(true);
-    pane3->set_draggable(true);
-    kernel()->ui()->attach(pane3);
-    // You can also attach more widgets after the pane is attached
-    auto slider2 = new Slider(kernel(), Rect2i(150, 50, 50, 200), 4);
-    slider2->set_texture(Slider::TexBackground, ui_image, 0, 80, 92, 118, 6, 6);
-    slider2->set_texture(Slider::TexThumb, ui_image, 94, 80, 139, 117, 6, 6);
-    slider2->set_orentation(Slider::Orentation::Vertical);
-    slider2->set_range(0, 2);
-    slider2->set_pos(2);
-    pane3->attach(slider2);
+    auto testpane = new TestPane(kernel(), Rect2i(350, 50, 400, 400), 4);
+    testpane->set_bgcolor(0x80ffffff);
+    testpane->set_draggable(true);
+    testpane->set_bounded(true);
+    kernel()->ui()->attach(testpane);
 
     // handle UI events
     button1->ev_click += [](Widget* w) -> bool {
@@ -88,10 +73,6 @@ bool BootApp::cb_startup(Timestamp now) {
     };
     slider1->ev_slide += [](Widget* w, int pos) -> bool {
         Logger::d("App", "Slider1: %d", pos);
-        return true;
-    };
-    slider2->ev_slide += [](Widget* w, int pos) -> bool {
-        Logger::d("App", "Slider2: %d", pos);
         return true;
     };
     return true;
@@ -161,4 +142,3 @@ bool BootApp::cb_timer(Timestamp now, int msg) {
     return true;
 }
 // ----------------------------------------------------------------------------
-
