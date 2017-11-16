@@ -79,7 +79,7 @@ cd dependency/setup
 Open `libcat/proj/libcat.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Libraries will be created under `libcat/lib/`.
 
 #### Build example - windows
-Open `example/hello/proj/example.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Excutables will be created under `example/hello/bin/`.
+Open `example/{project}/proj/example.vcxproj` with Visual Studio. There are four targets available: `win32`, `win32d`, `win64`, `win64d`. Excutables will be created under `example/{project}/bin/`.
 
 #### Build libcat - android
 ```
@@ -88,7 +88,7 @@ ndk-build.cmd -j4
 ```
   
 #### Build example - android
-Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.
+Open `example/{project}/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/{project}/glue/android`. APK will be created under `example/{project}/bin/android/`.
 
 ## Mac Environment
 #### Tools
@@ -119,7 +119,7 @@ cd dependency/setup
 Open `libcat/proj/libcat.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libcat/lib/`.
 
 #### Build example - mac & ios
-Open `example/hello/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/hello/bin/`.
+Open `example/{project}/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/{project}/bin/`.
 
 #### Build libcat - android
 ```
@@ -128,7 +128,7 @@ ndk-build -j4
 ```
 
 #### Build example - android
-Open `example/hello/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/hello/glue/android`. APK will be created under `example/hello/bin/android/`.
+Open `example/{project}/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/{project}/glue/android`. APK will be created under `example/{project}/bin/android/`.
 
 <sup>Note: To build windows app on mac, you need to bootcamp or VM into Windows.</sup>
 
