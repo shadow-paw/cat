@@ -18,15 +18,15 @@
 - Sensor Service
 
 ## Examples
-- [Blank skeleton](blob/master/example/blank/src/bootapp.cpp)
-- [Builtin UI](blob/master/example/ui_builtin/src/bootapp.cpp)
-- [Custom UI](blob/master/example/ui_custom/src/bootapp.cpp)
-- [Timer](blob/master/example/timer/src/bootapp.cpp)
+- [Blank skeleton](example/blank/src/bootapp.cpp)
+- [Builtin UI](example/ui_builtin/src/bootapp.cpp)
+- [Custom UI](example/ui_custom/src/bootapp.cpp)
+- [Timer](example/timer/src/bootapp.cpp)
 ```
 kernel()->time()->post_timer(this, 1, 1000);
 kernel()->time()->remove_timer(this, 1);
 ```
-- [HTTP](blob/master/example/http/src/bootapp.cpp)
+- [HTTP](example/http/src/bootapp.cpp)
 ```
 HttpRequest request("https://httpbin.org/post");
 request.add_header("foo", "bar");
