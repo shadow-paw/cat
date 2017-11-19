@@ -5,10 +5,9 @@ using namespace cat;
 
 class Foo {
 public:
-    int foo;
-    int bar;
+    int foo = 0;
+    int bar = 0;
 };
-
 
 // ----------------------------------------------------------------------------
 BootApp::BootApp() {
@@ -25,15 +24,15 @@ bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
     Observable<Foo> observable;
 
-    auto cancellable1 = observable.subscribe([](const Foo& data) -> void {
+    auto sub1 = observable.subscribe([](const Foo& data) -> void {
         Logger::d("App", "full observer: foo = %d", data.foo);
     });
     observable.data().foo = 1;
     observable.data().bar = 1;
     observable.notify();        // trigger full observer
 
-    // map Foo into int
-    auto cancellable2 = observable.distinct<int>(
+    // map Foo into int and trigger upon distinct changes
+    auto sub2 = observable.distinct<int>(
                                 [](const Foo& foo) -> int { return foo.bar; },
                                 [](const int& bar) -> void {
                                     Logger::d("App", "distinct: bar = %d", bar);
@@ -45,11 +44,11 @@ bool BootApp::cb_startup(Timestamp now) {
     observable.data().foo = 2;
     observable.data().bar = 2;
     observable.notify();        // full only, distinct skipped
-    cancellable2.cancel();
+    sub2.cancel();
     observable.data().foo = 3;
     observable.data().bar = 3;
     observable.notify();        // full only, as distinct cancelled
-    cancellable1.cancel();
+    sub1.cancel();
     observable.data().foo = 4;
     observable.data().bar = 4;
     observable.notify();        // nothing to trigger

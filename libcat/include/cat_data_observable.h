@@ -83,7 +83,9 @@ ObservableCanceller<T> Observable<T>::subscribe(Observer<T> observer, std::funct
     sub.observer = observer;
     sub.cb_cancel = cb_cancel;
     m_subs.push_back(sub);
-    return ObservableCanceller<T>(this, id);
+    auto canceller = ObservableCanceller<T>(this, id);
+    observer(m_data); // trigger upon subscribe
+    return canceller;
 }
 // ----------------------------------------------------------------------------
 template <class T>
