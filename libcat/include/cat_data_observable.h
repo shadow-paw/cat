@@ -113,10 +113,9 @@ ObservableCanceller<T> Observable<T>::distinct(std::function<MAP(const T& data)>
     return subscribe(
         [mapped, mapper, observer](const T& data) -> void {
             MAP new_mapped = mapper(data);
-            if (*mapped != new_mapped) {
-                *mapped = new_mapped;
-                observer(*mapped);
-            }
+            if (*mapped == new_mapped) return;  // Custom class might overload ==
+            *mapped = new_mapped;
+            observer(*mapped);
         },
         [mapped]() -> void {
             delete mapped;
