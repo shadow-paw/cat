@@ -133,7 +133,7 @@ typename Observable<T>::Canceller Observable<T>::distinct(std::function<MAP(cons
         [mapped, mapper, observer](const T& data) -> void {
             MAP new_mapped = mapper(data);
             if (*mapped == new_mapped) return;  // Custom class might overload ==
-            *mapped = new_mapped;
+            *mapped = std::move(new_mapped);
             observer(*mapped);
         },
         [mapped]() -> void {
