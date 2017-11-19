@@ -6,6 +6,7 @@ using namespace cat;
 class Foo {
 public:
     int foo;
+    int bar;
 };
 
 
@@ -28,17 +29,30 @@ bool BootApp::cb_startup(Timestamp now) {
         Logger::d("App", "observer1: foo = %d", data.foo);
     });
     observable.data().foo = 1;
+    observable.data().bar = 1;
     observable.notify();
-    auto cancellable2 = observable.subscribe([](const Foo& data) -> void {
-        Logger::d("App", "observer2: foo = %d", data.foo);
-    });
+
+    // map Foo into int
+    auto cancellable2 = observable.distinct<int>(
+                                [](const Foo& foo) -> int { return foo.bar; },
+                                [](const int& bar) -> void {
+                                    Logger::d("App", "distinct: bar = %d", bar);
+                                });
+
     observable.data().foo = 2;
+    observable.data().bar = 2;
+    observable.notify();
+    observable.data().foo = 2;
+    observable.data().bar = 2;
     observable.notify();
     cancellable2.cancel();
+    cancellable2.cancel();
     observable.data().foo = 3;
+    observable.data().bar = 3;
     observable.notify();
     cancellable1.cancel();
     observable.data().foo = 4;
+    observable.data().bar = 4;
     observable.notify();
     return true;
 }
