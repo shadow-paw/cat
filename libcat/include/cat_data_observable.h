@@ -18,6 +18,15 @@ public:
         m_observable = observable;
         m_subscribe_id = subscribe_id;
     }
+    ObservableCanceller(ObservableCanceller&& o) {
+        m_observable = o.m_observable;     o.m_observable = nullptr;
+        m_subscribe_id = o.m_subscribe_id; o.m_subscribe_id = 0;
+    }
+    ObservableCanceller& operator=(ObservableCanceller&& o) {
+        m_observable = o.m_observable;     o.m_observable = nullptr;
+        m_subscribe_id = o.m_subscribe_id; o.m_subscribe_id = 0;
+        return *this;
+    }
     void cancel() {
         if (m_observable) {
             m_observable->unsubscribe(m_subscribe_id);

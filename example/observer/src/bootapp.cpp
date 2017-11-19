@@ -26,11 +26,11 @@ bool BootApp::cb_startup(Timestamp now) {
     Observable<Foo> observable;
 
     auto cancellable1 = observable.subscribe([](const Foo& data) -> void {
-        Logger::d("App", "observer1: foo = %d", data.foo);
+        Logger::d("App", "full observer: foo = %d", data.foo);
     });
     observable.data().foo = 1;
     observable.data().bar = 1;
-    observable.notify();
+    observable.notify();        // trigger full observer
 
     // map Foo into int
     auto cancellable2 = observable.distinct<int>(
@@ -41,19 +41,18 @@ bool BootApp::cb_startup(Timestamp now) {
 
     observable.data().foo = 2;
     observable.data().bar = 2;
-    observable.notify();
+    observable.notify();        // full, distinct
     observable.data().foo = 2;
     observable.data().bar = 2;
-    observable.notify();
-    cancellable2.cancel();
+    observable.notify();        // full only, distinct skipped
     cancellable2.cancel();
     observable.data().foo = 3;
     observable.data().bar = 3;
-    observable.notify();
+    observable.notify();        // full only, as distinct cancelled
     cancellable1.cancel();
     observable.data().foo = 4;
     observable.data().bar = 4;
-    observable.notify();
+    observable.notify();        // nothing to trigger
     return true;
 }
 // cb_resume is called when the program has resumed
