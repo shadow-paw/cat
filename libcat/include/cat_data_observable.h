@@ -85,7 +85,7 @@ void Observable<T>::Canceller::cancel() {
 // ----------------------------------------------------------------------------
 template <class T>
 Observable<T>::Observable() {
-    m_ids.init(0, 1, 0x7fffffff);
+    m_ids.init(0, 1, INT_MAX-1);
 }
 // ----------------------------------------------------------------------------
 template <class T>
