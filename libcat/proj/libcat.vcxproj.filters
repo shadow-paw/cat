@@ -142,10 +142,13 @@
     <ClInclude Include="..\include\cat_net_http.h">
       <Filter>libcat\net</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cat_util_uniqueid.h">
-      <Filter>libcat\util</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\cat_data_buffer.h">
+      <Filter>libcat\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_data_observable.h">
+      <Filter>libcat\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_data_uniqueid.h">
       <Filter>libcat\data</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,9 +3,14 @@
 using namespace app;
 using namespace cat;
 
+class Foo {
+public:
+    int foo;
+};
+
+
 // ----------------------------------------------------------------------------
 BootApp::BootApp() {
-    m_counter = 0;
 }
 // ----------------------------------------------------------------------------
 BootApp::~BootApp() {
@@ -17,24 +22,30 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
+    Observable<Foo> observable;
+
+    auto cancellable1 = observable.subscribe([](const Foo& data) -> void {
+        Logger::d("App", "observer1: foo = %d", data.foo);
+    });
+    observable.data().foo = 1;
+    observable.notify();
+    auto cancellable2 = observable.subscribe([](const Foo& data) -> void {
+        Logger::d("App", "observer2: foo = %d", data.foo);
+    });
+    observable.data().foo = 2;
+    observable.notify();
+    cancellable2.cancel();
+    observable.data().foo = 3;
+    observable.notify();
+    cancellable1.cancel();
+    observable.data().foo = 4;
+    observable.notify();
     return true;
 }
 // cb_resume is called when the program has resumed
 // ----------------------------------------------------------------------------
 void BootApp::cb_resume() {
     Logger::d("App", "cb_resume");
-    // Http Test
-    HttpRequest req("https://httpbin.org/post");
-    req.add_header("foo", "bar");
-    req.add_header("foo2", "dumb");
-    req.post("Post Data", "text/plain; charset=utf-8");
-    auto http_id = kernel()->net()->http_fetch(std::move(req), [](const HttpResponse& res) -> void {
-        for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
-            Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
-        }
-        Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
-    });
-    // kernel()->net()->http_cancel(http_id);
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------
@@ -92,19 +103,8 @@ void BootApp::cb_render(Renderer* r, Timestamp now) {
 }
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(Timestamp now, int msg) {
-    Logger::d("App", "cb_timer: %d - time: %llu", msg, now);
-    switch (msg) {
-    case 1:
-        kernel()->time()->post_timer(this, 1, 1000);
-        break;
-    case 2:
-        m_counter ++;
-        if (m_counter < 5) {
-            kernel()->time()->post_timer(this, 2, 2000);
-        } else {
-           kernel()->time()->remove_timer(this, 1);
-        } break;
-    } return true;
+    Logger::d("App", "cb_timer");
+    return true;
 }
 // ----------------------------------------------------------------------------
 

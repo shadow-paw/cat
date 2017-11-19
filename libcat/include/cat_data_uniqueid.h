@@ -1,5 +1,5 @@
-#ifndef __CAT_UTIL_UNIQUEID_H__
-#define __CAT_UTIL_UNIQUEID_H__
+#ifndef __CAT_DATA_UNIQUEID_H__
+#define __CAT_DATA_UNIQUEID_H__
 
 #include <deque>
 #include <mutex>
@@ -90,5 +90,5 @@ bool UniqueId<T>::release(Timestamp now, const T& id) {
 // ----------------------------------------------------------------------------
 } // namespace cat
 
-#endif // __CAT_UTIL_UNIQUEID_H__
+#endif // __CAT_DATA_UNIQUEID_H__
 
