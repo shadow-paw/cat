@@ -8,11 +8,11 @@
 namespace cat {
 // ----------------------------------------------------------------------------
 template <class T>
-using Observer = std::function<void(const T& data)>;
-// ----------------------------------------------------------------------------
-template <class T>
 class Observable {
 public:
+    // ------------------------------------------------------------------------
+    template <class T>
+    using Observer = std::function<void(const T& data)>;
     // ------------------------------------------------------------------------
     class Canceller {
     public:
