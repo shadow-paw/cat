@@ -3,16 +3,17 @@
 
 #include <functional>
 #include <list>
+#include <memory>
 #include "cat_data_uniqueid.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
 template <class T>
+using Observer = std::function<void(const T& data)>;
+// ----------------------------------------------------------------------------
+template <class T>
 class Observable {
 public:
-    // ------------------------------------------------------------------------
-    template <class T>
-    using Observer = std::function<void(const T& data)>;
     // ------------------------------------------------------------------------
     class Canceller {
     public:
@@ -20,7 +21,7 @@ public:
         Canceller(Canceller& o) = delete;
         Canceller(Canceller&& o);
         Canceller& operator=(Canceller&& o);
-        virtual void cancel();
+        void cancel();
     private:
         Observable<T>* m_observable;
         int            m_subscribe_id;
