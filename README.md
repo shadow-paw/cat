@@ -151,5 +151,5 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [license-url]: LICENSE
 [visualstudio-url]: https://www.visualstudio.com/downloads/
 [xcode-url]: https://developer.apple.com/xcode/
-[android-url]: https://developer.android.com/studio/preview/index.html
+[android-url]: https://developer.android.com/studio/index.html
 [git-url]: https://git-scm.com/downloads
