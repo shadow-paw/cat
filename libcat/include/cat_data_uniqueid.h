@@ -13,7 +13,7 @@ class UniqueId<T> {
 public:
     //! Initialize the generator
     //! \param lo Lower limit of an id, inclusive
-    //! \param hi Upper limit of an id, inclusive
+    //! \param hi Upper limit of an id, exclusive
     //! \param invalid id denote an invalid value
     //! \return true if success, false if failed and no side-effect
     bool init(const T& lo, const T& hi, const T& invalid);
@@ -40,7 +40,7 @@ class UniqueId<T,TIMESTAMP> {
 public:
     //! Initialize the generator
     //! \param lo Lower limit of an id, inclusive
-    //! \param hi Upper limit of an id, inclusive
+    //! \param hi Upper limit of an id, exclusive
     //! \param invalid id denote an invalid value
     //! \param timeout Timeout before an id is reused
     //! \return true if success, false if failed and no side-effect
