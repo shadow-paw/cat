@@ -48,7 +48,7 @@ bool BootApp::cb_startup(Timestamp now) {
     slider1->set_texture(Slider::TexBackground, ui_image, 0, 80, 92, 118, 6, 6);
     slider1->set_texture(Slider::TexThumb, ui_image, 94, 80, 139, 117, 6, 6);
     pane1->attach(slider1);
-    slider1->set_max(1);    // 0~1
+    slider1->set_max(5);    // 0~5
     slider1->set_pos(1);
     auto edit = new Editbox(kernel(), Rect2i(10, 150, 120, 30), 1);
     edit->set_bgcolor(0x30000000);
@@ -130,11 +130,6 @@ void BootApp::cb_resize(int width, int height) {
 // cb_render is called in the render pipeline
 // ----------------------------------------------------------------------------
 void BootApp::cb_render(Renderer* r, Timestamp now) {
-    Rect2i rect;
-    TextStyle style;
-    rect.set(10, 10, 100, 40);
-    style.color = 0xffff00ff;
-    r->draw2d.drawtext(rect, "Hello", style);
 }
 // ----------------------------------------------------------------------------
 bool BootApp::cb_timer(Timestamp now, int msg) {
