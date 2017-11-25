@@ -86,7 +86,7 @@ void Observable<T>::Canceller::cancel() {
 // ----------------------------------------------------------------------------
 template <class T>
 Observable<T>::Observable() {
-    m_ids.init(0, 1, INT_MAX-1);
+    m_ids.init(1, INT_MAX-1, 0);
 }
 // ----------------------------------------------------------------------------
 template <class T>
@@ -96,7 +96,7 @@ typename Observable<T>::Canceller Observable<T>::subscribe(Observer<T> observer)
 // ----------------------------------------------------------------------------
 template <class T>
 typename Observable<T>::Canceller Observable<T>::subscribe(Observer<T> observer, std::function<void()> cb_cancel) {
-    auto id = m_ids.fetch(0);
+    auto id = m_ids.fetch();
     SUBSCRIPTION sub;
     sub.id = id;
     sub.observer = observer;
@@ -112,7 +112,7 @@ void Observable<T>::unsubscribe(int subscribe_id) {
         if (it->id == subscribe_id) {
             if (it->cb_cancel) it->cb_cancel();
             it = m_subs.erase(it);
-            m_ids.release(0, subscribe_id);
+            m_ids.release(subscribe_id);
         } else {
             ++it;
         }

@@ -12,7 +12,7 @@ TimeService::~TimeService() {
 }
 // ----------------------------------------------------------------------------
 bool TimeService::post_timer(TimerHandler<int>* handler, int message, Timestamp tick) {
-    return m_timequeue.post(handler, tick, message);
+    return m_timequeue.post(tick, handler, message);
 }
 // ----------------------------------------------------------------------------
 void TimeService::remove_timer(TimerHandler<int>* handler) {
@@ -32,7 +32,7 @@ bool TimeService::timer() {
     Timestamp current_time = now();
     Timestamp dt = current_time - m_last;
     m_last = current_time;
-    while (m_timequeue.get(&handler, dt, &msg)) {
+    while (m_timequeue.get(dt, &handler, &msg)) {
         dt = 0;
         handled |= handler->cb_timer(current_time, msg);
     } return handled;

@@ -19,6 +19,7 @@
 #include "cat_platform.h"
 #include "cat_data_buffer.h"
 #include "cat_data_uniqueid.h"
+#include "cat_time_type.h"
 
 namespace cat {
 class NetService;
@@ -26,17 +27,35 @@ class HttpManager;
 // ----------------------------------------------------------------------------
 typedef unsigned int HTTP_ID;
 // ----------------------------------------------------------------------------
+//! HTTP Request
 class HttpRequest {
 friend class HttpManager;
 public:
+    //! Constructor an empty request, you must call set_url()
+    //! \sa set_url
     HttpRequest();
+    //! Constructor with url
+    //! \param url Url of the request, e.g. "https://google.com/"
     HttpRequest(const std::string& url);
+    //! Move Constructor
     HttpRequest(HttpRequest&& o);
+    //! Move Assignment
     HttpRequest& operator=(HttpRequest&& o);
 
+    //! Set the url of the request
+    //! \param url Url of the request, e.g. "https://google.com/"
     void set_url(const std::string& url);
+    //! Add a custom request header, a request can have multiple header of same key
+    //! \param key Key of header
+    //! \param value Value of header
     void add_header(const std::string& key, const std::string& value);
+    //! Make this a post request with the provide post-data
+    //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
+    //! \param mime MIME type, e.g. "application/json"
     void post(Buffer&& data, const std::string& mime);
+    //! Make this a post request with the provide post-data
+    //! \param data String to post, zero-terminator is excluded
+    //! \param mime MIME type, e.g. "application/json"
     void post(const std::string& data, const std::string& mime);
 private:
     std::string m_url;
@@ -44,30 +63,49 @@ private:
     Buffer m_data;
 };
 // ----------------------------------------------------------------------------
+//! HTTP Response
 class HttpResponse {
 public:
+    //! HTTP status code, e.g. 200
     int code;
+    //! Response header
     std::unordered_multimap<std::string, std::string> headers;
+    //! Response body
     Buffer body;
 
+    //! Construct empty response
     HttpResponse();
+    //! Move Constructor
     HttpResponse(HttpResponse&& o);
+    //! Move Assignment
     HttpResponse& operator=(HttpResponse&& o);
 };
 // ----------------------------------------------------------------------------
+//! HTTP Manager
 class HttpManager {
 friend class cat::NetService;
 public:
     HttpManager();
     ~HttpManager();
 
+    //! Start an HTTP session
+    //! \param request HTTP request
+    //! \param cb Callback upon complete/failure, will be invoked from main thread
+    //! \return HTTP id used for cancallation
+    //! \sa HttpRequest, cancel
     HTTP_ID fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb);
-    bool cancel(HTTP_ID session_id);
+    //! Cancel an HTTP session
+    //! \param http_id HTTP id obtained from fetch
+    //! \return true if cancelled, false if cannot be cancelled
+    //! \sa fetch
+    bool cancel(HTTP_ID http_id);
 
 private:
-    // called from NetService
+    //! Called from NetService when the app is put to background
     void pause();
+    //! Called from NetService when the app is resume to foreground
     void resume();
+    //! Called from NetService to poll for event
     void poll();
 private:
     class HttpConnection {
@@ -95,13 +133,14 @@ private:
         ~HttpConnection();
     };
 private:
+    const Timestamp HTTPID_REUSE_TIMEOUT = 5000;
     const int POLL_INTERVAL = 100;
     std::atomic<bool> m_thread_started;
     std::thread* m_thread;
     std::mutex m_added_mutex, m_working_mutex, m_completed_mutex;
     std::condition_variable m_condvar;
     std::list<HttpConnection> m_added, m_working, m_completed;
-    UniqueId_r<HTTP_ID> m_unique;
+    UniqueId<HTTP_ID,Timestamp> m_unique;
     bool m_worker_running;
 
     void worker_thread();

@@ -13,6 +13,14 @@ Buffer::~Buffer() {
     free();
 }
 // ----------------------------------------------------------------------------
+Buffer::Buffer(const Buffer& o) {
+    m_buffer = nullptr;
+    m_size = m_allocated = 0;
+    if (realloc(o.m_size)) {
+        memcpy(m_buffer, o.m_buffer, o.m_size);
+    }
+}
+// ----------------------------------------------------------------------------
 Buffer::Buffer(Buffer&& o) {
     m_buffer = o.m_buffer;
     m_size = o.m_size;
@@ -24,10 +32,10 @@ Buffer::Buffer(Buffer&& o) {
 // ----------------------------------------------------------------------------
 Buffer::Buffer(const void* p, size_t size) {
     m_buffer = nullptr;
-    m_size = 0;
-    m_allocated = 0;
-    realloc(size);
-    memcpy(m_buffer, p, size);
+    m_size = m_allocated = 0;
+    if (realloc(size)) {
+        memcpy(m_buffer, p, size);
+    }
 }
 // ----------------------------------------------------------------------------
 Buffer& Buffer::operator=(Buffer&& o) {
@@ -66,20 +74,21 @@ void Buffer::free() {
     m_allocated = 0;
 }
 // ----------------------------------------------------------------------------
-void Buffer::shrink(size_t s) {
-    if (m_size > s) m_size = s;
-}
-// ----------------------------------------------------------------------------
-bool Buffer::assign(const void* p, size_t size) {
-    if (!realloc(size)) return false;
-    memcpy(m_buffer, p, size);
-    m_size = size;
+bool Buffer::shrink(size_t s) {
+    if (m_size < s) return false;
+    m_size = s;
     return true;
 }
 // ----------------------------------------------------------------------------
-bool Buffer::copy(size_t offset, const void* p, size_t size) {
+bool Buffer::assign(const void* mem, size_t size) {
+    if (!realloc(size)) return false;
+    memcpy(m_buffer, mem, size);
+    return true;
+}
+// ----------------------------------------------------------------------------
+bool Buffer::copy(size_t offset, const void* mem, size_t size) {
     if (offset + size > m_size) return false;
-    memcpy(m_buffer + offset, p, size);
+    memcpy(m_buffer + offset, mem, size);
     return true;
 }
 // ----------------------------------------------------------------------------

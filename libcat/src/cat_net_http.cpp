@@ -127,7 +127,7 @@ HttpManager::HttpConnection::~HttpConnection() {
 // HttpManager
 // ----------------------------------------------------------------------------
 HttpManager::HttpManager() {
-    m_unique.init(5000, 1, 0x7ffffff0);
+    m_unique.init(1, 0x7ffffff0, 0, HTTPID_REUSE_TIMEOUT);
     m_thread_started = false;
     m_worker_running = false;
     m_thread = nullptr;
@@ -182,7 +182,7 @@ void HttpManager::poll() {
     lock.unlock();
     for (auto it = list.begin(); it != list.end(); ++it) {
         it->cb(it->response);
-        m_unique.release(TimeService::now(), it->id);
+        m_unique.release(it->id, TimeService::now());
     }
 }
 // ----------------------------------------------------------------------------

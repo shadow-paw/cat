@@ -3,73 +3,132 @@
 
 #include <deque>
 #include <mutex>
-#include "cat_time_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
+template <typename...> class UniqueId;
+//! Unique ID Generator without timeout
 template <typename T>
-class UniqueId {
+class UniqueId<T> {
 public:
-    UniqueId();
-    bool init(Timestamp timeout, const T& lo, const T& hi);
+    //! Initialize the generator
+    //! \param lo Lower limit of an id, inclusive
+    //! \param hi Upper limit of an id, inclusive
+    //! \param invalid id denote an invalid value
+    //! \return true if success, false if failed and no side-effect
+    bool init(const T& lo, const T& hi, const T& invalid);
+    //! Reset the generator to initialized state
     void reset();
-    T    fetch(Timestamp now);
-    bool release(Timestamp now, const T& id);
+    //! Fetch a new id
+    //! \param now Current time
+    //! \return id
+    T fetch();
+    //! Release an id, the id may be reused after a certain timeout
+    //! \param now Current time
+    //! \param id id
+    //! \return true if success, false if failed and no side-effect
+    bool release(const T& id);
+private:
+    std::mutex    m_mutex;
+    std::deque<T> m_list;
+    T             m_limit_lo, m_limit_hi, m_seed, m_invalid;
+};
+// ----------------------------------------------------------------------------
+//! Unique ID Generator with timeout
+template <typename T, typename TIMESTAMP>
+class UniqueId<T,TIMESTAMP> {
+public:
+    //! Initialize the generator
+    //! \param lo Lower limit of an id, inclusive
+    //! \param hi Upper limit of an id, inclusive
+    //! \param invalid id denote an invalid value
+    //! \param timeout Timeout before an id is reused
+    //! \return true if success, false if failed and no side-effect
+    bool init(const T& lo, const T& hi, const T& invalid, TIMESTAMP timeout);
+    //! Reset the generator to initialized state
+    void reset();
+    //! Fetch a new id
+    //! \param now Current time
+    //! \return id
+    T fetch(TIMESTAMP now);
+    //! Release an id, the id may be reused after a certain timeout
+    //! \param id id
+    //! \param now Current time
+    //! \return true if success, false if failed and no side-effect
+    bool release(const T& id, TIMESTAMP now);
 private:
     struct NODE {
-        Timestamp timestamp;
+        TIMESTAMP timestamp;
         T id;
     };
-    std::deque<NODE> m_list;
-    Timestamp        m_timeout;
-    T                m_limit_lo, m_limit_hi, m_seed;
-};
-// ----------------------------------------------------------------------------
-template <typename T>
-class UniqueId_r {
-public:
-    bool init(Timestamp timeout, const T& lo, const T& hi) {
-        return m_uniqueid.init(timeout, lo, hi);
-    }
-    void reset() {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        m_uniqueid.reset();
-    }
-    T fetch(Timestamp now) {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        return m_uniqueid.fetch(now);
-    }
-    bool release(Timestamp now, const T& id) {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        return m_uniqueid.release(now, id);
-    }
-private:
     std::mutex  m_mutex;
-    UniqueId<T> m_uniqueid;
+    std::deque<NODE> m_list;
+    T                m_limit_lo, m_limit_hi, m_seed, m_invalid;
+    TIMESTAMP        m_timeout;
 };
 // ----------------------------------------------------------------------------
-template <typename T>
-UniqueId<T>::UniqueId() : m_limit_lo(), m_limit_hi(), m_seed() {
-    m_timeout = 0;
-}
+// Unique ID Generator without timeout
 // ----------------------------------------------------------------------------
 template <typename T>
-bool UniqueId<T>::init(Timestamp timeout, const T& lo, const T& hi) {
-    m_timeout = timeout;
+bool UniqueId<T>::init(const T& lo, const T& hi, const T& invalid) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_limit_lo = lo;
     m_limit_hi = hi;
     m_seed = lo;
+    m_invalid = invalid;
     return true;
 }
 // ----------------------------------------------------------------------------
 template <typename T>
 void UniqueId<T>::reset() {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_seed = m_limit_lo;
     m_list.clear();
 }
 // ----------------------------------------------------------------------------
 template <typename T>
-T UniqueId<T>::fetch(Timestamp now) {
+T UniqueId<T>::fetch() {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (!m_list.empty()) {
+        auto id = m_list.front();
+        m_list.pop_front();
+        return id;
+    }
+    if (m_seed < m_limit_hi) {
+        return m_seed++;
+    } return m_invalid;
+}
+// ----------------------------------------------------------------------------
+template <typename T>
+bool UniqueId<T>::release(const T& id) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_list.push_back(id);
+    return true;
+}
+// ----------------------------------------------------------------------------
+// Unique ID Generator with timeout
+// ----------------------------------------------------------------------------
+template <typename T, typename TIMESTAMP>
+bool UniqueId<T, TIMESTAMP>::init(const T& lo, const T& hi, const T& invalid, TIMESTAMP timeout) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_timeout = timeout;
+    m_limit_lo = lo;
+    m_limit_hi = hi;
+    m_seed = lo;
+    m_invalid = invalid;
+    return true;
+}
+// ----------------------------------------------------------------------------
+template <typename T, typename TIMESTAMP>
+void UniqueId<T, TIMESTAMP>::reset() {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_seed = m_limit_lo;
+    m_list.clear();
+}
+// ----------------------------------------------------------------------------
+template <typename T, typename TIMESTAMP>
+T UniqueId<T, TIMESTAMP>::fetch(TIMESTAMP now) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     if (!m_list.empty()) {
         NODE node = m_list.front();
         if (now - node.timestamp > m_timeout) {
@@ -79,11 +138,12 @@ T UniqueId<T>::fetch(Timestamp now) {
     }
     if (m_seed < m_limit_hi) {
         return m_seed++;
-    } return T();
+    } return m_invalid;
 }
 // ----------------------------------------------------------------------------
-template <typename T>
-bool UniqueId<T>::release(Timestamp now, const T& id) {
+template <typename T, typename TIMESTAMP>
+bool UniqueId<T, TIMESTAMP>::release(const T& id, TIMESTAMP now) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_list.push_back({ now, id });
     return true;
 }

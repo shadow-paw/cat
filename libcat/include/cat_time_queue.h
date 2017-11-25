@@ -13,13 +13,32 @@ public:
     virtual bool cb_timer(Timestamp now, T msg) = 0;
 };
 // -----------------------------------------------------------
+//! Delta queue implementation
 template <typename T>
 class TimerQueue {
 public:
-    bool post(TimerHandler<T>* handler, Timestamp tick, const T& message);
-    bool get (TimerHandler<T>** handler, Timestamp tick, T* message);
+    //! Post a timer to queue
+    //! \param tick How long for time timer, in milliseconds
+    //! \param handler Callback handler when timer expire
+    //! \param message user-defined message to pass to handler
+    //! \return true if success, false if failed and no side-effect
+    bool post(Timestamp tick, TimerHandler<T>* handler, const T& message);
+    // Get a due timer
+    //! \param tick How long passed last call to get(), in milliseconds
+    //! \param handler Receive the handler of due timer
+    //! \param message Receive the user-defined message of due timer
+    //! \return true if there is timer due, false if no due timer
+    bool get (Timestamp tick, TimerHandler<T>** handler, T* message);
+    //! Remove all timer assocated with the handler
+    //! Any timer not fired yet will be discarded
+    //! \param handler Callback handler when timer expire
     void remove(TimerHandler<T>* handler);
+    //! Remove all timer assocated with the handler with lambda condition
+    //! Any timer not fired yet will be discarded
+    //! \param handler Callback handler when timer expire
+    //! \param comparator a function return true if the timer should be removed
     void remove(std::function<bool(const TimerHandler<T>* handler, const T& data)> comparator);
+
 private:
     struct NODE {
         Timestamp        tick;
@@ -32,7 +51,7 @@ private:
 };
 // -----------------------------------------------------------
 template <typename T>
-bool TimerQueue<T>::post(TimerHandler<T>* handler, Timestamp tick, const T& message) {
+bool TimerQueue<T>::post(Timestamp tick, TimerHandler<T>* handler, const T& message) {
     if (!handler) return false;
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_queue.size() == 0) {
@@ -53,7 +72,7 @@ bool TimerQueue<T>::post(TimerHandler<T>* handler, Timestamp tick, const T& mess
 }
 // -----------------------------------------------------------
 template <typename T>
-bool TimerQueue<T>::get(TimerHandler<T>** handler, Timestamp tick, T* msg) {
+bool TimerQueue<T>::get(Timestamp tick, TimerHandler<T>** handler, T* msg) {
     std::lock_guard<std::mutex> lock(m_mutex);
     auto node = m_queue.begin();
 	if (node == m_queue.end()) return false;
