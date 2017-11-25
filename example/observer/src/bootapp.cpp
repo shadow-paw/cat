@@ -22,6 +22,8 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
+
+    // Observable
     Observable<Foo> observable;
 
     auto sub1 = observable.subscribe([](const Foo& data) -> void {
@@ -30,14 +32,12 @@ bool BootApp::cb_startup(Timestamp now) {
     observable.data().foo = 1;
     observable.data().bar = 1;
     observable.notify();        // trigger full observer
-
     // map Foo into int and trigger upon distinct changes
     auto sub2 = observable.distinct<int>(
                                 [](const Foo& foo) -> int { return foo.bar; },
                                 [](const int& bar) -> void {
                                     Logger::d("App", "distinct: bar = %d", bar);
                                 });
-
     observable.data().foo = 2;
     observable.data().bar = 2;
     observable.notify();        // full, distinct
@@ -52,6 +52,14 @@ bool BootApp::cb_startup(Timestamp now) {
     observable.data().foo = 4;
     observable.data().bar = 4;
     observable.notify();        // nothing to trigger
+
+    // Emitter
+    Emitter<std::string> emitter;
+    emitter.on(1, [](int ev, const std::string& s) -> void {
+        Logger::d("App", "emitter[%d]: %s", ev, s.c_str());
+    });
+    emitter.emit(1, "hello");
+    emitter.emit(2, "nothing");
     return true;
 }
 // cb_resume is called when the program has resumed

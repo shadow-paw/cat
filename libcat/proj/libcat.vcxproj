@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cat_data_buffer.h" />
+    <ClInclude Include="..\include\cat_data_emitter.h" />
     <ClInclude Include="..\include\cat_data_observable.h" />
     <ClInclude Include="..\include\cat_data_uniqueid.h" />
     <ClInclude Include="..\include\cat_net_http.h" />

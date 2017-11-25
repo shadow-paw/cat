@@ -7,6 +7,7 @@
 #include "cat_application.h"
 #include "cat_data_buffer.h"
 #include "cat_data_observable.h"
+#include "cat_data_emitter.h"
 #include "cat_data_uniqueid.h"
 #include "cat_util_log.h"
 #include "cat_storage_vfs.h"

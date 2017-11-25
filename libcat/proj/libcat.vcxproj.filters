@@ -151,6 +151,9 @@
     <ClInclude Include="..\include\cat_data_uniqueid.h">
       <Filter>libcat\data</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_data_emitter.h">
+      <Filter>libcat\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
