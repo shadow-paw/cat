@@ -2,7 +2,7 @@
 #define __CAT_DATA_OBSERVABLE_H__
 
 #include <functional>
-#include <deque>
+#include <vector>
 #include "cat_data_uniqueid.h"
 
 namespace cat {
@@ -46,7 +46,7 @@ private:
         std::function<void()> cb_cancel;
     };
     T m_data;
-    std::deque<SUBSCRIPTION> m_subs;
+    std::vector<SUBSCRIPTION> m_subs;
     UniqueId<int> m_ids;
 private:
     Canceller subscribe(Observer<T> observer, std::function<void()> cb_cancel);

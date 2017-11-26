@@ -3,8 +3,8 @@
 
 #include <mutex>
 #include <functional>
-#include <deque>
 #include <unordered_map>
+#include <vector>
 
 namespace cat {
 // ----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ public:
     void emit(int ev, const ARG&...);
 private:
     std::mutex m_mutex;
-    std::unordered_map<int,std::deque<HANDLER>> m_handlers;
+    std::unordered_map<int,std::vector<HANDLER>> m_handlers;
 };
 // ----------------------------------------------------------------------------
 // Emitter
@@ -26,10 +26,10 @@ bool Emitter<ARG...>::on(int ev, HANDLER handler) {
     std::lock_guard<std::mutex> lock(m_mutex);
     auto it = m_handlers.find(ev);
     if (it == m_handlers.end()) {
-        std::deque<HANDLER> q;
-        q.push_back(handler);
-        auto em = m_handlers.emplace(ev, q);
+        std::vector<HANDLER> list;
+        auto em = m_handlers.emplace(ev, list);
         if (!em.second) return false;
+        em.first->second.push_back(handler);
     } else {
         it->second.push_back(handler);
     } return true;
