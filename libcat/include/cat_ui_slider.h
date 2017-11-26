@@ -13,7 +13,7 @@ public:
     static const int TexThumb = 1;
 
     // Event Handlers
-    EventHandlers<int> ev_slide;
+    UIHandler<int> ev_slide;
 
     Slider(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Slider();

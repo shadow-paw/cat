@@ -19,7 +19,7 @@ class Widget : public TimerHandler<int> {
 friend class UIService;
 public:
     // Event Handlers
-    EventHandlers<> ev_click;
+    UIHandler<> ev_click;
 
     Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Widget();

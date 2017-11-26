@@ -34,13 +34,12 @@ bool BootApp::cb_startup(Timestamp now) {
     auto button1 = new Button(kernel(), Rect2i(10, 60, 120, 40));
     button1->set_texture(Button::TexNormal, ui_image, 0, 40, 92, 78, 6, 6);
     button1->set_texture(Button::TexPressed, ui_image, 94, 40, 186, 78, 6, 6);
-    button1->set_texture(Button::TexChecked, ui_image, 94, 40, 186, 78);
     button1->set_text("Button");
     pane1->attach(button1);
     auto button2 = new Button(kernel(), Rect2i(150, 60, 120, 40));
     button2->set_texture(Button::TexNormal, ui_image, 0, 40, 92, 78, 6, 6);
     button2->set_texture(Button::TexPressed, ui_image, 94, 40, 186, 78, 6, 6);
-    button2->set_texture(Button::TexChecked, ui_image, 94, 40, 186, 78);
+    button2->set_texture(Button::TexChecked, ui_image, 94, 40, 186, 78, 6, 6);
     button2->set_text("Check Button");
     button2->set_checkable(true);
     pane1->attach(button2);
@@ -63,15 +62,15 @@ bool BootApp::cb_startup(Timestamp now) {
     kernel()->ui()->attach(testpane);
 
     // handle UI events
-    button1->ev_click += [](Widget* w) -> bool {
+    button1->ev_click = [](Widget* w) -> bool {
         Logger::d("App", "Button Clicked!");
         return true;
     };
-    button2->ev_check += [](Widget* w, bool checked) -> bool {
+    button2->ev_check = [](Widget* w, bool checked) -> bool {
         Logger::d("App", "Button Checked: %s!", checked ? "YES" : "NO");
         return true;
     };
-    slider1->ev_slide += [](Widget* w, int pos) -> bool {
+    slider1->ev_slide = [](Widget* w, int pos) -> bool {
         Logger::d("App", "Slider1: %d", pos);
         return true;
     };

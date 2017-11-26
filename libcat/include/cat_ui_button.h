@@ -13,7 +13,7 @@ public:
     static const int TexChecked = 2;
 
     // Event Handlers
-    EventHandlers<bool> ev_check;
+    UIHandler<bool> ev_check;
 
     Button(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Button();
