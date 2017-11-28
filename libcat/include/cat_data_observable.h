@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <vector>
+#include <mutex>
 #include "cat_data_uniqueid.h"
 
 namespace cat {
@@ -17,7 +18,7 @@ public:
     class Canceller {
     public:
         Canceller(Observable<T>* observable, int subscribe_id);
-        Canceller(Canceller& o) = delete;
+        Canceller(const Canceller& o) = delete;
         Canceller(Canceller&& o);
         Canceller& operator=(Canceller&& o);
         void cancel();
@@ -27,7 +28,7 @@ public:
     };
     // ------------------------------------------------------------------------
     Observable();
-    Observable(Observable& o) = delete;
+    Observable(const Observable& o) = delete;
     Observable(Observable&& o) = delete;
 
           T& data()       { return m_data; }
@@ -46,6 +47,7 @@ private:
         std::function<void()> cb_cancel;
     };
     T m_data;
+    std::mutex m_mutex;
     std::vector<SUBSCRIPTION> m_subs;
     UniqueId<int> m_ids;
 private:
@@ -95,6 +97,7 @@ typename Observable<T>::Canceller Observable<T>::subscribe(Observer<T> observer)
 // ----------------------------------------------------------------------------
 template <class T>
 typename Observable<T>::Canceller Observable<T>::subscribe(Observer<T> observer, std::function<void()> cb_cancel) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     auto id = m_ids.fetch();
     SUBSCRIPTION sub;
     sub.id = id;
@@ -107,6 +110,7 @@ typename Observable<T>::Canceller Observable<T>::subscribe(Observer<T> observer,
 // ----------------------------------------------------------------------------
 template <class T>
 void Observable<T>::unsubscribe(int subscribe_id) {
+    std::lock_guard<std::mutex> lock(m_mutex);
     for (auto it = m_subs.begin(); it != m_subs.end();) {
         if (it->id == subscribe_id) {
             if (it->cb_cancel) it->cb_cancel();
@@ -120,6 +124,7 @@ void Observable<T>::unsubscribe(int subscribe_id) {
 // ----------------------------------------------------------------------------
 template <class T>
 void Observable<T>::notify() {
+    std::lock_guard<std::mutex> lock(m_mutex);
     for (auto it = m_subs.begin(); it != m_subs.end(); ++it) {
         it->observer(m_data);
     }

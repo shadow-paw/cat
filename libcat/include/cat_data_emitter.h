@@ -11,6 +11,10 @@ namespace cat {
 template <class... ARG>
 class Emitter {
 public:
+    Emitter() = default;
+    Emitter(const Emitter& o) = delete;
+    Emitter(Emitter&& o) = delete;
+
     typedef std::function<void(int, const ARG&...)> HANDLER;
     bool on(int ev, HANDLER handler);
     bool once(int ev, HANDLER handler);
