@@ -13,34 +13,77 @@ class Emitter {
 public:
     typedef std::function<void(int, const ARG&...)> HANDLER;
     bool on(int ev, HANDLER handler);
+    bool once(int ev, HANDLER handler);
+    bool remove(int ev, HANDLER handler);
     void emit(int ev, const ARG&...);
 private:
-    std::mutex m_mutex;
-    std::unordered_map<int,std::vector<HANDLER>> m_handlers;
+    struct NODE {
+        HANDLER handler;
+        bool active, once;
+    };
+    std::recursive_mutex m_mutex;
+    std::unordered_map<int,std::vector<NODE>> m_map;
 };
 // ----------------------------------------------------------------------------
 // Emitter
 // ----------------------------------------------------------------------------
 template <class... ARG>
 bool Emitter<ARG...>::on(int ev, HANDLER handler) {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    auto it = m_handlers.find(ev);
-    if (it == m_handlers.end()) {
-        std::vector<HANDLER> list;
-        auto em = m_handlers.emplace(ev, list);
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+    auto map_it = m_map.find(ev);
+    if (map_it == m_map.end()) {
+        std::vector<NODE> list;
+        auto em = m_map.emplace(ev, list);
         if (!em.second) return false;
-        em.first->second.push_back(handler);
+        em.first->second.push_back({handler, true, false});
     } else {
-        it->second.push_back(handler);
+        map_it->second.push_back({handler, true, false});
     } return true;
 }
 template <class... ARG>
+bool Emitter<ARG...>::once(int ev, HANDLER handler) {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+    auto map_it = m_map.find(ev);
+    if (map_it == m_map.end()) {
+        std::vector<NODE> list;
+        auto em = m_map.emplace(ev, list);
+        if (!em.second) return false;
+        em.first->second.push_back({ handler, true, true });
+    } else {
+        map_it->second.push_back({ handler, true, true });
+    } return true;
+}
+template <class... ARG>
+bool Emitter<ARG...>::remove(int ev, HANDLER handler) {
+    auto handler_p = handler.target<HANDLER>();
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+    auto map_it = m_map.find(ev);
+    if (map_it == m_map.end()) return false;
+    auto& list = map_it->second;
+    for (auto it=list.begin(); it!=list.end(); ++it) {
+        if (handler_p == it->handler.target<HANDLER>()) {
+            it->active = false;
+            return true;
+        }
+    } return false;
+}
+template <class... ARG>
 void Emitter<ARG...>::emit(int ev, const ARG&... arg) {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    auto it = m_handlers.find(ev);
-    if (it == m_handlers.end()) return;
-    for (auto& handler : it->second) {
-        handler(ev, arg...);
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+    auto map_it = m_map.find(ev);
+    if (map_it == m_map.end()) return;
+    auto& list = map_it->second;
+    for (auto it = list.begin(); it!=list.end(); ) {
+        if (it->active) {
+            it->handler(ev, arg...);
+            if (it->once) {
+                it = list.erase(it);
+            } else {
+                ++it;
+            }
+        } else {
+            it = list.erase(it);
+        }
     }
 }
 // ----------------------------------------------------------------------------

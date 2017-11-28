@@ -55,10 +55,13 @@ bool BootApp::cb_startup(Timestamp now) {
 
     // Emitter
     Emitter<std::string> emitter;
-    emitter.on(1, [](int ev, const std::string& s) -> void {
+    std::function<void(int,const std::string&)> on_emit = [&emitter, &on_emit](int ev, const std::string& s) -> void {
         Logger::d("App", "emitter[%d]: %s", ev, s.c_str());
-    });
+        emitter.remove(1, on_emit); // you can remove on any thread
+    };
+    emitter.on(1, on_emit);
     emitter.emit(1, "hello");
+    emitter.emit(1, "hello2");
     emitter.emit(2, "nothing");
     return true;
 }
