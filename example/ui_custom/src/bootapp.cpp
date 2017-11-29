@@ -62,15 +62,15 @@ bool BootApp::cb_startup(Timestamp now) {
     kernel()->ui()->attach(testpane);
 
     // handle UI events
-    button1->ev_click = [](Widget* w) -> bool {
+    button1->ev_click += [](Widget* w) -> bool {
         Logger::d("App", "Button Clicked!");
         return true;
     };
-    button2->ev_check = [](Widget* w, bool checked) -> bool {
+    button2->ev_check += [](Widget* w, bool checked) -> bool {
         Logger::d("App", "Button Checked: %s!", checked ? "YES" : "NO");
         return true;
     };
-    slider1->ev_slide = [](Widget* w, int pos) -> bool {
+    slider1->ev_slide += [](Widget* w, int pos) -> bool {
         Logger::d("App", "Slider1: %d", pos);
         return true;
     };
