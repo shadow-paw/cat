@@ -12,17 +12,34 @@ class UIHandler {
 public:
     typedef std::function<bool(Widget*, const ARG&...)> HANDLER;
 
-    UIHandler() {
-        m_handler = nullptr;
+    void operator += (const HANDLER& handler) {
+        m_handlers.push_back({handler, true});
     }
-    void operator = (const HANDLER& handler) {
-        m_handler = handler;
+    void operator -= (const HANDLER& handler) {
+        auto handler_p = handler.target<HANDLER>();
+        for (auto it=m_handlers.begin(); it!=m_handlers.end(); ++it) {
+            if (handler_p == it->handler.target<HANDLER>()) {
+                it->active = false;
+            }
+        }
     }
     bool call(Widget* widget, const ARG&... args) {
-        return m_handler && m_handler(widget, args...);
+        bool handled = false;
+        for (auto it=m_handlers.begin(); it!=m_handlers.end();) {
+            if (it->active) {
+                handled |= it->handler(widget, args...);
+                ++it;
+            } else {
+                it = m_handlers.erase(it);
+            }
+        } return handled;
     }
 private:
-    HANDLER m_handler;
+    struct NODE {
+        HANDLER handler;
+        bool active;
+    };
+    std::vector<NODE> m_handlers;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

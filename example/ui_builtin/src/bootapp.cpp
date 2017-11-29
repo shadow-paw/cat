@@ -77,20 +77,22 @@ bool BootApp::cb_startup(Timestamp now) {
     pane3->attach(slider2);
 
     // handle UI events
-    button1->ev_click = [button1](Widget* w) -> bool {
+    m_onclick = [this,button1](Widget* w) -> bool {
         Logger::d("App", "Button Clicked!");
-        button1->ev_click = nullptr;    // you can unregister handler or change to other handler
+        button1->ev_click -= m_onclick;    // you can unregister handler
         return true;
     };
-    button2->ev_check = [](Widget* w, bool checked) -> bool {
+    button1->ev_click += m_onclick;
+
+    button2->ev_check += [](Widget* w, bool checked) -> bool {
         Logger::d("App", "Button Checked: %s!", checked ? "YES" : "NO");
         return true;
     };
-    slider1->ev_slide = [](Widget* w, int pos) -> bool {
+    slider1->ev_slide += [](Widget* w, int pos) -> bool {
         Logger::d("App", "Slider1: %d", pos);
         return true;
     };
-    slider2->ev_slide = [](Widget* w, int pos) -> bool {
+    slider2->ev_slide += [](Widget* w, int pos) -> bool {
         Logger::d("App", "Slider2: %d", pos);
         return true;
     };
