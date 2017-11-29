@@ -77,15 +77,15 @@ bool BootApp::cb_startup(Timestamp now) {
     pane3->attach(slider2);
 
     // handle UI events
-    m_onclick = [this,button1](Widget* w) -> bool {
-        Logger::d("App", "Button Clicked!");
-        button1->ev_click -= m_onclick;    // you can unregister handler
-        return true;
-    };
-    button1->ev_click += m_onclick;
-
-    button2->ev_check += [](Widget* w, bool checked) -> bool {
+    button2->ev_check += [this,button1](Widget* w, bool checked) -> bool {
         Logger::d("App", "Button Checked: %s!", checked ? "YES" : "NO");
+        if (checked) {
+            // register event handler for button1
+            button1->ev_click += std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+        } else {
+            // remove handler
+            button1->ev_click -= std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+        }
         return true;
     };
     slider1->ev_slide += [](Widget* w, int pos) -> bool {
@@ -158,4 +158,8 @@ bool BootApp::cb_timer(Timestamp now, int msg) {
     return true;
 }
 // ----------------------------------------------------------------------------
-
+bool BootApp::cb_button1_click(cat::Widget* widget) {
+    Logger::d("App", "Button1 Clicked!");
+    return true;
+}
+// ----------------------------------------------------------------------------

@@ -10,7 +10,7 @@ public:
     BootApp();
     virtual ~BootApp();
 private:
-    std::function<bool(cat::Widget*)> m_onclick;
+    bool cb_button1_click(cat::Widget* widget);
 protected:
     virtual bool cb_startup(cat::Timestamp now);
     virtual void cb_shutdown(cat::Timestamp now);
