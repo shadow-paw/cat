@@ -131,7 +131,11 @@ void Widget::set_bgcolor(uint32_t color) {
     if (m_bgcolor == color) return;
     m_bgcolor = color;
 }
-// -----------------------------------------------------------
+// ----------------------------------------------------------------------------
+void Widget::set_texture(unsigned int index, const std::string& name, int u0, int v0, int u1, int v1, int border_u, int border_v) {
+    return set_texture(index, name.c_str(), u0, v0, u1, v1, border_u, border_v);
+}
+// ----------------------------------------------------------------------------
 void Widget::set_texture(unsigned int index, const char* name, int u0, int v0, int u1, int v1, int border_u, int border_v) {
     if (index >= m_texrefs.size()) return;
     const Texture* oldtex = m_texrefs[index].tex;

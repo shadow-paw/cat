@@ -43,6 +43,7 @@ public:
     // ------------------------------------------------------------------ Visual
     void     set_bgcolor(uint32_t color);
     uint32_t get_bgcolor() const { return m_bgcolor; }
+    void     set_texture(unsigned int index, const std::string& name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     void     set_texture(unsigned int index, const char* name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     // ------------------------------------------------------------------ Visual
 

@@ -84,7 +84,7 @@ void Shader::draw(GLint mode, int start, int count) const {
 }
 // ----------------------------------------------------------------------------
 void Shader::bind_attr(unsigned int slot, const char* name) {
-    if ( name!=nullptr ) {
+    if (name!=nullptr) {
         m_attr[slot] = glGetAttribLocation(m_program, name);
         if (m_attr[slot]==GL_INVALID_OPERATION) m_attr[slot] = -1;
     } else m_attr[slot] = -1;
@@ -106,7 +106,7 @@ void Shader::clr_attr(unsigned int slot) const {
 }
 // ----------------------------------------------------------------------------
 void Shader::bind_uniform(unsigned int slot, const char* name) {
-    if ( name!=nullptr ) {
+    if (name!=nullptr) {
         m_uniform[slot] = glGetUniformLocation(m_program, name );
         if (m_uniform[slot]==GL_INVALID_OPERATION) m_attr[slot] = -1;
     } else m_uniform[slot] = -1;

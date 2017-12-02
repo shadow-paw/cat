@@ -489,7 +489,7 @@ void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextSty
     m_texts.emplace(utf8, entry);
 }
 // ----------------------------------------------------------------------------
-const Shader* Draw2D::retain_2dshader(ResourceManager* res, const char* name) {
+const Shader* Draw2D::retain_2dshader(ResourceManager* res, const std::string& name) {
     return res->retain_shader(name, s_uniforms, s_attrs);
 }
 // ----------------------------------------------------------------------------

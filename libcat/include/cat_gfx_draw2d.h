@@ -42,7 +42,7 @@ public:
     void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style);
 
     // Load compatible shader
-    const Shader* retain_2dshader(ResourceManager* res, const char* name);
+    const Shader* retain_2dshader(ResourceManager* res, const std::string& name);
     void          release_2dshader(ResourceManager* res, const Shader* shader);
 
 private:

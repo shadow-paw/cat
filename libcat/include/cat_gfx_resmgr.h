@@ -24,11 +24,11 @@ public:
     void context_lost();
     bool context_restored();
 
-    const Shader*  retain_shader(const char* name, const std::unordered_map<int,std::string>& uniforms, const std::unordered_map<int, std::string>& attrs);
-    bool           release_shader(const char* name);
+    const Shader*  retain_shader(const std::string& name, const std::unordered_map<int,std::string>& uniforms, const std::unordered_map<int, std::string>& attrs);
+    bool           release_shader(const std::string& name);
     bool           release_shader(const Shader* shader);
-    const Texture* retain_tex(const char* name);
-    bool           release_tex(const char* name);
+    const Texture* retain_tex(const std::string& name);
+    bool           release_tex(const std::string& name);
     bool           release_tex(const Texture* tex);
 
 private:
