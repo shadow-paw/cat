@@ -23,13 +23,16 @@ public:
 
     //! Access the memory
     //! \return point to memory, or nullptr if not allocated
-    uint8_t* ptr() const { return m_buffer; }
-    //! Get size of the buffer
-    //! \return length, in bytes, of the buffer
-    size_t   size() const { return m_size; }
+    uint8_t* ptr() { return m_buffer; }
+    //! Access the memory
+    //! \return point to memory, or nullptr if not allocated
+    const uint8_t* ptr() const { return m_buffer; }
     //! Default cast to uint8_t*, i.e. uint8_t* p = buffer;
     operator uint8_t*() { return m_buffer; }
     operator const uint8_t*() const { return m_buffer; }
+    //! Get size of the buffer
+    //! \return length, in bytes, of the buffer
+    size_t   size() const { return m_size; }
 
     //! Resize buffer
     //! The behaviour is as if calling C realloc()
