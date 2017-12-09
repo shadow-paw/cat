@@ -24,19 +24,19 @@ void Pane::set_bgeffect(Draw2D::Effect effect) {
 bool Pane::cb_touch(const TouchEvent& ev, bool handled) {
     switch (ev.type) {
     case TouchEvent::EventType::TouchDown:
-        if (handled || ev.pointer_id != 0 || !m_draggable) break;
-        if (!m_absrect.contain(ev.x, ev.y)) break;
+        if (handled || ev.pointer_id != 0 || !m_draggable) return false;
+        if (!m_absrect.contain(ev.x, ev.y)) return false;
         m_dragging = true;
         m_dragx = ev.x;
         m_dragy = ev.y;
         return true;
     case TouchEvent::EventType::TouchUp:
-        if (ev.pointer_id != 0) break;
-        if (!m_dragging) break;
+        if (ev.pointer_id != 0) return false;
+        if (!m_dragging) return false;
         m_dragging = false;
         return true;
     case TouchEvent::EventType::TouchMove: {
-        if (!m_dragging) break;
+        if (!m_dragging) return false;
         m_rect.origin.x += ev.x - m_dragx;
         m_rect.origin.y += ev.y - m_dragy;
         m_dragx = ev.x;
@@ -55,7 +55,7 @@ bool Pane::cb_touch(const TouchEvent& ev, bool handled) {
     }
     default:
         return false;
-    } return false;
+    }
 }
 // ----------------------------------------------------------------------------
 bool Pane::cb_timer(Timestamp now, int code) {

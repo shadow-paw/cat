@@ -25,6 +25,7 @@ protected:
     virtual void cb_visible(bool b);
     virtual void cb_uiscale();
     virtual void cb_resize();
+    virtual bool cb_touch(const TouchEvent& ev, bool handled);
     virtual void cb_render(Renderer* r, unsigned long now);
 
 protected:
@@ -33,6 +34,8 @@ protected:
     void update_textcolor();
 
 private:
+    std::string m_text;
+    bool m_native_show;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     HWND m_native_ctrl;
     HFONT m_font;
@@ -43,6 +46,9 @@ private:
 #else
     #error Not Implemented!
 #endif
+    void native_show(bool show);
+    std::string native_gettext() const;
+    void native_settext(const std::string& s);
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

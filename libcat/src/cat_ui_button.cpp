@@ -26,21 +26,21 @@ void Button::set_checked(bool b) {
 bool Button::cb_touch(const TouchEvent& ev, bool handled) {
     switch (ev.type) {
     case TouchEvent::EventType::TouchDown:
-        if (handled || ev.pointer_id!=0) break;
-        if (!m_absrect.contain(ev.x, ev.y)) break;
+        if (handled || ev.pointer_id!=0) return false;
+        if (!m_absrect.contain(ev.x, ev.y)) return false;
         m_checked = !m_checked;
         m_pressed = true;
         ev_check.call(this, m_checked);
         return true;
     case TouchEvent::EventType::TouchUp:
-        if (ev.pointer_id!=0) break;
-        if (!m_pressed) break;
+        if (ev.pointer_id!=0) return false;
+        if (!m_pressed) return false;
         m_pressed = false;
         perform_click();
         return true;
     default:
         return false;
-    } return false;
+    }
 }
 // ----------------------------------------------------------------------------
 void Button::cb_render(Renderer* r, Timestamp now) {

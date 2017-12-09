@@ -13,9 +13,10 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
     m_texrefs.resize(1);
+    m_native_show = false;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     m_font = nullptr;
-    m_native_ctrl = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|ES_AUTOHSCROLL,
+    m_native_ctrl = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD|WS_CLIPSIBLINGS|ES_AUTOHSCROLL,
         0, 0, 0, 0,
         kernel->psd()->rootview, NULL,
         (HINSTANCE)GetWindowLongPtr(kernel->psd()->rootview, GWLP_HINSTANCE),
@@ -28,11 +29,13 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     tv.drawsBackground = NO;
     [tv.cell setWraps:NO];
     [tv.cell setScrollable:YES];
+    [tv setHidden: YES];
     [rootview addSubview:tv];
     m_native_ctrl = (__bridge void*)tv;
 #elif defined(PLATFORM_IOS)
     UIView* rootview = (__bridge UIView*)kernel->psd()->rootview;
     UITextField* tv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [tv setHidden : YES];
     [rootview addSubview:tv];
     m_native_ctrl = (__bridge_retained void*)tv;
 #elif defined(PLATFORM_ANDROID)
@@ -52,6 +55,9 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     jni.CallVoidMethod(jedit, "setInputType", "(I)V", TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     // jedit.setSingleLine();
     jni.CallVoidMethod(jedit, "setSingleLine", "()V");
+    // jedit.setVisibility(View.INVISIBLE);
+    const int INVISIBLE = 4;
+    jni.CallVoidMethod(jedit, "setVisibility", "(I)V", INVISIBLE);
     // rootview.addView(jedit, lp);
     jni.CallVoidMethod(kernel->psd()->rootview, "addView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V", jedit, jlp);
     // Retain Reference
@@ -95,6 +101,7 @@ Editbox::~Editbox() {
 }
 // ----------------------------------------------------------------------------
 void Editbox::cb_visible(bool b) {
+    b &= m_native_show;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     if (b) {
         ShowWindow(m_native_ctrl, SW_SHOW);
@@ -157,11 +164,30 @@ void Editbox::cb_resize() {
 #endif
 }
 // ----------------------------------------------------------------------------
+bool Editbox::cb_touch(const TouchEvent& ev, bool handled) {
+    switch (ev.type) {
+    case TouchEvent::EventType::TouchDown:
+        if (handled || ev.pointer_id != 0) break;
+        if (m_absrect.contain(ev.x, ev.y)) {
+            native_show(true);
+        } else {
+            m_text = get_text();
+            native_show(false);
+        }
+        return true;
+    default:
+        return false;
+    } return false;
+}
+// ----------------------------------------------------------------------------
 void Editbox::cb_render(Renderer* r, unsigned long now) {
+    if (m_native_show) return;
     r->draw2d.fill(m_absrect, m_bgcolor, m_texrefs[TexBackground], now);
+    r->draw2d.drawtext(m_absrect, m_text, m_textstyle);
 }
 // ----------------------------------------------------------------------------
 void Editbox::set_text(const std::string& s) {
+    m_text = s;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     std::basic_string<TCHAR> text = StringUtil::make_tstring(s);
     SetWindowText(m_native_ctrl, text.c_str()); 
@@ -289,5 +315,11 @@ void Editbox::set_textcolor(uint32_t color) {
     if (m_textstyle.color == color) return;
     m_textstyle.color = color;
     update_textcolor();
+}
+// ----------------------------------------------------------------------------
+void Editbox::native_show(bool show) {
+    if (m_native_show == show) return;
+    m_native_show = show;
+    cb_visible(show);
 }
 // ----------------------------------------------------------------------------

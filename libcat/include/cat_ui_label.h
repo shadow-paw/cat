@@ -24,7 +24,7 @@ protected:
     virtual void cb_render(Renderer* r, Timestamp now);
 
 protected:
-    std::string  m_text;
+    std::string m_text;
     TextStyle m_textstyle;
 };
 // ----------------------------------------------------------------------------

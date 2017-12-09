@@ -16,9 +16,9 @@ public:
         m_handlers.push_back({handler, true});
     }
     void operator -= (const HANDLER& handler) {
-        auto handler_p = handler.target<HANDLER>();
+        auto handler_p = handler.template target<HANDLER>();
         for (auto it=m_handlers.begin(); it!=m_handlers.end(); ++it) {
-            if (handler_p == it->handler.target<HANDLER>()) {
+            if (handler_p == it->handler.template target<HANDLER>()) {
                 it->active = false;
             }
         }

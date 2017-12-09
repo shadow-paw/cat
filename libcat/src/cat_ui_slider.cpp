@@ -81,24 +81,23 @@ void Slider::cb_resize() {
 bool Slider::cb_touch(const TouchEvent& ev, bool handled) {
     switch (ev.type) {
     case TouchEvent::EventType::TouchDown:
-        if (handled || ev.pointer_id != 0) break;
-        if (!m_absrect.contain(ev.x, ev.y)) break;
+        if (handled || ev.pointer_id != 0) return false;
+        if (!m_absrect.contain(ev.x, ev.y)) return false;
         if (m_thumbrc.contain(ev.x, ev.y)) {
             m_dragx = ev.x;
             m_dragy = ev.y;
             m_dragging = true;
         } return true;
     case TouchEvent::EventType::TouchUp: {
-        if (ev.pointer_id!=0) break;
-        if (!m_dragging) break;
+        if (ev.pointer_id!=0) return false;
+        if (!m_dragging) return false;
         m_dragging = false;
-        if (m_min == m_max) break;
-        update_thumbrc();
+        if (m_min != m_max) update_thumbrc();
         return true;
     }
     case TouchEvent::EventType::TouchMove: {
-        if (!m_dragging) break;
-        if (m_min == m_max) break;
+        if (!m_dragging) return false;
+        if (m_min == m_max) return false;
         if (m_orentation == Orentation::Horizontal) {
             int dx = ev.x - m_dragx;
             m_thumbrc.origin.x += dx;
@@ -139,21 +138,23 @@ bool Slider::cb_touch(const TouchEvent& ev, bool handled) {
         return true;
     }
     case TouchEvent::EventType::Scroll:
-        if (!m_absrect.contain(ev.x, ev.y)) break;
+        if (!m_absrect.contain(ev.x, ev.y)) return false;
         if (ev.scroll > 0) {
-            if (m_pos <= m_min) break;
+            if (m_pos <= m_min) return false;
             m_pos --;
             update_thumbrc();
             ev_slide.call(this, m_pos);
             return true;
         } else if (ev.scroll < 0) {
-            if (m_pos >= m_max) break;
+            if (m_pos >= m_max) return false;
             m_pos++;
             update_thumbrc();
             ev_slide.call(this, m_pos);
             return true;
-        } break;
-    } return false;
+        } return false;
+    default:
+        return false;
+    }
 }
 // ----------------------------------------------------------------------------
 void Slider::update_thumbrc() {
