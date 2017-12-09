@@ -6,7 +6,6 @@
 ![ios](https://img.shields.io/badge/ios-pass-brightgreen.svg)
 ![android](https://img.shields.io/badge/android-pass-brightgreen.svg)
 [![C++ Version][cpp-image]][cpp-url]
-[![License][license-image]][license-url]
 
 **CAT** provides an abstract and consistent environment for application development. The main features include:
 - Graphics Rendering Service
@@ -18,9 +17,9 @@
 - Sensor Service
 
 ## Examples
-- [Blank skeleton](example/blank/src/bootapp.cpp)
-- [Builtin UI](example/ui_builtin/src/bootapp.cpp)
-- [Custom UI](example/ui_custom/src/bootapp.cpp)
+- [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle.
+- [Builtin UI](example/ui_builtin/src/bootapp.cpp) - basic ui like pane and button
+- [Custom UI](example/ui_custom/src/bootapp.cpp) - build custom ui with custom shader
 - [Timer](example/timer/src/bootapp.cpp)
 ```
 kernel()->time()->post_timer(this, 1, 1000);
@@ -147,8 +146,6 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 <!-- Markdown link & img dfn's -->
 [cpp-image]: https://img.shields.io/badge/c%2B%2B-14-green.svg
 [cpp-url]: https://en.wikipedia.org/wiki/C%2B%2B14
-[license-image]: https://img.shields.io/badge/license-MIT-blue.svg
-[license-url]: LICENSE
 [visualstudio-url]: https://www.visualstudio.com/downloads/
 [xcode-url]: https://developer.apple.com/xcode/
 [android-url]: https://developer.android.com/studio/index.html
