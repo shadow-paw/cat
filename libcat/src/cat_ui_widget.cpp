@@ -142,7 +142,7 @@ void Widget::bring_tofront() {
     auto parent = m_parent;
     parent->detach(this);
     parent->m_childs.push_back(this);
-    m_parent = m_parent;
+    m_parent = parent;
     dirty();
 }
 // ----------------------------------------------------------------------------
