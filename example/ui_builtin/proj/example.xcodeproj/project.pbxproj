@@ -207,18 +207,10 @@
 		3EF9A0C71F8A67CA008C00C0 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				3EF9A0C81F8A67CA008C00C0 /* shader */,
 				3EF9A0CC1F8A67CA008C00C0 /* ui */,
 			);
 			name = assets;
 			path = ../assets;
-			sourceTree = "<group>";
-		};
-		3EF9A0C81F8A67CA008C00C0 /* shader */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = shader;
 			sourceTree = "<group>";
 		};
 		3EF9A0CC1F8A67CA008C00C0 /* ui */ = {

@@ -59,13 +59,13 @@ bool Emitter<ARG...>::once(int ev, HANDLER handler) {
 }
 template <class... ARG>
 bool Emitter<ARG...>::remove(int ev, HANDLER handler) {
-    auto handler_p = handler.target<HANDLER>();
+    auto handler_p = handler.template target<HANDLER>();
     std::lock_guard<std::recursive_mutex> lock(m_mutex);
     auto map_it = m_map.find(ev);
     if (map_it == m_map.end()) return false;
     auto& list = map_it->second;
     for (auto& node: list) {
-        if (handler_p == node.handler.target<HANDLER>()) {
+        if (handler_p == node.handler.template target<HANDLER>()) {
             node.active = false;
             return true;
         }

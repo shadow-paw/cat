@@ -203,7 +203,7 @@ void Widget::render(Renderer* r, Timestamp now) {
 }
 // ----------------------------------------------------------------------------
 void Widget::post_timer(Timestamp delay, int code) {
-    m_kernel->time()->post_timer(this, delay, code);
+    m_kernel->time()->post_timer(this, code, delay);
 }
 // ----------------------------------------------------------------------------
 void Widget::remove_timer() {

@@ -35,7 +35,6 @@ public:
     void remove(TimerHandler<T>* handler);
     //! Remove all timer assocated with the handler with lambda condition
     //! Any timer not fired yet will be discarded
-    //! \param handler Callback handler when timer expire
     //! \param comparator a function return true if the timer should be removed
     void remove(std::function<bool(const TimerHandler<T>* handler, const T& data)> comparator);
 

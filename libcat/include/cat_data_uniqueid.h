@@ -20,11 +20,9 @@ public:
     //! Reset the generator to initialized state
     void reset();
     //! Fetch a new id
-    //! \param now Current time
     //! \return id
     T fetch();
     //! Release an id, the id may be reused after a certain timeout
-    //! \param now Current time
     //! \param id id
     //! \return true if success, false if failed and no side-effect
     bool release(const T& id);

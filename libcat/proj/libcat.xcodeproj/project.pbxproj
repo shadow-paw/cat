@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E124E661FDD270500C60C65 /* cat_ui_animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E641FDD270500C60C65 /* cat_ui_animator.h */; };
+		3E124E671FDD270500C60C65 /* cat_ui_interpolator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */; };
+		3E124E691FDD270F00C60C65 /* cat_ui_animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E124E681FDD270F00C60C65 /* cat_ui_animator.cpp */; };
+		3E124E6C1FDD271A00C60C65 /* cat_data_emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */; };
+		3E124E6D1FDD271A00C60C65 /* cat_data_observable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */; };
+		3E124E6E1FDD275F00C60C65 /* cat_ui_animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E124E681FDD270F00C60C65 /* cat_ui_animator.cpp */; };
+		3E124E6F1FDD278100C60C65 /* cat_data_emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */; };
+		3E124E701FDD278100C60C65 /* cat_data_observable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */; };
+		3E124E711FDD278100C60C65 /* cat_ui_animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E641FDD270500C60C65 /* cat_ui_animator.h */; };
+		3E124E721FDD278100C60C65 /* cat_ui_interpolator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */; };
 		3E15D8FD1F8A3565004EC94C /* cat_gfx_vbo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8F31F8A3564004EC94C /* cat_gfx_vbo.h */; };
 		3E15D8FE1F8A3565004EC94C /* cat_gfx_ibo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8F41F8A3564004EC94C /* cat_gfx_ibo.h */; };
 		3E15D8FF1F8A3565004EC94C /* cat_util_log.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8F51F8A3565004EC94C /* cat_util_log.h */; };
@@ -144,6 +154,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E124E641FDD270500C60C65 /* cat_ui_animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_animator.h; path = ../include/cat_ui_animator.h; sourceTree = "<group>"; };
+		3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_interpolator.h; path = ../include/cat_ui_interpolator.h; sourceTree = "<group>"; };
+		3E124E681FDD270F00C60C65 /* cat_ui_animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_ui_animator.cpp; path = ../src/cat_ui_animator.cpp; sourceTree = "<group>"; };
+		3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_emitter.h; path = ../include/cat_data_emitter.h; sourceTree = "<group>"; };
+		3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_observable.h; path = ../include/cat_data_observable.h; sourceTree = "<group>"; };
 		3E15D8F31F8A3564004EC94C /* cat_gfx_vbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_vbo.h; path = ../include/cat_gfx_vbo.h; sourceTree = "<group>"; };
 		3E15D8F41F8A3564004EC94C /* cat_gfx_ibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_ibo.h; path = ../include/cat_gfx_ibo.h; sourceTree = "<group>"; };
 		3E15D8F51F8A3565004EC94C /* cat_util_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_util_log.h; path = ../include/cat_util_log.h; sourceTree = "<group>"; };
@@ -274,6 +289,8 @@
 		3E9EB4591FB7270100BFF6DD /* data */ = {
 			isa = PBXGroup;
 			children = (
+				3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */,
+				3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */,
 				3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */,
 				3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */,
 			);
@@ -283,6 +300,9 @@
 		3EBBA7E71F8D32080053D8AE /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				3E124E681FDD270F00C60C65 /* cat_ui_animator.cpp */,
+				3E124E641FDD270500C60C65 /* cat_ui_animator.h */,
+				3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */,
 				3EBBA7EE1F8D321A0053D8AE /* cat_ui_service.h */,
 				3EBBA7F81F8D32230053D8AE /* cat_ui_service.cpp */,
 				3EBBA7E81F8D32190053D8AE /* cat_ui_handler.h */,
@@ -391,6 +411,8 @@
 				3E9EB4651FB7630D00BFF6DD /* cat_net_service.h in Headers */,
 				3E9EB4661FB7630D00BFF6DD /* cat_util_string.h in Headers */,
 				3E9EB4671FB7630D00BFF6DD /* cat_data_uniqueid.h in Headers */,
+				3E124E6F1FDD278100C60C65 /* cat_data_emitter.h in Headers */,
+				3E124E701FDD278100C60C65 /* cat_data_observable.h in Headers */,
 				3ED4FEAA1F89ECBC00D299B6 /* libcat.h in Headers */,
 				3ED4FEA61F89EC9600D299B6 /* cat_platform.h in Headers */,
 				3ED4FEA51F89EC9600D299B6 /* cat_type.h in Headers */,
@@ -420,6 +442,8 @@
 				3EAED9791F8FCFE600E0B461 /* cat_storage_driver_asset.h in Headers */,
 				3EBBA8081F8D32BC0053D8AE /* cat_ui_service.h in Headers */,
 				3EBBA8091F8D32BC0053D8AE /* cat_ui_handler.h in Headers */,
+				3E124E711FDD278100C60C65 /* cat_ui_animator.h in Headers */,
+				3E124E721FDD278100C60C65 /* cat_ui_interpolator.h in Headers */,
 				3EBBA80E1F8D32BD0053D8AE /* cat_ui_widget.h in Headers */,
 				3EBBA80C1F8D32BC0053D8AE /* cat_ui_pane.h in Headers */,
 				3EBBA80B1F8D32BC0053D8AE /* cat_ui_label.h in Headers */,
@@ -458,6 +482,8 @@
 				3EEE39821F8CC04400DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* cat_time_service.h in Headers */,
 				3EF9A0E31F8A6867008C00C0 /* cat_data_buffer.h in Headers */,
+				3E124E6D1FDD271A00C60C65 /* cat_data_observable.h in Headers */,
+				3E124E6C1FDD271A00C60C65 /* cat_data_emitter.h in Headers */,
 				3EF9A0E41F8A6867008C00C0 /* cat_storage_vfs.h in Headers */,
 				3EF9A0E21F8A6867008C00C0 /* cat_storage_driver.h in Headers */,
 				3EF9A0E11F8A6867008C00C0 /* cat_storage_driver_file.h in Headers */,
@@ -465,6 +491,8 @@
 				3EAED9711F8FCF3C00E0B461 /* cat_storage_driver_asset.h in Headers */,
 				3EBBA7F51F8D321A0053D8AE /* cat_ui_service.h in Headers */,
 				3EBBA7EF1F8D321A0053D8AE /* cat_ui_handler.h in Headers */,
+				3E124E661FDD270500C60C65 /* cat_ui_animator.h in Headers */,
+				3E124E671FDD270500C60C65 /* cat_ui_interpolator.h in Headers */,
 				3EBBA7F11F8D321A0053D8AE /* cat_ui_widget.h in Headers */,
 				3EBBA7F01F8D321A0053D8AE /* cat_ui_pane.h in Headers */,
 				3E9EB45F1FB7271900BFF6DD /* cat_net_http.h in Headers */,
@@ -577,6 +605,7 @@
 				3EAED9751F8FCF9A00E0B461 /* cat_storage_driver_asset.cpp in Sources */,
 				3EAED9761F8FCF9A00E0B461 /* cat_storage_driver_file.cpp in Sources */,
 				3EBBA8021F8D32A60053D8AE /* cat_ui_service.cpp in Sources */,
+				3E124E6E1FDD275F00C60C65 /* cat_ui_animator.cpp in Sources */,
 				3EBBA8071F8D32A60053D8AE /* cat_ui_widget.cpp in Sources */,
 				3EBBA8051F8D32A60053D8AE /* cat_ui_pane.cpp in Sources */,
 				3EBBA8041F8D32A60053D8AE /* cat_ui_label.cpp in Sources */,
@@ -595,6 +624,7 @@
 				3EAED96A1F8FCF2600E0B461 /* cat_util_log.cpp in Sources */,
 				3ECE1B021F8A391C009D9088 /* cat_gfx_renderer.cpp in Sources */,
 				3E9EB4561FB726EF00BFF6DD /* cat_net_http.cpp in Sources */,
+				3E124E691FDD270F00C60C65 /* cat_ui_animator.cpp in Sources */,
 				3EAED9731F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
 				3ECE1B031F8A391C009D9088 /* cat_gfx_ibo.cpp in Sources */,
 				3ECE1B041F8A391C009D9088 /* cat_gfx_vbo.cpp in Sources */,
