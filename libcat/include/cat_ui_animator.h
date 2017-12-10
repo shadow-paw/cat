@@ -2,6 +2,7 @@
 #define __CAT_UI_ANIMATOR_H__
 
 #include <memory>
+#include <functional>
 #include "cat_ui_interpolator.h"
 #include "cat_time_type.h"
 #include "cat_gfx_type.h"
@@ -16,6 +17,7 @@ public:
 
     void set_interpolator(std::shared_ptr<Interpolator> interpolator);
     void set_duration(Timestamp duration);
+    void set_callback(std::function<void()> cb);
     void cancel();
     bool run(Timestamp now);
 
@@ -24,9 +26,12 @@ protected:
 
 protected:
     std::shared_ptr<Interpolator> m_interpolator;
+    std::function<void()> m_cb;
     Timestamp m_duration, m_starttime;
     bool m_started;
+
     void start();
+    void stop();
 };
 // ----------------------------------------------------------------------------
 class TranslateAnimator: public Animator {

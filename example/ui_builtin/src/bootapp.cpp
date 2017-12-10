@@ -87,6 +87,8 @@ bool BootApp::cb_startup(Timestamp now) {
             m_pane->animators.opacity.set_interpolator(interpolator);
             m_pane->animators.translate.start(Point2i(-100, 100), Point2i(0, 100));
             m_pane->animators.opacity.start(0, 1.0f);
+            m_pane->animators.opacity.set_callback(nullptr);
+            m_pane->set_visible(true);
         } else {
             // remove handler
             button1->ev_click -= std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
@@ -95,6 +97,9 @@ bool BootApp::cb_startup(Timestamp now) {
             m_pane->animators.opacity.set_interpolator(interpolator);
             m_pane->animators.translate.start(Point2i(0, 100), Point2i(-100, 100));
             m_pane->animators.opacity.start(1.0f, 0);
+            m_pane->animators.opacity.set_callback([this]() -> void {
+                m_pane->set_visible(false);
+            });
         }
         return true;
     };

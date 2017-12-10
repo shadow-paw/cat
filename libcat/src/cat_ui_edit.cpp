@@ -167,9 +167,8 @@ void Editbox::cb_resize() {
 bool Editbox::cb_touch(const TouchEvent& ev, bool handled) {
     switch (ev.type) {
     case TouchEvent::EventType::TouchDown:
-        if (handled || ev.pointer_id != 0) break;
         if (m_absrect.contain(ev.x, ev.y)) {
-            native_show(true);
+            if (!handled && ev.pointer_id == 0) native_show(true);
             return true;
         } else {
             m_text = get_text();

@@ -20,6 +20,9 @@ void Animator::set_interpolator(std::shared_ptr<Interpolator> interpolator) {
 void Animator::set_duration(Timestamp duration) {
     m_duration = duration;
 }
+void Animator::set_callback(std::function<void()> cb) {
+    m_cb = cb;
+}
 // ----------------------------------------------------------------------------
 void Animator::start() {
     if (!m_interpolator) m_interpolator = std::shared_ptr<Interpolator>(new LinearInterpolator());
@@ -27,8 +30,18 @@ void Animator::start() {
     m_started = true;
 }
 // ----------------------------------------------------------------------------
+void Animator::stop() {
+    if (m_started) {
+        m_started = false;
+        if (m_cb) m_cb();
+    }
+}
+// ----------------------------------------------------------------------------
 void Animator::cancel() {
-    m_started = false;
+    if (m_started) {
+        m_started = false;
+        if (m_cb) m_cb();
+    }
 }
 // ----------------------------------------------------------------------------
 bool Animator::run(Timestamp now) {
@@ -58,7 +71,7 @@ void TranslateAnimator::cb_animate(Timestamp now) {
             (int)(m_from.y + (m_to.y - m_from.y) * value));
     } else {
         m_widget->set_pos(m_to);
-        m_started = false;
+        stop();
     }
 }
 // ----------------------------------------------------------------------------
@@ -82,7 +95,7 @@ void OpacityAnimator::cb_animate(Timestamp now) {
         m_widget->set_opacity(opacity);
     } else {
         m_widget->set_opacity(m_to);
-        m_started = false;
+        stop();
     }
 }
 // ----------------------------------------------------------------------------
