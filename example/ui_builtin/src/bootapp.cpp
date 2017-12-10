@@ -82,11 +82,17 @@ bool BootApp::cb_startup(Timestamp now) {
         if (checked) {
             // register event handler for button1
             button1->ev_click += std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+            auto interpolator = std::shared_ptr<Interpolator>(new AccelerateInterpolator());
+            m_pane->animators.translate.set_interpolator(interpolator);
+            m_pane->animators.opacity.set_interpolator(interpolator);
             m_pane->animators.translate.start(Point2i(-100, 100), Point2i(0, 100));
             m_pane->animators.opacity.start(0, 1.0f);
         } else {
             // remove handler
             button1->ev_click -= std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+            auto interpolator = std::shared_ptr<Interpolator>(new AccelerateInterpolator());
+            m_pane->animators.translate.set_interpolator(interpolator);
+            m_pane->animators.opacity.set_interpolator(interpolator);
             m_pane->animators.translate.start(Point2i(0, 100), Point2i(-100, 100));
             m_pane->animators.opacity.start(1.0f, 0);
         }
