@@ -183,7 +183,7 @@ bool Editbox::cb_touch(const TouchEvent& ev, bool handled) {
 void Editbox::cb_render(Renderer* r, unsigned long now) {
     if (m_native_show) return;
     r->draw2d.fill(m_absrect, apply_opacity(m_bgcolor), m_texrefs[TexBackground], now);
-    r->draw2d.drawtext(m_absrect, m_text, m_textstyle);
+    r->draw2d.drawtext(m_absrect, m_text, m_textstyle, get_absopacity());
 }
 // ----------------------------------------------------------------------------
 void Editbox::set_text(const std::string& s) {

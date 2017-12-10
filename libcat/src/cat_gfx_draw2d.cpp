@@ -388,61 +388,60 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
 // Text Functions
 // ----------------------------------------------------------------------------
 bool Draw2D::render_text() {
-    // remove expired entry
-    for (auto it = m_texts.begin(); it != m_texts.end();) {
-        if (it->second.expired) {
-            it = m_texts.erase(it);
-        } else {
-            ++ it;
-        }
-    }
-    for (auto it = m_texts.begin(); it != m_texts.end(); ++it) {
-        const std::string& text = it->first;
+    for (auto it = m_texts.begin(); it != m_texts.end(); ) {
         TextEntry& entry = it->second;
-        if (!entry.ready && !entry.expired) {
-            Rect2i rc;
-            m_drawable[m_textcursor.plane].calctext(&rc.size, text, entry.style);
-            if (m_textcursor.x + rc.size.width > kTextTextureWidth) {
-                m_textcursor.x = 0;
-                m_textcursor.y += m_textcursor.height +1;
-            }
-            if (m_textcursor.y + rc.size.height > kTextTextureHeight) {
-                m_textcursor.x = 0;
-                m_textcursor.y = 0;
-                m_textcursor.height = 0;
-                m_textcursor.plane++;
-                if (m_textcursor.plane >= kTextTextureMax) m_textcursor.plane = 0;
-                m_drawable[m_textcursor.plane].resize(kTextTextureWidth, kTextTextureHeight);
-                // NOTE: invalidate everything on new plane
-                for (auto inv = m_texts.begin(); inv != m_texts.end();) {
-                    if (inv->second.tex_plane == m_textcursor.plane) {
-                        inv->second.expired = true;
-                        inv->second.ready = false;
-                    }
+        if (entry.expired) {
+            it = m_texts.erase(it);
+            continue;
+        } else if (entry.ready) {
+            ++it;
+            continue;
+        }
+
+        const std::string& text = it->first;
+        Rect2i rc;
+        m_drawable[m_textcursor.plane].calctext(&rc.size, text, entry.style);
+        if (m_textcursor.x + rc.size.width > kTextTextureWidth) {
+            m_textcursor.x = 0;
+            m_textcursor.y += m_textcursor.height +1;
+        }
+        if (m_textcursor.y + rc.size.height > kTextTextureHeight) {
+            m_textcursor.x = 0;
+            m_textcursor.y = 0;
+            m_textcursor.height = 0;
+            m_textcursor.plane++;
+            if (m_textcursor.plane >= kTextTextureMax) m_textcursor.plane = 0;
+            m_drawable[m_textcursor.plane].resize(kTextTextureWidth, kTextTextureHeight);
+            // NOTE: invalidate everything on new plane
+            for (auto inv = m_texts.begin(); inv != m_texts.end();) {
+                if (inv->second.tex_plane == m_textcursor.plane) {
+                    inv->second.expired = true;
+                    inv->second.ready = false;
                 }
             }
-            if (m_textcursor.height < rc.size.height) m_textcursor.height = rc.size.height;
-            rc.origin.x = m_textcursor.x;
-            rc.origin.y = m_textcursor.y;
-            m_drawable[m_textcursor.plane].begin_draw();
-            m_drawable[m_textcursor.plane].drawtext(rc, text, entry.style);
-            m_drawable[m_textcursor.plane].end_draw();
-            m_textcursor.x += rc.size.width +1;
-            entry.tex_plane = m_textcursor.plane;
-            entry.size.width = rc.size.width;
-            entry.size.height = rc.size.height;
-            entry.texref.tex = m_drawable[entry.tex_plane].tex();
-            entry.texref.u1 = rc.origin.x;
-            entry.texref.u2 = rc.origin.x + rc.size.width;
-#ifdef GRAPHITE_DRAWTEXT_FLIPPED
-            entry.texref.v2 = rc.origin.y;
-            entry.texref.v1 = rc.origin.y + rc.size.height;
-#else
-            entry.texref.v1 = rc.origin.y;
-            entry.texref.v2 = rc.origin.y + rc.size.height;
-#endif
-            entry.ready = true;
         }
+        if (m_textcursor.height < rc.size.height) m_textcursor.height = rc.size.height;
+        rc.origin.x = m_textcursor.x;
+        rc.origin.y = m_textcursor.y;
+        m_drawable[m_textcursor.plane].begin_draw();
+        m_drawable[m_textcursor.plane].drawtext(rc, text, entry.style);
+        m_drawable[m_textcursor.plane].end_draw();
+        m_textcursor.x += rc.size.width +1;
+        entry.tex_plane = m_textcursor.plane;
+        entry.size.width = rc.size.width;
+        entry.size.height = rc.size.height;
+        entry.texref.tex = m_drawable[entry.tex_plane].tex();
+        entry.texref.u1 = rc.origin.x;
+        entry.texref.u2 = rc.origin.x + rc.size.width;
+#ifdef GRAPHITE_DRAWTEXT_FLIPPED
+        entry.texref.v2 = rc.origin.y;
+        entry.texref.v1 = rc.origin.y + rc.size.height;
+#else
+        entry.texref.v1 = rc.origin.y;
+        entry.texref.v2 = rc.origin.y + rc.size.height;
+#endif
+        entry.ready = true;
+        ++it;
     }
     bool updated = false;
     for (int i = 0; i < kTextTextureMax; i++) {
@@ -455,11 +454,13 @@ void Draw2D::calctext(Size2i *size, const std::string& utf8, const TextStyle& st
     m_drawable[m_textcursor.plane].calctext(size, utf8.c_str(), style);
 }
 // ----------------------------------------------------------------------------
-void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style) {
+void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style, float opacity) {
     auto range = m_texts.equal_range(utf8);
     for (auto it = range.first; it != range.second; ++it) {
         const TextEntry& entry = it->second;
-        if (entry.style.appearance!=style.appearance || entry.style.fontsize!=style.fontsize) continue;
+        if (entry.style.appearance!=style.appearance ||
+            entry.style.fontsize!=style.fontsize ||
+            entry.style.color != style.color) continue;
 
         if (entry.ready) {
             Rect2i rc;
@@ -477,7 +478,7 @@ void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextSty
             } else if (style.gravity & TextStyle::Gravity::CenterVertical) {
                 rc.origin.y = rect.origin.y + (rect.size.height - rc.size.height) / 2;
             } else rc.origin.y = rect.origin.y + style.padding_y;
-            fill(rc, 0xffffffff, entry.texref, 0, Effect::None);
+            fill(rc, 0xffffff | ((uint32_t)(255*opacity)<<24), entry.texref, 0, Effect::None);
         }
         return;
     }

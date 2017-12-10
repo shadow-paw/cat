@@ -39,7 +39,7 @@ public:
     void fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, unsigned long t, const Shader* shader);
     // Text support
     void calctext(Size2i* size, const std::string& utf8, const TextStyle& style);
-    void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style);
+    void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style, float opacity = 1.0f);
 
     // Load compatible shader
     const Shader* retain_2dshader(ResourceManager* res, const std::string& name);

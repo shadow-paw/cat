@@ -76,6 +76,13 @@ bool BootApp::cb_startup(Timestamp now) {
     slider2->set_pos(2);
     m_pane->attach(slider2);
 
+    auto label2 = new Label(kernel(), Rect2i(10, 10, 100, 40));
+    label2->set_bgcolor(0x40000000);
+    label2->set_text("hello");
+    label2->set_textsize(20);
+    label2->set_textcolor(0xff9966ff);
+    m_pane->attach(label2);
+
     // handle UI events
     button2->ev_check += [this,button1](Widget* w, bool checked) -> bool {
         Logger::d("App", "Button Checked: %s!", checked ? "YES" : "NO");
