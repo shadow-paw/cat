@@ -12,8 +12,7 @@
 - UI Framework
 - Time Service
 - Network Service
-- Audio Service
-- Media Service (camera, mic, media player)
+- Media Service (camera, mic, audio / video player)
 - Sensor Service
 
 ## Examples
