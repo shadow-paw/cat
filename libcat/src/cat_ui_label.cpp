@@ -14,6 +14,6 @@ Label::~Label() {
 // ----------------------------------------------------------------------------
 void Label::cb_render(Renderer* r, Timestamp now) {
     r->draw2d.fill(m_absrect, apply_opacity(m_bgcolor), m_texrefs[TexBackground], now);
-    r->draw2d.drawtext(m_absrect, m_text, m_textstyle, get_absopacity());
+    r->draw2d.drawtext(m_absrect, m_text, m_textstyle, m_absopacity);
 }
 // ----------------------------------------------------------------------------

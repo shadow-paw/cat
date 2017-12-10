@@ -51,7 +51,6 @@ public:
     uint32_t get_bgcolor() const { return m_bgcolor; }
     void     set_opacity(float opacity);
     float    get_opacity() const { return m_opacity; }
-    float    get_absopacity() const;
     void     set_texture(unsigned int index, const std::string& name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     void     set_texture(unsigned int index, const char* name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     // ------------------------------------------------------------------ Visual
@@ -79,6 +78,7 @@ protected:
 
 protected:  // Helper function for widget
     void update_absrect();
+    void update_absopacity(float parent_absopacity);
     void post_timer(Timestamp delay, int code);
     void remove_timer();
     void capture(Texture& tex, const Rect2i& rect);
@@ -90,7 +90,7 @@ protected:
     unsigned int m_id;
     Rect2i       m_rect, m_absrect;
     uint32_t     m_bgcolor;
-    float        m_opacity;
+    float        m_opacity, m_absopacity;
     bool         m_enable, m_visible;
     std::vector<TextureRef> m_texrefs;
 private:

@@ -14,7 +14,7 @@ Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) : animato
     m_parent = nullptr;
     m_id = id;
     m_bgcolor = 0xffffffff;
-    m_opacity = 1.0f;
+    m_opacity = m_absopacity = 1.0f;
     m_rect = rect;
     m_absrect = m_rect;
     m_visible = true;
@@ -133,11 +133,6 @@ void Widget::set_bgcolor(uint32_t color) {
     dirty();
 }
 // ----------------------------------------------------------------------------
-void Widget::set_opacity(float opacity) {
-    m_opacity = opacity;
-    dirty();
-}
-// ----------------------------------------------------------------------------
 void Widget::bring_tofront() {
     if (!m_parent) return;
     m_parent->m_childs.remove(this);
@@ -197,8 +192,8 @@ void Widget::render(Renderer* r, Timestamp now) {
 
     if (!m_visible) return;
     cb_render(r, now);
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        (*it)->render(r, now);
+    for (auto& child: m_childs) {
+        child->render(r, now);
     }
 }
 // ----------------------------------------------------------------------------
@@ -225,14 +220,27 @@ void Widget::dirty() {
 bool Widget::perform_click() {
     return ev_click.call(this);
 }
-float Widget::get_absopacity() const {
-    float opacity = m_opacity;
+// ----------------------------------------------------------------------------
+void Widget::set_opacity(float opacity) {
+    m_opacity = opacity;
+    m_absopacity = m_opacity;
     for (auto parent = m_parent; parent; parent = parent->m_parent) {
-        opacity *= parent->get_opacity();
-    } return opacity;
+        m_absopacity *= parent->get_opacity();
+    }
+    for (auto& child : m_childs) {
+        child->update_absopacity(m_absopacity);
+    }
+    dirty();
+}
+// ----------------------------------------------------------------------------
+void Widget::update_absopacity(float parent_absopacity) {
+    m_absopacity = m_opacity * parent_absopacity;
+    for (auto& child : m_childs) {
+        child->update_absopacity(m_absopacity);
+    }
 }
 // ----------------------------------------------------------------------------
 uint32_t Widget::apply_opacity(uint32_t color) const {
-    return (color & 0xffffff) | ((uint32_t)((color >> 24) * get_absopacity()) << 24);
+    return (color & 0xffffff) | ((uint32_t)((color >> 24) * m_absopacity) << 24);
 }
 // ----------------------------------------------------------------------------
