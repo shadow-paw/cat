@@ -125,8 +125,8 @@ void Observable<T>::unsubscribe(int subscribe_id) {
 template <class T>
 void Observable<T>::notify() {
     std::lock_guard<std::mutex> lock(m_mutex);
-    for (auto it = m_subs.begin(); it != m_subs.end(); ++it) {
-        it->observer(m_data);
+    for (auto& sub: m_subs) {
+        sub.observer(m_data);
     }
 }
 // ----------------------------------------------------------------------------

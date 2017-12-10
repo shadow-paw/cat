@@ -64,9 +64,9 @@ bool Emitter<ARG...>::remove(int ev, HANDLER handler) {
     auto map_it = m_map.find(ev);
     if (map_it == m_map.end()) return false;
     auto& list = map_it->second;
-    for (auto it=list.begin(); it!=list.end(); ++it) {
-        if (handler_p == it->handler.target<HANDLER>()) {
-            it->active = false;
+    for (auto& node: list) {
+        if (handler_p == node.handler.target<HANDLER>()) {
+            node.active = false;
             return true;
         }
     } return false;
