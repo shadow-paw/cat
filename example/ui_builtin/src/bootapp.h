@@ -11,6 +11,8 @@ public:
     virtual ~BootApp();
 private:
     bool cb_button1_click(cat::Widget* widget);
+private:
+    cat::Pane* m_pane;
 protected:
     virtual bool cb_startup(cat::Timestamp now);
     virtual void cb_shutdown(cat::Timestamp now);

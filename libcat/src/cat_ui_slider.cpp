@@ -174,7 +174,7 @@ void Slider::update_thumbrc() {
 }
 // ----------------------------------------------------------------------------
 void Slider::cb_render(Renderer* r, Timestamp now) {
-    r->draw2d.fill(m_absrect, 0xffffffff, m_texrefs[TexBackground], now);
-    r->draw2d.fill(m_thumbrc, 0xffffffff, m_texrefs[TexThumb], now);
+    r->draw2d.fill(m_absrect, apply_opacity(0xffffffff), m_texrefs[TexBackground], now);
+    r->draw2d.fill(m_thumbrc, apply_opacity(0xffffffff), m_texrefs[TexThumb], now);
 }
 // ----------------------------------------------------------------------------

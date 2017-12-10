@@ -65,9 +65,9 @@ bool Pane::cb_timer(Timestamp now, int code) {
 void Pane::cb_render(Renderer* r, Timestamp now) {
     if (m_effect != Draw2D::Effect::None) {
         kernel()->ui()->capture(m_effect_tex, m_absrect);
-        r->draw2d.fill(m_absrect, 0xffffffff, &m_effect_tex, now, m_effect);
+        r->draw2d.fill(m_absrect, apply_opacity(0xffffffff), &m_effect_tex, now, m_effect);
         r->dirty();
     }
-    r->draw2d.fill(m_absrect, m_bgcolor, m_texrefs[TexBackground], now);
+    r->draw2d.fill(m_absrect, apply_opacity(m_bgcolor), m_texrefs[TexBackground], now);
 }
 // ----------------------------------------------------------------------------

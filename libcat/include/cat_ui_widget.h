@@ -12,6 +12,7 @@
 #include "cat_gfx_draw2d.h"
 #include "cat_time_queue.h"
 #include "cat_ui_handler.h"
+#include "cat_ui_animator.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
@@ -20,6 +21,11 @@ friend class UIService;
 public:
     // Event Handlers
     UIHandler<> ev_click;
+    struct ANIMATORS {
+        ANIMATORS(Widget* w) : translate(w), opacity(w) {}
+        TranslateAnimator translate;
+        OpacityAnimator opacity;
+    } animators;
 
     Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
     virtual ~Widget();
@@ -43,6 +49,9 @@ public:
     // ------------------------------------------------------------------ Visual
     void     set_bgcolor(uint32_t color);
     uint32_t get_bgcolor() const { return m_bgcolor; }
+    void     set_opacity(float opacity);
+    float    get_opacity() const { return m_opacity; }
+    float    get_absopacity() const;
     void     set_texture(unsigned int index, const std::string& name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     void     set_texture(unsigned int index, const char* name, int u0, int v0, int u1, int v1, int border_u = 0, int border_v = 0);
     // ------------------------------------------------------------------ Visual
@@ -73,16 +82,17 @@ protected:  // Helper function for widget
     void post_timer(Timestamp delay, int code);
     void remove_timer();
     void capture(Texture& tex, const Rect2i& rect);
+    uint32_t apply_opacity(uint32_t color) const;
 
 protected:
     Widget* m_parent;
     std::list<Widget*> m_childs;
     unsigned int m_id;
-    Rect2i  m_rect, m_absrect;
+    Rect2i       m_rect, m_absrect;
     uint32_t     m_bgcolor;
-    std::vector<TextureRef> m_texrefs;
+    float        m_opacity;
     bool         m_enable, m_visible;
-
+    std::vector<TextureRef> m_texrefs;
 private:
     // called from UISystem or internal signal propagate
     void render(Renderer* r, Timestamp now);
@@ -94,6 +104,7 @@ private:
 protected:
     KernelApi* kernel() const { return m_kernel; }
     Draw2D* draw2d();
+    void dirty();
 private:
     KernelApi* m_kernel; // hide from widget, access throw helper
 };

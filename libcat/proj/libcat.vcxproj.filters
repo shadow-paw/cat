@@ -154,6 +154,12 @@
     <ClInclude Include="..\include\cat_data_emitter.h">
       <Filter>libcat\data</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_ui_interpolator.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_ui_animator.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
@@ -239,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_data_buffer.cpp">
       <Filter>libcat\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_animator.cpp">
+      <Filter>libcat\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

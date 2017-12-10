@@ -69,7 +69,7 @@ bool CATView::init(const char* title, int width, int height) {
     m_width = width;
     m_height = height;
     // Start render timer
-    m_timer = SetTimer(m_hwnd, IDT_RENDER, 33, NULL);
+    m_timer = SetTimer(m_hwnd, IDT_RENDER, 10, NULL);
 	return true;
 fail:
     fini();

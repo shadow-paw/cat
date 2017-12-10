@@ -9,11 +9,12 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) {
+Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) : animators(this) {
     m_kernel = kernel;
     m_parent = nullptr;
     m_id = id;
     m_bgcolor = 0xffffffff;
+    m_opacity = 1.0f;
     m_rect = rect;
     m_absrect = m_rect;
     m_visible = true;
@@ -80,6 +81,7 @@ void Widget::update_absrect() {
         (*it)->update_absrect();
     }
     cb_resize();
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_pos(int x, int y) {
@@ -101,35 +103,46 @@ void Widget::set_size(int width, int height) {
     m_absrect.size.width = width;
     m_absrect.size.height = height;
     cb_resize();
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(const Size2i& size) {
     m_rect.size = size;
     m_absrect.size = size;
     cb_resize();
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_visible(bool b) {
     if (m_visible == b) return;
     m_visible = b;
     notify_visible(b);
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_enable(bool b) {
     if (m_enable == b) return;
     m_enable = b;
     notify_enable(b);
+    dirty();
+}
+// ----------------------------------------------------------------------------
+void Widget::set_bgcolor(uint32_t color) {
+    if (m_bgcolor == color) return;
+    m_bgcolor = color;
+    dirty();
+}
+// ----------------------------------------------------------------------------
+void Widget::set_opacity(float opacity) {
+    m_opacity = opacity;
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::bring_tofront() {
     if (!m_parent) return;
     m_parent->m_childs.remove(this);
     m_parent->m_childs.push_back(this);
-}
-// ----------------------------------------------------------------------------
-void Widget::set_bgcolor(uint32_t color) {
-    if (m_bgcolor == color) return;
-    m_bgcolor = color;
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_texture(unsigned int index, const std::string& name, int u0, int v0, int u1, int v1, int border_u, int border_v) {
@@ -147,6 +160,7 @@ void Widget::set_texture(unsigned int index, const char* name, int u0, int v0, i
     m_texrefs[index].border_u = border_u;
     m_texrefs[index].border_v = border_v;
     if (oldtex) m_kernel->res()->release_tex(oldtex);
+    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_uiscaled() {
@@ -177,6 +191,10 @@ bool Widget::touch(const TouchEvent& ev, bool handled) {
 }
 // ----------------------------------------------------------------------------
 void Widget::render(Renderer* r, Timestamp now) {
+    bool is_dirty = animators.translate.run(now);
+    is_dirty |= animators.opacity.run(now);
+    if (is_dirty) dirty();
+
     if (!m_visible) return;
     cb_render(r, now);
     for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
@@ -197,10 +215,24 @@ void Widget::capture(Texture& tex, const Rect2i& rect) {
 }
 // ----------------------------------------------------------------------------
 Draw2D* Widget::draw2d() {
-    return &m_kernel->renderer()->draw2d;
+    return &(m_kernel->renderer()->draw2d);
+}
+// ----------------------------------------------------------------------------
+void Widget::dirty() {
+    m_kernel->renderer()->dirty();
 }
 // ----------------------------------------------------------------------------
 bool Widget::perform_click() {
     return ev_click.call(this);
+}
+float Widget::get_absopacity() const {
+    float opacity = m_opacity;
+    for (auto parent = m_parent; parent; parent = parent->m_parent) {
+        opacity *= parent->get_opacity();
+    } return opacity;
+}
+// ----------------------------------------------------------------------------
+uint32_t Widget::apply_opacity(uint32_t color) const {
+    return (color & 0xffffff) | ((uint32_t)((color >> 24) * get_absopacity()) << 24);
 }
 // ----------------------------------------------------------------------------

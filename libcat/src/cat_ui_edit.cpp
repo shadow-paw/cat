@@ -170,11 +170,12 @@ bool Editbox::cb_touch(const TouchEvent& ev, bool handled) {
         if (handled || ev.pointer_id != 0) break;
         if (m_absrect.contain(ev.x, ev.y)) {
             native_show(true);
+            return true;
         } else {
             m_text = get_text();
             native_show(false);
+            return false;
         }
-        return true;
     default:
         return false;
     } return false;
@@ -182,7 +183,7 @@ bool Editbox::cb_touch(const TouchEvent& ev, bool handled) {
 // ----------------------------------------------------------------------------
 void Editbox::cb_render(Renderer* r, unsigned long now) {
     if (m_native_show) return;
-    r->draw2d.fill(m_absrect, m_bgcolor, m_texrefs[TexBackground], now);
+    r->draw2d.fill(m_absrect, apply_opacity(m_bgcolor), m_texrefs[TexBackground], now);
     r->draw2d.drawtext(m_absrect, m_text, m_textstyle);
 }
 // ----------------------------------------------------------------------------

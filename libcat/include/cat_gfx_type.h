@@ -24,6 +24,8 @@ struct Vertex3f {
 // ----------------------------------------------------------------------------
 struct Point2i {
     int x, y;
+    Point2i() = default;
+    Point2i(int _x, int _y) : x(_x), y(_y) {}
 };
 struct Size2i {
     int width, height;

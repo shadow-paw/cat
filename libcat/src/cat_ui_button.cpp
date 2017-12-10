@@ -47,7 +47,7 @@ void Button::cb_render(Renderer* r, Timestamp now) {
     int tex = TexNormal;
     if (m_pressed) tex = TexPressed;
     else if (m_checkable && m_checked!=0) tex = TexChecked;
-    r->draw2d.fill(m_absrect, m_bgcolor, m_texrefs[tex], now);
+    r->draw2d.fill(m_absrect, apply_opacity(m_bgcolor), m_texrefs[tex], now);
     r->draw2d.drawtext(m_absrect, m_text, m_textstyle);
 }
 // ----------------------------------------------------------------------------

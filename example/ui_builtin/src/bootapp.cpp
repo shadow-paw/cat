@@ -56,17 +56,17 @@ bool BootApp::cb_startup(Timestamp now) {
 
     auto pane2 = new Pane(kernel(), Rect2i(300, 100, 400, 300));
     pane2->set_bgcolor(0x80ffffff);
-    pane2->set_bgeffect(Draw2D::Effect::Blur);
+    pane2->set_bgeffect(Draw2D::Effect::Ripple);
     pane2->set_bounded(true);
     pane2->set_draggable(true);
     kernel()->ui()->attach(pane2);
 
-    auto pane3 = new Pane(kernel(), Rect2i(400, 200, 500, 500));
-    pane3->set_bgcolor(0x80ffffff);
-    pane3->set_bgeffect(Draw2D::Effect::Ripple);
-    pane3->set_bounded(true);
-    pane3->set_draggable(true);
-    kernel()->ui()->attach(pane3);
+    m_pane = new Pane(kernel(), Rect2i(400, 200, 500, 500));
+    m_pane->set_bgcolor(0x80ffffff);
+    m_pane->set_bgeffect(Draw2D::Effect::Blur);
+    m_pane->set_bounded(true);
+    m_pane->set_draggable(true);
+    kernel()->ui()->attach(m_pane);
     // You can also attach more widgets after the pane is attached
     auto slider2 = new Slider(kernel(), Rect2i(150, 50, 50, 200), 4);
     slider2->set_texture(Slider::TexBackground, ui_image, 0, 80, 92, 118, 6, 6);
@@ -74,7 +74,7 @@ bool BootApp::cb_startup(Timestamp now) {
     slider2->set_orentation(Slider::Orentation::Vertical);
     slider2->set_range(0, 10);
     slider2->set_pos(2);
-    pane3->attach(slider2);
+    m_pane->attach(slider2);
 
     // handle UI events
     button2->ev_check += [this,button1](Widget* w, bool checked) -> bool {
@@ -82,9 +82,13 @@ bool BootApp::cb_startup(Timestamp now) {
         if (checked) {
             // register event handler for button1
             button1->ev_click += std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+            m_pane->animators.translate.start(Point2i(-100, 100), Point2i(0, 100));
+            m_pane->animators.opacity.start(0, 1.0f);
         } else {
             // remove handler
             button1->ev_click -= std::bind(&BootApp::cb_button1_click, this, std::placeholders::_1);
+            m_pane->animators.translate.start(Point2i(0, 100), Point2i(-100, 100));
+            m_pane->animators.opacity.start(1.0f, 0);
         }
         return true;
     };
