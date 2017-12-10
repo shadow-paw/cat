@@ -50,24 +50,28 @@ bool Widget::attach(Widget* child) {
 // ----------------------------------------------------------------------------
 void Widget::detach(Widget* child) {
     child->m_parent = this;
-    m_childs.remove(child);
+    for (auto it = m_childs.begin(); it != m_childs.end();) {
+        if (*it == child) {
+            it = m_childs.erase(it);
+        } else {
+            ++ it;
+        }
+    }
 }
 // ----------------------------------------------------------------------------
 void Widget::remove_childs() {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        delete (*it);
+    for (auto& child : m_childs) {
+        delete child;
     } m_childs.clear();
 }
 // ----------------------------------------------------------------------------
 Widget* Widget::child_at(unsigned int index) const {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        if (index == 0) return *it;
-    } return nullptr;
+    return index < m_childs.size() ? m_childs[index] : nullptr;
 }
 // ----------------------------------------------------------------------------
 Widget* Widget::child_withid(unsigned int id) const {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        if ((*it)->m_id == id) return *it;
+    for (auto& child : m_childs) {
+        if (child->m_id == id) return child;
     } return nullptr;
 }
 // ----------------------------------------------------------------------------
@@ -77,8 +81,8 @@ void Widget::update_absrect() {
         m_absrect.origin.x += m_parent->m_absrect.origin.x;
         m_absrect.origin.y += m_parent->m_absrect.origin.y;
     }
-    for (auto it = m_childs.rbegin(); it != m_childs.rend(); ++it) {
-        (*it)->update_absrect();
+    for (auto& child : m_childs) {
+        child->update_absrect();
     }
     cb_resize();
     dirty();
@@ -135,8 +139,10 @@ void Widget::set_bgcolor(uint32_t color) {
 // ----------------------------------------------------------------------------
 void Widget::bring_tofront() {
     if (!m_parent) return;
-    m_parent->m_childs.remove(this);
-    m_parent->m_childs.push_back(this);
+    auto parent = m_parent;
+    parent->detach(this);
+    parent->m_childs.push_back(this);
+    m_parent = m_parent;
     dirty();
 }
 // ----------------------------------------------------------------------------
@@ -159,20 +165,20 @@ void Widget::set_texture(unsigned int index, const char* name, int u0, int v0, i
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_uiscaled() {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        (*it)->notify_uiscaled();
+    for (auto& child : m_childs) {
+        child->notify_uiscaled();
     } cb_uiscale();
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_visible(bool b) {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        (*it)->notify_visible(b & (*it)->is_visible());
+    for (auto& child : m_childs) {
+        child->notify_visible(b & child->is_visible());
     } cb_visible(b);
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_enable(bool b) {
-    for (auto it = m_childs.begin(); it != m_childs.end(); ++it) {
-        (*it)->notify_enable(b & (*it)->is_enabled());
+    for (auto& child: m_childs) {
+        child->notify_enable(b & child->is_enabled());
     } cb_enable(b);
 }
 // ----------------------------------------------------------------------------

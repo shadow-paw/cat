@@ -1,7 +1,6 @@
 #ifndef __CAT_UI_WIDGET_H__
 #define __CAT_UI_WIDGET_H__
 
-#include <list>
 #include <vector>
 #include <string>
 #include "cat_platform.h"
@@ -86,7 +85,7 @@ protected:  // Helper function for widget
 
 protected:
     Widget* m_parent;
-    std::list<Widget*> m_childs;
+    std::vector<Widget*> m_childs;
     unsigned int m_id;
     Rect2i       m_rect, m_absrect;
     uint32_t     m_bgcolor;
