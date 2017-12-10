@@ -44,7 +44,7 @@ void Animator::cancel() {
     }
 }
 // ----------------------------------------------------------------------------
-bool Animator::run(Timestamp now) {
+bool Animator::update(Timestamp now) {
     if (m_started) {
         cb_animate(now);
         return true;

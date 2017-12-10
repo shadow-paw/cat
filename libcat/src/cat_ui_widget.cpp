@@ -191,8 +191,8 @@ bool Widget::touch(const TouchEvent& ev, bool handled) {
 }
 // ----------------------------------------------------------------------------
 void Widget::render(Renderer* r, Timestamp now) {
-    bool is_dirty = animators.translate.run(now);
-    is_dirty |= animators.opacity.run(now);
+    bool is_dirty = animators.translate.update(now);
+    is_dirty |= animators.opacity.update(now);
     if (is_dirty) dirty();
 
     if (!m_visible) return;

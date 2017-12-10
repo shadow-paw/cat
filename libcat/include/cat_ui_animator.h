@@ -19,7 +19,7 @@ public:
     void set_duration(Timestamp duration);
     void set_callback(std::function<void()> cb);
     void cancel();
-    bool run(Timestamp now);
+    bool update(Timestamp now);
 
 protected:
     virtual void cb_animate(Timestamp now) = 0;
