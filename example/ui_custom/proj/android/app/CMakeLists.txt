@@ -15,7 +15,7 @@ include_directories(
     ${CAT_BASE_PATH}/libcat/include
     ${APP_BASE_PATH}/src/
 )
-add_library(osal-app
+add_library(cat-app
             SHARED
             ${APP_BASE_PATH}/glue/android/cpp/jni.cpp
             ${APP_BASE_PATH}/src/bootapp.cpp
@@ -32,7 +32,7 @@ find_library(lib-EGL EGL)
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
 
-target_link_libraries(osal-app
+target_link_libraries(cat-app
                       ${CAT_BASE_PATH}/libcat/lib/android/${ANDROID_ABI}/libcat.a
                       ${CAT_BASE_PATH}/dependency/lib/android/${ANDROID_ABI}/libpng.a
                       ${lib-EGL}

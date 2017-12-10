@@ -1,11 +1,8 @@
 # C++ Application Tool
 > Write your program once with C++, and create Windows, Mac, iOS and Android app.
 
-![win](https://img.shields.io/badge/win-pass-brightgreen.svg)
-![mac](https://img.shields.io/badge/mac-pass-brightgreen.svg)
-![ios](https://img.shields.io/badge/ios-pass-brightgreen.svg)
-![android](https://img.shields.io/badge/android-pass-brightgreen.svg)
 [![C++ Version][cpp-image]][cpp-url]
+[![TravisCI][travis-image]][travis-url]
 
 **CAT** provides an abstract and consistent environment for application development. The main features include:
 - Graphics Rendering Service
@@ -59,9 +56,10 @@ You can build app on two environments, sadly you cannot build binaries for all p
 
 #### Command Line Environment
 ```
-export ANDROID_SDK=c:/android/sdk
-export ANDROID_NDK=c:/android/sdk/ndk-bundle
+export ANDROID_HOME=c:/android/sdk
+export ANDROID_NDK_HOME=c:/android/sdk/ndk-bundle
 ```
+<sup>Change the above path if needed</sup>
 
 #### Setup dependency
 ```
@@ -82,7 +80,7 @@ Open `example/{project}/proj/example.vcxproj` with Visual Studio. There are four
 #### Build libcat - android
 ```
 cd libcat/proj/
-ndk-build.cmd -j4
+${ANDROID_NDK_HOME}/ndk-build.cmd -j4
 ```
   
 #### Build example - android
@@ -100,9 +98,10 @@ xcode-select --install
 
 #### Command Line Environment
 ```
-export ANDROID_SDK=/usr/local/android
-export ANDROID_NDK=/usr/local/android/ndk-bundle
+export ANDROID_HOME=/usr/local/android
+export ANDROID_NDK_HOME=/usr/local/android/ndk-bundle
 ```
+<sup>Change the above path if needed</sup>
 
 #### Setup dependency
 ```
@@ -122,7 +121,7 @@ Open `example/{project}/proj/example.xcodeproj` with Xcode. Edit scheme and choo
 #### Build libcat - android
 ```
 cd libcat/proj/
-ndk-build -j4
+${ANDROID_NDK_HOME}/ndk-build -j4
 ```
 
 #### Build example - android
@@ -145,6 +144,8 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 <!-- Markdown link & img dfn's -->
 [cpp-image]: https://img.shields.io/badge/c%2B%2B-14-green.svg
 [cpp-url]: https://en.wikipedia.org/wiki/C%2B%2B14
+[travis-image]: https://travis-ci.org/shadow-paw/cat.svg?branch=master
+[travis-url]: https://travis-ci.org/shadow-paw/cat
 [visualstudio-url]: https://www.visualstudio.com/downloads/
 [xcode-url]: https://developer.apple.com/xcode/
 [android-url]: https://developer.android.com/studio/index.html

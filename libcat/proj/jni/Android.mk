@@ -30,6 +30,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_gfx_draw2d_shaders.cpp \
                 ../../src/cat_gfx_resmgr.cpp \
                 ../../src/cat_ui_service.cpp \
+                ../../src/cat_ui_animator.cpp \
                 ../../src/cat_ui_widget.cpp \
                 ../../src/cat_ui_pane.cpp \
                 ../../src/cat_ui_label.cpp \

@@ -5,13 +5,13 @@ DOWNLOAD=download
 BUILD=build
 DEST=`pwd`/..
 
-if [ -z "$ANDROID_NDK" ]; then
-  ANDROID_NDK=${ANDROID_HOME}/ndk-bundle
+if [ -z "$ANDROID_NDK_HOME" ]; then
+  ANDROID_NDK_HOME=${ANDROID_HOME}/ndk-bundle
 fi
-if [ -f ${ANDROID_NDK}/ndk-build.cmd ]; then
-  ANDROID_NDK_BUILD=${ANDROID_NDK}/ndk-build.cmd
+if [ -f ${ANDROID_NDK_HOME}/ndk-build.cmd ]; then
+  ANDROID_NDK_BUILD=${ANDROID_NDK_HOME}/ndk-build.cmd
 else
-  ANDROID_NDK_BUILD=${ANDROID_NDK}/ndk-build
+  ANDROID_NDK_BUILD=${ANDROID_NDK_HOME}/ndk-build
 fi
 
 download() {

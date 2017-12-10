@@ -10,7 +10,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class CatView extends FrameLayout {
-    static { System.loadLibrary("osal-app"); }
+    static { System.loadLibrary("cat-app"); }
     private static final int EVENT_TOUCHDOWN = 1;
     private static final int EVENT_TOUCHUP = 2;
     private static final int EVENT_TOUCHMOVE = 3;
