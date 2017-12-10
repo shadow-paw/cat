@@ -1,7 +1,6 @@
 #ifndef __CAT_UI_ANIMATOR_H__
 #define __CAT_UI_ANIMATOR_H__
 
-#include <functional>
 #include <memory>
 #include "cat_ui_interpolator.h"
 #include "cat_time_type.h"
