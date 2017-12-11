@@ -5,6 +5,8 @@ DOWNLOAD=download
 BUILD=build
 DEST=`pwd`/..
 
+if [ -d ${DEST}/include/ios/libpng ]; then exit; fi
+
 download() {
     # Download libpng: http://www.libpng.org/pub/png/libpng.html
     if [ ! -f ${DOWNLOAD}/libpng-${LIBPNG_VER}.tar.gz ]; then
@@ -14,7 +16,6 @@ download() {
     fi
 }
 build_ios() {
-	if [ -d ${DEST}/include/ios/libpng ]; then exit; fi
  	# extract zip
   	mkdir -p ${BUILD}
   	rm -rf ${BUILD}/libpng-${LIBPNG_VER}

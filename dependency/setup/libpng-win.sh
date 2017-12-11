@@ -5,6 +5,8 @@ DOWNLOAD=download
 BUILD=build
 DEST=`pwd`/..
 
+if [ -d ${DEST}/include/win32/libpng ]; then exit; fi
+
 VCVARS="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat"
 DEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
 MSBUILD="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
@@ -18,7 +20,6 @@ download() {
   fi
 }
 build_win() {
-    if [ -d ${DEST}/include/win32/libpng ]; then exit; fi
     # extract zip
     mkdir -p ${BUILD}
     rm -rf ${BUILD}/libpng-${LIBPNG_VER}

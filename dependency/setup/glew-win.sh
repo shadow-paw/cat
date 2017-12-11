@@ -3,6 +3,8 @@ DOWNLOAD=download
 BUILD=build
 DEST=`pwd`/..
 
+if [ -d ${DEST}/include/win32/glew ]; then exit; fi
+
 download() {
     if [ ! -f ${DOWNLOAD}/glew-2.0.0-win32.zip ]; then
         mkdir -p ${DOWNLOAD}
@@ -10,7 +12,6 @@ download() {
     fi
 }
 install_win() {
-    if [ -d ${DEST}/include/win32/glew ]; then exit; fi
     # extract zip
     mkdir -p ${BUILD}
     rm -rf ${BUILD}/glew-2.0.0

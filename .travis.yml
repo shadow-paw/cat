@@ -5,7 +5,12 @@ matrix:
   include:
     - language: objective-c
       os: osx
-      osx_image: xcode9.2     
+      osx_image: xcode9.2
+      cache:
+        directories:
+        - /home/travis/build/shadow-paw/cat/dependency/include/generic
+        - /home/travis/build/shadow-paw/cat/dependency/include/ios
+        - /home/travis/build/shadow-paw/cat/dependency/lib/ios
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)
@@ -23,6 +28,12 @@ matrix:
           - tools
           - build-tools-26.0.2
           - android-26
+      cache:
+        directories:
+        - /home/travis/build/shadow-paw/cat/tools/android-ndk-r15b
+        - /home/travis/build/shadow-paw/cat/dependency/include/generic
+        - /home/travis/build/shadow-paw/cat/dependency/include/android
+        - /home/travis/build/shadow-paw/cat/dependency/lib/android
       before_install:
         # cmake agree license
         - mkdir -p ${ANDROID_HOME}/licenses/
@@ -31,14 +42,14 @@ matrix:
         - yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'cmake;3.6.4111459' > /dev/null
         # Install NDK
         - export ANDROID_NDK_VERSION=r15b
-        - export ANDROID_NDK_HOME=/home/travis/build/shadow-paw/android-ndk/
-        - if [ ! -f ${ANDROID_NDK_HOME}ndk-build ]; then curl -L http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -O; unzip -q android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip; mv android-ndk-${ANDROID_NDK_VERSION} ../android-ndk; fi
+        - export ANDROID_NDK_HOME=/home/travis/build/shadow-paw/cat/tools/android-ndk-${ANDROID_NDK_VERSION}
+        - if [ ! -f ${ANDROID_NDK_HOME}ndk-build ]; then curl -L http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -O; mkdir -p tools; unzip -q android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d tools/; fi
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)
         - (cd dependency/setup && ./libpng-android.sh)
       script:
-        - (cd libcat/proj && ${ANDROID_NDK_HOME}ndk-build -j4)
+        - (cd libcat/proj && ${ANDROID_NDK_HOME}/ndk-build -j4)
         - (cd example/ui_builtin/proj/android && ./gradlew assembleDebug)
 
 notifications:

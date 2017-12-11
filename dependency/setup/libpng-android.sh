@@ -5,6 +5,8 @@ DOWNLOAD=download
 BUILD=build
 DEST=`pwd`/..
 
+if [ -d ${DEST}/include/android/libpng ]; then exit; fi
+
 if [ -z "$ANDROID_NDK_HOME" ]; then
   ANDROID_NDK_HOME=${ANDROID_HOME}/ndk-bundle
 fi
@@ -23,7 +25,6 @@ download() {
     fi
 }
 build_android() {
-    if [ -d ${DEST}/include/android/libpng ]; then exit; fi
     # extract zip
     mkdir -p ${BUILD}
     rm -rf ${BUILD}/libpng-${LIBPNG_VER}
