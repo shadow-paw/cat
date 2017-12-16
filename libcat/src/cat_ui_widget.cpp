@@ -19,6 +19,7 @@ Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) : animato
     m_absrect = m_rect;
     m_visible = true;
     m_enable = true;
+    m_clipping = false;
 }
 // ----------------------------------------------------------------------------
 Widget::~Widget() {
@@ -197,7 +198,13 @@ void Widget::render(Renderer* r, Timestamp now) {
     if (is_dirty) dirty();
 
     if (!m_visible) return;
-    cb_render(r, now);
+    if (m_clipping) {
+        r->draw2d.clipping_on(m_absrect);
+        cb_render(r, now);
+        r->draw2d.clipping_off();
+    } else {
+        cb_render(r, now);
+    }
     for (auto& child: m_childs) {
         child->render(r, now);
     }
@@ -248,5 +255,10 @@ void Widget::update_absopacity(float parent_absopacity) {
 // ----------------------------------------------------------------------------
 uint32_t Widget::apply_opacity(uint32_t color) const {
     return (color & 0xffffff) | ((uint32_t)((color >> 24) * m_absopacity) << 24);
+}
+// ----------------------------------------------------------------------------
+void Widget::set_clipping(bool clipping) {
+    m_clipping = clipping;
+    dirty();
 }
 // ----------------------------------------------------------------------------

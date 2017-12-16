@@ -43,6 +43,8 @@ public:
     bool is_visible() const { return m_visible; }
     void set_enable(bool b);
     bool is_enabled() const { return m_enable; }
+    void set_clipping(bool clipping);
+    bool is_clipping() const { return m_clipping; }
     // ------------------------------------------------------------------ Flags
 
     // ------------------------------------------------------------------ Visual
@@ -88,6 +90,7 @@ protected:
     std::vector<Widget*> m_childs;
     unsigned int m_id;
     Rect2i       m_rect, m_absrect;
+    bool         m_clipping;
     uint32_t     m_bgcolor;
     float        m_opacity, m_absopacity;
     bool         m_enable, m_visible;

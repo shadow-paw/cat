@@ -43,7 +43,7 @@ matrix:
         # Install NDK
         - export ANDROID_NDK_VERSION=r15b
         - export ANDROID_NDK_HOME=/home/travis/build/shadow-paw/cat/tools/android-ndk-${ANDROID_NDK_VERSION}
-        - if [ ! -f ${ANDROID_NDK_HOME}ndk-build ]; then curl -L http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -O; mkdir -p tools; unzip -q android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d tools/; fi
+        - if [ ! -f ${ANDROID_NDK_HOME}/ndk-build ]; then curl -L http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -O; mkdir -p tools; unzip -q -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d tools/; fi
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)

@@ -24,11 +24,13 @@ bool BootApp::cb_startup(Timestamp now) {
     pane1->set_bounded(true);
     pane1->set_draggable(true);
     kernel()->ui()->attach(pane1);
-    auto label = new Label(kernel(), Rect2i(10, 10, 100, 40));
+    auto label = new Label(kernel(), Rect2i(50, 10, 100, 40));
     label->set_bgcolor(0x40000000);
-    label->set_text("hello");
+    label->set_text("hello world");
     label->set_textsize(20);
     label->set_textcolor(0xff9966ff);
+    label->set_textgravity(TextStyle::Gravity::Center);
+    label->set_clipping(true);
     pane1->attach(label);
     auto button1 = new Button(kernel(), Rect2i(10, 60, 120, 40));
     button1->set_texture(Button::TexNormal, ui_image, 0, 40, 92, 78, 6, 6);

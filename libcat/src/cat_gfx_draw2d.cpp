@@ -13,7 +13,8 @@ using namespace cat;
 std::unordered_map<int, std::string> Draw2D::s_uniforms = {
     { Draw2D::u_ScreenHalf, "uScreenHalf" },
     { Draw2D::u_Tex0, "uTex0" },
-    { Draw2D::u_Time, "uTime" }
+    { Draw2D::u_Time, "uTime" },
+    {Draw2D::u_Clipping, "uClipping"}
 };
 std::unordered_map<int, std::string> Draw2D::s_attrs = {
     { Draw2D::in_Position, "inPosition" },
@@ -32,6 +33,7 @@ Draw2D::Draw2D() {
     m_textcursor.plane = 0;
     m_textcursor.x = m_textcursor.y = 0;
     m_textcursor.height = 0;
+    m_clipping_enabled = false;
 }
 // ----------------------------------------------------------------------------
 Draw2D::~Draw2D() {
@@ -108,12 +110,17 @@ void Draw2D::resize(int width, int height) {
     m_width = width;
     m_height = height;
     m_scaled_height = (int)(m_height / m_scale);
+    if (!m_clipping_enabled) {
+        m_clipping.set(0, 0, m_width, m_height);
+    }
+    clipping_precalc();
 }
 // ----------------------------------------------------------------------------
 void Draw2D::scale(float factor) {
     if (m_scale == factor) return;
     m_scale = factor;
     m_scaled_height = (int)(m_height / m_scale);
+    clipping_precalc();
 }
 // ----------------------------------------------------------------------------
 void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
@@ -129,6 +136,8 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
 
     m_shader_col->bind();
     m_vbo.bind();
+    m_shader_col->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+    m_shader_col->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLine, 0, 2);
@@ -153,6 +162,8 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
 
     m_shader_col->bind();
     m_vbo.bind();
+    m_shader_col->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+    m_shader_col->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLineLoop, 0, 4);
@@ -178,6 +189,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+    m_shader_col->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kTriangleFan, 0, 4);
@@ -217,6 +229,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         m_vbo.bind();
         tex->bind(0);
         shader->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+        shader->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
         shader->uniform(u_Tex0, 0);
         shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
         shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -262,6 +275,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+            shader->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -367,6 +381,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_ScreenHalf, (float)m_width / 2 / m_scale, (float)m_height / 2 / m_scale);
+            shader->uniform(u_Clipping, m_clipping_precalc[0], m_clipping_precalc[1], m_clipping_precalc[2], m_clipping_precalc[3]);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -496,5 +511,30 @@ const Shader* Draw2D::retain_2dshader(ResourceManager* res, const std::string& n
 // ----------------------------------------------------------------------------
 void Draw2D::release_2dshader(ResourceManager* res, const Shader* shader) {
     res->release_shader(shader);
+}
+// ----------------------------------------------------------------------------
+void Draw2D::clipping_precalc() {
+    if (m_clipping_enabled) {
+        m_clipping_precalc[0] = (float)m_clipping.origin.x / m_scale;
+        m_clipping_precalc[1] = (float)m_height - (float)(m_clipping.origin.y + m_clipping.size.height) / m_scale;
+        m_clipping_precalc[2] = (float)(m_clipping.origin.x + m_clipping.size.width) / m_scale;
+        m_clipping_precalc[3] = (float)m_height - (float)m_clipping.origin.y / m_scale;
+    } else {
+        m_clipping_precalc[0] = 0;
+        m_clipping_precalc[1] = 0;
+        m_clipping_precalc[2] = m_width;
+        m_clipping_precalc[3] = m_height;
+    }
+}
+// ----------------------------------------------------------------------------
+void Draw2D::clipping_on(const Rect2i& rect) {
+    m_clipping_enabled = true;
+    m_clipping = rect;
+    clipping_precalc();
+}
+// ----------------------------------------------------------------------------
+void Draw2D::clipping_off() {
+    m_clipping_enabled = false;
+    clipping_precalc();
 }
 // ----------------------------------------------------------------------------

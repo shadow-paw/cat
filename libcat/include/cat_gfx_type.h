@@ -64,7 +64,8 @@ struct TextStyle {
         Right = 1 << 0,
         Bottom = 1 << 1,
         CenterHorizontal = 1 << 2,
-        CenterVertical = 1 << 3
+        CenterVertical = 1 << 3,
+        Center = CenterHorizontal| CenterVertical
     };
     int           appearance;
     int           gravity;

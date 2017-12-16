@@ -18,7 +18,9 @@ public:
     void             set_textstyle(const TextStyle& style) { m_textstyle = style; }
     const TextStyle& get_textstyle() const { return m_textstyle; }
     void             set_textsize(int size) { m_textstyle.fontsize = size; }
-    void             set_textcolor(uint32_t color) { m_textstyle.color = color; }    
+    void             set_textcolor(uint32_t color) { m_textstyle.color = color; }
+    void             set_textappearance(TextStyle::Appearance appearance) { m_textstyle.appearance = appearance; }
+    void             set_textgravity(TextStyle::Gravity gravity) { m_textstyle.gravity = gravity; }
 
 protected:
     virtual void cb_render(Renderer* r, Timestamp now);

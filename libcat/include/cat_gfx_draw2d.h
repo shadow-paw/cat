@@ -40,7 +40,9 @@ public:
     // Text support
     void calctext(Size2i* size, const std::string& utf8, const TextStyle& style);
     void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style, float opacity = 1.0f);
-
+    // clipping
+    void clipping_on(const Rect2i& rect);
+    void clipping_off();
     // Load compatible shader
     const Shader* retain_2dshader(ResourceManager* res, const std::string& name);
     void          release_2dshader(ResourceManager* res, const Shader* shader);
@@ -52,6 +54,7 @@ private:
     void fini();
     void resize(int width, int height);
     bool render_text();
+    void clipping_precalc();
 
 private:
     Shader* m_shader_col;
@@ -59,6 +62,9 @@ private:
     VBO     m_vbo;
     int		m_width, m_height, m_scaled_height;
     float   m_scale;
+    Rect2i  m_clipping;
+    bool    m_clipping_enabled;
+    float   m_clipping_precalc[4];
 
 private:
     // Builtin Shaders
@@ -66,6 +72,7 @@ private:
         u_ScreenHalf,
         u_Tex0,
         u_Time,
+        u_Clipping,
     };
     enum {
         in_Position,
