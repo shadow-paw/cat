@@ -16,24 +16,8 @@
 - [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle.
 - [Builtin UI](example/ui_builtin/src/bootapp.cpp) - basic ui like pane and button
 - [Custom UI](example/ui_custom/src/bootapp.cpp) - build custom ui with custom shader
-- [Timer](example/timer/src/bootapp.cpp)
-```
-kernel()->time()->post_timer(this, 1, 1000);
-kernel()->time()->remove_timer(this, 1);
-```
-- [HTTP](example/http/src/bootapp.cpp)
-```
-HttpRequest req("https://httpbin.org/post");
-req.add_header("foo", "bar");
-req.add_header("foo2", "dumb");
-req.post("Post Data", "text/plain; charset=utf-8");
-auto http_id = kernel()->net()->http_fetch(std::move(req), [](const HttpResponse& res) -> void {
-    for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
-        Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
-    }
-    Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
-});
-```
+- [Timer](example/timer/src/bootapp.cpp) - create and remove timers
+- [HTTP](example/http/src/bootapp.cpp) - rest compatible http client
 
 ## Build Environments
 You can build app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:
