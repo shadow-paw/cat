@@ -9,7 +9,7 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -21,7 +21,7 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
   #endif
   void main() {
       vColor = inColor;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_col_f = R"GLSL(
@@ -55,7 +55,7 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -72,7 +72,7 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_tex_f = R"GLSL(
@@ -109,7 +109,7 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -126,7 +126,7 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_gray_f = R"GLSL(
@@ -165,7 +165,7 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -182,7 +182,7 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_blur_f = R"GLSL(
@@ -235,7 +235,7 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -252,7 +252,7 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_ripple_f = R"GLSL(
@@ -294,7 +294,7 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -311,7 +311,7 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_fisheye_f = R"GLSL(
@@ -366,7 +366,7 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -383,7 +383,7 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_dream_f = R"GLSL(
@@ -436,7 +436,7 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec2 uScreenHalf;
+    uniform vec2 uCenterMultiplier;
   #if __VERSION__ >= 140
     in       vec4 inPosition;
     in  lowp vec4 inColor;
@@ -453,7 +453,7 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
-      gl_Position = vec4(inPosition.x / uScreenHalf.x - 1.0, inPosition.y / uScreenHalf.y - 1.0, 0.0, 1.0);
+      gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
 )GLSL";
 const char* Draw2D::m_shader_thermo_f = R"GLSL(

@@ -54,7 +54,7 @@ private:
     void fini();
     void resize(int width, int height);
     bool render_text();
-    void clipping_precalc();
+    void update_uniforms();
 
 private:
     Shader* m_shader_col;
@@ -64,12 +64,16 @@ private:
     float   m_scale;
     Rect2i  m_clipping;
     bool    m_clipping_enabled;
-    float   m_clipping_precalc[4];
+    // uniform values
+    struct {
+        float center_multiplier[2];
+        float clipping[4];
+    } m_uniforms;
 
 private:
     // Builtin Shaders
     enum {
-        u_ScreenHalf,
+        u_CenterMultiplier,
         u_Tex0,
         u_Time,
         u_Clipping,
