@@ -276,10 +276,9 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
   }
   void main() {
       float alpha = inside(gl_FragCoord.xy, uClipping.xy, uClipping.zw);
-      vec2 tc = vTexcoord.xy;
-      vec2 p = -1.0 + 2.0 * tc;
+      vec2 p = vTexcoord * 2.0 - 1.0;
       float len = length(p);
-      vec2 uv = tc + (p / len)*cos(len*12.0 - uTime*6.2831852)*0.02;
+      vec2 uv = vTexcoord + (p / len)*cos(len*12.0 - uTime*6.2831852)*0.02;
     #if __VERSION__ >= 140
       oFragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #else
@@ -492,9 +491,9 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
           tc = texture2D(uTex0, uv).rgb;
       }
     #if __VERSION__ >= 140
-      oFragColor = vColor * vec4(tc, 1.0) * vec4(1.0, 1.0, 1.0, alpha);
+      oFragColor = vColor * vec4(tc, alpha);
     #else
-      gl_FragColor = vColor * vec4(tc, 1.0) * vec4(1.0, 1.0, 1.0, alpha);
+      gl_FragColor = vColor * vec4(tc, alpha);
     #endif
   }
 )GLSL";
