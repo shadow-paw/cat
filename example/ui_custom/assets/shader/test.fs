@@ -1,7 +1,8 @@
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform vec4 uClipping;
+    #define CLIPPING_MAX 4
+    uniform vec4 uClipping[CLIPPING_MAX];
     uniform sampler2D uTex0;
     uniform float uTime;
   #if __VERSION__ >= 140
@@ -17,8 +18,14 @@
       vec2 s = step(bottomleft, v) - step(topright, v);
       return s.x * s.y;   
   }
+  float clipping(vec2 v) {
+      float alpha = 1.0;
+      for (int i=0; i<CLIPPING_MAX; i++) {
+          alpha *= inside(v, uClipping[i].xy, uClipping[i].zw);
+      } return alpha;
+  }
   void main() {
-      float alpha = inside(gl_FragCoord.xy, uClipping.xy, uClipping.zw);
+      float alpha = clipping(gl_FragCoord.xy);
       float aperture = 178.0;
       float apertureHalf = 0.5 * aperture * (PI / 180.0);
       float maxFactor = sin(apertureHalf);

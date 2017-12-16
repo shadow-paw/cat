@@ -42,8 +42,8 @@ public:
     void calctext(Size2i* size, const std::string& utf8, const TextStyle& style);
     void drawtext(const Rect2i& rect, const std::string& utf8, const TextStyle& style, float opacity = 1.0f);
     // clipping
-    void clipping_on(const Rect2i& rect);
-    void clipping_off();
+    void clipping_push(const Rect2i& rect);
+    void clipping_pop();
     // Load compatible shader
     const Shader* retain_2dshader(ResourceManager* res, const std::string& name);
     void          release_2dshader(ResourceManager* res, const Shader* shader);
@@ -58,17 +58,17 @@ private:
     void update_uniforms();
 
 private:
+    static const size_t CLIPPING_MAX = 4;
     Shader* m_shader_col;
     Shader* m_shaders[Effect::Thermo + 1];
     VBO     m_vbo;
     int		m_width, m_height, m_scaled_height;
     float   m_scale;
-    Rect2i  m_clipping;
-    bool    m_clipping_enabled;
+    std::vector<Rect2i> m_clipping;
     // uniform values
     struct {
         glm::vec2 center_multiplier;
-        glm::vec4 clipping;
+        glm::vec4 clipping[CLIPPING_MAX];
     } m_uniforms;
 
 private:

@@ -11,6 +11,7 @@ Pane::Pane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kern
     m_dragging = false;
     m_bounded = false;
     m_effect = Draw2D::Effect::None;
+    m_clipping = true;
 }
 // ----------------------------------------------------------------------------
 Pane::~Pane() {

@@ -199,14 +199,17 @@ void Widget::render(Renderer* r, Timestamp now) {
 
     if (!m_visible) return;
     if (m_clipping) {
-        r->draw2d.clipping_on(m_absrect);
+        r->draw2d.clipping_push(m_absrect);
         cb_render(r, now);
-        r->draw2d.clipping_off();
+        for (auto& child : m_childs) {
+            child->render(r, now);
+        }
+        r->draw2d.clipping_pop();
     } else {
         cb_render(r, now);
-    }
-    for (auto& child: m_childs) {
-        child->render(r, now);
+        for (auto& child : m_childs) {
+            child->render(r, now);
+        }
     }
 }
 // ----------------------------------------------------------------------------

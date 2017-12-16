@@ -24,7 +24,7 @@ bool BootApp::cb_startup(Timestamp now) {
     pane1->set_bounded(true);
     pane1->set_draggable(true);
     kernel()->ui()->attach(pane1);
-    auto label = new Label(kernel(), Rect2i(50, 10, 100, 40));
+    auto label = new Label(kernel(), Rect2i(350, 10, 100, 40));
     label->set_bgcolor(0x40000000);
     label->set_text("hello world");
     label->set_textsize(20);
