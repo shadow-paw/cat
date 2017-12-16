@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 #include <glm/glm.hpp>
 #include "cat_platform.h"
 #include "cat_type.h"
