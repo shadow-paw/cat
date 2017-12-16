@@ -11,13 +11,13 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    out vec4 vColor;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    out lowp vec4 vColor;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    varying   vec4 vColor;
+    attribute      vec2 inPosition;
+    attribute      vec4 inColor;
+    varying   lowp vec4 vColor;
   #endif
   void main() {
       vColor = inColor;
@@ -30,10 +30,10 @@ const char* Draw2D::m_shader_col_f = R"GLSL(
   #endif
     uniform vec4 uClipping;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
+    varying lowp vec4 vColor;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -57,17 +57,17 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -82,12 +82,12 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
     uniform vec4 uClipping;
     uniform sampler2D uTex0;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -111,17 +111,17 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -136,12 +136,12 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
     uniform vec4 uClipping;
     uniform sampler2D uTex0;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -167,17 +167,17 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -192,12 +192,12 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
     uniform vec4 uClipping;
     uniform sampler2D uTex0;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    int vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    int      vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -237,17 +237,17 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -263,12 +263,12 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
     uniform sampler2D uTex0;
     uniform float uTime;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -296,17 +296,17 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -322,12 +322,12 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
     uniform sampler2D uTex0;
     uniform float uTime;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   const float PI = 3.1415926535;
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
@@ -368,17 +368,17 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -394,12 +394,12 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
     uniform sampler2D uTex0;
     uniform float uTime;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
@@ -438,17 +438,17 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
   #endif
     uniform vec2 uScreenHalf;
   #if __VERSION__ >= 140
-    in  vec4 inPosition;
-    in  vec4 inColor;
-    in  vec2 inTexcoord;
-    out vec4 vColor;
-    out vec2 vTexcoord;
+    in       vec4 inPosition;
+    in  lowp vec4 inColor;
+    in       vec2 inTexcoord;
+    out lowp vec4 vColor;
+    out      vec2 vTexcoord;
   #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying   vec4 vColor;
-    varying   vec2 vTexcoord;
+    attribute      vec2 inPosition;
+    attribute lowp vec4 inColor;
+    attribute      vec2 inTexcoord;
+    varying   lowp vec4 vColor;
+    varying        vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -464,12 +464,12 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
     uniform sampler2D uTex0;
     uniform float uTime;
   #if __VERSION__ >= 140
-    in  vec4 vColor;
-    in  vec2 vTexcoord;
-    out vec4 oFragColor;
+    in  lowp vec4 vColor;
+    in       vec2 vTexcoord;
+    out      vec4 oFragColor;
   #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
+    varying lowp vec4 vColor;
+    varying      vec2 vTexcoord;
   #endif
   float inside(vec2 v, vec2 bottomleft, vec2 topright) {
       vec2 s = step(bottomleft, v) - step(topright, v);
