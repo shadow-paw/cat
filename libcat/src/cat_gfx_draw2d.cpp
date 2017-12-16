@@ -133,7 +133,7 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLine, 0, 2);
@@ -159,7 +159,7 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLineLoop, 0, 4);
@@ -185,7 +185,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kTriangleFan, 0, 4);
@@ -225,7 +225,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         m_vbo.bind();
         tex->bind(0);
         shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-        shader->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+        shader->uniform(u_Clipping, m_uniforms.clipping);
         shader->uniform(u_Tex0, 0);
         shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
         shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -271,7 +271,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-            shader->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+            shader->uniform(u_Clipping, m_uniforms.clipping);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -377,7 +377,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-            shader->uniform(u_Clipping, &m_uniforms.clipping[0], CLIPPING_MAX);
+            shader->uniform(u_Clipping, m_uniforms.clipping);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -512,18 +512,19 @@ void Draw2D::release_2dshader(ResourceManager* res, const Shader* shader) {
 void Draw2D::update_uniforms() {
     m_uniforms.center_multiplier.x = m_scale * 2 / m_width;
     m_uniforms.center_multiplier.y = m_scale * 2 / m_height;
-    for (int i = 0; i<CLIPPING_MAX; i++) {
-        if (i < m_clipping.size()) {
-            m_uniforms.clipping[i][0] = (float)m_clipping[i].origin.x * m_scale;
-            m_uniforms.clipping[i][1] = (float)m_height - (float)(m_clipping[i].origin.y + m_clipping[i].size.height) * m_scale;
-            m_uniforms.clipping[i][2] = (float)(m_clipping[i].origin.x + m_clipping[i].size.width) * m_scale;
-            m_uniforms.clipping[i][3] = (float)m_height - (float)m_clipping[i].origin.y * m_scale;
-        } else {
-            m_uniforms.clipping[i][0] = 0;
-            m_uniforms.clipping[i][1] = 0;
-            m_uniforms.clipping[i][2] = (float)m_width;
-            m_uniforms.clipping[i][3] = (float)m_height;
-        }
+    m_uniforms.clipping[0] = 0;
+    m_uniforms.clipping[1] = 0;
+    m_uniforms.clipping[2] = (float)m_width;
+    m_uniforms.clipping[3] = (float)m_height;
+    for (auto& clipping: m_clipping) {
+        float x1 = (float)clipping.origin.x * m_scale;
+        float y1 = (float)m_height - (float)(clipping.origin.y + clipping.size.height) * m_scale;
+        float x2 = (float)(clipping.origin.x + clipping.size.width) * m_scale;
+        float y2 = (float)m_height - (float)clipping.origin.y * m_scale;
+        if (m_uniforms.clipping[0] < x1) m_uniforms.clipping[0] = x1;
+        if (m_uniforms.clipping[1] < y1) m_uniforms.clipping[1] = y1;
+        if (m_uniforms.clipping[2] > x2) m_uniforms.clipping[2] = x2;
+        if (m_uniforms.clipping[3] > y2) m_uniforms.clipping[3] = y2;
     }
 }
 // ----------------------------------------------------------------------------

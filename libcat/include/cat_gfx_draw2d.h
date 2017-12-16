@@ -59,7 +59,6 @@ private:
     void update_uniforms();
 
 private:
-    static const int CLIPPING_MAX = 4;
     Shader* m_shader_col;
     Shader* m_shaders[Effect::Thermo + 1];
     VBO     m_vbo;
@@ -69,7 +68,7 @@ private:
     // uniform values
     struct {
         glm::vec2 center_multiplier;
-        glm::vec4 clipping[CLIPPING_MAX];
+        glm::vec4 clipping;
     } m_uniforms;
 
 private:
