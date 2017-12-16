@@ -42,9 +42,9 @@ const char* Draw2D::m_shader_col_f = R"GLSL(
   void main() {
       float alpha = inside(gl_FragCoord.xy, uClipping.xy, uClipping.zw);
     #if __VERSION__ >= 140
-      oFragColor = vColor * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -96,9 +96,9 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
   void main() {
       float alpha = inside(gl_FragCoord.xy, uClipping.xy, uClipping.zw);
     #if __VERSION__ >= 140
-      oFragColor = vColor * texture2D(uTex0, vTexcoord) * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * texture2D(uTex0, vTexcoord) * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * texture2D(uTex0, vTexcoord) * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * texture2D(uTex0, vTexcoord) * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -152,9 +152,9 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
       vec4 c = texture2D(uTex0, vTexcoord.xy);
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
     #if __VERSION__ >= 140
-      oFragColor = vColor * c * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * c * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * c * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * c * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -222,9 +222,9 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
       sum += texture2D(uTex0, vTexcoord + vec2(0.0, 0.024))*0.00895781211794;
       sum += texture2D(uTex0, vTexcoord + vec2(0.0, 0.028))*0.0044299121055113265;
     #if __VERSION__ >= 140
-      oFragColor = vColor * sum * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * sum * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * sum * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * sum * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -281,9 +281,9 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
       float len = length(p);
       vec2 uv = tc + (p / len)*cos(len*12.0 - uTime*6.2831852)*0.02;
     #if __VERSION__ >= 140
-      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -353,9 +353,9 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
           uv = vTexcoord.xy;
       }
     #if __VERSION__ >= 140
-      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -423,9 +423,9 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
       c += texture2D(uTex0, uv - 0.011);
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
     #if __VERSION__ >= 140
-      oFragColor = vColor * c / 14.5 * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * c / 14.5 * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * c / 14.5 * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * c / 14.5 * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";
@@ -492,9 +492,9 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
           tc = texture2D(uTex0, uv).rgb;
       }
     #if __VERSION__ >= 140
-      oFragColor = vColor * vec4(tc, 1.0) * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * vec4(tc, 1.0) * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * vec4(tc, 1.0) * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * vec4(tc, 1.0) * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
 )GLSL";

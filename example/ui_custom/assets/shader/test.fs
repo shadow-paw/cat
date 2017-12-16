@@ -36,8 +36,8 @@
           uv = vTexcoord.xy;
       }
     #if __VERSION__ >= 140
-      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      oFragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #else
-      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1, 1, 1, alpha);
+      gl_FragColor = vColor * texture2D(uTex0, uv) * vec4(1.0, 1.0, 1.0, alpha);
     #endif
   }
