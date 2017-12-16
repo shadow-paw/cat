@@ -31,12 +31,15 @@ typedef unsigned int HTTP_ID;
 class HttpRequest {
 friend class HttpManager;
 public:
+    enum Method {
+        METHOD_GET, METHOD_POST, METHOD_PUT, METHOD_PATCH, METHOD_DELETE
+    };
     //! Constructor an empty request, you must call set_url()
     //! \sa set_url
     HttpRequest();
     //! Constructor with url
     //! \param url Url of the request, e.g. "https://google.com/"
-    HttpRequest(const std::string& url);
+    HttpRequest(const std::string& url, Method method = Method::METHOD_GET);
     //! Move Constructor
     HttpRequest(HttpRequest&& o);
     //! Move Assignment
@@ -49,18 +52,38 @@ public:
     //! \param key Key of header
     //! \param value Value of header
     void add_header(const std::string& key, const std::string& value);
-    //! Make this a post request with the provide post-data
+    //! Make this a post request with the provide data
     //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
     //! \param mime MIME type, e.g. "application/json"
     void post(Buffer&& data, const std::string& mime);
-    //! Make this a post request with the provide post-data
+    //! Make this a post request with the provide data
     //! \param data String to post, zero-terminator is excluded
     //! \param mime MIME type, e.g. "application/json"
     void post(const std::string& data, const std::string& mime);
+    //! Make this a put request with the provide data
+    //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
+    //! \param mime MIME type, e.g. "application/json"
+    void put(Buffer&& data, const std::string& mime);
+    //! Make this a put request with the provide data
+    //! \param data String to post, zero-terminator is excluded
+    //! \param mime MIME type, e.g. "application/json"
+    void put(const std::string& data, const std::string& mime);
+    //! Make this a patch request with the provide data
+    //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
+    //! \param mime MIME type, e.g. "application/json"
+    void patch(Buffer&& data, const std::string& mime);
+    //! Make this a patch request with the provide data
+    //! \param data String to post, zero-terminator is excluded
+    //! \param mime MIME type, e.g. "application/json"
+    void patch(const std::string& data, const std::string& mime);
+    //! Make this a delete request
+    void del();
 private:
+    Method m_method;
     std::string m_url;
     std::unordered_multimap<std::string, std::string> m_headers;
     Buffer m_data;
+    const char* method_string() const;
 };
 // ----------------------------------------------------------------------------
 //! HTTP Response

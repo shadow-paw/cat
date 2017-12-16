@@ -15,16 +15,20 @@ using namespace cat;
 // HttpRequest
 // ----------------------------------------------------------------------------
 HttpRequest::HttpRequest() {
+    m_method = Method::METHOD_GET;
 }
-HttpRequest::HttpRequest(const std::string& url) {
+HttpRequest::HttpRequest(const std::string& url, Method method) {
     m_url = url;
+    m_method = method;
 }
 HttpRequest::HttpRequest(HttpRequest&& o) {
+    m_method = o.m_method;              o.m_method = Method::METHOD_GET;
     m_url = std::move(o.m_url);         o.m_url.clear();
     m_headers = std::move(o.m_headers); o.m_headers.clear();
     m_data = std::move(o.m_data);       o.m_data.free();
 }
 HttpRequest& HttpRequest::operator=(HttpRequest&& o) {
+    m_method = o.m_method;              o.m_method = Method::METHOD_GET;
     m_url = std::move(o.m_url);         o.m_url.clear();
     m_headers = std::move(o.m_headers); o.m_headers.clear();
     m_data = std::move(o.m_data);       o.m_data.free();
@@ -37,6 +41,7 @@ void HttpRequest::add_header(const std::string& key, const std::string& value) {
     m_headers.emplace(std::make_pair(key, value));
 }
 void HttpRequest::post(Buffer&& data, const std::string& mime) {
+    m_method = Method::METHOD_POST;
     m_data = std::move(data);
     m_headers.emplace(std::make_pair("Content-Type", mime));
 }
@@ -44,6 +49,38 @@ void HttpRequest::post(const std::string& data, const std::string& mime) {
     Buffer buf(data.c_str(), data.size());
     post(std::move(buf), mime);
 }
+void HttpRequest::put(Buffer&& data, const std::string& mime) {
+    m_method = Method::METHOD_PUT;
+    m_data = std::move(data);
+    m_headers.emplace(std::make_pair("Content-Type", mime));
+}
+void HttpRequest::put(const std::string& data, const std::string& mime) {
+    Buffer buf(data.c_str(), data.size());
+    put(std::move(buf), mime);
+}
+void HttpRequest::patch(Buffer&& data, const std::string& mime) {
+    m_method = Method::METHOD_PATCH;
+    m_data = std::move(data);
+    m_headers.emplace(std::make_pair("Content-Type", mime));
+}
+void HttpRequest::patch(const std::string& data, const std::string& mime) {
+    Buffer buf(data.c_str(), data.size());
+    patch(std::move(buf), mime);
+}
+void HttpRequest::del() {
+    m_method = Method::METHOD_DELETE;
+}
+const char* HttpRequest::method_string() const {
+    switch (m_method) {
+    case METHOD_GET:    return "GET";
+    case METHOD_POST:   return "POST";
+    case METHOD_PUT:    return "PUT";
+    case METHOD_PATCH:  return "PATCH";
+    case METHOD_DELETE: return "DELETE";
+    default: return "";
+    }
+}
+
 // ----------------------------------------------------------------------------
 // HttpResponse
 // ----------------------------------------------------------------------------
@@ -330,10 +367,11 @@ bool HttpManager::cb_conn_created(HttpConnection* conn) {
     DWORD flags = INTERNET_FLAG_HYPERLINK | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE;
     if (url_components.nScheme == INTERNET_SCHEME_HTTPS) flags |= INTERNET_FLAG_SECURE | INTERNET_FLAG_IGNORE_REDIRECT_TO_HTTP;
     conn->handle = HttpOpenRequest(conn->hconnect,
-                                   conn->request.m_data ? L"POST" : L"GET",
+                                   StringUtil::make_tstring(conn->request.method_string()).c_str(),
                                    url_components.lpszUrlPath, NULL, NULL,
                                    accept_types,
                                    flags, (DWORD_PTR)param);
+    // Payload
     if (conn->request.m_headers.size()>0) {
         std::string s;
         for (auto it=conn->request.m_headers.begin(); it!=conn->request.m_headers.end(); ++it) {
@@ -361,9 +399,10 @@ fail:
     for (auto it = conn->request.m_headers.begin(); it != conn->request.m_headers.end(); ++it) {
         jni.CallVoidMethod(j_conn, "addRequestProperty", "(Ljava/lang/String;Ljava/lang/String;)V", jni.NewStringUTF(it->first), jni.NewStringUTF(it->second));
     }
-    // Post
+    // Request Method
+    jni.CallVoidMethod(j_conn, "setRequestMethod", "(Ljava/lang/String;)V", jni.NewStringUTF(conn->request.method_string()));
+    // Payload
     if (conn->request.m_data.ptr() && conn->request.m_data.size() > 0) {
-        Logger::d("libcat", "http post");
         // j_conn.setDoOutput(true);
         jni.CallVoidMethod(j_conn, "setDoOutput", "(Z)V", JNI_TRUE);
         // j_conn.setFixedLengthStreamingMode(postlen);
@@ -416,15 +455,17 @@ fail:
     }
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     NSURL* url = [NSURL URLWithString:[NSString stringWithUTF8String:conn->request.m_url.c_str()]];
-    // Post
+    // Payload
     if (conn->request.m_data.ptr() && conn->request.m_data.size() > 0) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        request.HTTPMethod = @"POST";
+        request.HTTPMethod = [NSString stringWithUTF8String: conn->request.method_string()];
         NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:[NSData dataWithBytes:conn->request.m_data.ptr() length:conn->request.m_data.size()] completionHandler:cb_complete];
         [uploadTask resume];
         conn->task = (__bridge_retained void*)uploadTask;
     } else {
-        NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:cb_complete];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        request.HTTPMethod = [NSString stringWithUTF8String: conn->request.method_string()];
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:cb_complete];
         [dataTask resume];
         conn->task = (__bridge_retained void*)dataTask;
     } return true;
