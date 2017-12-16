@@ -56,7 +56,7 @@ private:
     void fini();
     void resize(int width, int height);
     bool render_text();
-    void update_uniforms();
+    void clipping_update();
 
 private:
     Shader* m_shader_col;
@@ -68,7 +68,11 @@ private:
     // uniform values
     struct {
         glm::vec2 center_multiplier;
-        glm::vec4 clipping;
+        struct {
+            bool    enabled;
+            GLint   x, y;
+            GLsizei w, h;
+        } clipping;
     } m_uniforms;
 
 private:
@@ -77,7 +81,6 @@ private:
         u_CenterMultiplier,
         u_Tex0,
         u_Time,
-        u_Clipping,
     };
     enum {
         in_Position,

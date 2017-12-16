@@ -13,8 +13,7 @@ using namespace cat;
 std::unordered_map<int, std::string> Draw2D::s_uniforms = {
     { Draw2D::u_CenterMultiplier, "uCenterMultiplier" },
     { Draw2D::u_Tex0, "uTex0" },
-    { Draw2D::u_Time, "uTime" },
-    {Draw2D::u_Clipping, "uClipping"}
+    { Draw2D::u_Time, "uTime" }
 };
 std::unordered_map<int, std::string> Draw2D::s_attrs = {
     { Draw2D::in_Position, "inPosition" },
@@ -33,6 +32,7 @@ Draw2D::Draw2D() {
     m_textcursor.plane = 0;
     m_textcursor.x = m_textcursor.y = 0;
     m_textcursor.height = 0;
+    m_uniforms.clipping.enabled = false;
 }
 // ----------------------------------------------------------------------------
 Draw2D::~Draw2D() {
@@ -109,14 +109,16 @@ void Draw2D::resize(int width, int height) {
     m_width = width;
     m_height = height;
     m_scaled_height = (int)(m_height / m_scale);
-    update_uniforms();
+    m_uniforms.center_multiplier.x = m_scale * 2 / m_width;
+    m_uniforms.center_multiplier.y = m_scale * 2 / m_height;
 }
 // ----------------------------------------------------------------------------
 void Draw2D::scale(float factor) {
     if (m_scale == factor) return;
     m_scale = factor;
     m_scaled_height = (int)(m_height / m_scale);
-    update_uniforms();
+    m_uniforms.center_multiplier.x = m_scale * 2 / m_width;
+    m_uniforms.center_multiplier.y = m_scale * 2 / m_height;
 }
 // ----------------------------------------------------------------------------
 void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
@@ -130,10 +132,14 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
     vertex[1].x = x[1]; vertex[1].y = y[1]; vertex[1].color = color;
     m_vbo.unlock();
 
+    // clipping
+    if (m_uniforms.clipping.enabled) {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+    }
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLine, 0, 2);
@@ -141,6 +147,9 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
     m_shader_col->clr_attr(in_Position);
     m_vbo.unbind();
     m_shader_col->unbind();
+    if (m_uniforms.clipping.enabled) {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }
 // ----------------------------------------------------------------------------
 void Draw2D::outline(const Rect2i& rect, uint32_t color) {
@@ -156,10 +165,13 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
     vertex[3].x = x[1]; vertex[3].y = y[0]; vertex[3].color = color;
     m_vbo.unlock();
 
+    if (m_uniforms.clipping.enabled) {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+    }
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kLineLoop, 0, 4);
@@ -167,6 +179,9 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
     m_shader_col->clr_attr(in_Position);
     m_vbo.unbind();
     m_shader_col->unbind();
+    if (m_uniforms.clipping.enabled) {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }
 // ----------------------------------------------------------------------------
 void Draw2D::fill(const Rect2i& rect, uint32_t color) {
@@ -182,10 +197,13 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
     vertex[3].x = x[1]; vertex[3].y = y[0]; vertex[3].color = color;
     m_vbo.unlock();
 
+    if (m_uniforms.clipping.enabled) {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+    }
     m_shader_col->bind();
     m_vbo.bind();
     m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->uniform(u_Clipping, m_uniforms.clipping);
     m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
     m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
     m_shader_col->draw(Shader::kTriangleFan, 0, 4);
@@ -193,6 +211,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
     m_shader_col->clr_attr(in_Position);
     m_vbo.unbind();
     m_shader_col->unbind();
+    if (m_uniforms.clipping.enabled) {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }
 // ----------------------------------------------------------------------------
 void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsigned long t, Effect effect) {
@@ -221,11 +242,14 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         vertex[3] = { x[1], y[1], 1.0f, 0.0f, color };
         m_vbo.unlock();
 
+        if (m_uniforms.clipping.enabled) {
+            glEnable(GL_SCISSOR_TEST);
+            glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+        }
         shader->bind();
         m_vbo.bind();
         tex->bind(0);
         shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-        shader->uniform(u_Clipping, m_uniforms.clipping);
         shader->uniform(u_Tex0, 0);
         shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
         shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -238,6 +262,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         tex->unbind(0);
         m_vbo.unbind();
         shader->unbind();
+        if (m_uniforms.clipping.enabled) {
+            glDisable(GL_SCISSOR_TEST);
+        }
     } else {
         fill(rect, color);
     }
@@ -267,11 +294,14 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             vertex[3] = { x[1], y[1], u[1], v[1], color };
             m_vbo.unlock();
 
+            if (m_uniforms.clipping.enabled) {
+                glEnable(GL_SCISSOR_TEST);
+                glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+            }
             shader->bind();
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-            shader->uniform(u_Clipping, m_uniforms.clipping);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -284,6 +314,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             texref.tex->unbind(0);
             m_vbo.unbind();
             shader->unbind();
+            if (m_uniforms.clipping.enabled) {
+                glDisable(GL_SCISSOR_TEST);
+            }
         } else {
             // TOP-LEFT
             const float tex_w = (float)texref.tex->width();
@@ -373,11 +406,14 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             vertex[53] = { x[3], y[3], u[3], v[3], color };
             m_vbo.unlock();
 
+            if (m_uniforms.clipping.enabled) {
+                glEnable(GL_SCISSOR_TEST);
+                glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
+            }
             shader->bind();
             m_vbo.bind();
             texref.tex->bind(0);
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-            shader->uniform(u_Clipping, m_uniforms.clipping);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
@@ -390,6 +426,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             texref.tex->unbind(0);
             m_vbo.unbind();
             shader->unbind();
+            if (m_uniforms.clipping.enabled) {
+                glDisable(GL_SCISSOR_TEST);
+            }
         }
     } else {
         fill(rect, color);
@@ -509,32 +548,40 @@ void Draw2D::release_2dshader(ResourceManager* res, const Shader* shader) {
     res->release_shader(shader);
 }
 // ----------------------------------------------------------------------------
-void Draw2D::update_uniforms() {
-    m_uniforms.center_multiplier.x = m_scale * 2 / m_width;
-    m_uniforms.center_multiplier.y = m_scale * 2 / m_height;
-    m_uniforms.clipping[0] = 0;
-    m_uniforms.clipping[1] = 0;
-    m_uniforms.clipping[2] = (float)m_width;
-    m_uniforms.clipping[3] = (float)m_height;
-    for (auto& clipping: m_clipping) {
-        float x1 = (float)clipping.origin.x * m_scale;
-        float y1 = (float)m_height - (float)(clipping.origin.y + clipping.size.height) * m_scale;
-        float x2 = (float)(clipping.origin.x + clipping.size.width) * m_scale;
-        float y2 = (float)m_height - (float)clipping.origin.y * m_scale;
-        if (m_uniforms.clipping[0] < x1) m_uniforms.clipping[0] = x1;
-        if (m_uniforms.clipping[1] < y1) m_uniforms.clipping[1] = y1;
-        if (m_uniforms.clipping[2] > x2) m_uniforms.clipping[2] = x2;
-        if (m_uniforms.clipping[3] > y2) m_uniforms.clipping[3] = y2;
-    }
-}
-// ----------------------------------------------------------------------------
 void Draw2D::clipping_push(const Rect2i& rect) {
     m_clipping.push_back(rect);
-    update_uniforms();
+    if (m_clipping.size() == 1) {
+        m_uniforms.clipping.enabled = true;
+    } clipping_update();
 }
 // ----------------------------------------------------------------------------
 void Draw2D::clipping_pop() {
     m_clipping.pop_back();
-    update_uniforms();
+    if (m_clipping.size() == 0) {
+        m_uniforms.clipping.enabled = false;
+    } else {
+        clipping_update();
+    }
+}
+// ----------------------------------------------------------------------------
+void Draw2D::clipping_update() {
+    float clipping_x1 = 0;
+    float clipping_y1 = 0;
+    float clipping_x2 = (float)m_width;
+    float clipping_y2 = (float)m_height;
+    for (auto& clipping : m_clipping) {
+        float x1 = (float)clipping.origin.x * m_scale;
+        float y1 = (float)m_height - (float)(clipping.origin.y + clipping.size.height) * m_scale;
+        float x2 = (float)(clipping.origin.x + clipping.size.width) * m_scale;
+        float y2 = (float)m_height - (float)clipping.origin.y * m_scale;
+        if (clipping_x1 < x1) clipping_x1 = x1;
+        if (clipping_y1 < y1) clipping_y1 = y1;
+        if (clipping_x2 > x2) clipping_x2 = x2;
+        if (clipping_y2 > y2) clipping_y2 = y2;
+    }
+    m_uniforms.clipping.x = (GLint)clipping_x1;
+    m_uniforms.clipping.y = (GLint)clipping_y1;
+    m_uniforms.clipping.w = (GLsizei)(clipping_x2 - clipping_x1 +1);
+    m_uniforms.clipping.h = (GLsizei)(clipping_y2 - clipping_y1 + 1);
 }
 // ----------------------------------------------------------------------------
