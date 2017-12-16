@@ -512,17 +512,18 @@ void Draw2D::release_2dshader(ResourceManager* res, const Shader* shader) {
 void Draw2D::update_uniforms() {
     m_uniforms.center_multiplier.x = m_scale * 2 / m_width;
     m_uniforms.center_multiplier.y = m_scale * 2 / m_height;
-    for (size_t i=0; i<m_clipping.size(); i++) {
-        m_uniforms.clipping[i][0] = (float)m_clipping[i].origin.x / m_scale;
-        m_uniforms.clipping[i][1] = (float)m_height - (float)(m_clipping[i].origin.y + m_clipping[i].size.height) / m_scale;
-        m_uniforms.clipping[i][2] = (float)(m_clipping[i].origin.x + m_clipping[i].size.width) / m_scale;
-        m_uniforms.clipping[i][3] = (float)m_height - (float)m_clipping[i].origin.y / m_scale;
-    }
-    for (size_t i = m_clipping.size(); i< CLIPPING_MAX; i++) {
-        m_uniforms.clipping[i][0] = 0;
-        m_uniforms.clipping[i][1] = 0;
-        m_uniforms.clipping[i][2] = (float)m_width;
-        m_uniforms.clipping[i][3] = (float)m_height;
+    for (int i = 0; i<CLIPPING_MAX; i++) {
+        if (i < m_clipping.size()) {
+            m_uniforms.clipping[i][0] = (float)m_clipping[i].origin.x / m_scale;
+            m_uniforms.clipping[i][1] = (float)m_height - (float)(m_clipping[i].origin.y + m_clipping[i].size.height) / m_scale;
+            m_uniforms.clipping[i][2] = (float)(m_clipping[i].origin.x + m_clipping[i].size.width) / m_scale;
+            m_uniforms.clipping[i][3] = (float)m_height - (float)m_clipping[i].origin.y / m_scale;
+        } else {
+            m_uniforms.clipping[i][0] = 0;
+            m_uniforms.clipping[i][1] = 0;
+            m_uniforms.clipping[i][2] = (float)m_width;
+            m_uniforms.clipping[i][3] = (float)m_height;
+        }
     }
 }
 // ----------------------------------------------------------------------------

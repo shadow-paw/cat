@@ -58,7 +58,7 @@ private:
     void update_uniforms();
 
 private:
-    static const size_t CLIPPING_MAX = 4;
+    static const int CLIPPING_MAX = 4;
     Shader* m_shader_col;
     Shader* m_shaders[Effect::Thermo + 1];
     VBO     m_vbo;
