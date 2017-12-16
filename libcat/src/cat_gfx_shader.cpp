@@ -156,8 +156,48 @@ void Shader::uniform(unsigned int slot, GLint i0, GLint i1, GLint i2, GLint i3) 
     glUniform4i(m_uniform[slot], i0, i1, i2, i3);
 }
 // ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec2& v) const {
+    if (m_attr[slot] == -1) return;
+    glUniform2f(m_uniform[slot], v[0], v[1]);
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec3& v) const {
+    if (m_attr[slot] == -1) return;
+    glUniform3f(m_uniform[slot], v[0], v[1], v[2]);
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec4& v) const {
+    if (m_attr[slot] == -1) return;
+    glUniform4f(m_uniform[slot], v[0], v[1], v[2], v[3]);
+}
+// ----------------------------------------------------------------------------
 void Shader::uniform(unsigned int slot, const glm::mat4& m) const {
     if (m_attr[slot]==-1) return;
     glUniformMatrix4fv (m_uniform[slot], 1, GL_FALSE, glm::value_ptr(m));
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, GLfloat* f, size_t count) const {
+    if (m_attr[slot] == -1) return;
+    glUniform1fv(m_uniform[slot], (GLsizei)count, f);
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec2* v, size_t count) const {
+    if (m_attr[slot] == -1) return;
+    glUniform2fv(m_uniform[slot], (GLsizei)count, glm::value_ptr(v[0]));
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec3* v, size_t count) const {
+    if (m_attr[slot] == -1) return;
+    glUniform3fv(m_uniform[slot], (GLsizei)count, glm::value_ptr(v[0]));
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::vec4* v, size_t count) const {
+    if (m_attr[slot] == -1) return;
+    glUniform4fv(m_uniform[slot], (GLsizei)count, glm::value_ptr(v[0]));
+}
+// ----------------------------------------------------------------------------
+void Shader::uniform(unsigned int slot, const glm::mat4* m, size_t count) const {
+    if (m_attr[slot] == -1) return;
+    glUniformMatrix4fv(m_uniform[slot], (GLsizei)count, GL_FALSE, glm::value_ptr(m[0]));
 }
 // ----------------------------------------------------------------------------

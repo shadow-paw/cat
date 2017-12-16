@@ -44,7 +44,15 @@ public:
     void uniform(unsigned int slot, GLint i0, GLint i1) const;
     void uniform(unsigned int slot, GLint i0, GLint i1, GLint i2) const;
     void uniform(unsigned int slot, GLint i0, GLint i1, GLint i2, GLint i3) const;
+    void uniform(unsigned int slot, const glm::vec2& v) const;
+    void uniform(unsigned int slot, const glm::vec3& v) const;
+    void uniform(unsigned int slot, const glm::vec4& v) const;
     void uniform(unsigned int slot, const glm::mat4& m) const;
+    void uniform(unsigned int slot, GLfloat* f, size_t count) const;
+    void uniform(unsigned int slot, const glm::vec2* v, size_t count) const;
+    void uniform(unsigned int slot, const glm::vec3* v, size_t count) const;
+    void uniform(unsigned int slot, const glm::vec4* v, size_t count) const;
+    void uniform(unsigned int slot, const glm::mat4* m, size_t count) const;
 private:
     GLuint compile(GLenum type, const char* code);
 private:

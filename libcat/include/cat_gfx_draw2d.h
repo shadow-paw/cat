@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <glm/glm.hpp>
 #include "cat_platform.h"
 #include "cat_type.h"
 #include "cat_gfx_type.h"
@@ -66,8 +67,8 @@ private:
     bool    m_clipping_enabled;
     // uniform values
     struct {
-        float center_multiplier[2];
-        float clipping[4];
+        glm::vec2 center_multiplier;
+        glm::vec4 clipping;
     } m_uniforms;
 
 private:
