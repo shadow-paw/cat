@@ -522,8 +522,8 @@ void Draw2D::clipping_precalc() {
     } else {
         m_clipping_precalc[0] = 0;
         m_clipping_precalc[1] = 0;
-        m_clipping_precalc[2] = m_width;
-        m_clipping_precalc[3] = m_height;
+        m_clipping_precalc[2] = (float)m_width;
+        m_clipping_precalc[3] = (float)m_height;
     }
 }
 // ----------------------------------------------------------------------------
