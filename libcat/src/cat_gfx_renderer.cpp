@@ -1,10 +1,5 @@
 #include "cat_gfx_renderer.h"
 
-// NOTE: Fix for mac
-#if defined(PLATFORM_MAC)
-  #define glClearDepthf(x) glClearDepth(x)
-#endif
-
 using namespace cat;
 
 // ----------------------------------------------------------------------------
@@ -38,11 +33,26 @@ void Renderer::context_lost() {
     if (!m_contextready) return;
     m_contextready = false;
     draw2d.fini();
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC)
+    glDeleteVertexArrays(1, &m_vao);
+#elif defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID)
+    // NOTHING
+#else
+    #error Not Implemented!
+#endif
 }
 // ----------------------------------------------------------------------------
 bool Renderer::context_restored() {
     if (m_contextready) return true;
     if (!initGL()) return false;
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC)
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
+#elif defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID)
+    // NOTHING
+#else
+    #error Not Implemented!
+#endif
     if (!draw2d.init()) return false;
     m_contextready = true;
     resize(m_width, m_height);

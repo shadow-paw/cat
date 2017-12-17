@@ -35,9 +35,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     NSOpenGLPixelFormatAttribute attrs[] = {
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFADepthSize, 24,
+        NSOpenGLPFAAccelerated,
+        NSOpenGLPFANoRecovery,
         // OpenGL 3.2
-        //NSOpenGLPFAOpenGLProfile,
-        //NSOpenGLProfileVersion3_2Core,
+        NSOpenGLPFAOpenGLProfile,
+        NSOpenGLProfileVersion3_2Core,
         0
     };
     NSOpenGLPixelFormat *pf = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];

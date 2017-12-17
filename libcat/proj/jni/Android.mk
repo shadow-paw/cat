@@ -13,6 +13,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_data_buffer.cpp \
                 ../../src/cat_util_jni.cpp \
                 ../../src/cat_util_log.cpp \
+                ../../src/cat_util_string.cpp \
                 ../../src/cat_time_service.cpp \
                 ../../src/cat_net_service.cpp \
                 ../../src/cat_net_http.cpp \

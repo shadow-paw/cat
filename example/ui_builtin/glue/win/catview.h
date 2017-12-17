@@ -30,6 +30,8 @@ private:
     UINT_PTR m_timer;
     unsigned int m_mouse_capture;
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+private:
+    static bool init_glew();
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

@@ -39,7 +39,7 @@
                                             [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking,
                                             kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                             nil];
-		self.m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+		self.m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
         if (!self.m_context || ![EAGLContext setCurrentContext:self.m_context]) return nil;
         if (![self initFBO]) return nil;
         self.m_animating = FALSE;

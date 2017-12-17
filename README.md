@@ -2,6 +2,7 @@
 > Write your program once with C++, and create Windows, Mac, iOS and Android app.
 
 [![C++ Version][cpp-image]][cpp-url]
+[![OpenGL Version][ogl-image]][ogl-url]
 [![TravisCI][travis-image]][travis-url]
 
 **CAT** provides an abstract and consistent environment for application development. The main features include:
@@ -128,6 +129,8 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 <!-- Markdown link & img dfn's -->
 [cpp-image]: https://img.shields.io/badge/c%2B%2B-14-green.svg
 [cpp-url]: https://en.wikipedia.org/wiki/C%2B%2B14
+[ogl-image]: https://img.shields.io/badge/opengl-3.3%20%7C%203.0%20es-green.svg
+[ogl-url]: https://en.wikipedia.org/wiki/OpenGL
 [travis-image]: https://travis-ci.org/shadow-paw/cat.svg?branch=master
 [travis-url]: https://travis-ci.org/shadow-paw/cat
 [visualstudio-url]: https://www.visualstudio.com/downloads/
