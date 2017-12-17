@@ -33,7 +33,13 @@ private:
     bool m_contextready;
     bool m_dirty;
     int  m_width, m_height;
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     GLuint m_vao;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID)
+    // NOTHING
+#else
+    #error Not Implemented!
+#endif
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

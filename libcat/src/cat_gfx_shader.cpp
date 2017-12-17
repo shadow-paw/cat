@@ -82,6 +82,7 @@ std::string Shader::preprocessor(const std::string& code) const {
     std::istringstream is(code);
     for (std::string line; std::getline(is, line);) {
         auto trimmed = StringUtil::trim(line);
+        if (trimmed.empty()) continue;
         if (trimmed.compare(0, version_len, version_tag) == 0) {
             auto versions = StringUtil::split(trimmed.substr(version_len), ",");
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC)
@@ -95,7 +96,6 @@ std::string Shader::preprocessor(const std::string& code) const {
                 result += version_tag + versions[1] + "\n";
             } else if (versions.size() > 0) {
                 result += version_tag + versions[0] + "\n";
-            }
             } else {
                 result += line + "\n";
             }
