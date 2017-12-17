@@ -102,14 +102,14 @@ bool CATView::init(const char* title, int width, int height) {
     if (!wglChoosePixelFormatARB(m_hdc, format_attrs, nullptr, 1, &format, (UINT*)&numFormat)) goto fail;
     if (!SetPixelFormat(m_hdc, format, &pfd)) goto fail;
     // Init GL
-    const int contextAttrs[] = {
+    const int context_attrs[] = {
         WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
         WGL_CONTEXT_MINOR_VERSION_ARB, 3,
         WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
         WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
         0
     };
-    if (((m_gl = wglCreateContextAttribsARB(m_hdc, nullptr, contextAttrs)) == NULL) || !wglMakeCurrent(m_hdc, m_gl)) goto fail;
+    if (((m_gl = wglCreateContextAttribsARB(m_hdc, nullptr, context_attrs)) == NULL) || !wglMakeCurrent(m_hdc, m_gl)) goto fail;
 
     // Fix up client rect
     GetClientRect(m_hwnd, &rc);
