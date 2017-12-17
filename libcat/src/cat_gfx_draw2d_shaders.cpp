@@ -8,18 +8,12 @@ using namespace cat;
 const char* Draw2D::m_shader_col_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    out lowp vec4 vColor;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    varying   vec4 vColor;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  out     vec4 vColor;
   void main() {
       vColor = inColor;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
@@ -28,20 +22,12 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
 const char* Draw2D::m_shader_col_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-  #endif
+  in  vec4 vColor;
+  out vec4 oFragColor;
   void main() {
-    #if __VERSION__ >= 140
       oFragColor = vColor;
-    #else
-      gl_FragColor = vColor;
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -50,22 +36,14 @@ const char* Draw2D::m_shader_col_f = R"GLSL(
 const char* Draw2D::m_shader_tex_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -75,23 +53,14 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
 const char* Draw2D::m_shader_tex_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
-    #if __VERSION__ >= 140
       oFragColor = vColor * texture(uTex0, vTexcoord);
-    #else
-      gl_FragColor = vColor * texture(uTex0, vTexcoord);
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -100,22 +69,14 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
 const char* Draw2D::m_shader_gray_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -125,25 +86,16 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
 const char* Draw2D::m_shader_gray_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
       vec4 c = texture(uTex0, vTexcoord.xy);
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
-    #if __VERSION__ >= 140
       oFragColor = vColor * c;
-    #else
-      gl_FragColor = vColor * c;
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -152,22 +104,14 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
 const char* Draw2D::m_shader_blur_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -177,17 +121,12 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
 const char* Draw2D::m_shader_blur_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
       vec4 sum = vec4(0.0);
       sum += texture(uTex0, vTexcoord + vec2(0.0, -0.028))*0.0044299121055113265;
@@ -205,11 +144,7 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
       sum += texture(uTex0, vTexcoord + vec2(0.0, 0.020))*0.0215963866053;
       sum += texture(uTex0, vTexcoord + vec2(0.0, 0.024))*0.00895781211794;
       sum += texture(uTex0, vTexcoord + vec2(0.0, 0.028))*0.0044299121055113265;
-    #if __VERSION__ >= 140
       oFragColor = vColor * sum;
-    #else
-      gl_FragColor = vColor * sum;
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -218,22 +153,14 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
 const char* Draw2D::m_shader_ripple_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -243,27 +170,18 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
 const char* Draw2D::m_shader_ripple_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-    uniform float uTime;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  uniform float uTime;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
       vec2 p = vTexcoord * 2.0 - 1.0;
       float len = length(p);
       vec2 uv = vTexcoord + (p / len)*cos(len*12.0 - uTime*6.2831852)*0.02;
-    #if __VERSION__ >= 140
       oFragColor = vColor * texture(uTex0, uv);
-    #else
-      gl_FragColor = vColor * texture(uTex0, uv);
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -272,22 +190,14 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
 const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -297,18 +207,13 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
 const char* Draw2D::m_shader_fisheye_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-    uniform float uTime;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  uniform float uTime;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   const float PI = 3.1415926535;
   void main() {
       float aperture = 178.0;
@@ -327,11 +232,7 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
       } else {
           uv = vTexcoord.xy;
       }
-    #if __VERSION__ >= 140
       oFragColor = vColor * texture(uTex0, uv);
-    #else
-      gl_FragColor = vColor * texture(uTex0, uv);
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -340,22 +241,14 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
 const char* Draw2D::m_shader_dream_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -365,18 +258,13 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
 const char* Draw2D::m_shader_dream_f = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform sampler2D uTex0;
-    uniform float uTime;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  uniform float uTime;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
       vec2 uv = vTexcoord.xy;
       vec4 c = texture(uTex0, uv);
@@ -393,11 +281,7 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
       c += texture(uTex0, uv - 0.009);
       c += texture(uTex0, uv - 0.011);
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
-    #if __VERSION__ >= 140
       oFragColor = vColor * c / 14.5;
-    #else
-      gl_FragColor = vColor * c / 14.5;
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
@@ -406,22 +290,14 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
 const char* Draw2D::m_shader_thermo_v = R"GLSL(
   #version 330, 300 es
   #ifdef GL_ES
-    precision highp float;
+  precision highp float;
   #endif
-    uniform vec2 uCenterMultiplier;
-  #if __VERSION__ >= 140
-    in       vec4 inPosition;
-    in  lowp vec4 inColor;
-    in       vec2 inTexcoord;
-    out lowp vec4 vColor;
-    out      vec2 vTexcoord;
-  #else
-    attribute vec2 inPosition;
-    attribute vec4 inColor;
-    attribute vec2 inTexcoord;
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform vec2 uCenterMultiplier;
+  in      vec4 inPosition;
+  in      vec4 inColor;
+  in      vec2 inTexcoord;
+  out     vec4 vColor;
+  out     vec2 vTexcoord;
   void main() {
       vColor = inColor;
       vTexcoord = inTexcoord;
@@ -433,16 +309,11 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
   #ifdef GL_ES
     precision highp float;
   #endif
-    uniform sampler2D uTex0;
-    uniform float uTime;
-  #if __VERSION__ >= 140
-    in  lowp vec4 vColor;
-    in       vec2 vTexcoord;
-    out      vec4 oFragColor;
-  #else
-    varying vec4 vColor;
-    varying vec2 vTexcoord;
-  #endif
+  uniform sampler2D uTex0;
+  uniform float uTime;
+  in      vec4 vColor;
+  in      vec2 vTexcoord;
+  out     vec4 oFragColor;
   void main() {
       vec2 uv = vTexcoord.xy;
       vec3 tc = vec3(1.0, 0.0, 0.0);
@@ -458,11 +329,7 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
       } else if (uv.x >= (1.0 + 0.005)) {
           tc = texture(uTex0, uv).rgb;
       }
-    #if __VERSION__ >= 140
       oFragColor = vColor * vec4(tc, 1.0);
-    #else
-      gl_FragColor = vColor * vec4(tc, 1.0);
-    #endif
   }
 )GLSL";
 // ----------------------------------------------------------------------------
