@@ -1,8 +1,5 @@
 #version 330, 300 es
-#ifdef GL_ES
-    precision highp float;
-#endif
-
+precision highp float;
 uniform  vec2 uCenterMultiplier;
 in       vec4 inPosition;
 in  lowp vec4 inColor;

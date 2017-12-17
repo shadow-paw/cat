@@ -1,8 +1,5 @@
 #version 330, 300 es
-#ifdef GL_ES
 precision highp float;
-#endif
-
 uniform sampler2D uTex0;
 uniform float uTime;
 in  lowp vec4 vColor;

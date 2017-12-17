@@ -7,9 +7,7 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_col_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -21,9 +19,7 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_col_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   in  vec4 vColor;
   out vec4 oFragColor;
   void main() {
@@ -35,9 +31,7 @@ const char* Draw2D::m_shader_col_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_tex_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -52,9 +46,7 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_tex_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -68,9 +60,7 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_gray_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -85,9 +75,7 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_gray_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -103,9 +91,7 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_blur_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -120,9 +106,7 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_blur_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -152,9 +136,7 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_ripple_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -169,9 +151,7 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_ripple_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -189,9 +169,7 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_fisheye_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -206,9 +184,7 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_fisheye_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -240,9 +216,7 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_dream_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -257,9 +231,7 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_dream_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -289,9 +261,7 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
 // ----------------------------------------------------------------------------
 const char* Draw2D::m_shader_thermo_v = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
   precision highp float;
-  #endif
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -306,9 +276,7 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
 )GLSL";
 const char* Draw2D::m_shader_thermo_f = R"GLSL(
   #version 330, 300 es
-  #ifdef GL_ES
-    precision highp float;
-  #endif
+  precision highp float;
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
