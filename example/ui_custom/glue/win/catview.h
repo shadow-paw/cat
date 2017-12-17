@@ -5,10 +5,10 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class OSALView {
+class CATView {
 public:
-    OSALView();
-    ~OSALView();
+    CATView();
+    ~CATView();
 
     bool init(const char* title, int width, int height);
     void fini();
@@ -29,7 +29,9 @@ private:
     HGLRC m_gl;
     UINT_PTR m_timer;
     unsigned int m_mouse_capture;
-    static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+private:
+    static bool init_glew();
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

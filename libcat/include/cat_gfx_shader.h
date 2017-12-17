@@ -54,7 +54,8 @@ public:
     void uniform(unsigned int slot, const glm::vec4* v, size_t count) const;
     void uniform(unsigned int slot, const glm::mat4* m, size_t count) const;
 private:
-    GLuint compile(GLenum type, const char* code);
+    GLuint compile(GLenum type, const std::string& code);
+    std::string preprocessor(const std::string& code) const;
 private:
     GLuint m_program, m_vs, m_fs;
     GLint  m_attr[64];

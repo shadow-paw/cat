@@ -1,7 +1,9 @@
 #include "cat_gfx_shader.h"
 #include <string.h>
+#include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 #include "cat_util_log.h"
+#include "cat_util_string.h"
 
 using namespace cat;
 
@@ -55,20 +57,56 @@ void Shader::fini() {
     memset (m_uniform, 0, sizeof(m_uniform));
 }
 // ----------------------------------------------------------------------------
-GLuint Shader::compile(GLenum type, const char* code) {
+GLuint Shader::compile(GLenum type, const std::string& code) {
     GLuint shader = glCreateShader(type);
     if (shader == 0) return 0;
     GLint compiled = 0;
-    glShaderSource(shader, 1, &code, NULL);
+    std::string pp = preprocessor(code);
+    const char* sources[] = { pp.c_str() };
+    glShaderSource(shader, 1, sources, NULL);
     glCompileShader(shader);
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
     if (!compiled) {
         char buf[512];
         glGetShaderInfoLog(shader, sizeof(buf), NULL, buf);
-        Logger::e("shader", "Could not compile shader %d:\n%s\n%s\n", type, buf, code);
+        Logger::e("shader", "Could not compile shader %d:\n%s\n%s\n", type, buf, pp.c_str());
         glDeleteShader(shader);
         shader = 0;
     } return shader;
+}
+// ----------------------------------------------------------------------------
+std::string Shader::preprocessor(const std::string& code) const {
+    const char version_tag[] = "#version ";
+    const size_t version_len = sizeof(version_tag) -1;
+    std::string result;
+    std::istringstream is(code);
+    for (std::string line; std::getline(is, line);) {
+        auto trimmed = StringUtil::trim(line);
+        if (trimmed.compare(0, version_len, version_tag) == 0) {
+            auto versions = StringUtil::split(trimmed.substr(version_len), ",");
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC)
+            if (versions.size() > 0) {
+                result += version_tag + versions[0] + "\n";
+            } else {
+                result += line + "\n";
+            }
+#elif defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID)
+            if (versions.size() > 1) {
+                result += version_tag + versions[1] + "\n";
+            } else if (versions.size() > 0) {
+                result += version_tag + versions[0] + "\n";
+            }
+            } else {
+                result += line + "\n";
+            }
+#else
+    #error Not Implemented!
+#endif
+        } else {
+            result += line + "\n";
+        }
+    }
+    return result;
 }
 // ----------------------------------------------------------------------------
 void Shader::bind() const {

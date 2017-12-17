@@ -33,6 +33,7 @@ private:
     bool m_contextready;
     bool m_dirty;
     int  m_width, m_height;
+    GLuint m_vao;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

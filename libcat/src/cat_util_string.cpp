@@ -1,12 +1,34 @@
 #include "cat_util_string.h"
+#include <algorithm>
+#include <cctype>
 
 using namespace cat;
 
 // ----------------------------------------------------------------------------
 std::string StringUtil::trim(const std::string& s) {
-    auto start = s.find_first_not_of(' ');
-    auto end = s.find_last_not_of(' ');
-    return s.substr(start, end-start+1);
+    std::string result = s;
+    result.erase(result.begin(), std::find_if(result.begin(), result.end(), [](int ch) {
+        return !std::isspace(ch);
+    }));
+    result.erase(std::find_if(result.rbegin(), result.rend(), [](int ch) {
+        return !std::isspace(ch);
+    }).base(), result.end());
+    return result;
+}
+// ----------------------------------------------------------------------------
+std::vector<std::string> StringUtil::split(const std::string& s, const std::string& delimiter, bool should_trim) {
+    std::vector<std::string> result;
+    size_t cursor = 0, pos;
+    while ((pos = s.find(delimiter, cursor)) != std::string::npos) {
+        auto splitted = s.substr(cursor, pos - cursor);
+        if (should_trim) splitted = StringUtil::trim(splitted);
+        if (!splitted.empty()) result.push_back(splitted);
+        cursor = pos +1;
+    }
+    auto splitted = s.substr(cursor);
+    if (should_trim) splitted = StringUtil::trim(splitted);
+    if (!splitted.empty()) result.push_back(splitted);
+    return result;
 }
 // ----------------------------------------------------------------------------
 // Windows

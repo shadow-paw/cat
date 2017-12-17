@@ -38,11 +38,14 @@ void Renderer::context_lost() {
     if (!m_contextready) return;
     m_contextready = false;
     draw2d.fini();
+    glDeleteVertexArrays(1, &m_vao);
 }
 // ----------------------------------------------------------------------------
 bool Renderer::context_restored() {
     if (m_contextready) return true;
     if (!initGL()) return false;
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
     if (!draw2d.init()) return false;
     m_contextready = true;
     resize(m_width, m_height);

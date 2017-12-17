@@ -2,6 +2,7 @@
 #define __CAT_UTIL_UNICODE_H__
 
 #include <string>
+#include <vector>
 #include <functional>
 #include "cat_platform.h"
 
@@ -32,6 +33,12 @@ public:
     //! \param s string to trim
     //! \return string with trimmed space
     static std::string trim(const std::string& s);
+    //! spliy string with delimiter
+    //! \param s string to split
+    //! \param delimiter delimiter, e.g. ","
+    //! \param should_trim true to trim space
+    //! \return vector of splitted string
+    static std::vector<std::string> split(const std::string& s, const std::string& delimiter, bool should_trim = false);
 };
 // ----------------------------------------------------------------------------
 } // namespace cat
