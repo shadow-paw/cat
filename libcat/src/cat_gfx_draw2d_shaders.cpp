@@ -15,9 +15,9 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
     in  lowp vec4 inColor;
     out lowp vec4 vColor;
   #else
-    attribute      vec2 inPosition;
-    attribute      vec4 inColor;
-    varying   lowp vec4 vColor;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    varying   vec4 vColor;
   #endif
   void main() {
       vColor = inColor;
@@ -32,7 +32,7 @@ const char* Draw2D::m_shader_col_f = R"GLSL(
     in  lowp vec4 vColor;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
+    varying vec4 vColor;
   #endif
   void main() {
     #if __VERSION__ >= 140
@@ -57,11 +57,11 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -79,8 +79,8 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
     #if __VERSION__ >= 140
@@ -105,11 +105,11 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -127,8 +127,8 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vec4 c = texture2D(uTex0, vTexcoord.xy);
@@ -155,11 +155,11 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -174,11 +174,11 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
     uniform sampler2D uTex0;
   #if __VERSION__ >= 140
     in  lowp vec4 vColor;
-    int      vec2 vTexcoord;
+    in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vec4 sum = vec4(0.0);
@@ -219,11 +219,11 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -242,8 +242,8 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vec2 p = vTexcoord * 2.0 - 1.0;
@@ -271,11 +271,11 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -294,8 +294,8 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   const float PI = 3.1415926535;
   void main() {
@@ -337,11 +337,11 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -360,8 +360,8 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vec2 uv = vTexcoord.xy;
@@ -401,11 +401,11 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
     out lowp vec4 vColor;
     out      vec2 vTexcoord;
   #else
-    attribute      vec2 inPosition;
-    attribute lowp vec4 inColor;
-    attribute      vec2 inTexcoord;
-    varying   lowp vec4 vColor;
-    varying        vec2 vTexcoord;
+    attribute vec2 inPosition;
+    attribute vec4 inColor;
+    attribute vec2 inTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vColor = inColor;
@@ -424,8 +424,8 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
     in       vec2 vTexcoord;
     out      vec4 oFragColor;
   #else
-    varying lowp vec4 vColor;
-    varying      vec2 vTexcoord;
+    varying vec4 vColor;
+    varying vec2 vTexcoord;
   #endif
   void main() {
       vec2 uv = vTexcoord.xy;

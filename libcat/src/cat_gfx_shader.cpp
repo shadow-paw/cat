@@ -65,7 +65,7 @@ GLuint Shader::compile(GLenum type, const char* code) {
     if (!compiled) {
         char buf[512];
         glGetShaderInfoLog(shader, sizeof(buf), NULL, buf);
-        Logger::e("shader", "Could not compile shader %d:\n%s\n", type, buf);
+        Logger::e("shader", "Could not compile shader %d:\n%s\n%s\n", type, buf, code);
         glDeleteShader(shader);
         shader = 0;
     } return shader;
