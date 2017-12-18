@@ -61,7 +61,7 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
     }
     Shader* shader = new Shader();
     if (m_contextready) {
-        if (!m_vfs->read((name + ".shader").c_str(), buffer)) return nullptr;
+        if (!m_vfs->read(name, buffer)) return nullptr;
         if (!shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) {
             delete shader;
             return nullptr;
@@ -83,7 +83,7 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
 bool ResourceManager::reload_shader(SHADER_DATA* sd, const std::string& name) {
     std::string path(name);
     Buffer buffer;
-    if (!m_vfs->read((path + ".shader").c_str(), buffer)) return false;
+    if (!m_vfs->read(path, buffer)) return false;
     if (!sd->shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) return false;
     // set uniforms and attrs
     sd->shader->bind();
