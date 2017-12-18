@@ -6,7 +6,7 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 TestPane::TestPane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Pane(kernel, rect, id) {
     // use custom shader to draw pane background
-    m_shader = draw2d()->retain_2dshader(kernel->res(), "/assets/shader/test");
+    m_shader = draw2d()->retain_2dshader(kernel->res(), "/assets/shader/fisheye");
 
     const char* ui_image = "/assets/ui/default_ui.png";
     auto button = new Button(kernel, Rect2i((rect.size.width - 120) / 2, (rect.size.height - 40) / 2, 120, 40), 3);

@@ -61,7 +61,7 @@ GLuint Shader::compile(GLenum type, const std::string& code) {
     GLuint shader = glCreateShader(type);
     if (shader == 0) return 0;
     GLint compiled = 0;
-    std::string pp = preprocessor(code);
+    std::string pp = preprocessor(type, code);
     const char* sources[] = { pp.c_str() };
     glShaderSource(shader, 1, sources, NULL);
     glCompileShader(shader);
@@ -75,7 +75,12 @@ GLuint Shader::compile(GLenum type, const std::string& code) {
     } return shader;
 }
 // ----------------------------------------------------------------------------
-std::string Shader::preprocessor(const std::string& code) const {
+std::string Shader::preprocessor(GLenum type, const std::string& code) const {
+    const char* defines = nullptr;
+    switch (type) {
+    case GL_VERTEX_SHADER:   defines = "#define VERTEX_SHADER\n"; break;
+    case GL_FRAGMENT_SHADER: defines = "#define FRAGMENT_SHADER\n"; break;
+    }
     const char version_tag[] = "#version ";
     const size_t version_len = sizeof(version_tag) -1;
     std::string result;
@@ -102,6 +107,8 @@ std::string Shader::preprocessor(const std::string& code) const {
 #else
     #error Not Implemented!
 #endif
+            // inject defines
+            if (defines) result += defines;
         } else {
             result += line + "\n";
         }

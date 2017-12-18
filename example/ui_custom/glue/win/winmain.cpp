@@ -5,7 +5,7 @@ using namespace cat;
 using namespace app;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow) {
-    OSALView* view = new OSALView();
+    CATView* view = new CATView();
     if (!view->init("test", 1280, 720)) {
         delete view;
         return 0;

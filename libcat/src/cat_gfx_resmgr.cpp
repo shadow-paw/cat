@@ -52,7 +52,7 @@ bool ResourceManager::context_restored() {
 }
 // ----------------------------------------------------------------------------
 const Shader* ResourceManager::retain_shader(const std::string& name, const std::unordered_map<int, std::string>& uniforms, const std::unordered_map<int, std::string>& attrs) {
-    Buffer vs, fs;
+    Buffer buffer;
     auto cached = m_shaders.find(name);
     if (cached!=m_shaders.end()) {
         auto& pair = cached->second;
@@ -61,9 +61,8 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
     }
     Shader* shader = new Shader();
     if (m_contextready) {
-        if (!m_vfs->read((name + ".vs").c_str(), vs)) return nullptr;
-        if (!m_vfs->read((name + ".fs").c_str(), fs)) return nullptr;
-        if (!shader->init((const char*)vs.ptr(), (const char*)fs.ptr())) {
+        if (!m_vfs->read((name + ".shader").c_str(), buffer)) return nullptr;
+        if (!shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) {
             delete shader;
             return nullptr;
         }
@@ -83,10 +82,9 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
 // ----------------------------------------------------------------------------
 bool ResourceManager::reload_shader(SHADER_DATA* sd, const std::string& name) {
     std::string path(name);
-    Buffer vs, fs;
-    if (!m_vfs->read((path + ".vs").c_str(), vs)) return false;
-    if (!m_vfs->read((path + ".fs").c_str(), fs)) return false;
-    if (!sd->shader->init((const char*)vs.ptr(), (const char*)fs.ptr())) return false;
+    Buffer buffer;
+    if (!m_vfs->read((path + ".shader").c_str(), buffer)) return false;
+    if (!sd->shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) return false;
     // set uniforms and attrs
     sd->shader->bind();
     for (auto it : sd->uniforms) {
