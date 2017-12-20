@@ -9,7 +9,7 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-#define OSAL_GFX_OFFSETOF(struc,member) ((void*)((size_t) &((struc*)0)->member))
+#define CAT_GFX_OFFSETOF(struc,member) ((void*)((size_t) &((struc*)0)->member))
 class Shader {
 public:
     enum {

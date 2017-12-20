@@ -5,9 +5,10 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 // Plain Color Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_col_v = R"GLSL(
+const char* Draw2D::m_shader_color = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -16,22 +17,21 @@ const char* Draw2D::m_shader_col_v = R"GLSL(
       vColor = inColor;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_col_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   in  vec4 vColor;
   out vec4 oFragColor;
   void main() {
       oFragColor = vColor;
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Simple Texture Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_tex_v = R"GLSL(
+const char* Draw2D::m_shader_tex = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -43,10 +43,7 @@ const char* Draw2D::m_shader_tex_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_tex_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -54,13 +51,15 @@ const char* Draw2D::m_shader_tex_f = R"GLSL(
   void main() {
       oFragColor = vColor * texture(uTex0, vTexcoord);
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Gray Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_gray_v = R"GLSL(
+const char* Draw2D::m_shader_gray = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -72,10 +71,7 @@ const char* Draw2D::m_shader_gray_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_gray_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -85,13 +81,15 @@ const char* Draw2D::m_shader_gray_f = R"GLSL(
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
       oFragColor = vColor * c;
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Blur Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_blur_v = R"GLSL(
+const char* Draw2D::m_shader_blur = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -103,10 +101,7 @@ const char* Draw2D::m_shader_blur_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_blur_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   in      vec4 vColor;
   in      vec2 vTexcoord;
@@ -130,13 +125,15 @@ const char* Draw2D::m_shader_blur_f = R"GLSL(
       sum += texture(uTex0, vTexcoord + vec2(0.0, 0.028))*0.0044299121055113265;
       oFragColor = vColor * sum;
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Ripple Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_ripple_v = R"GLSL(
+const char* Draw2D::m_shader_ripple = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -148,10 +145,7 @@ const char* Draw2D::m_shader_ripple_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_ripple_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -163,13 +157,15 @@ const char* Draw2D::m_shader_ripple_f = R"GLSL(
       vec2 uv = vTexcoord + (p / len)*cos(len*12.0 - uTime*6.2831852)*0.02;
       oFragColor = vColor * texture(uTex0, uv);
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Fish Eye Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_fisheye_v = R"GLSL(
+const char* Draw2D::m_shader_fisheye = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -181,10 +177,7 @@ const char* Draw2D::m_shader_fisheye_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_fisheye_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -210,13 +203,15 @@ const char* Draw2D::m_shader_fisheye_f = R"GLSL(
       }
       oFragColor = vColor * texture(uTex0, uv);
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Dream Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_dream_v = R"GLSL(
+const char* Draw2D::m_shader_dream = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -228,10 +223,7 @@ const char* Draw2D::m_shader_dream_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_dream_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -255,13 +247,15 @@ const char* Draw2D::m_shader_dream_f = R"GLSL(
       c.rgb = vec3(c.r * 0.33 + c.g * 0.59 + c.b * 0.11);
       oFragColor = vColor * c / 14.5;
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------
 // Thermo Shader
 // ----------------------------------------------------------------------------
-const char* Draw2D::m_shader_thermo_v = R"GLSL(
+const char* Draw2D::m_shader_thermo = R"GLSL(
   #version 330, 300 es
   precision highp float;
+#if defined(VERTEX_SHADER)
   uniform vec2 uCenterMultiplier;
   in      vec4 inPosition;
   in      vec4 inColor;
@@ -273,10 +267,7 @@ const char* Draw2D::m_shader_thermo_v = R"GLSL(
       vTexcoord = inTexcoord;
       gl_Position = vec4(inPosition.xy * uCenterMultiplier.xy - 1.0, 0.0, 1.0);
   }
-)GLSL";
-const char* Draw2D::m_shader_thermo_f = R"GLSL(
-  #version 330, 300 es
-  precision highp float;
+#elif defined(FRAGMENT_SHADER)
   uniform sampler2D uTex0;
   uniform float uTime;
   in      vec4 vColor;
@@ -299,5 +290,6 @@ const char* Draw2D::m_shader_thermo_f = R"GLSL(
       }
       oFragColor = vColor * vec4(tc, 1.0);
   }
+#endif
 )GLSL";
 // ----------------------------------------------------------------------------

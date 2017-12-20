@@ -12,8 +12,12 @@ Shader::Shader() {
     m_vs = 0;
     m_fs = 0;
     m_program = 0;
-    memset(m_attr, 0, sizeof(m_attr));
-    memset(m_uniform, 0, sizeof(m_uniform));
+    for (auto&& uniform : m_uniform) {
+        uniform = -1;
+    }
+    for (auto&& attr : m_attr) {
+        attr = -1;
+    }
 }
 // ----------------------------------------------------------------------------
 Shader::~Shader() {
@@ -21,8 +25,12 @@ Shader::~Shader() {
 }
 // ----------------------------------------------------------------------------
 bool Shader::init(const char* vertex_shader, const char* fragment_shader) {
-    memset (m_attr, 0, sizeof(m_attr));
-    memset (m_uniform, 0, sizeof(m_uniform));
+    for (auto&& uniform : m_uniform) {
+        uniform = -1;
+    }
+    for (auto&& attr : m_attr) {
+        attr = -1;
+    }
     GLint status = GL_FALSE;
     if (vertex_shader==nullptr || fragment_shader==nullptr) return false;
     m_vs = compile(GL_VERTEX_SHADER, vertex_shader);
@@ -53,8 +61,12 @@ void Shader::fini() {
     }
     if (m_vs) { glDeleteShader(m_vs); m_vs = 0; }
     if (m_fs) { glDeleteShader(m_fs); m_fs = 0; }
-    memset (m_attr, 0, sizeof(m_attr));
-    memset (m_uniform, 0, sizeof(m_uniform));
+    for (auto&& uniform : m_uniform) {
+        uniform = -1;
+    }
+    for (auto&& attr : m_attr) {
+        attr = -1;
+    }
 }
 // ----------------------------------------------------------------------------
 GLuint Shader::compile(GLenum type, const std::string& code) {

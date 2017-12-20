@@ -10,7 +10,7 @@ Pane::Pane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kern
     m_draggable = false;
     m_dragging = false;
     m_bounded = false;
-    m_effect = Draw2D::Effect::None;
+    m_effect = Draw2D::Effect::Tex;
     m_clipping = true;
 }
 // ----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ bool Pane::cb_timer(Timestamp now, int code) {
 }
 // ----------------------------------------------------------------------------
 void Pane::cb_render(Renderer* r, Timestamp now) {
-    if (m_effect != Draw2D::Effect::None) {
+    if (m_effect != Draw2D::Effect::Tex) {
         kernel()->ui()->capture(m_effect_tex, m_absrect);
         r->draw2d.fill(m_absrect, apply_opacity(0xffffffff), &m_effect_tex, now, m_effect);
         r->dirty();

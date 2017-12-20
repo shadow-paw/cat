@@ -22,9 +22,8 @@ std::unordered_map<int, std::string> Draw2D::s_attrs = {
 };
 // ----------------------------------------------------------------------------
 Draw2D::Draw2D() {
-    m_shader_col = nullptr;
-    for (int i = 0; i<sizeof(m_shaders)/sizeof(m_shaders[0]); i++) {
-        m_shaders[i] = nullptr;
+    for (auto&& shader: m_shaders) {
+        shader = nullptr;
     }
     m_width = m_height = m_scaled_height = 1;
     m_scale = 1.0f;
@@ -40,48 +39,39 @@ Draw2D::~Draw2D() {
 }
 // ----------------------------------------------------------------------------
 bool Draw2D::init() {
-    struct {
-        const char *vs, *fs;
-    } shaders[sizeof(m_shaders)/sizeof(m_shaders[0])];
-    shaders[Effect::None]    = { m_shader_tex_v,     m_shader_tex_f };
-    shaders[Effect::Gray]    = { m_shader_gray_v,    m_shader_gray_f };
-    shaders[Effect::Blur]    = { m_shader_blur_v,    m_shader_blur_f };
-    shaders[Effect::Ripple]  = { m_shader_ripple_v,  m_shader_ripple_f };
-    shaders[Effect::Fisheye] = { m_shader_fisheye_v, m_shader_fisheye_f };
-    shaders[Effect::Dream]   = { m_shader_dream_v,   m_shader_dream_f };
-    shaders[Effect::Thermo]  = { m_shader_thermo_v,  m_shader_thermo_f };
-    if (!m_vbo.init(54 * sizeof(Vertex2f), true)) goto fail;
-    // Plain Color shader
-    m_shader_col = new Shader();
-    if (!m_shader_col) goto fail;
-    if (!m_shader_col->init(m_shader_col_v, m_shader_col_f)) goto fail;
-    m_shader_col->bind();
-    for (auto& kv: s_uniforms) {
-        m_shader_col->bind_uniform(kv.first, kv.second);
-    }
-    for (auto& kv : s_attrs) {
-        m_shader_col->bind_attr(kv.first, kv.second);
-    }
-    m_shader_col->unbind();
+    std::unordered_map<Effect,std::string> sources = {
+        {Effect::Color, m_shader_color},
+        {Effect::Tex, m_shader_tex},
+        {Effect::Gray, m_shader_gray},
+        {Effect::Blur, m_shader_blur},
+        {Effect::Ripple, m_shader_ripple},
+        {Effect::Fisheye, m_shader_fisheye},
+        {Effect::Dream, m_shader_dream},
+        {Effect::Thermo, m_shader_thermo}
+    };
     // Texture Shaders
-    for (int i = 0; i<sizeof(shaders)/sizeof(shaders[0]); i++) {
-        m_shaders[i] = new Shader();
-        if (!m_shaders[i]) goto fail;
-        if (!m_shaders[i]->init(shaders[i].vs, shaders[i].fs)) {
-            Logger::e("gfx", "Failed to compile builtin shader %d", i);
-            delete m_shaders[i];
-            m_shaders[i] = nullptr;
+    for (auto it=sources.begin(); it!=sources.end(); ++it) {
+        const auto& effect = it->first;
+        const auto& source = it->second;
+
+        Shader* shader = new Shader();
+        if (!shader) goto fail;
+        if (!shader->init(source.c_str(), source.c_str())) {
+            Logger::e("gfx", "Failed to compile builtin shader effect = %d", effect);
+            delete shader;
             continue;
         }
-        m_shaders[i]->bind();
+        shader->bind();
         for (auto& kv : s_uniforms) {
-            m_shaders[i]->bind_uniform(kv.first, kv.second);
+            shader->bind_uniform(kv.first, kv.second);
         }
         for (auto& kv : s_attrs) {
-            m_shaders[i]->bind_attr(kv.first, kv.second);
+            shader->bind_attr(kv.first, kv.second);
         }
-        m_shaders[i]->unbind();
+        shader->unbind();
+        m_shaders[effect] = shader;
     }
+    if (!m_vbo.init(54 * sizeof(Vertex2f), true)) goto fail;
     // Text
     m_drawable[0].resize(kTextTextureWidth, kTextTextureHeight);
     return true;
@@ -92,11 +82,10 @@ fail:
 // ----------------------------------------------------------------------------
 void Draw2D::fini() {
     m_width = m_height = 0;
-    if (m_shader_col) { delete m_shader_col; m_shader_col = nullptr; }
-    for (int i = 0; i<sizeof(m_shaders) / sizeof(m_shaders[0]); i++) {
-        if (m_shaders[i]) { delete m_shaders[i]; m_shaders[i] = nullptr; }
-    }
     m_vbo.fini();
+    for (auto&& shader : m_shaders) {
+        if (shader) { delete shader; shader = nullptr; }
+    }
     // Text
     m_texts.clear();
     for (int i = 0; i < kTextTextureMax; i++) {
@@ -137,16 +126,18 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
         glEnable(GL_SCISSOR_TEST);
         glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
     }
-    m_shader_col->bind();
+
+    auto& shader = m_shaders[Effect::Color];
     m_vbo.bind();
-    m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-    m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
-    m_shader_col->draw(Shader::kLine, 0, 2);
-    m_shader_col->clr_attr(in_Color);
-    m_shader_col->clr_attr(in_Position);
+    shader->bind();
+    shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->draw(Shader::kLine, 0, 2);
+    shader->clr_attr(in_Color);
+    shader->clr_attr(in_Position);
+    shader->unbind();
     m_vbo.unbind();
-    m_shader_col->unbind();
     if (m_uniforms.clipping.enabled) {
         glDisable(GL_SCISSOR_TEST);
     }
@@ -169,16 +160,18 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
         glEnable(GL_SCISSOR_TEST);
         glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
     }
-    m_shader_col->bind();
+
+    auto& shader = m_shaders[Effect::Color];
     m_vbo.bind();
-    m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-    m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
-    m_shader_col->draw(Shader::kLineLoop, 0, 4);
-    m_shader_col->clr_attr(in_Color);
-    m_shader_col->clr_attr(in_Position);
+    shader->bind();
+    shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->draw(Shader::kLineLoop, 0, 4);
+    shader->clr_attr(in_Color);
+    shader->clr_attr(in_Position);
+    shader->unbind();
     m_vbo.unbind();
-    m_shader_col->unbind();
     if (m_uniforms.clipping.enabled) {
         glDisable(GL_SCISSOR_TEST);
     }
@@ -201,16 +194,18 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
         glEnable(GL_SCISSOR_TEST);
         glScissor(m_uniforms.clipping.x, m_uniforms.clipping.y, m_uniforms.clipping.w, m_uniforms.clipping.h);
     }
-    m_shader_col->bind();
+
+    auto& shader = m_shaders[Effect::Color];
     m_vbo.bind();
-    m_shader_col->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
-    m_shader_col->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-    m_shader_col->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
-    m_shader_col->draw(Shader::kTriangleFan, 0, 4);
-    m_shader_col->clr_attr(in_Color);
-    m_shader_col->clr_attr(in_Position);
+    shader->bind();
+    shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->draw(Shader::kTriangleFan, 0, 4);
+    shader->clr_attr(in_Color);
+    shader->clr_attr(in_Position);
+    shader->unbind();
     m_vbo.unbind();
-    m_shader_col->unbind();
     if (m_uniforms.clipping.enabled) {
         glDisable(GL_SCISSOR_TEST);
     }
@@ -252,9 +247,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
         shader->uniform(u_Tex0, 0);
         shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
-        shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-        shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, u));
-        shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
+        shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+        shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
+        shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
         shader->draw(Shader::kTriangleStrip, 0, 4);
         shader->clr_attr(in_Color);
         shader->clr_attr(in_Texcoord);
@@ -304,9 +299,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
-            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, u));
-            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
+            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
+            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
             shader->draw(Shader::kTriangleStrip, 0, 4);
             shader->clr_attr(in_Color);
             shader->clr_attr(in_Texcoord);
@@ -416,9 +411,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             shader->uniform(u_CenterMultiplier, m_uniforms.center_multiplier);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
-            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, x));
-            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, u));
-            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), OSAL_GFX_OFFSETOF(Vertex2f, color));
+            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
+            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
+            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
             shader->draw(Shader::kTriangles, 0, 54);
             shader->clr_attr(in_Color);
             shader->clr_attr(in_Texcoord);
@@ -528,7 +523,7 @@ void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextSty
             } else if (style.gravity & TextStyle::Gravity::CenterVertical) {
                 rc.origin.y = rect.origin.y + (rect.size.height - rc.size.height) / 2;
             } else rc.origin.y = rect.origin.y + style.padding_y;
-            fill(rc, 0xffffff | ((uint32_t)(255*opacity)<<24), entry.texref, 0, Effect::None);
+            fill(rc, 0xffffff | ((uint32_t)(255*opacity)<<24), entry.texref, 0, Effect::Tex);
         }
         return;
     }
