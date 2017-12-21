@@ -103,10 +103,10 @@ void Widget::set_pos(const Point2i& pos) {
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(int width, int height) {
-    m_rect.size.width = width;
-    m_rect.size.height = height;
-    m_absrect.size.width = width;
-    m_absrect.size.height = height;
+    m_rect.size.width = width & 0xfffffffe;
+    m_rect.size.height = height & 0xfffffffe;
+    m_absrect.size.width = m_rect.size.width;
+    m_absrect.size.height = m_rect.size.height;
     cb_resize();
     dirty();
 }
