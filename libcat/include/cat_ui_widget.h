@@ -26,7 +26,7 @@ public:
         OpacityAnimator opacity;
     } animators;
 
-    Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Widget(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Widget();
 
     // ------------------------------------------------------------------ Size and Position
@@ -76,13 +76,15 @@ protected:
     virtual bool cb_timer(Timestamp now, int code) { return false; }
     virtual bool cb_touch(const TouchEvent& ev, bool handled) { return false; }
     virtual void cb_render(Renderer* r, Timestamp now) {}
+    virtual void cb_context_lost() {}
+    virtual bool cb_context_restored() { return true; }
 
 protected:  // Helper function for widget
     void update_absrect();
     void update_absopacity(float parent_absopacity);
     void post_timer(Timestamp delay, int code);
     void remove_timer();
-    void capture(Texture& tex, const Rect2i& rect);
+    void capture(Texture* tex, const Rect2i& rect);
     uint32_t apply_opacity(uint32_t color) const;
 
 protected:
@@ -97,6 +99,8 @@ protected:
     std::vector<TextureRef> m_texrefs;
 private:
     // called from UISystem or internal signal propagate
+    void context_lost();
+    bool context_restored();
     void render(Renderer* r, Timestamp now);
     bool touch(const TouchEvent& ev, bool handled);
     void notify_uiscaled();

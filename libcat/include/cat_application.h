@@ -25,8 +25,8 @@ protected:
     virtual void cb_shutdown(Timestamp now) = 0;
     virtual void cb_pause() = 0;
     virtual void cb_resume() = 0;
-    virtual bool cb_context_lost() = 0;
-    virtual void cb_context_restored() = 0;
+    virtual void cb_context_lost() = 0;
+    virtual bool cb_context_restored() = 0;
     virtual void cb_resize(int width, int height) = 0;
     virtual void cb_render(Renderer* r, Timestamp now) = 0;
     virtual bool cb_timer(Timestamp now, int msg) = 0;

@@ -4,7 +4,7 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Button::Button(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Label(kernel, rect, id) {
+Button::Button(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Label(kernel_api, rect, id) {
     m_texrefs.resize(3);
     m_textstyle.appearance = TextStyle::Appearance::Bold | TextStyle::Appearance::Shadow;
     m_textstyle.gravity = TextStyle::Gravity::CenterHorizontal | TextStyle::Gravity::CenterVertical;

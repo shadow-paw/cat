@@ -15,7 +15,7 @@ public:
     // Event Handlers
     UIHandler<bool> ev_check;
 
-    Button(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Button(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Button();
 
     void set_checkable(bool b) { m_checkable = b; }

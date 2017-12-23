@@ -55,7 +55,7 @@ bool BootApp::cb_startup(Timestamp now) {
     edit->set_textsize(10);
     pane1->attach(edit);    // NOTE: editbox will always be topmost
 
-    auto testpane = new TestPane(kernel(), Rect2i(350, 50, 400, 400), 4);
+    auto testpane = new TestPane(kernel(), Rect2i(350, 50, 512, 512), 4);
     testpane->set_bgcolor(0x80ffffff);
     testpane->set_draggable(true);
     testpane->set_bounded(true);
@@ -100,16 +100,16 @@ void BootApp::cb_shutdown(Timestamp now) {
 // you should release any manual created gfx resources here.
 // resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-bool BootApp::cb_context_lost() {
+void BootApp::cb_context_lost() {
     Logger::d("App", "cb_context_lost");
-    return true;
 }
 // cb_context_restored is called when the GL context is restored
 // you should reload any manual created gfx resources here.
 // resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-void BootApp::cb_context_restored() {
+bool BootApp::cb_context_restored() {
     Logger::d("App", "cb_context_restored");
+    return true;
 }
 // cb_resize is called when the screen is resized, you may adjust ui scale here
 // ----------------------------------------------------------------------------

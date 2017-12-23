@@ -11,7 +11,7 @@ class Pane : public Widget {
 public:
     static const int TexBackground = 0;
 
-    Pane(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Pane(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Pane();
 
     void set_draggable(bool b) { m_draggable = b; }

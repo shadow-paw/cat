@@ -10,7 +10,7 @@ class Label: public Widget {
 public:
     static const int TexBackground = 0;
 
-    Label(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Label(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Label();
 
     void             set_text(const std::string& s) { m_text = s; }

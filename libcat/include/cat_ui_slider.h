@@ -15,7 +15,7 @@ public:
     // Event Handlers
     UIHandler<int> ev_slide;
 
-    Slider(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Slider(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Slider();
 
     void       set_orentation(Orentation o);

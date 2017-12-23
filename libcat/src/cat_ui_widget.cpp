@@ -9,8 +9,8 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Widget::Widget(KernelApi* kernel, const Rect2i& rect, unsigned int id) : animators(this) {
-    m_kernel = kernel;
+Widget::Widget(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : animators(this) {
+    m_kernel = kernel_api;
     m_parent = nullptr;
     m_id = id;
     m_bgcolor = 0xffffffff;
@@ -39,6 +39,8 @@ bool Widget::attach(Widget* child) {
     child->m_parent = this;
     m_childs.push_back(child);
     update_absrect();
+    // sync context state
+    if (m_kernel->renderer()->ready()) child->context_restored();
     // If visibility changed
     bool visible = child->is_visible();
     for (auto parent = this; parent; parent = parent->m_parent) {
@@ -165,6 +167,21 @@ void Widget::set_texture(unsigned int index, const char* name, int u0, int v0, i
     dirty();
 }
 // ----------------------------------------------------------------------------
+void Widget::context_lost() {
+    for (auto& child : m_childs) {
+        child->context_lost();
+    } cb_context_lost();
+}
+// ----------------------------------------------------------------------------
+bool Widget::context_restored() {
+    bool result = false;
+    for (auto& child : m_childs) {
+        result |= child->context_restored();
+    }
+    result |= cb_context_restored();
+    return result;
+}
+// ----------------------------------------------------------------------------
 void Widget::notify_uiscaled() {
     for (auto& child : m_childs) {
         child->notify_uiscaled();
@@ -221,7 +238,7 @@ void Widget::remove_timer() {
     m_kernel->time()->remove_timer(this);
 }
 // ----------------------------------------------------------------------------
-void Widget::capture(Texture& tex, const Rect2i& rect) {
+void Widget::capture(Texture* tex, const Rect2i& rect) {
     m_kernel->ui()->capture(tex, rect);
 }
 // ----------------------------------------------------------------------------

@@ -47,6 +47,7 @@ void Kernel::shutdown() {
 }
 // ----------------------------------------------------------------------------
 void Kernel::context_lost() {
+    m_ui.context_lost();
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     for (auto& app : m_apps) {
         app->cb_context_lost();
@@ -61,7 +62,9 @@ bool Kernel::context_restored() {
     m_res.context_restored();
     for (auto& app : m_apps) {
         app->cb_context_restored();
-    } return true;
+    }
+    m_ui.context_restored();
+    return true;
 }
 // ----------------------------------------------------------------------------
 void Kernel::pause() {

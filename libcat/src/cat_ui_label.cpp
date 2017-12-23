@@ -4,7 +4,7 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Label::Label(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
+Label::Label(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(1);
     // m_textstyle.gravity = TextStyle::Gravity::CenterHorizontal | TextStyle::Gravity::CenterVertical;
 }

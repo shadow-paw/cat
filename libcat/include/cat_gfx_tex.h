@@ -9,6 +9,7 @@
 namespace cat {
 // ----------------------------------------------------------------------------
 class Texture {
+friend class FBO;
 public:
     enum Format {
         RGB,

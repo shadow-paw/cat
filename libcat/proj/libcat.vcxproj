@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_data_buffer.cpp" />
+    <ClCompile Include="..\src\cat_gfx_fbo.cpp" />
     <ClCompile Include="..\src\cat_kernel.cpp" />
     <ClCompile Include="..\src\cat_net_http.cpp" />
     <ClCompile Include="..\src\cat_net_service.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="..\include\cat_data_emitter.h" />
     <ClInclude Include="..\include\cat_data_observable.h" />
     <ClInclude Include="..\include\cat_data_uniqueid.h" />
+    <ClInclude Include="..\include\cat_gfx_fbo.h" />
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
     <ClInclude Include="..\include\cat_ui_animator.h" />

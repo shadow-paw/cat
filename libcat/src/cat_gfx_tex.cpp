@@ -38,10 +38,6 @@ bool Texture::update(Texture::Format format, int width, int height, const void* 
     }
     if (m_tex == 0) glGenTextures(1, &m_tex);
     bind(0);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, antialias?GL_LINEAR:GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, antialias?GL_LINEAR:GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     if ((m_width!=width || m_height!=height) || !pixel) {
         glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, src_format, GL_UNSIGNED_BYTE, pixel);
         m_width = width;
@@ -49,6 +45,10 @@ bool Texture::update(Texture::Format format, int width, int height, const void* 
     } else {
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, src_format, GL_UNSIGNED_BYTE, pixel);
     }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, antialias ? GL_LINEAR : GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, antialias ? GL_LINEAR : GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     unbind(0);
     return true;
 }

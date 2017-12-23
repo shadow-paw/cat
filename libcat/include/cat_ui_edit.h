@@ -9,7 +9,7 @@ class Editbox : public Widget {
 public:
     static const int TexBackground = 0;
 
-    Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id = 0);
+    Editbox(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~Editbox();
 
     void             set_text(const std::string& s);

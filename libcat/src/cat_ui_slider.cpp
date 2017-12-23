@@ -4,7 +4,7 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Slider::Slider(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
+Slider::Slider(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(2);
     m_orentation = Orentation::Horizontal;
     m_min = m_max = m_pos = 0;

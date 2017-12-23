@@ -18,6 +18,14 @@ UIService::~UIService() {
     m_kernel = nullptr;
 }
 // ----------------------------------------------------------------------------
+void UIService::context_lost() {
+    m_desktop->context_lost();
+}
+// ----------------------------------------------------------------------------
+bool UIService::context_restored() {
+    return m_desktop->context_restored();
+}
+// ----------------------------------------------------------------------------
 void UIService::resize(int width, int height) {
     m_width = width;
     m_height = height;
@@ -50,12 +58,12 @@ void UIService::detach(Widget* w) {
     m_desktop->detach(w);
 }
 // ----------------------------------------------------------------------------
-void UIService::capture(Texture& tex, const Rect2i& rect) {
+void UIService::capture(Texture* tex, const Rect2i& rect) {
     Rect2i screen_rect;
     screen_rect.origin.x = (int)(rect.origin.x * m_scale);
     screen_rect.origin.y = (int)(m_height - (rect.origin.y + rect.size.height) * m_scale);
     screen_rect.size.width = (int)(rect.size.width * m_scale);
     screen_rect.size.height = (int)(rect.size.height * m_scale);
-    tex.capture_screen(screen_rect);
+    tex->capture_screen(screen_rect);
 }
 // ----------------------------------------------------------------------------

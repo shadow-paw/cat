@@ -188,10 +188,10 @@
     <ClInclude Include="..\src\testpane.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shader\fisheye.shader" />
+    <Image Include="..\assets\ui\default_ui.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\assets\ui\default_ui.png" />
+    <None Include="..\assets\shader\custom.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
