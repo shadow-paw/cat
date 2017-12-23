@@ -163,6 +163,9 @@
     <ClInclude Include="..\include\cat_gfx_fbo.h">
       <Filter>libcat\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_ui_effectview.h">
+      <Filter>libcat\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
@@ -254,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_gfx_fbo.cpp">
       <Filter>libcat\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_ui_effectview.cpp">
+      <Filter>libcat\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

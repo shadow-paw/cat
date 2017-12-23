@@ -38,6 +38,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_ui_label.cpp \
                 ../../src/cat_ui_button.cpp \
                 ../../src/cat_ui_slider.cpp \
+                ../../src/cat_ui_effectview.cpp \
                 ../../src/cat_ui_edit.cpp
 
 include $(BUILD_STATIC_LIBRARY)

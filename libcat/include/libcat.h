@@ -31,5 +31,6 @@
 #include "cat_ui_button.h"
 #include "cat_ui_slider.h"
 #include "cat_ui_edit.h"
+#include "cat_ui_effectview.h"
 
 #endif

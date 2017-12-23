@@ -63,6 +63,16 @@ bool BootApp::cb_startup(Timestamp now) {
     pane2->set_draggable(true);
     kernel()->ui()->attach(pane2);
 
+    auto pane3 = new Pane(kernel(), Rect2i(100, 210, 400, 300));
+    pane3->set_bgcolor(0x20ffffff);
+    pane3->set_bounded(true);
+    pane3->set_draggable(true);
+    auto effectview = new EffectView(kernel(), Rect2i(0, 0, 400, 300));
+    effectview->set_effect(Draw2D::Effect::Blur, 8);
+    effectview->set_bgcolor(0xffffffff);
+    pane3->attach(effectview);
+    kernel()->ui()->attach(pane3);
+
     m_pane = new Pane(kernel(), Rect2i(400, 200, 500, 500));
     m_pane->set_bgcolor(0x80ffffff);
     m_pane->set_bgeffect(Draw2D::Effect::Blur);

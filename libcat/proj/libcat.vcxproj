@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\cat_net_http.cpp" />
     <ClCompile Include="..\src\cat_net_service.cpp" />
     <ClCompile Include="..\src\cat_ui_animator.cpp" />
+    <ClCompile Include="..\src\cat_ui_effectview.cpp" />
     <ClCompile Include="..\src\cat_util_jni.cpp" />
     <ClCompile Include="..\src\cat_util_log.cpp" />
     <ClCompile Include="..\src\cat_gfx_renderer.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
     <ClInclude Include="..\include\cat_ui_animator.h" />
+    <ClInclude Include="..\include\cat_ui_effectview.h" />
     <ClInclude Include="..\include\cat_ui_interpolator.h" />
     <ClInclude Include="..\include\libcat.h" />
     <ClInclude Include="..\include\cat_platform.h" />
