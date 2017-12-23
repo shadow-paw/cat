@@ -218,12 +218,12 @@ void HttpManager::poll() {
     list.swap(m_completed);
     lock.unlock();
     for (auto it = list.begin(); it != list.end(); ++it) {
-        it->cb(it->response);
+        it->cb(std::move(it->response));
         m_unique.release(it->id, TimeService::now());
     }
 }
 // ----------------------------------------------------------------------------
-HTTP_ID HttpManager::fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb) {
+HTTP_ID HttpManager::fetch(HttpRequest&& request, std::function<void(HttpResponse&&)> cb) {
     HTTP_ID http_id = m_unique.fetch(TimeService::now());
     HttpConnection conn;
     conn.state = HttpConnection::State::CREATED;

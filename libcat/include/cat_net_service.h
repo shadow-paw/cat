@@ -18,7 +18,7 @@ public:
     //! \param cb Callback upon complete/failure, will be invoked from main thread
     //! \return HTTP id used for cancallation
     //! \sa HttpRequest, cancel
-    HTTP_ID http_fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb);
+    HTTP_ID http_fetch(HttpRequest&& request, std::function<void(HttpResponse&&)> cb);
     //! Cancel an HTTP session
     //! \param http_id HTTP id obtained from fetch
     //! \return true if cancelled, false if cannot be cancelled

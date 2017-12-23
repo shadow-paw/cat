@@ -21,7 +21,7 @@ void NetService::poll() {
     m_http.poll();
 }
 // ----------------------------------------------------------------------------
-HTTP_ID NetService::http_fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb) {
+HTTP_ID NetService::http_fetch(HttpRequest&& request, std::function<void(HttpResponse&&)> cb) {
     return m_http.fetch(std::move(request), cb);
 }
 // ----------------------------------------------------------------------------

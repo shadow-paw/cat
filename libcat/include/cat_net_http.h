@@ -116,7 +116,7 @@ public:
     //! \param cb Callback upon complete/failure, will be invoked from main thread
     //! \return HTTP id used for cancallation
     //! \sa HttpRequest, cancel
-    HTTP_ID fetch(HttpRequest&& request, std::function<void(const HttpResponse&)> cb);
+    HTTP_ID fetch(HttpRequest&& request, std::function<void(HttpResponse&&)> cb);
     //! Cancel an HTTP session
     //! \param http_id HTTP id obtained from fetch
     //! \return true if cancelled, false if cannot be cancelled
@@ -136,7 +136,7 @@ private:
         enum State { INVALID, CREATED, PROGRESS, COMPLETED, CANCELLED, FAILED };
         HTTP_ID id;
         State   state;
-        std::function<void(const HttpResponse&)> cb;
+        std::function<void(HttpResponse&&)> cb;
         HttpRequest  request;
         HttpResponse response;
 
