@@ -27,10 +27,18 @@
 		3E15D9041F8A3565004EC94C /* cat_gfx_draw2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8FA1F8A3565004EC94C /* cat_gfx_draw2d.h */; };
 		3E15D9051F8A3565004EC94C /* cat_gfx_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8FB1F8A3565004EC94C /* cat_gfx_type.h */; };
 		3E15D9061F8A3565004EC94C /* cat_gfx_drawable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E15D8FC1F8A3565004EC94C /* cat_gfx_drawable.h */; };
+		3E17C4501FEE61B700AA3E36 /* cat_gfx_fbo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */; };
+		3E17C4521FEE61C100AA3E36 /* cat_gfx_fbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */; };
+		3E17C4531FEE61D400AA3E36 /* cat_gfx_fbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */; };
+		3E17C4541FEE61E000AA3E36 /* cat_gfx_fbo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */; };
+		3E2B721E1FEE6212009A5B6F /* cat_ui_effectview.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */; };
+		3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */; };
 		3E92B6DC1F8B883F00614529 /* cat_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */; };
 		3E92B6DE1F8B886000614529 /* cat_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */; };
 		3E92B6DF1F8B888F00614529 /* cat_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */; };
 		3E92B6E01F8B889C00614529 /* cat_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */; };
+		3E94E4421FEE773700C419EC /* cat_ui_effectview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */; };
+		3E94E4431FEE774300C419EC /* cat_ui_effectview.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */; };
 		3E9EB4551FB726EF00BFF6DD /* cat_net_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9EB4521FB726EE00BFF6DD /* cat_net_service.cpp */; };
 		3E9EB4561FB726EF00BFF6DD /* cat_net_http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9EB4531FB726EE00BFF6DD /* cat_net_http.cpp */; };
 		3E9EB4571FB726EF00BFF6DD /* cat_util_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9EB4541FB726EE00BFF6DD /* cat_util_string.cpp */; };
@@ -169,6 +177,10 @@
 		3E15D8FA1F8A3565004EC94C /* cat_gfx_draw2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_draw2d.h; path = ../include/cat_gfx_draw2d.h; sourceTree = "<group>"; };
 		3E15D8FB1F8A3565004EC94C /* cat_gfx_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_type.h; path = ../include/cat_gfx_type.h; sourceTree = "<group>"; };
 		3E15D8FC1F8A3565004EC94C /* cat_gfx_drawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_drawable.h; path = ../include/cat_gfx_drawable.h; sourceTree = "<group>"; };
+		3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_fbo.h; path = ../include/cat_gfx_fbo.h; sourceTree = "<group>"; };
+		3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_fbo.cpp; path = ../src/cat_gfx_fbo.cpp; sourceTree = "<group>"; };
+		3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_effectview.h; path = ../include/cat_ui_effectview.h; sourceTree = "<group>"; };
+		3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_ui_effectview.cpp; path = ../src/cat_ui_effectview.cpp; sourceTree = "<group>"; };
 		3E8636FC1F77544B00A97811 /* libcat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8D7D401F8A36BF00F91EDF /* cat_gfx_ibo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_ibo.cpp; path = ../src/cat_gfx_ibo.cpp; sourceTree = "<group>"; };
 		3E8D7D411F8A36BF00F91EDF /* cat_gfx_vbo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_vbo.cpp; path = ../src/cat_gfx_vbo.cpp; sourceTree = "<group>"; };
@@ -316,6 +328,8 @@
 				3EBBA7FA1F8D32230053D8AE /* cat_ui_pane.cpp */,
 				3EBBA7EB1F8D321A0053D8AE /* cat_ui_slider.h */,
 				3EBBA7F61F8D32220053D8AE /* cat_ui_slider.cpp */,
+				3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */,
+				3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */,
 				3EBBA7EA1F8D321A0053D8AE /* cat_ui_widget.h */,
 				3EBBA7FB1F8D32230053D8AE /* cat_ui_widget.cpp */,
 			);
@@ -350,6 +364,8 @@
 		3ED4FEA11F89EBA400D299B6 /* gfx */ = {
 			isa = PBXGroup;
 			children = (
+				3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */,
+				3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */,
 				3E15D8FB1F8A3565004EC94C /* cat_gfx_type.h */,
 				3ED4FE8F1F89EB8800D299B6 /* cat_gfx_renderer.h */,
 				3ECE1B011F8A3895009D9088 /* cat_gfx_renderer.cpp */,
@@ -425,6 +441,7 @@
 				3ED4FEA91F89EC9600D299B6 /* cat_gfx_renderer.h in Headers */,
 				3ED3FD901F8A3FC6007BE517 /* cat_gfx_ibo.h in Headers */,
 				3ED3FD911F8A3FC6007BE517 /* cat_gfx_vbo.h in Headers */,
+				3E17C4541FEE61E000AA3E36 /* cat_gfx_fbo.h in Headers */,
 				3ED3FD921F8A3FC6007BE517 /* cat_gfx_tex.h in Headers */,
 				3ED3FD931F8A3FC6007BE517 /* cat_gfx_texref.h in Headers */,
 				3ED3FD941F8A3FC6007BE517 /* cat_gfx_shader.h in Headers */,
@@ -449,6 +466,7 @@
 				3EBBA80B1F8D32BC0053D8AE /* cat_ui_label.h in Headers */,
 				3EBBA80A1F8D32BC0053D8AE /* cat_ui_button.h in Headers */,
 				3EBBA80D1F8D32BD0053D8AE /* cat_ui_slider.h in Headers */,
+				3E94E4431FEE774300C419EC /* cat_ui_effectview.h in Headers */,
 				3EEB67B61F8FD0F70009C6FC /* cat_ui_edit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +483,7 @@
 				3EEE39851F8CC05500DF9B90 /* cat_application.h in Headers */,
 				3E9EB45E1FB7271900BFF6DD /* cat_util_string.h in Headers */,
 				3EAED9671F8FCF1B00E0B461 /* cat_util_jni.h in Headers */,
+				3E2B721E1FEE6212009A5B6F /* cat_ui_effectview.h in Headers */,
 				3E15D8FF1F8A3565004EC94C /* cat_util_log.h in Headers */,
 				3E15D9051F8A3565004EC94C /* cat_gfx_type.h in Headers */,
 				3ED4FE961F89EB8900D299B6 /* cat_gfx_renderer.h in Headers */,
@@ -494,6 +513,7 @@
 				3E124E661FDD270500C60C65 /* cat_ui_animator.h in Headers */,
 				3E124E671FDD270500C60C65 /* cat_ui_interpolator.h in Headers */,
 				3EBBA7F11F8D321A0053D8AE /* cat_ui_widget.h in Headers */,
+				3E17C4501FEE61B700AA3E36 /* cat_gfx_fbo.h in Headers */,
 				3EBBA7F01F8D321A0053D8AE /* cat_ui_pane.h in Headers */,
 				3E9EB45F1FB7271900BFF6DD /* cat_net_http.h in Headers */,
 				3EBBA7F31F8D321A0053D8AE /* cat_ui_label.h in Headers */,
@@ -583,6 +603,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E94E4421FEE773700C419EC /* cat_ui_effectview.cpp in Sources */,
 				3E9EB4621FB762F300BFF6DD /* cat_net_http.cpp in Sources */,
 				3E9EB4631FB762F300BFF6DD /* cat_net_service.cpp in Sources */,
 				3ED4FEA21F89EC8700D299B6 /* cat_kernel.cpp in Sources */,
@@ -592,6 +613,7 @@
 				3ED3FD841F8A3F8B007BE517 /* cat_gfx_renderer.cpp in Sources */,
 				3ED3FD851F8A3F8B007BE517 /* cat_gfx_ibo.cpp in Sources */,
 				3ED3FD861F8A3F8B007BE517 /* cat_gfx_vbo.cpp in Sources */,
+				3E17C4531FEE61D400AA3E36 /* cat_gfx_fbo.cpp in Sources */,
 				3ED3FD871F8A3F8B007BE517 /* cat_gfx_tex.cpp in Sources */,
 				3ED3FD881F8A3F8B007BE517 /* cat_gfx_shader.cpp in Sources */,
 				3EAED9741F8FCF9A00E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
@@ -628,6 +650,8 @@
 				3EAED9731F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
 				3ECE1B031F8A391C009D9088 /* cat_gfx_ibo.cpp in Sources */,
 				3ECE1B041F8A391C009D9088 /* cat_gfx_vbo.cpp in Sources */,
+				3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */,
+				3E17C4521FEE61C100AA3E36 /* cat_gfx_fbo.cpp in Sources */,
 				3ECE1B051F8A391C009D9088 /* cat_gfx_tex.cpp in Sources */,
 				3ECE1B061F8A391C009D9088 /* cat_gfx_shader.cpp in Sources */,
 				3ECE1B071F8A391C009D9088 /* cat_gfx_drawable.cpp in Sources */,

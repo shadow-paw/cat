@@ -10,6 +10,7 @@
 #include "cat_gfx_type.h"
 #include "cat_gfx_shader.h"
 #include "cat_gfx_vbo.h"
+#include "cat_gfx_fbo.h"
 #include "cat_gfx_tex.h"
 #include "cat_gfx_texref.h"
 #include "cat_gfx_drawable.h"
@@ -46,6 +47,8 @@ public:
     // clipping
     void clipping_push(const Rect2i& rect);
     void clipping_pop();
+    // render to texture
+    void target(Texture* tex);
     // Load compatible shader
     const Shader* retain_2dshader(ResourceManager* res, const std::string& name);
     void          release_2dshader(ResourceManager* res, const Shader* shader);
@@ -65,6 +68,10 @@ private:
     int		m_width, m_height, m_scaled_height;
     float   m_scale;
     std::vector<Rect2i> m_clipping;
+    // render target
+    FBO      m_fbo;
+    Texture* m_render_target;
+
     // uniform values
     struct {
         glm::vec2 center_multiplier;
@@ -117,6 +124,8 @@ private:
     struct {
         int plane, x, y, height;
     } m_textcursor;
+
+    float convert_y(int h) const;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

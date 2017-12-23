@@ -18,7 +18,8 @@ void Logger::d(const char* tag, const char* fmt, ...) {
     char buf[1024 + 16];
     va_list va;
     va_start(va, fmt);
-    size_t len = vsnprintf(buf, sizeof(buf), fmt, va);
+    size_t len = vsnprintf(buf, sizeof(buf)-8, fmt, va);
+    if (len > sizeof(buf) - 8) len = sizeof(buf) - 8;
     buf[len] = '\n'; buf[len + 1] = 0;
     auto wstr = StringUtil::make_tstring(buf);
     OutputDebugString(wstr.c_str());
@@ -29,7 +30,8 @@ void Logger::e(const char* tag, const char* fmt, ...) {
     char buf[1024 + 16];
     va_list va;
     va_start(va, fmt);
-    size_t len = vsnprintf(buf, sizeof(buf), fmt, va);
+    size_t len = vsnprintf(buf, sizeof(buf)-8, fmt, va);
+    if (len >= sizeof(buf) - 9) len = sizeof(buf) - 9;
     buf[len] = '\n'; buf[len + 1] = 0;
     auto wstr = StringUtil::make_tstring(buf);
     OutputDebugString(wstr.c_str());

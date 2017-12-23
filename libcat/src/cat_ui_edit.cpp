@@ -11,18 +11,18 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
+Editbox::Editbox(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(1);
     m_native_show = false;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     m_font = nullptr;
     m_native_ctrl = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD|WS_CLIPSIBLINGS|ES_AUTOHSCROLL,
         0, 0, 0, 0,
-        kernel->psd()->rootview, NULL,
-        (HINSTANCE)GetWindowLongPtr(kernel->psd()->rootview, GWLP_HINSTANCE),
+        kernel_api->psd()->rootview, NULL,
+        (HINSTANCE)GetWindowLongPtr(kernel_api->psd()->rootview, GWLP_HINSTANCE),
         NULL);
 #elif defined(PLATFORM_MAC)
-    NSView* rootview = (__bridge NSView*)kernel->psd()->rootview;
+    NSView* rootview = (__bridge NSView*)kernel_api->psd()->rootview;
     NSTextField* tv = [[NSTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     tv.bezeled = NO;
     tv.bordered = NO;
@@ -33,7 +33,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     [rootview addSubview:tv];
     m_native_ctrl = (__bridge void*)tv;
 #elif defined(PLATFORM_IOS)
-    UIView* rootview = (__bridge UIView*)kernel->psd()->rootview;
+    UIView* rootview = (__bridge UIView*)kernel_api->psd()->rootview;
     UITextField* tv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     [tv setHidden : YES];
     [rootview addSubview:tv];
@@ -41,7 +41,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
     // jcontext = rootview.getContext();
-    jobject jcontext = jni.CallObjectMethod(kernel->psd()->rootview, "getContext", "()Landroid/content/Context;");
+    jobject jcontext = jni.CallObjectMethod(kernel_api->psd()->rootview, "getContext", "()Landroid/content/Context;");
     // lp = new LayoutParam(0, 0);
     jobject jlp = jni.NewObject("android/view/ViewGroup$LayoutParams", "(II)V", 0, 0);
     // jedit = new EditText(context);
@@ -59,7 +59,7 @@ Editbox::Editbox(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widge
     const int INVISIBLE = 4;
     jni.CallVoidMethod(jedit, "setVisibility", "(I)V", INVISIBLE);
     // rootview.addView(jedit, lp);
-    jni.CallVoidMethod(kernel->psd()->rootview, "addView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V", jedit, jlp);
+    jni.CallVoidMethod(kernel_api->psd()->rootview, "addView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V", jedit, jlp);
     // Retain Reference
     m_native_ctrl = jni.NewGlobalRef(jedit);
 #else

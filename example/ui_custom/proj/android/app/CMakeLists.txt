@@ -25,7 +25,7 @@ add_library(cat-app
 find_library(lib-android android)
 find_library(lib-log log)
 find_library(lib-z z)
-find_library(lib-GLESv2 GLESv2)
+find_library(lib-GLES GLESv3)
 find_library(lib-EGL EGL)
 
 # Specifies libraries CMake should link to your target library. You
@@ -36,7 +36,7 @@ target_link_libraries(cat-app
                       ${CAT_BASE_PATH}/libcat/lib/android/${ANDROID_ABI}/libcat.a
                       ${CAT_BASE_PATH}/dependency/lib/android/${ANDROID_ABI}/libpng.a
                       ${lib-EGL}
-                      ${lib-GLESv2}
+                      ${lib-GLES}
                       ${lib-z}
                       ${lib-log}
                       ${lib-android}

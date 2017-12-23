@@ -55,16 +55,16 @@ void BootApp::cb_shutdown(Timestamp now) {
 // you should release any manual created gfx resources here.
 // resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-bool BootApp::cb_context_lost() {
+void BootApp::cb_context_lost() {
     Logger::d("App", "cb_context_lost");
-    return true;
 }
 // cb_context_restored is called when the GL context is restored
 // you should reload any manual created gfx resources here.
 // resources retained by resource manager will be auto reloaded by the kernel.
 // ----------------------------------------------------------------------------
-void BootApp::cb_context_restored() {
+bool BootApp::cb_context_restored() {
     Logger::d("App", "cb_context_restored");
+    return true;
 }
 // cb_resize is called when the screen is resized, you may adjust ui scale here
 // ----------------------------------------------------------------------------

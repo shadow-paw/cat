@@ -5,7 +5,7 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Pane::Pane(KernelApi* kernel, const Rect2i& rect, unsigned int id) : Widget(kernel, rect, id) {
+Pane::Pane(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(1);
     m_draggable = false;
     m_dragging = false;
@@ -65,7 +65,7 @@ bool Pane::cb_timer(Timestamp now, int code) {
 // ----------------------------------------------------------------------------
 void Pane::cb_render(Renderer* r, Timestamp now) {
     if (m_effect != Draw2D::Effect::Tex) {
-        kernel()->ui()->capture(m_effect_tex, m_absrect);
+        kernel()->ui()->capture(&m_effect_tex, m_absrect);
         r->draw2d.fill(m_absrect, apply_opacity(0xffffffff), &m_effect_tex, now, m_effect);
         r->dirty();
     }

@@ -19,6 +19,7 @@
 #include "cat_gfx_renderer.h"
 #include "cat_gfx_ibo.h"
 #include "cat_gfx_vbo.h"
+#include "cat_gfx_fbo.h"
 #include "cat_gfx_tex.h"
 #include "cat_gfx_texref.h"
 #include "cat_gfx_shader.h"
@@ -30,5 +31,6 @@
 #include "cat_ui_button.h"
 #include "cat_ui_slider.h"
 #include "cat_ui_edit.h"
+#include "cat_ui_effectview.h"
 
 #endif

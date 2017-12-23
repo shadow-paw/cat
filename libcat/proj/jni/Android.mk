@@ -23,6 +23,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_gfx_renderer.cpp \
                 ../../src/cat_gfx_ibo.cpp \
                 ../../src/cat_gfx_vbo.cpp \
+                ../../src/cat_gfx_fbo.cpp \
                 ../../src/cat_gfx_tex.cpp \
                 ../../src/cat_gfx_shader.cpp \
                 ../../src/cat_gfx_drawablecanvas.cpp \
@@ -37,6 +38,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_ui_label.cpp \
                 ../../src/cat_ui_button.cpp \
                 ../../src/cat_ui_slider.cpp \
+                ../../src/cat_ui_effectview.cpp \
                 ../../src/cat_ui_edit.cpp
 
 include $(BUILD_STATIC_LIBRARY)

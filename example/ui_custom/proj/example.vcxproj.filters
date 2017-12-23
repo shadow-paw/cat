@@ -43,13 +43,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shader\fisheye.shader">
-      <Filter>assets\shader</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\assets\ui\default_ui.png">
       <Filter>assets\ui</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shader\custom.shader">
+      <Filter>assets\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
