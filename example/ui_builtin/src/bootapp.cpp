@@ -58,24 +58,26 @@ bool BootApp::cb_startup(Timestamp now) {
 
     auto pane2 = new Pane(kernel(), Rect2i(300, 100, 400, 300));
     pane2->set_bgcolor(0x80ffffff);
-    pane2->set_bgeffect(Draw2D::Effect::Ripple);
     pane2->set_bounded(true);
     pane2->set_draggable(true);
+    auto effectview2 = new EffectView(kernel(), Rect2i(0, 0, 400, 300));
+    effectview2->set_effect(Draw2D::Effect::Ripple);
+    effectview2->set_bgcolor(0xffffffff);
+    pane2->attach(effectview2);
     kernel()->ui()->attach(pane2);
 
     auto pane3 = new Pane(kernel(), Rect2i(100, 210, 400, 300));
     pane3->set_bgcolor(0x20ffffff);
     pane3->set_bounded(true);
     pane3->set_draggable(true);
-    auto effectview = new EffectView(kernel(), Rect2i(0, 0, 400, 300));
-    effectview->set_effect(Draw2D::Effect::Blur, 8);
-    effectview->set_bgcolor(0xffffffff);
-    pane3->attach(effectview);
+    auto effectview3 = new EffectView(kernel(), Rect2i(0, 0, 400, 300));
+    effectview3->set_effect(Draw2D::Effect::Blur, 8);
+    effectview3->set_bgcolor(0xffffffff);
+    pane3->attach(effectview3);
     kernel()->ui()->attach(pane3);
 
     m_pane = new Pane(kernel(), Rect2i(400, 200, 500, 500));
     m_pane->set_bgcolor(0x80ffffff);
-    m_pane->set_bgeffect(Draw2D::Effect::Blur);
     m_pane->set_bounded(true);
     m_pane->set_draggable(true);
     kernel()->ui()->attach(m_pane);

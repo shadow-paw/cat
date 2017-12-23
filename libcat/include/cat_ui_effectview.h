@@ -12,7 +12,7 @@ public:
 
     EffectView(KernelApi* kernel_api, const Rect2i& rect, unsigned int id = 0);
     virtual ~EffectView();
-    void set_effect(Draw2D::Effect effect, int detail_level = 8);
+    void set_effect(Draw2D::Effect effect, int detail_level = 1);
 protected:
     virtual void cb_context_lost();
     virtual bool cb_context_restored();

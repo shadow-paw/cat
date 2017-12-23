@@ -19,8 +19,6 @@ public:
     void set_bounded(bool b) { m_bounded = b; }
     bool is_bounded() const { return m_bounded; }
 
-    void set_bgeffect(Draw2D::Effect effect);
-
 protected:
     virtual bool cb_timer(Timestamp now, int code);
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
@@ -30,8 +28,6 @@ protected:
     bool m_draggable, m_dragging;
     int  m_dragx, m_dragy;
     bool m_bounded;
-    Draw2D::Effect m_effect;
-    Texture m_effect_tex;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

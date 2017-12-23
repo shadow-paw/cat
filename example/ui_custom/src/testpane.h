@@ -18,6 +18,7 @@ protected:
 private:
     const cat::Shader* m_shader;
     cat::Texture m_tex[2];
+    cat::Texture m_capture_tex;
 };
 // ----------------------------------------------------------------------------
 } // namespace app

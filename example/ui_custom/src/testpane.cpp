@@ -35,6 +35,7 @@ TestPane::~TestPane() {
 }
 // ----------------------------------------------------------------------------
 void TestPane::cb_context_lost() {
+    m_capture_tex.release();
     m_tex[0].release();
     m_tex[1].release();
 }
@@ -52,11 +53,11 @@ void TestPane::cb_resize() {
 // ----------------------------------------------------------------------------
 void TestPane::cb_render(Renderer* r, Timestamp now) {
     // capture screen within this widget region
-    capture(&m_effect_tex, m_absrect);
+    capture(&m_capture_tex, m_absrect);
     // use the captured screen to draw effect
     Rect2i rc(0, 0, m_absrect.size.width/8, m_absrect.size.height/8);
     r->draw2d.target(&m_tex[0]);
-    r->draw2d.fill(rc, 0xffffffff, &m_effect_tex, now);
+    r->draw2d.fill(rc, 0xffffffff, &m_capture_tex, now);
     r->draw2d.target(&m_tex[1]);
     r->draw2d.fill(rc, 0xffffffff, &m_tex[0], now, m_shader);
     r->draw2d.target(nullptr);
