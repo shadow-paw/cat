@@ -10,7 +10,7 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Application : public TimerHandler<int> {
+class Application : public TimerDelegate<int> {
 friend class Kernel;
 public:
     Application() {

@@ -15,7 +15,7 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Widget : public TimerHandler<int> {
+class Widget : public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers

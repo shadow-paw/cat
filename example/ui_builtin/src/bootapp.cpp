@@ -65,7 +65,7 @@ bool BootApp::cb_startup(Timestamp now) {
     effectview2->set_bgcolor(0xffffffff);
     pane2->attach(effectview2);
     kernel()->ui()->attach(pane2);
-/*
+
     auto pane3 = new Pane(kernel(), Rect2i(100, 210, 400, 300));
     pane3->set_bgcolor(0x20ffffff);
     pane3->set_bounded(true);
@@ -75,7 +75,7 @@ bool BootApp::cb_startup(Timestamp now) {
     effectview3->set_bgcolor(0xffffffff);
     pane3->attach(effectview3);
     kernel()->ui()->attach(pane3);
-*/
+
     m_pane = new Pane(kernel(), Rect2i(400, 200, 500, 500));
     m_pane->set_bgcolor(0x80ffffff);
     m_pane->set_bounded(true);

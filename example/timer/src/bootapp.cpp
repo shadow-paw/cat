@@ -17,8 +17,13 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
+    // traditional way (delegate)
     kernel()->time()->post_timer(this, 1, 1000);
     kernel()->time()->post_timer(this, 2, 2000);
+    // lambda way
+    kernel()->time()->post_timer([](Timestamp now) -> void {
+        Logger::d("App", "cb_timer(lambda): time: %llu", now);
+    }, 2000);
     return true;
 }
 // cb_resume is called when the program has resumed

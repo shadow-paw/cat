@@ -33,7 +33,7 @@ Widget::~Widget() {
 // ----------------------------------------------------------------------------
 bool Widget::attach(Widget* child) {
     if (child->m_parent) {
-        Logger::e("osal", "UI.attach - widget already has a parent!");
+        Logger::e("libcat", "UI.attach - widget already has a parent!");
         return false;
     }
     child->m_parent = this;
