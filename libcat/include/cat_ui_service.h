@@ -17,6 +17,9 @@ public:
     UIService(KernelApi* kernel);
     ~UIService();
 
+    bool init();
+    void fini();
+
     bool attach(Widget* w);
     void detach(Widget* w);
     void scale(float factor);

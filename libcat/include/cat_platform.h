@@ -40,6 +40,7 @@ struct PlatformSpecificData {
     void* rootview;
 #elif defined(PLATFORM_ANDROID)
     jobject rootview; 
+    jobject asset_manager;
 #else
     #error Not Implemented!
 #endif

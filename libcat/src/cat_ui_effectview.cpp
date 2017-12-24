@@ -26,16 +26,20 @@ bool EffectView::cb_context_restored() {
 }
 // ----------------------------------------------------------------------------
 void EffectView::cb_resize() {
-    m_tex[1].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, false);
-    m_tex[2].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, true);
+    if (kernel()->renderer()->ready()) {
+        m_tex[1].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, false);
+        m_tex[2].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, true);
+    }
 }
 // ----------------------------------------------------------------------------
 void EffectView::set_effect(Draw2D::Effect effect, int detail_level) {
     m_effect = effect;
     if (m_detail_level != detail_level) {
         m_detail_level = detail_level;
-        m_tex[1].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, false);
-        m_tex[2].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, true);
+        if (kernel()->renderer()->ready()) {
+            m_tex[1].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, false);
+            m_tex[2].update(Texture::RGB, m_absrect.size.width/m_detail_level, m_absrect.size.height/m_detail_level, nullptr, true);
+        }
     }
     dirty();
 }

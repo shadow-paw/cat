@@ -18,6 +18,14 @@ UIService::~UIService() {
     m_kernel = nullptr;
 }
 // ----------------------------------------------------------------------------
+bool UIService::init() {
+    return true;
+}
+// ----------------------------------------------------------------------------
+void UIService::fini() {
+    m_desktop->remove_childs();
+}
+// ----------------------------------------------------------------------------
 void UIService::context_lost() {
     m_desktop->context_lost();
 }

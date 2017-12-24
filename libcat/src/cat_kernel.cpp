@@ -1,4 +1,5 @@
 #include "cat_kernel.h"
+#include "cat_util_jni.h"
 #include "cat_util_log.h"
 
 using namespace cat;
@@ -6,6 +7,7 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 Kernel::Kernel() : m_res(&m_vfs), m_ui(this) {
     m_resumed = false;
+    m_psd = {0};
 }
 // ----------------------------------------------------------------------------
 Kernel::~Kernel() {
@@ -14,9 +16,18 @@ Kernel::~Kernel() {
 // ----------------------------------------------------------------------------
 bool Kernel::init(const PlatformSpecificData& psd) {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     m_psd = psd;
+#elif defined(PLATFORM_ANDROID)
+    JNIHelper jni;
+    m_psd.rootview = jni.NewGlobalRef(psd.rootview);
+    m_psd.asset_manager = jni.NewGlobalRef(psd.asset_manager);
+#else
+    #error Not Implemented!
+#endif
     if (!m_renderer.init()) goto fail;
     if (!m_res.init()) goto fail;
+    if (!m_ui.init()) goto fail;
     return true;
 fail:
     fini();
@@ -25,8 +36,18 @@ fail:
 // ----------------------------------------------------------------------------
 void Kernel::fini() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    m_ui.fini();
     m_res.fini();
     m_renderer.fini();
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // NOTHING
+#elif defined(PLATFORM_ANDROID)
+    JNIHelper jni;
+    jni.DeleteGlobalRef(m_psd.rootview); m_psd.rootview = nullptr;
+    jni.DeleteGlobalRef(m_psd.asset_manager); m_psd.asset_manager = nullptr;
+#else
+#error Not Implemented!
+#endif
 }
 // ----------------------------------------------------------------------------
 // Kernel Signals
@@ -89,6 +110,7 @@ void Kernel::resume() {
 // ----------------------------------------------------------------------------
 void Kernel::resize(int width, int height) {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    if (!m_renderer.ready()) return;
     m_renderer.resize(width, height);
     m_ui.resize(width, height);
     for (auto& app : m_apps) {
@@ -122,6 +144,7 @@ bool Kernel::timer() {
 // ----------------------------------------------------------------------------
 void Kernel::render() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    if (!m_renderer.ready()) return;
     auto t = time()->now();
     m_renderer.begin_render();
     for (auto& app : m_apps) {
