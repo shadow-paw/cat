@@ -2,8 +2,8 @@
 #include "cat_ui_service.h"
 #include "cat_time_service.h"
 #include "cat_gfx_renderer.h"
-#include "cat_gfx_resmgr.h"
 #include "cat_gfx_draw2d.h"
+#include "cat_storage_resmgr.h"
 #include "cat_util_log.h"
 
 using namespace cat;

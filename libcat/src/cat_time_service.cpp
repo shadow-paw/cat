@@ -11,6 +11,13 @@ TimeService::TimeService() {
 TimeService::~TimeService() {
 }
 // ----------------------------------------------------------------------------
+bool TimeService::init() {
+    return true;
+}
+// ----------------------------------------------------------------------------
+void TimeService::fini() {
+}
+// ----------------------------------------------------------------------------
 void TimeService::pause() {
 }
 // ----------------------------------------------------------------------------
@@ -41,7 +48,7 @@ void TimeService::remove_timer(TimerDelegate<int>* handler, int message) {
     });
 }
 // ----------------------------------------------------------------------------
-// lambda function
+// TimerFunction
 // ----------------------------------------------------------------------------
 bool TimeService::post_timer(TimerFunction handler, Timestamp tick) {
     return m_functions.post(tick, handler, 0);

@@ -20,7 +20,7 @@ bool VFS::unmount(const std::string& path) {
     return  m_mounts.erase(path) > 0;
 }
 // ----------------------------------------------------------------------------
-bool VFS::read(const std::string& name, Buffer& buffer) {
+bool VFS::read(const std::string& name, Buffer* buffer) {
     for (auto& mount : m_mounts) {
         if (name.find(mount.first)!=0) continue;
         if (mount.second->read(name.substr(mount.first.length()), buffer)) return true;

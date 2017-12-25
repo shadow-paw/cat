@@ -1,9 +1,6 @@
 #ifndef __CAT_GFX_TEX_H__
 #define __CAT_GFX_TEX_H__
 
-#include <stdint.h>
-#include <stddef.h>
-#include "cat_platform.h"
 #include "cat_gfx_type.h"
 
 namespace cat {

@@ -27,7 +27,10 @@ bool Kernel::init(const PlatformSpecificData& psd) {
 #endif
     if (!m_renderer.init()) goto fail;
     if (!m_res.init()) goto fail;
+    // services
     if (!m_ui.init()) goto fail;
+    if (!m_time.init()) goto fail;
+    if (!m_net.init()) goto fail;
     return true;
 fail:
     fini();
@@ -36,7 +39,11 @@ fail:
 // ----------------------------------------------------------------------------
 void Kernel::fini() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    // services
+    m_net.fini();
+    m_time.fini();
     m_ui.fini();
+    // core
     m_res.fini();
     m_renderer.fini();
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
@@ -93,16 +100,18 @@ void Kernel::pause() {
     for (auto& app : m_apps) {
         app->cb_pause();
     }
-    m_time.pause();
     m_net.pause();
+    m_time.pause();
+    m_ui.pause();
     m_resumed = false;
 }
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     m_resumed = true;
-    m_net.resume();
+    m_ui.resume();
     m_time.resume();
+    m_net.resume();
     for (auto& app : m_apps) {
         app->cb_resume();
     }

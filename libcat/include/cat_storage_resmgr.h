@@ -1,5 +1,5 @@
-#ifndef __CAT_GFX_RESMGR_H__
-#define __CAT_GFX_RESMGR_H__
+#ifndef __CAT_STORAGE_RESMGR_H__
+#define __CAT_STORAGE_RESMGR_H__
 
 #include <stdint.h>
 #include <stddef.h>
@@ -8,6 +8,7 @@
 #include <list>
 #include <functional>
 #include <unordered_map>
+#include <utility>
 #include "cat_storage_vfs.h"
 #include "cat_gfx_shader.h"
 #include "cat_gfx_tex.h"
@@ -30,6 +31,9 @@ public:
     const Texture* retain_tex(const std::string& name);
     bool           release_tex(const std::string& name);
     bool           release_tex(const Texture* tex);
+    const Buffer*  retain_raw(const std::string& name);
+    bool           release_raw(const std::string& name);
+    bool           release_raw(const Buffer* buffer);
 
 private:
     struct SHADER_DATA {
@@ -48,8 +52,9 @@ private:
     // map { name, pair { res, refcount} }
     std::unordered_map<std::string, std::pair<SHADER_DATA, int>>  m_shaders;
     std::unordered_map<std::string, std::pair<Texture*, int>> m_texs;
+    std::unordered_map<std::string, std::pair<Buffer*, int>> m_raws;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat
 
-#endif // __CAT_GFX_RESMGR_H__
+#endif // __CAT_STORAGE_RESMGR_H__

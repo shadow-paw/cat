@@ -12,7 +12,7 @@ FileDriver::FileDriver(const std::string& base) {
 FileDriver::~FileDriver() {
 }
 // ----------------------------------------------------------------------------
-bool FileDriver::read(const std::string& name, Buffer& buffer) {
+bool FileDriver::read(const std::string& name, Buffer* buffer) {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     FILE* fp = nullptr;
     if (fopen_s(&fp, (m_base + name).c_str(), "rb")) return false;
@@ -27,10 +27,11 @@ bool FileDriver::read(const std::string& name, Buffer& buffer) {
     #error Not Implemented!
 #endif
     fseek(fp, 0, SEEK_SET);
-    if (!buffer.realloc((size_t)length + 1)) goto fail;
-    if (fread(buffer, (size_t)length, 1, fp) != 1) goto fail;
+    if (!buffer->realloc((size_t)length + 1)) goto fail;
+    if (fread(buffer->ptr(), (size_t)length, 1, fp) != 1) goto fail;
     fclose(fp);
-    buffer[length] = 0; // zero pad
+    buffer->ptr()[length] = 0; // zero pad
+    buffer->realloc((size_t)length);
     return true;
 fail:
     fclose(fp);

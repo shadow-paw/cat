@@ -13,7 +13,7 @@ class AssetDriver : public Driver {
 public:
     AssetDriver(jobject asset_manager);
     virtual ~AssetDriver();
-    virtual bool read(const std::string& name, Buffer& buffer);
+    virtual bool read(const std::string& name, Buffer* buffer);
     virtual bool write(const std::string& name, const Buffer& buffer);
 private:
     AAssetManager* m_manager;

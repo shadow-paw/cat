@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <string>
 #include <glm/glm.hpp>
-#include "cat_platform.h"
+#include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------

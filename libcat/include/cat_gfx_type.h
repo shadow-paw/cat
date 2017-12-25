@@ -1,7 +1,8 @@
 #ifndef __CAT_GFX_TYPE_H__
 #define __CAT_GFX_TYPE_H__
 
-#include "cat_platform.h"
+#include <stdint.h>
+#include "cat_gfx_opengl.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------

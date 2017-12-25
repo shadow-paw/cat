@@ -14,12 +14,13 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_util_jni.cpp \
                 ../../src/cat_util_log.cpp \
                 ../../src/cat_util_string.cpp \
-                ../../src/cat_time_service.cpp \
-                ../../src/cat_net_service.cpp \
-                ../../src/cat_net_http.cpp \
                 ../../src/cat_storage_vfs.cpp \
                 ../../src/cat_storage_driver_file.cpp \
                 ../../src/cat_storage_driver_asset.cpp \
+                ../../src/cat_storage_resmgr.cpp \
+                ../../src/cat_time_service.cpp \
+                ../../src/cat_net_service.cpp \
+                ../../src/cat_net_http.cpp \
                 ../../src/cat_gfx_renderer.cpp \
                 ../../src/cat_gfx_ibo.cpp \
                 ../../src/cat_gfx_vbo.cpp \
@@ -30,7 +31,6 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_gfx_drawable.cpp \
                 ../../src/cat_gfx_draw2d.cpp \
                 ../../src/cat_gfx_draw2d_shaders.cpp \
-                ../../src/cat_gfx_resmgr.cpp \
                 ../../src/cat_ui_service.cpp \
                 ../../src/cat_ui_animator.cpp \
                 ../../src/cat_ui_widget.cpp \

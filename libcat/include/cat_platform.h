@@ -7,16 +7,10 @@
     #include <Windows.h>
     #include <WindowsX.h>
     #undef WIN32_LEAN_AND_MEAN
-    #include "glew/glew.h"
-    #include "glew/wglew.h"
-#elif defined(PLATFORM_MAC)
-    #include <OpenGL/gl3.h>
-#elif defined(PLATFORM_IOS)
-    #include <OpenGLES/ES3/gl.h>
-    #include <OpenGLES/ES3/glext.h>
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // NOTHING
 #elif defined(PLATFORM_ANDROID)
     #include <jni.h>
-    #include <GLES3/gl3.h>
     #include "cat_util_jni.h"
 #else
     #error Not Implemented!

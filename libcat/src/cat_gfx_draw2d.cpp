@@ -1,7 +1,7 @@
 #include <new>
 #include "cat_gfx_draw2d.h"
 #include "cat_gfx_shader.h"
-#include "cat_gfx_resmgr.h"
+#include "cat_storage_resmgr.h"
 #include "cat_util_log.h"
 
 using namespace cat;

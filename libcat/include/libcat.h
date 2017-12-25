@@ -13,6 +13,7 @@
 #include "cat_storage_vfs.h"
 #include "cat_storage_driver_file.h"
 #include "cat_storage_driver_asset.h"
+#include "cat_storage_resmgr.h"
 #include "cat_time_service.h"
 #include "cat_net_service.h"
 #include "cat_gfx_type.h"

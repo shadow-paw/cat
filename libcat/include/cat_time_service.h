@@ -48,12 +48,16 @@ public:
     void remove_timer(TimerFunction handler);
 
 private:
-    //! Called from kernel to process timer events
-    bool timer();
+    //! Initialize service
+    bool init();
+    //! Cleanup service
+    void fini();
     //! Called from kernel when the app is put to background
     void pause();
     //! Called from kernel when the app is resume to foreground
     void resume();
+    //! Called from kernel to process timer events
+    bool timer();
 
 private:
     TimerQueue<TimerDelegate<int>*,int> m_delegates;

@@ -22,7 +22,12 @@ public:
     //! Get the low level java environment
     //! Note that you should use the helper functions provided by this class
     JNIEnv* env() { return m_env; }
-
+    //! Get Android SDK_INT
+    //! \return android.os.Build.VERSION.SDK_INT
+    int ANDROID_SDK_INT() {
+        jclass jclazz = FindClass("android/os/Build$VERSION");
+        return m_env->GetStaticIntField(jclazz, m_env->GetStaticFieldID(jclazz, "SDK_INT", "I"));
+    }
     // Class & Method Resolver
     // ------------------------------------------------------------------------
     //! Resolve a class with name
@@ -187,12 +192,38 @@ public:
     //! \param method method name
     //! \param sig method signature, e.g. "()I" or "(I)I", nullptr treated as "()I"
     //! \param arg optioanl arguments
+    //! \return bool return by the method
+    template <class... ARG>
+    jboolean CallBooleanMethod(jobject o, const char* method, const char* sig, ARG... arg) {
+        jclass jclazz = (jclass)m_env->GetObjectClass(o);
+        jmethodID jmethod = m_env->GetMethodID(jclazz, method, sig ? sig : "()Z");
+        return m_env->CallBooleanMethod(o, jmethod, arg...);
+    }
+    //! Call java object instance method
+    //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html
+    //! \param o java object
+    //! \param method method name
+    //! \param sig method signature, e.g. "()I" or "(I)I", nullptr treated as "()I"
+    //! \param arg optioanl arguments
     //! \return int return by the method
     template <class... ARG>
     jint CallIntMethod(jobject o, const char* method, const char* sig, ARG... arg) {
         jclass jclazz = (jclass)m_env->GetObjectClass(o);
         jmethodID jmethod = m_env->GetMethodID(jclazz, method, sig?sig:"()I");
         return m_env->CallIntMethod(o, jmethod, arg...);
+    }
+    //! Call java object instance method
+    //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html
+    //! \param o java object
+    //! \param method method name
+    //! \param sig method signature, e.g. "()I" or "(I)I", nullptr treated as "()I"
+    //! \param arg optioanl arguments
+    //! \return long return by the method
+    template <class... ARG>
+    jlong CallLongMethod(jobject o, const char* method, const char* sig, ARG... arg) {
+        jclass jclazz = (jclass)m_env->GetObjectClass(o);
+        jmethodID jmethod = m_env->GetMethodID(jclazz, method, sig ? sig : "()J");
+        return m_env->CallLongMethod(o, jmethod, arg...);
     }
     //! Call java object instance method
     //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html
@@ -259,12 +290,38 @@ public:
     //! \param method method name
     //! \param sig method signature, e.g. "()V" or "(I)V", nullptr treated as "()V"
     //! \param arg optioanl arguments
+    //! \return long return by the method
+    template <class... ARG>
+    jboolean CallStaticBooleanMethod(const char* clazz, const char* method, const char* sig, ARG... arg) {
+        jclass jclazz = (jclass)m_env->FindClass(clazz);
+        jmethodID jmethod = m_env->GetStaticMethodID(jclazz, method, sig ? sig : "()Z");
+        return m_env->CallStaticBooleanMethod(jclazz, jmethod, arg...);
+    }
+    //! Call java static method
+    //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html
+    //! \param clazz class name, e.g "com/company/MyObject" or "com/company/MyObject$NestedClass"
+    //! \param method method name
+    //! \param sig method signature, e.g. "()V" or "(I)V", nullptr treated as "()V"
+    //! \param arg optioanl arguments
     //! \return int return by the method
     template <class... ARG>
     jint CallStaticIntMethod(const char* clazz, const char* method, const char* sig, ARG... arg) {
         jclass jclazz = (jclass)m_env->FindClass(clazz);
         jmethodID jmethod = m_env->GetStaticMethodID(jclazz, method, sig ? sig : "()V");
         return m_env->CallStaticIntMethod(jclazz, jmethod, arg...);
+    }
+    //! Call java static method
+    //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html
+    //! \param clazz class name, e.g "com/company/MyObject" or "com/company/MyObject$NestedClass"
+    //! \param method method name
+    //! \param sig method signature, e.g. "()V" or "(I)V", nullptr treated as "()V"
+    //! \param arg optioanl arguments
+    //! \return long return by the method
+    template <class... ARG>
+    jlong CallStaticLongMethod(const char* clazz, const char* method, const char* sig, ARG... arg) {
+        jclass jclazz = (jclass)m_env->FindClass(clazz);
+        jmethodID jmethod = m_env->GetStaticMethodID(jclazz, method, sig ? sig : "()J");
+        return m_env->CallStaticLongMethod(jclazz, jmethod, arg...);
     }
     //! Call java static method
     //! See java manual for detail: https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html

@@ -17,22 +17,28 @@ public:
     UIService(KernelApi* kernel);
     ~UIService();
 
-    bool init();
-    void fini();
-
-    bool attach(Widget* w);
-    void detach(Widget* w);
-    void scale(float factor);
+    bool  attach(Widget* w);
+    void  detach(Widget* w);
+    void  scale(float factor);
     float get_scale() const { return m_scale; }
-    int get_width() const { return m_width; }
-    int get_height() const { return m_height; }
-    void capture(Texture* tex, const Rect2i& rect);
+    int   get_width() const { return m_width; }
+    int   get_height() const { return m_height; }
+    void  capture(Texture* tex, const Rect2i& rect);
 
 private:    // call from Kernel
+    //! Initialize service
+    bool init();
+    //! Cleanup service
+    void fini();
+    //! Called from kernel when the app is put to background
+    void pause();
+    //! Called from kernel when the app is resume to foreground
+    void resume();
+
     void context_lost();
     bool context_restored();
-    void render(Renderer* r, Timestamp now);
     void resize(int width, int height);
+    void render(Renderer* r, Timestamp now);
     bool touch(TouchEvent ev);
 
 private:

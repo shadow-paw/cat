@@ -1,4 +1,4 @@
-#include "cat_gfx_resmgr.h"
+#include "cat_storage_resmgr.h"
 #include <new>
 #include <string.h>
 #include "libpng/png.h"
@@ -63,7 +63,7 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
     Shader* shader = new (std::nothrow) Shader();
     if (!shader) return nullptr;
     if (m_contextready) {
-        if (!m_vfs->read(name, buffer)) return nullptr;
+        if (!m_vfs->read(name, &buffer)) return nullptr;
         if (!shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) {
             delete shader;
             return nullptr;
@@ -85,7 +85,7 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
 bool ResourceManager::reload_shader(SHADER_DATA* sd, const std::string& name) {
     std::string path(name);
     Buffer buffer;
-    if (!m_vfs->read(path, buffer)) return false;
+    if (!m_vfs->read(path, &buffer)) return false;
     if (!sd->shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) return false;
     // set uniforms and attrs
     sd->shader->bind();
@@ -125,7 +125,7 @@ bool ResourceManager::release_shader(const Shader* shader) {
 }
 // ----------------------------------------------------------------------------
 const Texture* ResourceManager::retain_tex(const std::string& name) {
-    Buffer buf;
+    Buffer buffer;
     auto cached = m_texs.find(name);
     if (cached!=m_texs.end()) {
         auto& pair = cached->second;
@@ -136,8 +136,8 @@ const Texture* ResourceManager::retain_tex(const std::string& name) {
     Texture* tex = new (std::nothrow) Texture();
     if (!tex) return nullptr;
     if (m_contextready) {
-        if (!m_vfs->read(name, buf)) return nullptr;
-        if (!load_tex_png(tex, buf)) {
+        if (!m_vfs->read(name, &buffer)) return nullptr;
+        if (!load_tex_png(tex, buffer)) {
             delete tex;
             return nullptr;
         }
@@ -147,9 +147,9 @@ const Texture* ResourceManager::retain_tex(const std::string& name) {
 }
 // ----------------------------------------------------------------------------
 bool ResourceManager::reload_tex(Texture* tex, const std::string& name) {
-    Buffer buf;
-    if (!m_vfs->read(name.c_str(), buf)) return false;
-    return load_tex_png(tex, buf);
+    Buffer buffer;
+    if (!m_vfs->read(name.c_str(), &buffer)) return false;
+    return load_tex_png(tex, buffer);
 }
 // ----------------------------------------------------------------------------
 bool ResourceManager::release_tex(const std::string& name) {
@@ -172,6 +172,47 @@ bool ResourceManager::release_tex(const Texture* tex) {
         if (pair.second == 0) {
             delete pair.first;
             m_texs.erase(it);
+        } return true;
+    }
+    return false;
+}
+// ----------------------------------------------------------------------------
+const Buffer* ResourceManager::retain_raw(const std::string& name) {
+    auto cached = m_raws.find(name);
+    if (cached != m_raws.end()) {
+        auto& pair = cached->second;
+        pair.second++;
+        return pair.first;
+    }
+    Buffer* buffer = new Buffer();
+    if (!m_vfs->read(name, buffer)) {
+        delete buffer;
+        return nullptr;
+    } 
+    m_raws.emplace(name, std::make_pair(buffer, 1));
+    return buffer;
+}
+// ----------------------------------------------------------------------------
+bool ResourceManager::release_raw(const std::string& name) {
+    auto cached = m_raws.find(name);
+    if (cached == m_raws.end()) return false;
+    auto& pair = cached->second;
+    pair.second--;
+    if (pair.second == 0) {
+        delete pair.first;
+        m_raws.erase(name);
+    } return true;
+}
+// ----------------------------------------------------------------------------
+bool ResourceManager::release_raw(const Buffer* buffer) {
+    if (buffer == nullptr) return false;
+    for (auto it = m_raws.begin(); it != m_raws.end(); ++it) {
+        auto& pair = it->second;
+        if (pair.first != buffer) continue;
+        pair.second--;
+        if (pair.second == 0) {
+            delete pair.first;
+            m_raws.erase(it);
         } return true;
     }
     return false;

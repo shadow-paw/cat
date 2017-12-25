@@ -33,10 +33,10 @@
 		3E17C4541FEE61E000AA3E36 /* cat_gfx_fbo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */; };
 		3E2B721E1FEE6212009A5B6F /* cat_ui_effectview.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */; };
 		3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */; };
-		3E92B6DC1F8B883F00614529 /* cat_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */; };
-		3E92B6DE1F8B886000614529 /* cat_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */; };
-		3E92B6DF1F8B888F00614529 /* cat_gfx_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */; };
-		3E92B6E01F8B889C00614529 /* cat_gfx_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */; };
+		3E92B6DC1F8B883F00614529 /* cat_storage_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_storage_resmgr.h */; };
+		3E92B6DE1F8B886000614529 /* cat_storage_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */; };
+		3E92B6DF1F8B888F00614529 /* cat_storage_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */; };
+		3E92B6E01F8B889C00614529 /* cat_storage_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_storage_resmgr.h */; };
 		3E94E4421FEE773700C419EC /* cat_ui_effectview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */; };
 		3E94E4431FEE774300C419EC /* cat_ui_effectview.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */; };
 		3E9EB4551FB726EF00BFF6DD /* cat_net_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9EB4521FB726EE00BFF6DD /* cat_net_service.cpp */; };
@@ -189,8 +189,8 @@
 		3E8D7D441F8A36C000F91EDF /* cat_gfx_draw2d_shaders.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_draw2d_shaders.cpp; path = ../src/cat_gfx_draw2d_shaders.cpp; sourceTree = "<group>"; };
 		3E8D7D451F8A36C000F91EDF /* cat_gfx_draw2d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_draw2d.cpp; path = ../src/cat_gfx_draw2d.cpp; sourceTree = "<group>"; };
 		3E8D7D461F8A36C000F91EDF /* cat_gfx_drawable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_drawable.cpp; path = ../src/cat_gfx_drawable.cpp; sourceTree = "<group>"; };
-		3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_resmgr.h; path = ../include/cat_gfx_resmgr.h; sourceTree = "<group>"; };
-		3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_resmgr.cpp; path = ../src/cat_gfx_resmgr.cpp; sourceTree = "<group>"; };
+		3E92B6DB1F8B883F00614529 /* cat_storage_resmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_resmgr.h; path = ../include/cat_storage_resmgr.h; sourceTree = "<group>"; };
+		3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_resmgr.cpp; path = ../src/cat_storage_resmgr.cpp; sourceTree = "<group>"; };
 		3E9EB4521FB726EE00BFF6DD /* cat_net_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_net_service.cpp; path = ../src/cat_net_service.cpp; sourceTree = "<group>"; };
 		3E9EB4531FB726EE00BFF6DD /* cat_net_http.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = cat_net_http.cpp; path = ../src/cat_net_http.cpp; sourceTree = "<group>"; };
 		3E9EB4541FB726EE00BFF6DD /* cat_util_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_util_string.cpp; path = ../src/cat_util_string.cpp; sourceTree = "<group>"; };
@@ -385,8 +385,8 @@
 				3E15D8FA1F8A3565004EC94C /* cat_gfx_draw2d.h */,
 				3E8D7D451F8A36C000F91EDF /* cat_gfx_draw2d.cpp */,
 				3E8D7D441F8A36C000F91EDF /* cat_gfx_draw2d_shaders.cpp */,
-				3E92B6DB1F8B883F00614529 /* cat_gfx_resmgr.h */,
-				3E92B6DD1F8B885F00614529 /* cat_gfx_resmgr.cpp */,
+				3E92B6DB1F8B883F00614529 /* cat_storage_resmgr.h */,
+				3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */,
 			);
 			name = gfx;
 			sourceTree = "<group>";
@@ -448,7 +448,7 @@
 				3ED3FD951F8A3FC6007BE517 /* cat_gfx_drawablecanvas.h in Headers */,
 				3ED3FD961F8A3FC6007BE517 /* cat_gfx_drawable.h in Headers */,
 				3ED3FD971F8A3FC6007BE517 /* cat_gfx_draw2d.h in Headers */,
-				3E92B6E01F8B889C00614529 /* cat_gfx_resmgr.h in Headers */,
+				3E92B6E01F8B889C00614529 /* cat_storage_resmgr.h in Headers */,
 				3EEE397E1F8CC03600DF9B90 /* cat_time_type.h in Headers */,
 				3EEE397F1F8CC03600DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39801F8CC03600DF9B90 /* cat_time_service.h in Headers */,
@@ -496,7 +496,7 @@
 				3E15D9001F8A3565004EC94C /* cat_gfx_drawablecanvas.h in Headers */,
 				3E15D9061F8A3565004EC94C /* cat_gfx_drawable.h in Headers */,
 				3E15D9041F8A3565004EC94C /* cat_gfx_draw2d.h in Headers */,
-				3E92B6DC1F8B883F00614529 /* cat_gfx_resmgr.h in Headers */,
+				3E92B6DC1F8B883F00614529 /* cat_storage_resmgr.h in Headers */,
 				3EEE39811F8CC04400DF9B90 /* cat_time_type.h in Headers */,
 				3EEE39821F8CC04400DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* cat_time_service.h in Headers */,
@@ -620,7 +620,7 @@
 				3ED3FD891F8A3F8B007BE517 /* cat_gfx_drawable.cpp in Sources */,
 				3ED3FD8A1F8A3F8B007BE517 /* cat_gfx_draw2d.cpp in Sources */,
 				3ED3FD8B1F8A3F8B007BE517 /* cat_gfx_draw2d_shaders.cpp in Sources */,
-				3E92B6DF1F8B888F00614529 /* cat_gfx_resmgr.cpp in Sources */,
+				3E92B6DF1F8B888F00614529 /* cat_storage_resmgr.cpp in Sources */,
 				3EEE397D1F8CC02300DF9B90 /* cat_time_service.cpp in Sources */,
 				3EF9A0F91F8A693C008C00C0 /* cat_data_buffer.cpp in Sources */,
 				3EF9A0FA1F8A693C008C00C0 /* cat_storage_vfs.cpp in Sources */,
@@ -657,7 +657,7 @@
 				3ECE1B071F8A391C009D9088 /* cat_gfx_drawable.cpp in Sources */,
 				3ECE1B081F8A391C009D9088 /* cat_gfx_draw2d.cpp in Sources */,
 				3ECE1B091F8A391C009D9088 /* cat_gfx_draw2d_shaders.cpp in Sources */,
-				3E92B6DE1F8B886000614529 /* cat_gfx_resmgr.cpp in Sources */,
+				3E92B6DE1F8B886000614529 /* cat_storage_resmgr.cpp in Sources */,
 				3EEE397C1F8CC01700DF9B90 /* cat_time_service.cpp in Sources */,
 				3EF9A0EF1F8A68C1008C00C0 /* cat_data_buffer.cpp in Sources */,
 				3EF9A0EE1F8A68C1008C00C0 /* cat_storage_vfs.cpp in Sources */,

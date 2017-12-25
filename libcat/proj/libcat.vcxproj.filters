@@ -43,9 +43,6 @@
     <ClInclude Include="..\include\cat_gfx_renderer.h">
       <Filter>libcat\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cat_gfx_resmgr.h">
-      <Filter>libcat\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\libcat.h">
       <Filter>libcat</Filter>
     </ClInclude>
@@ -166,12 +163,15 @@
     <ClInclude Include="..\include\cat_ui_effectview.h">
       <Filter>libcat\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_storage_resmgr.h">
+      <Filter>libcat\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_gfx_opengl.h">
+      <Filter>libcat\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
-      <Filter>libcat\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cat_gfx_resmgr.cpp">
       <Filter>libcat\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cat_kernel.cpp">
@@ -260,6 +260,9 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_ui_effectview.cpp">
       <Filter>libcat\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_storage_resmgr.cpp">
+      <Filter>libcat\storage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

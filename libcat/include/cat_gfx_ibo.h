@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "cat_platform.h"
+#include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------

@@ -4,8 +4,8 @@
 #include "cat_platform.h"
 #include "cat_type.h"
 #include "cat_storage_vfs.h"
+#include "cat_storage_resmgr.h"
 #include "cat_gfx_renderer.h"
-#include "cat_gfx_resmgr.h"
 #include "cat_kernel_api.h"
 
 namespace cat {

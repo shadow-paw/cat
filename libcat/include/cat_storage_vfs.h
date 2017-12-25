@@ -14,7 +14,7 @@ public:
     ~VFS();
     bool mount(const std::string& path, Driver* driver);
     bool unmount(const std::string& path);
-    bool read(const std::string& name, Buffer& buffer);
+    bool read(const std::string& name, Buffer* buffer);
     bool write(const std::string& name, const Buffer& buffer);
 
 private:

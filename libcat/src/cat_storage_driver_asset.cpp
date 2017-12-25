@@ -16,14 +16,15 @@ AssetDriver::~AssetDriver() {
     m_manager = nullptr;
 }
 // ----------------------------------------------------------------------------
-bool AssetDriver::read(const std::string& name, Buffer& buffer) {
+bool AssetDriver::read(const std::string& name, Buffer* buffer) {
     AAsset* asset = AAssetManager_open(m_manager, name.c_str(), AASSET_MODE_STREAMING);
     if (!asset) return false;
     off_t length = AAsset_getLength64(asset);
-    if (!buffer.realloc((size_t)length + 1)) goto fail;
-    AAsset_read(asset, buffer.ptr(), (size_t)length);
+    if (!buffer->realloc((size_t)length + 1)) goto fail;
+    AAsset_read(asset, buffer->ptr(), (size_t)length);
     AAsset_close(asset);
-    buffer.ptr()[length] = 0; // zero pad
+    buffer->ptr()[length] = 0; // zero pad
+    buffer->realloc((size_t)length);
     return true;
 fail:
     AAsset_close(asset);

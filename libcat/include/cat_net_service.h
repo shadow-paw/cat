@@ -26,6 +26,10 @@ public:
     bool http_cancel(HTTP_ID http_id);
 
 private:
+    //! Initialize service
+    bool init();
+    //! Cleanup service
+    void fini();
     //! Called from kernel when the app is put to background
     void pause();
     //! Called from kernel when the app is resume to foreground
