@@ -1,3 +1,4 @@
+#include <new>
 #include "cat_gfx_draw2d.h"
 #include "cat_gfx_shader.h"
 #include "cat_gfx_resmgr.h"
@@ -55,7 +56,7 @@ bool Draw2D::init() {
         const auto& effect = it->first;
         const auto& source = it->second;
 
-        Shader* shader = new Shader();
+        Shader* shader = new (std::nothrow) Shader();
         if (!shader) goto fail;
         if (!shader->init(source.c_str(), source.c_str())) {
             Logger::e("gfx", "Failed to compile builtin shader effect = %d", effect);

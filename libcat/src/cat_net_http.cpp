@@ -1,4 +1,5 @@
 #include "cat_net_http.h"
+#include <new>
 #include <algorithm>
 #include "cat_util_string.h"
 #include "cat_time_service.h"
@@ -358,7 +359,8 @@ bool HttpManager::cb_conn_created(HttpConnection* conn) {
     InternetCrackUrl(url_escape.c_str(), 0, 0, &url_components);
     server.assign(url_components.lpszHostName, url_components.dwHostNameLength);
 
-    param = new INET_PARAM();
+    param = new (std::nothrow) INET_PARAM();
+    if (!param) goto fail;
     param->manager = this;
     param->http_id = conn->id;
     conn->hconnect = InternetConnect(m_internet, server.c_str(), url_components.nPort, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);

@@ -1,4 +1,5 @@
 #include "cat_ui_animator.h"
+#include <new>
 #include "cat_time_service.h"
 #include "cat_ui_widget.h"
 
@@ -25,7 +26,11 @@ void Animator::set_callback(std::function<void()> cb) {
 }
 // ----------------------------------------------------------------------------
 void Animator::start() {
-    if (!m_interpolator) m_interpolator = std::shared_ptr<Interpolator>(new LinearInterpolator());
+    if (!m_interpolator) {
+        auto default_interpolator = new (std::nothrow) LinearInterpolator();
+        if (!default_interpolator) return;
+        m_interpolator = std::shared_ptr<Interpolator>(default_interpolator);
+    }
     m_starttime = TimeService::now();
     m_started = true;
 }

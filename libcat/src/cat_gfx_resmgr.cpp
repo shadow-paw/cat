@@ -1,4 +1,5 @@
 #include "cat_gfx_resmgr.h"
+#include <new>
 #include <string.h>
 #include "libpng/png.h"
 
@@ -59,7 +60,8 @@ const Shader* ResourceManager::retain_shader(const std::string& name, const std:
         pair.second ++;
         return pair.first.shader;
     }
-    Shader* shader = new Shader();
+    Shader* shader = new (std::nothrow) Shader();
+    if (!shader) return nullptr;
     if (m_contextready) {
         if (!m_vfs->read(name, buffer)) return nullptr;
         if (!shader->init((const char*)buffer.ptr(), (const char*)buffer.ptr())) {
@@ -131,7 +133,8 @@ const Texture* ResourceManager::retain_tex(const std::string& name) {
         return pair.first;
     }
     // TODO: check filename extension and also handle jpeg
-    Texture* tex = new Texture();
+    Texture* tex = new (std::nothrow) Texture();
+    if (!tex) return nullptr;
     if (m_contextready) {
         if (!m_vfs->read(name, buf)) return nullptr;
         if (!load_tex_png(tex, buf)) {
@@ -226,7 +229,8 @@ bool ResourceManager::load_tex_png(Texture* tex, Buffer& buf) {
     width  = (unsigned int)png_get_image_width(png, info);
     height = (unsigned int)png_get_image_height(png, info);
     if (width > 4096 || height > 4096) goto fail;   // saneity check!
-    pixel = new uint8_t[row_bytes * height];
+    pixel = new (std::nothrow) uint8_t[row_bytes * height];
+    if (!pixel) goto fail;
 
     row_pointers = png_get_rows(png, info);
     for (unsigned int i = 0; i < height; i++) {
