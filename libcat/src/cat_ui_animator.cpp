@@ -21,6 +21,7 @@ void Animator::set_interpolator(std::shared_ptr<Interpolator> interpolator) {
 void Animator::set_duration(Timestamp duration) {
     m_duration = duration;
 }
+// ----------------------------------------------------------------------------
 void Animator::set_callback(std::function<void()> cb) {
     m_cb = cb;
 }

@@ -22,7 +22,9 @@ protected:
 protected:
     Draw2D::Effect m_effect;
     int m_detail_level;
+    Size2i m_texsize;
     cat::Texture m_tex[3];
+    void resize_tex();
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

@@ -27,9 +27,23 @@ struct Point2i {
     int x, y;
     Point2i() = default;
     Point2i(int _x, int _y) : x(_x), y(_y) {}
+    bool operator == (const Point2i& rhs) const {
+        return x == rhs.x && y == rhs.y;
+    }
+    bool operator != (const Point2i& rhs) const {
+        return x != rhs.x || y != rhs.y;
+    }
 };
 struct Size2i {
     int width, height;
+    Size2i() = default;
+    Size2i(int _w, int _h) : width(_w), height(_h) {}
+    bool operator == (const Size2i& rhs) const {
+        return width == rhs.width && height == rhs.height;
+    }
+    bool operator != (const Size2i& rhs) const {
+        return width != rhs.width || height != rhs.height;
+    }
 };
 class Rect2i {
 public:
@@ -40,6 +54,12 @@ public:
     void set(int x, int y, int w, int h) { origin.x = x; origin.y = y; size.width = w; size.height = h; }
     bool contain(int x, int y) const { return (x >= origin.x && x <= origin.x + size.width && y >= origin.y && y <= origin.y + size.height); }
     bool contain(const Point2i& pt) const { return (pt.x >= origin.x && pt.x <= origin.x + size.width && pt.y >= origin.y && pt.y <= origin.y + size.height); }
+    bool operator == (const Rect2i& rhs) const {
+        return origin == rhs.origin && size == rhs.size;
+    }
+    bool operator != (const Rect2i& rhs) const {
+        return origin != rhs.origin || size != rhs.size;
+    }
     Rect2i operator *(float scale) {
         Rect2i r;
         r.origin.x = (int)(origin.x*scale);

@@ -108,6 +108,7 @@ void Kernel::pause() {
 // ----------------------------------------------------------------------------
 void Kernel::resume() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
+    if (m_resumed) return;
     m_resumed = true;
     m_ui.resume();
     m_time.resume();
@@ -119,7 +120,6 @@ void Kernel::resume() {
 // ----------------------------------------------------------------------------
 void Kernel::resize(int width, int height) {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
-    if (!m_renderer.ready()) return;
     m_renderer.resize(width, height);
     m_ui.resize(width, height);
     for (auto& app : m_apps) {

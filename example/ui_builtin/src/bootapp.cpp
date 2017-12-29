@@ -56,12 +56,12 @@ bool BootApp::cb_startup(Timestamp now) {
     edit->set_textsize(10);
     pane1->attach(edit);    // NOTE: editbox will always be topmost
 
-    auto pane2 = new Pane(kernel(), Rect2i(300, 100, 400, 300));
+    auto pane2 = new Pane(kernel(), Rect2i(0, 0, 256, 256));
     pane2->set_bgcolor(0x80ffffff);
     pane2->set_bounded(true);
     pane2->set_draggable(true);
-    auto effectview2 = new EffectView(kernel(), Rect2i(0, 0, 400, 300));
-    effectview2->set_effect(Draw2D::Effect::Ripple);
+    auto effectview2 = new EffectView(kernel(), Rect2i(0, 0, 256, 256));
+    effectview2->set_effect(Draw2D::Effect::Ripple, 1);
     effectview2->set_bgcolor(0xffffffff);
     pane2->attach(effectview2);
     kernel()->ui()->attach(pane2);
@@ -76,7 +76,7 @@ bool BootApp::cb_startup(Timestamp now) {
     pane3->attach(effectview3);
     kernel()->ui()->attach(pane3);
 
-    m_pane = new Pane(kernel(), Rect2i(400, 200, 500, 500));
+    m_pane = new Pane(kernel(), Rect2i(10, 20, 500, 500));
     m_pane->set_bgcolor(0x80ffffff);
     m_pane->set_bounded(true);
     m_pane->set_draggable(true);

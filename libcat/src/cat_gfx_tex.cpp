@@ -58,7 +58,7 @@ bool Texture::capture_screen(const Rect2i& rect) {
     m_height = rect.size.height;
     if (m_tex == 0) glGenTextures(1, &m_tex);
     bind(0);
-    glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, rect.origin.x, rect.origin.y, rect.size.width & 0xfffffffe, rect.size.height & 0xfffffffe, 0);
+    glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, 0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

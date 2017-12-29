@@ -22,16 +22,19 @@ bool FBO::init() {
 }
 // ----------------------------------------------------------------------------
 void FBO::bind(const Texture& tex) {
+    // save states
+    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &m_state.fbo);
+    glGetIntegerv(GL_VIEWPORT, m_state.viewport);
+    glViewport(0, 0, tex.width(), tex.height());
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex.m_tex, 0);
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers);
-    glGetIntegerv(GL_VIEWPORT, m_viewport);
-    glViewport(0, 0, tex.width(), tex.height());
 }
 // ----------------------------------------------------------------------------
 void FBO::unbind() {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glViewport(m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_state.fbo);
+    glViewport(m_state.viewport[0], m_state.viewport[1], m_state.viewport[2], m_state.viewport[3]);
 }
 // ----------------------------------------------------------------------------
+

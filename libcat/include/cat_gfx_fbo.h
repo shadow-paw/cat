@@ -17,7 +17,11 @@ public:
 
 private:
     GLuint m_fbo;
-    GLint m_viewport[4];
+    // old states
+    struct {
+        GLint fbo;
+        GLint viewport[4];
+    } m_state;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

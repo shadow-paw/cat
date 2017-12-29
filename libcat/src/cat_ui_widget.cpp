@@ -79,11 +79,13 @@ Widget* Widget::child_withid(unsigned int id) const {
 }
 // ----------------------------------------------------------------------------
 void Widget::update_absrect() {
-    m_absrect = m_rect;
+    auto new_absrect = m_rect;
     if (m_parent) {
-        m_absrect.origin.x += m_parent->m_absrect.origin.x;
-        m_absrect.origin.y += m_parent->m_absrect.origin.y;
+        new_absrect.origin.x += m_parent->m_absrect.origin.x;
+        new_absrect.origin.y += m_parent->m_absrect.origin.y;
     }
+    if (m_absrect == new_absrect) return;
+    m_absrect = new_absrect;
     for (auto& child : m_childs) {
         child->update_absrect();
     }
@@ -105,8 +107,8 @@ void Widget::set_pos(const Point2i& pos) {
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(int width, int height) {
-    m_rect.size.width = width & 0xfffffffe;
-    m_rect.size.height = height & 0xfffffffe;
+    m_rect.size.width = width;
+    m_rect.size.height = height;
     m_absrect.size.width = m_rect.size.width;
     m_absrect.size.height = m_rect.size.height;
     cb_resize();
