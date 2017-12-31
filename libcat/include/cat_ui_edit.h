@@ -23,6 +23,7 @@ public:
 
 protected:
     virtual void cb_visible(bool b);
+    virtual void cb_move();
     virtual void cb_resize();
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
     virtual void cb_render(Renderer* r, unsigned long now);

@@ -126,6 +126,10 @@ void Editbox::cb_visible(bool b) {
 #endif
 }
 // ----------------------------------------------------------------------------
+void Editbox::cb_move() {
+    cb_resize();
+}
+// ----------------------------------------------------------------------------
 void Editbox::cb_resize() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     Rect2i scaled_rect = m_absrect * kernel()->ui()->get_scale();

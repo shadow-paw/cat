@@ -29,6 +29,7 @@ public:
     int        get_value() const { return m_value; }
 
 protected:
+    virtual void cb_move();
     virtual void cb_resize();
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
     virtual void cb_render(Renderer* r, Timestamp now);

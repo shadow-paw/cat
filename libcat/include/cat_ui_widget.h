@@ -73,6 +73,7 @@ public:
     // ------------------------------------------------------------------ Parent & Child
 
 protected:
+    virtual void cb_move() {}
     virtual void cb_resize() {}
     virtual void cb_visible(bool b) {}
     virtual void cb_enable(bool b) {}

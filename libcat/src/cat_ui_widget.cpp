@@ -42,6 +42,8 @@ bool Widget::attach(Widget* child) {
     if (m_kernel->renderer()->ready()) child->context_restored();
     // update rect
     child->update_absrect();
+    child->cb_resize();
+    child->ev_resize.call(child);
     // If visibility changed
     bool visible = child->is_visible();
     for (auto parent = this; parent; parent = parent->m_parent) {
@@ -80,17 +82,18 @@ Widget* Widget::child_withid(unsigned int id) const {
 }
 // ----------------------------------------------------------------------------
 void Widget::update_absrect() {
-    m_absrect = m_rect;
+    auto new_absrect = m_rect;
     if (m_parent) {
-        m_absrect.origin.x += m_parent->m_absrect.origin.x;
-        m_absrect.origin.y += m_parent->m_absrect.origin.y;
+        new_absrect.origin.x += m_parent->m_absrect.origin.x;
+        new_absrect.origin.y += m_parent->m_absrect.origin.y;
     }
+    if (m_absrect == new_absrect) return;
+    m_absrect = new_absrect;
+    cb_move();
+    dirty();
     for (auto& child : m_childs) {
         child->update_absrect();
     }
-    cb_resize();
-    ev_resize.call(this);
-    dirty();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_origin(int x, int y) {

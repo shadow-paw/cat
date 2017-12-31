@@ -70,6 +70,10 @@ void Slider::set_value(int value) {
     ev_slide.call(this, m_value);
 }
 // ----------------------------------------------------------------------------
+void Slider::cb_move() {
+    update_thumbrc();
+}
+// ----------------------------------------------------------------------------
 void Slider::cb_resize() {
     update_thumbrc();
 }
