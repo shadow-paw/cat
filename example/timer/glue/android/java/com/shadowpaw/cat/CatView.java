@@ -39,9 +39,9 @@ public class CatView extends FrameLayout {
         addView(mSurface, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mJniHandle = jniInit(getContext().getAssets());
         jniStartup(mJniHandle);
+        mSurface.setEGLContextClientVersion(3);
         mSurface.setZOrderOnTop(false);
         mSurface.getHolder().setFormat(PixelFormat.RGBX_8888);
-        mSurface.setEGLContextClientVersion(2);
         mSurface.setRenderer(new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {

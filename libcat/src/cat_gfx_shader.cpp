@@ -101,7 +101,7 @@ std::string Shader::preprocessor(GLenum type, const std::string& code) const {
         auto trimmed = StringUtil::trim(line);
         if (trimmed.empty()) continue;
         if (trimmed.compare(0, version_len, version_tag) == 0) {
-            auto versions = StringUtil::split(trimmed.substr(version_len), ",");
+            auto versions = StringUtil::split(trimmed.substr(version_len), ",", true);
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64) || defined(PLATFORM_MAC)
             if (versions.size() > 0) {
                 result += version_tag + versions[0] + "\n";
