@@ -19,7 +19,7 @@ class Widget : public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers
-    UIHandlers<> ev_resize;
+    UIHandlers<> ev_layout;
     UIHandlers<> ev_click;
     // Animators
     struct ANIMATORS {

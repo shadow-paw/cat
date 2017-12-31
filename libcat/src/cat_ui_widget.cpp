@@ -43,7 +43,6 @@ bool Widget::attach(Widget* child) {
     // update rect
     child->update_absrect();
     child->cb_resize();
-    child->ev_resize.call(child);
     // If visibility changed
     bool visible = child->is_visible();
     for (auto parent = this; parent; parent = parent->m_parent) {
@@ -91,6 +90,7 @@ void Widget::update_absrect() {
     m_absrect = new_absrect;
     cb_move();
     dirty();
+    ev_layout.call(this);
     for (auto& child : m_childs) {
         child->update_absrect();
     }
@@ -114,7 +114,7 @@ void Widget::set_size(int width, int height) {
     m_absrect.size.width = m_rect.size.width;
     m_absrect.size.height = m_rect.size.height;
     cb_resize();
-    ev_resize.call(this);
+    ev_layout.call(this);
     dirty();
 }
 // ----------------------------------------------------------------------------

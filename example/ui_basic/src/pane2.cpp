@@ -22,7 +22,7 @@ Pane2::Pane2(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     this->attach(button1);
 
     // relayout
-    this->ev_resize += [effectview, button1](Widget* w) -> void {
+    this->ev_layout += [effectview, button1](Widget* w) -> void {
         effectview->set_size(w->get_size());   // fill parent
         button1->set_origin((w->get_size().width - button1->get_size().width) / 2, (w->get_size().height - button1->get_size().height) / 2);
     };

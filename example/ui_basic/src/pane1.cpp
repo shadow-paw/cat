@@ -52,7 +52,7 @@ Pane1::Pane1(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     this->attach(slider2);
 
     // relayout
-    this->ev_resize += [label, button1, button2, slider1, slider2](Widget* w) -> void {
+    this->ev_layout += [label, button1, button2, slider1, slider2](Widget* w) -> void {
         label->set_origin(0, 0);
         label->set_size(w->parent()->get_size().width/2, 40);
         button1->set_origin(0, label->get_origin().y + label->get_size().height + 4);
