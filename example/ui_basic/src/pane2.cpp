@@ -22,19 +22,13 @@ Pane2::Pane2(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     this->attach(button1);
 
     // relayout
-    effectview->ev_layout += [](Widget* w) -> bool {
-        w->set_size(w->parent()->get_size());   // fill parent
-        return true;
-    };
-    button1->ev_layout += [](Widget* w) -> bool {
-        // center in parent
-        w->set_pos((w->parent()->get_size().width - w->get_size().width)/2, (w->parent()->get_size().height - w->get_size().height) / 2);
-        return true;
+    this->ev_resize += [effectview, button1](Widget* w) -> void {
+        effectview->set_size(w->get_size());   // fill parent
+        button1->set_origin((w->get_size().width - button1->get_size().width) / 2, (w->get_size().height - button1->get_size().height) / 2);
     };
     // Events
-    button1->ev_click += [](Widget* w) -> bool {
+    button1->ev_click += [](Widget* w) -> void {
         Logger::d("App", "Pane2::button1 Clicked!");
-        return true;
     };
 }
 // ----------------------------------------------------------------------------

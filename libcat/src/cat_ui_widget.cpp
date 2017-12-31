@@ -38,11 +38,10 @@ bool Widget::attach(Widget* child) {
     }
     m_childs.push_back(child);
     child->m_parent = this;
-    child->update_absrect();
     // sync context state
     if (m_kernel->renderer()->ready()) child->context_restored();
-    // relayout
-    child->relayout();
+    // update rect
+    child->update_absrect();
     // If visibility changed
     bool visible = child->is_visible();
     for (auto parent = this; parent; parent = parent->m_parent) {
@@ -90,18 +89,19 @@ void Widget::update_absrect() {
         child->update_absrect();
     }
     cb_resize();
+    ev_resize.call(this);
     dirty();
 }
 // ----------------------------------------------------------------------------
-void Widget::set_pos(int x, int y) {
+void Widget::set_origin(int x, int y) {
     if (m_rect.origin.x == x && m_rect.origin.y == y) return;
     m_rect.origin.x = x;
     m_rect.origin.y = y;
     update_absrect();
 }
 // ----------------------------------------------------------------------------
-void Widget::set_pos(const Point2i& pos) {
-    set_pos(pos.x, pos.y);
+void Widget::set_origin(const Point2i& origin) {
+    set_origin(origin.x, origin.y);
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(int width, int height) {
@@ -111,10 +111,8 @@ void Widget::set_size(int width, int height) {
     m_absrect.size.width = m_rect.size.width;
     m_absrect.size.height = m_rect.size.height;
     cb_resize();
+    ev_resize.call(this);
     dirty();
-    for (auto& child : m_childs) {
-        child->relayout();
-    }
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(const Size2i& size) {
@@ -181,13 +179,6 @@ bool Widget::context_restored() {
     }
     result |= cb_context_restored();
     return result;
-}
-// ----------------------------------------------------------------------------
-void Widget::relayout() {
-    ev_layout.call(this);
-    for (auto& child : m_childs) {
-        child->relayout();
-    }
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_uiscaled() {

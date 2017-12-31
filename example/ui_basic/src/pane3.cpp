@@ -23,10 +23,9 @@ Pane3::Pane3(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     this->attach(label);
 
     // relayout
-    label->ev_layout += [](Widget* w) -> bool {
+    this->ev_resize += [label](Widget* w) -> void {
         // center in parent
-        w->set_pos((w->parent()->get_size().width - w->get_size().width) / 2, (w->parent()->get_size().height - w->get_size().height) / 2);
-        return true;
+        label->set_origin((w->get_size().width - label->get_size().width) / 2, (w->get_size().height - label->get_size().height) / 2);
     };
 }
 // ----------------------------------------------------------------------------

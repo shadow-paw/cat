@@ -7,7 +7,7 @@ namespace app {
 // ----------------------------------------------------------------------------
 class Pane1 : public cat::Pane {
 public:
-    cat::UIHandler<bool> ev_check;
+    cat::UIHandlers<bool> ev_check;
 
     Pane1(cat::KernelApi* kernel_api, const cat::Rect2i& rect, unsigned int id = 0);
     virtual ~Pane1();

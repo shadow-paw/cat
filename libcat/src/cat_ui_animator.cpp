@@ -73,10 +73,10 @@ void TranslateAnimator::cb_animate(Timestamp now) {
     Timestamp dt = now - m_starttime;
     if (dt < m_duration) {
         float value = m_interpolator->get((float)dt / m_duration);
-        m_widget->set_pos((int)(m_from.x + (m_to.x - m_from.x) * value),
+        m_widget->set_origin((int)(m_from.x + (m_to.x - m_from.x) * value),
             (int)(m_from.y + (m_to.y - m_from.y) * value));
     } else {
-        m_widget->set_pos(m_to);
+        m_widget->set_origin(m_to);
         stop();
     }
 }

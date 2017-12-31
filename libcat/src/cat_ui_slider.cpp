@@ -7,7 +7,7 @@ using namespace cat;
 Slider::Slider(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(2);
     m_orentation = Orentation::Horizontal;
-    m_min = m_max = m_pos = 0;
+    m_min = m_max = m_value = 0;
     m_dragging = false;
     update_thumbrc();
 }
@@ -24,9 +24,9 @@ void Slider::set_min(int min) {
     if (m_min == min) return;
     m_min = min;
     if (m_max < min) m_max = min;
-    if (m_pos < min) {
-        m_pos = min;
-        ev_slide.call(this, m_pos);
+    if (m_value < min) {
+        m_value = min;
+        ev_slide.call(this, m_value);
         update_thumbrc();
     }
 }
@@ -35,10 +35,10 @@ void Slider::set_max(int max) {
     if (m_max == max) return;
     m_max = max;
     if (m_min > max) m_min = max;
-    if (m_pos > max) {
-        m_pos = max;
+    if (m_value > max) {
+        m_value = max;
         update_thumbrc();
-        ev_slide.call(this, m_pos);
+        ev_slide.call(this, m_value);
     }
 }
 // ----------------------------------------------------------------------------
@@ -47,31 +47,27 @@ void Slider::set_range(int min, int max) {
     if (min==m_min && max==m_max) return;
     m_min = min;
     m_max = max;
-    if (m_pos < m_min) {
-        m_pos = m_min;
+    if (m_value < m_min) {
+        m_value = m_min;
         update_thumbrc();
-        ev_slide.call(this, m_pos);
-    } else if (m_pos > m_max) {
-        m_pos = m_max;
+        ev_slide.call(this, m_value);
+    } else if (m_value > m_max) {
+        m_value = m_max;
         update_thumbrc();
-        ev_slide.call(this, m_pos);
+        ev_slide.call(this, m_value);
     }
 }
 // ----------------------------------------------------------------------------
-void Slider::set_pos(int pos) {
-    if (m_pos == pos) return;
-    m_pos = pos;
-    if (m_pos < m_min) {
-        m_pos = m_min;
-    } else if (m_pos > m_max) {
-        m_pos = m_max;
+void Slider::set_value(int value) {
+    if (m_value == value) return;
+    m_value = value;
+    if (m_value < m_min) {
+        m_value = m_min;
+    } else if (m_value > m_max) {
+        m_value = m_max;
     }
     update_thumbrc();
-    ev_slide.call(this, m_pos);
-}
-// ----------------------------------------------------------------------------
-int Slider::choose_pos(int x, int y) const {
-    return 0;
+    ev_slide.call(this, m_value);
 }
 // ----------------------------------------------------------------------------
 void Slider::cb_resize() {
@@ -108,12 +104,12 @@ bool Slider::cb_touch(const TouchEvent& ev, bool handled) {
             }
             int width = m_absrect.size.width - m_thumbrc.size.width;
             int offset = m_thumbrc.origin.x - m_absrect.origin.x;
-            int pos = offset != 0 ? (m_max - m_min+1) * offset / width + m_min : m_min;
-            if (pos < m_min) pos = m_min;
-            else if (pos > m_max) pos = m_max;
-            if (m_pos!=pos) {
-                m_pos = pos;
-                ev_slide.call(this, m_pos);
+            int value = offset != 0 ? (m_max - m_min+1) * offset / width + m_min : m_min;
+            if (value < m_min) value = m_min;
+            else if (value > m_max) value = m_max;
+            if (m_value!= value) {
+                m_value = value;
+                ev_slide.call(this, m_value);
             }
         } else {
             int dy = ev.y - m_dragy;
@@ -125,12 +121,12 @@ bool Slider::cb_touch(const TouchEvent& ev, bool handled) {
             }
             int height = m_absrect.size.height - m_thumbrc.size.height;
             int offset = m_thumbrc.origin.y - m_absrect.origin.y;
-            int pos = offset != 0 ? (m_max - m_min+1) * offset / height + m_min : m_min;
-            if (pos < m_min) pos = m_min;
-            else if (pos > m_max) pos = m_max;
-            if (m_pos != pos) {
-                m_pos = pos;
-                ev_slide.call(this, m_pos);
+            int value = offset != 0 ? (m_max - m_min+1) * offset / height + m_min : m_min;
+            if (value < m_min) value = m_min;
+            else if (value > m_max) value = m_max;
+            if (m_value != value) {
+                m_value = value;
+                ev_slide.call(this, m_value);
             }
         }
         m_dragx = ev.x;
@@ -140,16 +136,16 @@ bool Slider::cb_touch(const TouchEvent& ev, bool handled) {
     case TouchEvent::EventType::Scroll:
         if (!m_absrect.contain(ev.x, ev.y)) return false;
         if (ev.scroll > 0) {
-            if (m_pos <= m_min) return false;
-            m_pos --;
+            if (m_value <= m_min) return false;
+            m_value--;
             update_thumbrc();
-            ev_slide.call(this, m_pos);
+            ev_slide.call(this, m_value);
             return true;
         } else if (ev.scroll < 0) {
-            if (m_pos >= m_max) return false;
-            m_pos++;
+            if (m_value >= m_max) return false;
+            m_value++;
             update_thumbrc();
-            ev_slide.call(this, m_pos);
+            ev_slide.call(this, m_value);
             return true;
         } return false;
     default:
@@ -163,13 +159,13 @@ void Slider::update_thumbrc() {
         m_thumbrc.size.width = m_thumbrc.size.height;
         m_thumbrc.origin.x = m_absrect.origin.x;
         m_thumbrc.origin.y = m_absrect.origin.y;
-        if (m_max != m_min) m_thumbrc.origin.x += m_pos * (m_absrect.size.width - m_thumbrc.size.width) / (m_max - m_min);
+        if (m_max != m_min) m_thumbrc.origin.x += m_value * (m_absrect.size.width - m_thumbrc.size.width) / (m_max - m_min);
     } else {
         m_thumbrc.size.width = m_absrect.size.width;
         m_thumbrc.size.height = m_thumbrc.size.width;
         m_thumbrc.origin.x = m_absrect.origin.x;
         m_thumbrc.origin.y = m_absrect.origin.y;
-        if (m_max != m_min) m_thumbrc.origin.y += m_pos * (m_absrect.size.height - m_thumbrc.size.height) / (m_max - m_min);
+        if (m_max != m_min) m_thumbrc.origin.y += m_value * (m_absrect.size.height - m_thumbrc.size.height) / (m_max - m_min);
     }
 }
 // ----------------------------------------------------------------------------

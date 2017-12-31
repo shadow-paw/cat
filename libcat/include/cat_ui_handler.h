@@ -10,7 +10,25 @@ class Widget;
 template <class... ARG>
 class UIHandler {
 public:
-    typedef std::function<bool(Widget*, const ARG&...)> HANDLER;
+    typedef std::function<void(Widget*, const ARG&...)> HANDLER;
+
+    void operator = (const HANDLER& handler) {
+        m_handler = handler;
+    }
+    bool call(Widget* widget, const ARG&... args) {
+        if (m_handler) {
+            m_handler(widget, args...);
+            return true;
+        } return false;
+    }
+private:
+    HANDLER m_handler;
+};
+// ----------------------------------------------------------------------------
+template <class... ARG>
+class UIHandlers {
+public:
+    typedef std::function<void(Widget*, const ARG&...)> HANDLER;
 
     void operator += (const HANDLER& handler) {
         m_handlers.push_back({handler, true});
@@ -27,7 +45,8 @@ public:
         bool handled = false;
         for (auto it=m_handlers.begin(); it!=m_handlers.end();) {
             if (it->active) {
-                handled |= it->handler(widget, args...);
+                handled = true;
+                it->handler(widget, args...);
                 ++it;
             } else {
                 it = m_handlers.erase(it);

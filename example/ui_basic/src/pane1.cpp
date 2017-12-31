@@ -35,7 +35,7 @@ Pane1::Pane1(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     slider1->set_texture(Slider::TexBackground, ui_image, 0, 80, 92, 118, 6, 6);
     slider1->set_texture(Slider::TexThumb, ui_image, 94, 80, 139, 117, 6, 6);
     slider1->set_max(5);    // 0~5
-    slider1->set_pos(1);
+    slider1->set_value(1);
     this->attach(slider1);
     auto edit = new Editbox(kernel(), Rect2i(10, 150, 80, 30), 1);
     edit->set_bgcolor(0x30000000);
@@ -48,52 +48,28 @@ Pane1::Pane1(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     slider2->set_texture(Slider::TexThumb, ui_image, 94, 80, 139, 117, 6, 6);
     slider2->set_orentation(Slider::Orentation::Vertical);
     slider2->set_range(0, 10);
-    slider2->set_pos(2);
+    slider2->set_value(2);
     this->attach(slider2);
 
     // relayout
-    this->ev_layout += [](Widget* w) -> bool {
-        w->set_size(w->parent()->get_size().width/2, w->parent()->get_size().height);   // half parent width
-        return true;
-    };
-    label->ev_layout += [button1](Widget* w) -> bool {
-        w->set_pos(0, 0);
-        w->set_size(w->parent()->get_size().width/2, 40);
-        button1->relayout();
-        return true;
-    };
-    button1->ev_layout += [label, button2](Widget* w) -> bool {
-        w->set_pos(0, label->get_pos().y + label->get_size().height + 4);
-        button2->relayout();
-        return true;
-    };
-    button2->ev_layout += [button1, slider1, slider2](Widget* w) -> bool {
-        w->set_pos(button1->get_pos().x + button1->get_size().width + 16, button1->get_pos().y);
-        slider1->relayout();
-        slider2->relayout();
-        return true;
-    };
-    slider1->ev_layout += [button1](Widget* w) -> bool {
-        w->set_pos(0, button1->get_pos().y + button1->get_size().height + 4);
-        return true;
-    };
-    slider2->ev_layout += [button2](Widget* w) -> bool {
-        w->set_pos(button2->get_pos().x + button2->get_size().width + 16, button2->get_pos().y);
-        return true;
+    this->ev_resize += [label, button1, button2, slider1, slider2](Widget* w) -> void {
+        label->set_origin(0, 0);
+        label->set_size(w->parent()->get_size().width/2, 40);
+        button1->set_origin(0, label->get_origin().y + label->get_size().height + 4);
+        button2->set_origin(button1->get_origin().x + button1->get_size().width + 16, button1->get_origin().y);
+        slider1->set_origin(0, button1->get_origin().y + button1->get_size().height + 4);
+        slider2->set_origin(button2->get_origin().x + button2->get_size().width + 16, button2->get_origin().y);
     };
     // Events
-    button1->ev_click += [](Widget* w) -> bool {
+    button1->ev_click += [](Widget* w) -> void {
         Logger::d("App", "Pane1::button1 Clicked!");
-        return true;
     };
-    button2->ev_check += [this](Widget* w, bool checked) -> bool {
+    button2->ev_check += [this](Widget* w, bool checked) -> void {
         Logger::d("App", "Pane1::button2 Check: %s", (checked?"YES":"NO"));
         ev_check.call(this, checked);
-        return true;
     };
-    slider1->ev_slide += [](Widget* w, int pos) -> bool {
+    slider1->ev_slide += [](Widget* w, int pos) -> void {
         Logger::d("App", "Pane1::slider: %d", pos);
-        return true;
     };
 }
 // ----------------------------------------------------------------------------

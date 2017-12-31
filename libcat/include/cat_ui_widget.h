@@ -19,8 +19,8 @@ class Widget : public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers
-    UIHandler<> ev_layout;
-    UIHandler<> ev_click;
+    UIHandlers<> ev_resize;
+    UIHandlers<> ev_click;
     // Animators
     struct ANIMATORS {
         ANIMATORS(Widget* w) : translate(w), opacity(w) {}
@@ -32,14 +32,13 @@ public:
     virtual ~Widget();
 
     // ------------------------------------------------------------------ Size and Position
-    void set_pos(int x, int y);
+    void set_origin(int x, int y);
     void set_size(int width, int height);
-    void set_pos(const Point2i& pos);
+    void set_origin(const Point2i& origin);
     void set_size(const Size2i& size);
-    const Point2i& get_pos() const { return m_rect.origin; }
+    const Point2i& get_origin() const { return m_rect.origin; }
     const Size2i& get_size() const { return m_rect.size; }
     void bring_tofront();
-    void relayout();
     // ------------------------------------------------------------------ Size and Position
 
     // ------------------------------------------------------------------ Flags
