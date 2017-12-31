@@ -126,10 +126,6 @@ void Editbox::cb_visible(bool b) {
 #endif
 }
 // ----------------------------------------------------------------------------
-void Editbox::cb_uiscale() {
-    cb_resize();
-}
-// ----------------------------------------------------------------------------
 void Editbox::cb_resize() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     Rect2i scaled_rect = m_absrect * kernel()->ui()->get_scale();
@@ -139,7 +135,7 @@ void Editbox::cb_resize() {
         TRUE);
 #elif defined(PLATFORM_MAC)
     Rect2i scaled_rect = m_absrect * kernel()->ui()->get_scale();
-    scaled_rect.origin.y = kernel()->ui()->get_height() - scaled_rect.origin.y - scaled_rect.size.height; // invert Y-coordinate
+    scaled_rect.origin.y = kernel()->ui()->get_size().height - scaled_rect.origin.y - scaled_rect.size.height; // invert Y-coordinate
     NSTextField* tv = (__bridge NSTextField*)m_native_ctrl;
     [tv setFrame:CGRectMake(scaled_rect.origin.x, scaled_rect.origin.y, scaled_rect.size.width + 1, scaled_rect.size.height + 1)];
 #elif defined(PLATFORM_IOS)

@@ -7,6 +7,7 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 EffectView::EffectView(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Widget(kernel_api, rect, id) {
     m_texrefs.resize(1);
+    m_bgcolor = 0xffffffff;
     m_effect = Draw2D::Effect::Color;
     m_detail_level = 8;
     m_texsize.width = m_texsize.height = 0;
