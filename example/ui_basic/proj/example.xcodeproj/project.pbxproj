@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E64D7491FF8D7840049AD7C /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3E64D7481FF8D7840049AD7C /* ui */; };
-		3E64D74A1FF8D78D0049AD7C /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3E64D7481FF8D7840049AD7C /* ui */; };
 		3ED4FEB41F89ED2900D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAB1F89ED2800D299B6 /* main.m */; };
 		3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* CatView.mm */; };
 		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
@@ -22,10 +20,19 @@
 		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
+		3EF8A4011FF8D50D00B828ED /* pane1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */; };
+		3EF8A4021FF8D50D00B828ED /* pane2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */; };
+		3EF8A4031FF8D50D00B828ED /* pane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FF1FF8D50D00B828ED /* pane3.cpp */; };
+		3EF8A4081FF8D5BE00B828ED /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4061FF8D5BE00B828ED /* shader */; };
+		3EF8A4091FF8D5BE00B828ED /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4071FF8D5BE00B828ED /* ui */; };
+		3EF8A40A1FF8D5F400B828ED /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4061FF8D5BE00B828ED /* shader */; };
+		3EF8A40B1FF8D5F400B828ED /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4071FF8D5BE00B828ED /* ui */; };
+		3EF8A40C1FF8D60700B828ED /* pane1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */; };
+		3EF8A40D1FF8D60700B828ED /* pane2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */; };
+		3EF8A40E1FF8D60700B828ED /* pane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FF1FF8D50D00B828ED /* pane3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E64D7481FF8D7840049AD7C /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ui; path = ../assets/ui; sourceTree = "<group>"; };
 		3E859A121F77939A00F84D36 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
@@ -48,6 +55,14 @@
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
 		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
+		3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane1.cpp; path = ../src/pane1.cpp; sourceTree = "<group>"; };
+		3EF8A3FC1FF8D50D00B828ED /* pane1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pane1.h; path = ../src/pane1.h; sourceTree = "<group>"; };
+		3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane2.cpp; path = ../src/pane2.cpp; sourceTree = "<group>"; };
+		3EF8A3FE1FF8D50D00B828ED /* pane2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pane2.h; path = ../src/pane2.h; sourceTree = "<group>"; };
+		3EF8A3FF1FF8D50D00B828ED /* pane3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane3.cpp; path = ../src/pane3.cpp; sourceTree = "<group>"; };
+		3EF8A4001FF8D50D00B828ED /* pane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pane3.h; path = ../src/pane3.h; sourceTree = "<group>"; };
+		3EF8A4061FF8D5BE00B828ED /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shader; path = ../assets/shader; sourceTree = "<group>"; };
+		3EF8A4071FF8D5BE00B828ED /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ui; path = ../assets/ui; sourceTree = "<group>"; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -69,18 +84,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E64D7471FF8D7770049AD7C /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				3E64D7481FF8D7840049AD7C /* ui */,
-			);
-			name = assets;
-			sourceTree = "<group>";
-		};
 		3E859A091F77939A00F84D36 = {
 			isa = PBXGroup;
 			children = (
-				3E64D7471FF8D7770049AD7C /* assets */,
+				3EF8A4051FF8D5B000B828ED /* assets */,
 				3E859A341F7793DE00F84D36 /* example */,
 				3E859A131F77939A00F84D36 /* Products */,
 				3EB96B9B1F7F73FC0067C170 /* Frameworks */,
@@ -124,6 +131,12 @@
 		3EB96B971F7F71C20067C170 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */,
+				3EF8A3FC1FF8D50D00B828ED /* pane1.h */,
+				3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */,
+				3EF8A3FE1FF8D50D00B828ED /* pane2.h */,
+				3EF8A3FF1FF8D50D00B828ED /* pane3.cpp */,
+				3EF8A4001FF8D50D00B828ED /* pane3.h */,
 				3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */,
 				3ED4FEBB1F89F15A00D299B6 /* bootapp.h */,
 			);
@@ -145,6 +158,15 @@
 				3EFB3A511F8103930097445D /* ios */,
 			);
 			name = glue;
+			sourceTree = "<group>";
+		};
+		3EF8A4051FF8D5B000B828ED /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				3EF8A4061FF8D5BE00B828ED /* shader */,
+				3EF8A4071FF8D5BE00B828ED /* ui */,
+			);
+			name = assets;
 			sourceTree = "<group>";
 		};
 		3EFB3A511F8103930097445D /* ios */ = {
@@ -243,8 +265,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF8A4091FF8D5BE00B828ED /* ui in Resources */,
 				3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */,
-				3E64D7491FF8D7840049AD7C /* ui in Resources */,
+				3EF8A4081FF8D5BE00B828ED /* shader in Resources */,
 				3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,7 +276,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E64D74A1FF8D78D0049AD7C /* ui in Resources */,
+				3EF8A40A1FF8D5F400B828ED /* shader in Resources */,
+				3EF8A40B1FF8D5F400B828ED /* ui in Resources */,
 				3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */,
 				3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */,
 				3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */,
@@ -269,8 +293,11 @@
 			files = (
 				3ED4FEB41F89ED2900D299B6 /* main.m in Sources */,
 				3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */,
+				3EF8A4021FF8D50D00B828ED /* pane2.cpp in Sources */,
+				3EF8A4031FF8D50D00B828ED /* pane3.cpp in Sources */,
 				3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */,
 				3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */,
+				3EF8A4011FF8D50D00B828ED /* pane1.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +305,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF8A40C1FF8D60700B828ED /* pane1.cpp in Sources */,
+				3EF8A40D1FF8D60700B828ED /* pane2.cpp in Sources */,
+				3EF8A40E1FF8D60700B828ED /* pane3.cpp in Sources */,
 				3ED4FEDB1F89F56400D299B6 /* main.m in Sources */,
 				3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */,
 				3ED4FEDD1F89F56400D299B6 /* CatView.mm in Sources */,

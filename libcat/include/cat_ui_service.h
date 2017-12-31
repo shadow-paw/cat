@@ -17,13 +17,11 @@ public:
     UIService(KernelApi* kernel);
     ~UIService();
 
-    bool  attach(Widget* w);
-    void  detach(Widget* w);
-    void  scale(float factor);
-    float get_scale() const { return m_scale; }
-    int   get_width() const { return m_width; }
-    int   get_height() const { return m_height; }
-    void  capture(Texture* tex, const Rect2i& rect);
+    Widget* desktop() { return m_desktop; }
+    void          scale(float factor);
+    const Size2i& get_size() const { return m_size; }
+    float         get_scale() const { return m_scale; }
+    void          capture(Texture* tex, const Rect2i& rect);
 
 private:    // call from Kernel
     //! Initialize service
@@ -43,9 +41,9 @@ private:    // call from Kernel
 
 private:
     KernelApi* m_kernel;
-    int m_width, m_height;
-    float m_scale;
-    Widget* m_desktop;
+    Size2i     m_size;
+    float      m_scale;
+    Widget*    m_desktop;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

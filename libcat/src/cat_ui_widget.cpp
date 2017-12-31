@@ -36,11 +36,13 @@ bool Widget::attach(Widget* child) {
         Logger::e("libcat", "UI.attach - widget already has a parent!");
         return false;
     }
-    child->m_parent = this;
     m_childs.push_back(child);
-    update_absrect();
+    child->m_parent = this;
+    child->update_absrect();
     // sync context state
     if (m_kernel->renderer()->ready()) child->context_restored();
+    // relayout
+    child->relayout();
     // If visibility changed
     bool visible = child->is_visible();
     for (auto parent = this; parent; parent = parent->m_parent) {
@@ -79,13 +81,11 @@ Widget* Widget::child_withid(unsigned int id) const {
 }
 // ----------------------------------------------------------------------------
 void Widget::update_absrect() {
-    auto new_absrect = m_rect;
+    m_absrect = m_rect;
     if (m_parent) {
-        new_absrect.origin.x += m_parent->m_absrect.origin.x;
-        new_absrect.origin.y += m_parent->m_absrect.origin.y;
+        m_absrect.origin.x += m_parent->m_absrect.origin.x;
+        m_absrect.origin.y += m_parent->m_absrect.origin.y;
     }
-    if (m_absrect == new_absrect) return;
-    m_absrect = new_absrect;
     for (auto& child : m_childs) {
         child->update_absrect();
     }
@@ -94,32 +94,31 @@ void Widget::update_absrect() {
 }
 // ----------------------------------------------------------------------------
 void Widget::set_pos(int x, int y) {
+    if (m_rect.origin.x == x && m_rect.origin.y == y) return;
     m_rect.origin.x = x;
     m_rect.origin.y = y;
     update_absrect();
-    cb_resize();
 }
 // ----------------------------------------------------------------------------
 void Widget::set_pos(const Point2i& pos) {
-    m_rect.origin = pos;
-    update_absrect();
-    cb_resize();
+    set_pos(pos.x, pos.y);
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(int width, int height) {
+    if (m_rect.size.width == width && m_rect.size.height == height) return;
     m_rect.size.width = width;
     m_rect.size.height = height;
     m_absrect.size.width = m_rect.size.width;
     m_absrect.size.height = m_rect.size.height;
     cb_resize();
     dirty();
+    for (auto& child : m_childs) {
+        child->relayout();
+    }
 }
 // ----------------------------------------------------------------------------
 void Widget::set_size(const Size2i& size) {
-    m_rect.size = size;
-    m_absrect.size = size;
-    cb_resize();
-    dirty();
+    set_size(size.width, size.height);
 }
 // ----------------------------------------------------------------------------
 void Widget::set_visible(bool b) {
@@ -184,10 +183,17 @@ bool Widget::context_restored() {
     return result;
 }
 // ----------------------------------------------------------------------------
+void Widget::relayout() {
+    ev_layout.call(this);
+    for (auto& child : m_childs) {
+        child->relayout();
+    }
+}
+// ----------------------------------------------------------------------------
 void Widget::notify_uiscaled() {
     for (auto& child : m_childs) {
         child->notify_uiscaled();
-    } cb_uiscale();
+    } cb_resize();
 }
 // ----------------------------------------------------------------------------
 void Widget::notify_visible(bool b) {

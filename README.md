@@ -15,8 +15,7 @@
 
 ## Examples
 - [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle.
-- [Builtin UI](example/ui_builtin/src/bootapp.cpp) - basic ui like pane and button
-- [Custom UI](example/ui_custom/src/bootapp.cpp) - build custom ui with custom shader
+- [Basic UI](example/ui_basic/src/bootapp.cpp) - basic ui like pane and button
 - [Timer](example/timer/src/bootapp.cpp) - create and remove timers
 - [HTTP](example/http/src/bootapp.cpp) - rest compatible http client
 

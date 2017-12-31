@@ -681,7 +681,6 @@
 		3E8637031F77544B00A97811 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_VARIANTS = debug;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/ios";
@@ -838,7 +837,6 @@
 		3ECE60631F7671CB007C3766 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_VARIANTS = debug;
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/mac";
 				EXECUTABLE_PREFIX = "";

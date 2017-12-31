@@ -50,6 +50,7 @@ public:
     Point2i origin;
     Size2i  size;
     Rect2i() = default;
+    Rect2i(const Point2i& o, const Size2i& s) { origin = o; size = s; }
     Rect2i(int x, int y, int w, int h) { origin.x = x; origin.y = y; size.width = w; size.height = h; }
     void set(int x, int y, int w, int h) { origin.x = x; origin.y = y; size.width = w; size.height = h; }
     bool contain(int x, int y) const { return (x >= origin.x && x <= origin.x + size.width && y >= origin.y && y <= origin.y + size.height); }

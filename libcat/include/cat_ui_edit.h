@@ -23,7 +23,6 @@ public:
 
 protected:
     virtual void cb_visible(bool b);
-    virtual void cb_uiscale();
     virtual void cb_resize();
     virtual bool cb_touch(const TouchEvent& ev, bool handled);
     virtual void cb_render(Renderer* r, unsigned long now);
@@ -47,8 +46,6 @@ private:
     #error Not Implemented!
 #endif
     void native_show(bool show);
-    std::string native_gettext() const;
-    void native_settext(const std::string& s);
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

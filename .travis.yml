@@ -17,7 +17,7 @@ matrix:
         - (cd dependency/setup && ./libpng-ios.sh)
       script:
         - (cd libcat/proj && xcodebuild -project libcat.xcodeproj -target libcat-ios -sdk iphonesimulator11.2 build)
-        - (cd example/ui_builtin/proj && xcodebuild -project example.xcodeproj -target example-ios -sdk iphonesimulator11.2 build)
+        - (cd example/ui_basic/proj && xcodebuild -project example.xcodeproj -target example-ios -sdk iphonesimulator11.2 build)
   
     - language: android
       jdk: oraclejdk8
@@ -50,7 +50,7 @@ matrix:
         - (cd dependency/setup && ./libpng-android.sh)
       script:
         - (cd libcat/proj && ${ANDROID_NDK_HOME}/ndk-build -j4)
-        - (cd example/ui_builtin/proj/android && ./gradlew assembleDebug)
+        - (cd example/ui_basic/proj/android && ./gradlew assembleDebug)
 
 notifications:
   email: false

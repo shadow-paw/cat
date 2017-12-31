@@ -19,7 +19,9 @@ class Widget : public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers
+    UIHandler<> ev_layout;
     UIHandler<> ev_click;
+    // Animators
     struct ANIMATORS {
         ANIMATORS(Widget* w) : translate(w), opacity(w) {}
         TranslateAnimator translate;
@@ -34,8 +36,10 @@ public:
     void set_size(int width, int height);
     void set_pos(const Point2i& pos);
     void set_size(const Size2i& size);
+    const Point2i& get_pos() const { return m_rect.origin; }
     const Size2i& get_size() const { return m_rect.size; }
     void bring_tofront();
+    void relayout();
     // ------------------------------------------------------------------ Size and Position
 
     // ------------------------------------------------------------------ Flags
@@ -60,19 +64,19 @@ public:
     bool perform_click();
     // ------------------------------------------------------------------ Actions
 
-    // ------------------------------------------------------------------ Child
+    // ------------------------------------------------------------------ Parent & Child
+    Widget* parent() { return m_parent; }
     bool attach(Widget* child);
     void detach(Widget* child);
     void remove_childs();
     Widget* child_at(unsigned int index) const;
     Widget* child_withid(unsigned int id) const;
-    // ------------------------------------------------------------------ Child
+    // ------------------------------------------------------------------ Parent & Child
 
 protected:
-    virtual void cb_uiscale() {}
+    virtual void cb_resize() {}
     virtual void cb_visible(bool b) {}
     virtual void cb_enable(bool b) {}
-    virtual void cb_resize() {}
     virtual bool cb_timer(Timestamp now, int code) { return false; }
     virtual bool cb_touch(const TouchEvent& ev, bool handled) { return false; }
     virtual void cb_render(Renderer* r, Timestamp now) {}
