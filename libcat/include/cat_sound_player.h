@@ -2,24 +2,34 @@
 #define __CAT_SOUND_PLAYER_H__
 
 #include <string>
-#if defined(PLATFORM_ANDROID)
+#include "cat_platform.h"
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+  #include <mfobjects.h>
+  #include <mfidl.h>
+  #pragma comment(lib, "shlwapi")
+  #pragma comment(lib, "mf.lib")
+  #pragma comment(lib, "mfplat.lib")
+  #pragma comment(lib, "mfuuid.lib")
+#elif defined(PLATFORM_ANDROID)
   #include <SLES/OpenSLES.h>
 #endif
-#include "cat_platform.h"
 #include "cat_data_event.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
 class SoundService;
 class AudioEngine;
-class AudioPlayer {
+class AudioPlayer
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    : public IMFAsyncCallback
+#endif
+{
 friend class AudioEngine;
 public:
     enum class Status { Failed, Loaded, Playing, Paused };
     EventHandler<AudioPlayer,Status> ev_status;
+    void release();
 
-    AudioPlayer();
-    ~AudioPlayer();
     bool play();
     bool pause();
     bool stop();
@@ -31,8 +41,27 @@ private:
     bool load(AudioEngine* engine, const std::string& name);
     void unload();
 private:
+    AudioPlayer();
+    ~AudioPlayer();
+
     bool m_loaded;
-#if defined(PLATFORM_ANDROID)
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    // IUnknown methods
+    long m_ref;
+    STDMETHODIMP QueryInterface(REFIID iid, void** ppv);
+    STDMETHODIMP_(ULONG) AddRef();
+    STDMETHODIMP_(ULONG) Release();
+    // IMFAsyncCallback methods
+    STDMETHODIMP  GetParameters(DWORD*, DWORD*);
+    STDMETHODIMP  Invoke(IMFAsyncResult* pAsyncResult);
+    // data
+    IMFMediaSession* m_session;
+    IMFMediaSource* m_source;
+    Status m_status;
+    unsigned long m_duration;
+    bool m_closed;
+
+#elif defined(PLATFORM_ANDROID)
     SLObjectItf m_player;
     SLPlayItf   m_play_iface;
     SLSeekItf   m_seek_iface;

@@ -61,7 +61,7 @@ Pane1::~Pane1() {
         m_sfx = nullptr;
     }
     if (m_audio) {
-        delete m_audio;
+        m_audio->release();
         m_audio = nullptr;
     }
 }

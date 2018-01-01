@@ -1,5 +1,8 @@
 #include "cat_sound_player.h"
-#if defined(PLATFORM_ANDROID)
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+  #include <shlwapi.h>
+  #include <mfapi.h>
+#elif defined(PLATFORM_ANDROID)
   #include <SLES/OpenSLES_Android.h>
   #include <android/asset_manager_jni.h>
 #elif defined(PLATFORM_MAC)
@@ -7,14 +10,74 @@
 #elif defined(PLATFORM_IOS)
   #import <AVFoundation/AVFoundation.h>
 #endif
+#include "cat_util_string.h"
 #include "cat_util_log.h"
 
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-// AudioPlayer delegate
+// NOTE: Due to circular refernece in Windows meda foundation design.
+//       AudioPlayer have resource leak.
 // ----------------------------------------------------------------------------
-#if defined(PLATFORM_ANDROID)
+
+// ----------------------------------------------------------------------------
+// Platform Specific: Windows
+// ----------------------------------------------------------------------------
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+HRESULT AudioPlayer::QueryInterface(REFIID riid, void** ppv) {
+    static const QITAB qit[] = {
+        QITABENT(AudioPlayer, IMFAsyncCallback),
+        {0}
+    };
+    return QISearch(this, qit, riid, ppv);
+}
+// ----------------------------------------------------------------------------
+ULONG AudioPlayer::AddRef() {
+    return InterlockedIncrement(&m_ref);
+}
+// ----------------------------------------------------------------------------
+ULONG AudioPlayer::Release() {
+    ULONG count = InterlockedDecrement(&m_ref);
+    if (count == 0) delete this;
+    return count;
+}
+// ----------------------------------------------------------------------------
+STDMETHODIMP AudioPlayer::GetParameters(DWORD*, DWORD*) {
+    return E_NOTIMPL;
+}
+// ----------------------------------------------------------------------------
+HRESULT AudioPlayer::Invoke(IMFAsyncResult *pResult) {
+    MediaEventType meType = MEUnknown;  // Event type
+    IMFMediaEvent *pEvent = NULL;
+    if (!m_session) return S_OK;
+    // Get the event from the event queue.
+    if (FAILED(m_session->EndGetEvent(pResult, &pEvent))) goto done;
+    if (FAILED(pEvent->GetType(&meType))) goto done;
+    if (meType == MESessionClosed) {
+        // The session was closed. 
+        this->Release();
+    } else {
+        // For all other events, get the next event in the queue.
+        if (FAILED(m_session->BeginGetEvent(this, NULL))) goto done;
+    }
+    // Check the application state. 
+    // If a call to IMFMediaSession::Close is pending, it means the 
+    // application is waiting on the m_hCloseEvent event and
+    // the application's message loop is blocked. 
+    // Otherwise, post a private window message to the application. 
+    // if (m_state != Closing) {
+        // Leave a reference count on the event.
+    //    pEvent->AddRef();
+        // PostMessage(m_hwndEvent, WM_APP_PLAYER_EVENT, (WPARAM)pEvent, (LPARAM)meType);
+    //}
+done:
+    if (pEvent) pEvent->Release();
+    return S_OK;
+}
+// ----------------------------------------------------------------------------
+// Platform Specific: Android
+// ----------------------------------------------------------------------------
+#elif defined(PLATFORM_ANDROID)
 void AudioPlayer::cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev) {
     AudioPlayer* self = static_cast<AudioPlayer*>(context);
     SLpermille level = 0;
@@ -37,8 +100,10 @@ void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
         self->ev_status.call(self, Status::Paused);
     }
 }
-#elif defined(PLATFORM_MAC)
 // ----------------------------------------------------------------------------
+// Platform Specific: Mac
+// ----------------------------------------------------------------------------
+#elif defined(PLATFORM_MAC)
 @interface AudioPlayerDelegate : NSObject<NSSoundDelegate>
 @property (nonatomic) AudioPlayer* player;
 @end
@@ -47,8 +112,10 @@ void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
     if (self.player) self.player->ev_status.call(self.player, AudioPlayer::Status::Paused);
 }
 @end
-#elif defined(PLATFORM_IOS)
 // ----------------------------------------------------------------------------
+// Platform Specific: ios
+// ----------------------------------------------------------------------------
+#elif defined(PLATFORM_IOS)
 @interface AudioPlayerDelegate : NSObject<AVAudioPlayerDelegate>
 @property (nonatomic) AudioPlayer* player;
 @end
@@ -63,7 +130,9 @@ void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
 // ----------------------------------------------------------------------------
 AudioPlayer::AudioPlayer() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    m_ref = 0;
+    m_session = nullptr;
+    m_source = nullptr;
 #elif defined(PLATFORM_ANDROID)
     m_player = nullptr;
     m_play_iface = nullptr;
@@ -81,13 +150,140 @@ AudioPlayer::AudioPlayer() {
 }
 // ----------------------------------------------------------------------------
 AudioPlayer::~AudioPlayer() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    // NOTHING
+#elif defined(PLATFORM_ANDROID) || defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     unload();
+#elif
+    #error Not Implemented!
+#endif
+}
+// ----------------------------------------------------------------------------
+void AudioPlayer::release() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    unload();
+    this->Release();
+#elif defined(PLATFORM_ANDROID) || defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    delete this;
+#elif
+    #error Not Implemented!
+#endif
 }
 // ----------------------------------------------------------------------------
 bool AudioPlayer::load(AudioEngine* engine, const std::string& name) {
     m_loaded = false;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    IMFSourceResolver* resolver = NULL;
+    MF_OBJECT_TYPE type = MF_OBJECT_INVALID;
+    IUnknown* isource = NULL;
+    IMFPresentationDescriptor* pd = NULL;
+    IMFTopology* topology = NULL;
+    DWORD streams = 0;
+    UINT64 duration = 0;
+
+    m_closed = false;
+
+    if (FAILED(MFCreateMediaSession(NULL, &m_session))) return false;
+    if (FAILED(m_session->BeginGetEvent((IMFAsyncCallback*)this, NULL))) goto fail;
+    // media source
+    if (FAILED(MFCreateSourceResolver(&resolver))) goto fail;
+    if (FAILED(resolver->CreateObjectFromURL(
+                StringUtil::make_tstring("../" + name).c_str(),
+                MF_RESOLUTION_MEDIASOURCE,  // Create a source object.
+                NULL,                       // Optional property store.
+                &type,                      // Receives the created object type. 
+                &isource                    // Receives a pointer to the media source.
+            ))) goto fail;
+    // Get the IMFMediaSource interface from the media source.
+    isource->QueryInterface(IID_PPV_ARGS(&m_source));
+    // Create the presentation descriptor for the media source.
+    if (FAILED(m_source->CreatePresentationDescriptor(&pd))) goto fail;
+    if (FAILED(MFCreateTopology(&topology))) goto fail;
+    if (FAILED(pd->GetStreamDescriptorCount(&streams))) goto fail;
+    if (FAILED(pd->GetUINT64(MF_PD_DURATION, (UINT64*)&duration))) goto fail;
+    m_duration = (unsigned long)duration/10000;
+    // For each stream, create the topology nodes and add them to the topology.
+    for (DWORD i=0; i<streams; i++) {
+        IMFActivate* pSinkActivate = NULL;
+        IMFTopologyNode* pSourceNode = NULL;
+        IMFTopologyNode* pOutputNode = NULL;
+        IMFStreamDescriptor* sd = NULL;
+        IMFMediaTypeHandler* handler = NULL;
+        BOOL selected = FALSE;
+        GUID guidMajorType;
+        if (FAILED(pd->GetStreamDescriptorByIndex(i, &selected, &sd))) goto fail;
+        if (!selected) continue;
+        if (FAILED(sd->GetMediaTypeHandler(&handler))) {
+            sd->Release();
+            continue;
+        }
+        if (FAILED(handler->GetMajorType(&guidMajorType))) {
+            handler->Release();
+            sd->Release();
+            continue;
+        }
+        handler->Release();
+        sd->Release();
+        if (MFMediaType_Audio == guidMajorType) {
+            // Create the audio renderer.
+            if (FAILED(MFCreateAudioRendererActivate(&pSinkActivate))) {
+                continue;
+            }
+            // Add a source node to a topology.
+            if (FAILED(MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, &pSourceNode))) {
+                pSinkActivate->Release();
+                continue;
+            }
+            if (FAILED(pSourceNode->SetUnknown(MF_TOPONODE_SOURCE, m_source)) ||
+                FAILED(pSourceNode->SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, pd)) ||
+                FAILED(pSourceNode->SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd)))
+            {
+                pSourceNode->Release();
+                pSinkActivate->Release();
+                continue;
+            }
+            // output node
+            if (FAILED(MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, &pOutputNode))) {
+                pSourceNode->Release();
+                pSinkActivate->Release();
+                continue;
+            }
+            if (FAILED(pOutputNode->SetObject(pSinkActivate)) ||
+                FAILED(pOutputNode->SetUINT32(MF_TOPONODE_STREAMID, 0)) ||
+                FAILED(pOutputNode->SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, FALSE)))
+            {
+                pOutputNode->Release();
+                pSourceNode->Release();
+                pSinkActivate->Release();
+                continue;
+            }
+            // connect nodes
+            if (FAILED(topology->AddNode(pSourceNode)) || FAILED(topology->AddNode(pOutputNode)) ||
+                FAILED(pSourceNode->ConnectOutput(0, pOutputNode, 0)))
+            {
+                pOutputNode->Release();
+                pSourceNode->Release();
+                pSinkActivate->Release();
+                continue;
+            }
+        }
+    }
+    if (FAILED(m_session->SetTopology(0, topology))) goto fail;
+    if (topology) topology->Release();
+    if (pd) pd->Release();
+    if (isource) isource->Release();
+    if (resolver) resolver->Release();
+    this->AddRef();
+    m_status = Status::Loaded;
+    ev_status.call(this, m_status);
+    return true;
+fail:
+    if (topology) topology->Release();
+    if (pd) pd->Release();
+    if (m_source) { m_source->Release(); m_source = nullptr; }
+    if (isource) isource->Release();
+    if (resolver) resolver->Release();
+    unload();
     return false;
 #elif defined(PLATFORM_ANDROID)
     SLPrefetchStatusItf prefetch_iface;
@@ -168,8 +364,19 @@ fail:
 }
 // ----------------------------------------------------------------------------
 void AudioPlayer::unload() {
+    stop();
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    if (m_source) {
+        m_source->Shutdown();
+        m_source->Release();
+        m_source = nullptr;
+    }
+    if (m_session && !m_closed) {
+        m_closed = true;
+        m_session->Shutdown();
+        // m_session->Release();
+        // m_session = nullptr;
+    }
 #elif defined(PLATFORM_ANDROID)
     if (m_player) {
         if (m_play_iface) {
@@ -210,8 +417,14 @@ void AudioPlayer::unload() {
 // ----------------------------------------------------------------------------
 bool AudioPlayer::play() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
-    return false;
+    PROPVARIANT varStart;
+    if (!m_session) return false;
+    PropVariantInit(&varStart);
+    if (FAILED(m_session->Start(&GUID_NULL, &varStart))) return false;
+    PropVariantClear(&varStart);
+    m_status = Status::Playing;
+    ev_status.call(this, m_status);
+    return true;
 #elif defined(PLATFORM_ANDROID)
     if (!m_play_iface) return false;
     if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PLAYING) == SL_RESULT_SUCCESS) {
@@ -239,8 +452,11 @@ bool AudioPlayer::play() {
 // ----------------------------------------------------------------------------
 bool AudioPlayer::pause() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
-    return false;
+    if (!m_session) return false;
+    if (FAILED(m_session->Pause())) return false;
+    m_status = Status::Paused;
+    ev_status.call(this, m_status);
+    return true;
 #elif defined(PLATFORM_ANDROID)
     if (!m_play_iface) return false;
     if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PAUSED) == SL_RESULT_SUCCESS) {
@@ -267,8 +483,11 @@ bool AudioPlayer::pause() {
 // ----------------------------------------------------------------------------
 bool AudioPlayer::stop() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
-    return false;
+    if (!m_session) return false;
+    if (FAILED(m_session->Stop())) return false;
+    m_status = Status::Paused;
+    ev_status.call(this, m_status);
+    return true;
 #elif defined(PLATFORM_ANDROID)
     if (!m_play_iface) return false;
     if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_STOPPED) == SL_RESULT_SUCCESS) {
@@ -295,8 +514,7 @@ bool AudioPlayer::stop() {
 // ----------------------------------------------------------------------------
 bool AudioPlayer::is_playing() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
-    return false;
+    return m_status == Status::Playing;
 #elif defined(PLATFORM_ANDROID)
     SLuint32 state;
     if (!m_play_iface) return false;
@@ -318,8 +536,7 @@ bool AudioPlayer::is_playing() {
 // ----------------------------------------------------------------------------
 unsigned long AudioPlayer::duration() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
-    return 0;
+    return m_duration;
 #elif defined(PLATFORM_ANDROID)
     SLmillisecond ms;
     if (!m_play_iface) return 0;
@@ -343,11 +560,11 @@ unsigned long AudioPlayer::duration() {
 // ----------------------------------------------------------------------------
 AudioEngine::AudioEngine() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    // NOTHING
 #elif defined(PLATFORM_ANDROID)
     m_engine = nullptr;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
-    // TODO: Not Implemented
+    // NOTHING
 #else
     #error Not Implemented!
 #endif
@@ -360,7 +577,7 @@ AudioEngine::~AudioEngine() {
 bool AudioEngine::init(const PlatformSpecificData* psd) {
     m_psd = psd;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    if (MFStartup(MF_VERSION) != S_OK) return false;
     return true;
 #elif defined(PLATFORM_ANDROID)
     const SLInterfaceID ids[1] = {SL_IID_ENVIRONMENTALREVERB};
@@ -388,14 +605,14 @@ fail:
 // ----------------------------------------------------------------------------
 void AudioEngine::fini() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    // TODO: Not Implemented
+    //MFShutdown();
 #elif defined(PLATFORM_ANDROID)
     if (m_instance) {
         (*m_instance)->Destroy(m_instance);
         m_instance = nullptr;
     }
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
-    // TODO: Not Implemented
+    // NOTHING
 #else
     #error Not Implemented!
 #endif
