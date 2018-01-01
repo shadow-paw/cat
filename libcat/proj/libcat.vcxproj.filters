@@ -29,6 +29,9 @@
     <Filter Include="libcat\data">
       <UniqueIdentifier>{8da296d4-c227-4893-afc0-efb5ab9b984b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libcat\sound">
+      <UniqueIdentifier>{20652106-720c-485a-a6c8-8dfe3e1c528b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cat_type.h">
@@ -169,6 +172,15 @@
     <ClInclude Include="..\include\cat_gfx_opengl.h">
       <Filter>libcat\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_sound_service.h">
+      <Filter>libcat\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_sound_type.h">
+      <Filter>libcat\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_sound_effects.h">
+      <Filter>libcat\sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
@@ -263,6 +275,12 @@
     </ClCompile>
     <ClCompile Include="..\src\cat_storage_resmgr.cpp">
       <Filter>libcat\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_sound_service.cpp">
+      <Filter>libcat\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_sound_effects.cpp">
+      <Filter>libcat\sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

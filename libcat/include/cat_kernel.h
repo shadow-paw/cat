@@ -11,6 +11,7 @@
 #include "cat_storage_resmgr.h"
 #include "cat_time_service.h"
 #include "cat_net_service.h"
+#include "cat_sound_service.h"
 #include "cat_ui_service.h"
 #include "cat_kernel_api.h"
 #include "cat_application.h"
@@ -47,6 +48,7 @@ public:
     virtual ResourceManager* res() { return &m_res; }
     virtual TimeService*     time() { return &m_time; }
     virtual NetService*      net() { return &m_net; }
+    virtual SoundService*    sound() { return &m_sound; }
     virtual UIService*       ui() { return &m_ui; }
 
 private:
@@ -58,6 +60,7 @@ private:
     ResourceManager m_res;
     TimeService     m_time;
     NetService      m_net;
+    SoundService    m_sound;
     UIService       m_ui;
     std::list<std::unique_ptr<Application>> m_apps;
 };

@@ -11,6 +11,7 @@ class ResourceManager;
 class VFS;
 class TimeService;
 class NetService;
+class SoundService;
 class UIService;
 class Application;
 // ----------------------------------------------------------------------------
@@ -39,6 +40,7 @@ public:
     virtual ResourceManager* res() = 0;
     virtual TimeService*     time() = 0;
     virtual NetService*      net() = 0;
+    virtual SoundService*    sound() = 0;
     virtual UIService*       ui() = 0;
 };
 // ----------------------------------------------------------------------------

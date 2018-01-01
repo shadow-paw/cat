@@ -31,7 +31,7 @@ bool BootApp::cb_startup(Timestamp now) {
     desktop->attach(m_pane);
 
     desktop->ev_layout += [this, pane1, pane3](Widget* w) -> void {
-        pane1->set_size(w->get_size().width / 2, w->get_size().height);   // half desktop width
+        pane1->set_size(w->get_size().width / 2, w->get_size().height/2);   // half desktop size
     };
     desktop->ev_layout.call(desktop);  // trigger relayout
 

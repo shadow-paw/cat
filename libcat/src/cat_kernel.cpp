@@ -31,6 +31,7 @@ bool Kernel::init(const PlatformSpecificData& psd) {
     if (!m_ui.init()) goto fail;
     if (!m_time.init()) goto fail;
     if (!m_net.init()) goto fail;
+    if (!m_sound.init(&m_psd)) goto fail;
     return true;
 fail:
     fini();
@@ -40,6 +41,7 @@ fail:
 void Kernel::fini() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     // services
+    m_sound.fini();
     m_net.fini();
     m_time.fini();
     m_ui.fini();
@@ -100,6 +102,7 @@ void Kernel::pause() {
     for (auto& app : m_apps) {
         app->cb_pause();
     }
+    m_sound.pause();
     m_net.pause();
     m_time.pause();
     m_ui.pause();
@@ -113,6 +116,7 @@ void Kernel::resume() {
     m_ui.resume();
     m_time.resume();
     m_net.resume();
+    m_sound.resume();
     for (auto& app : m_apps) {
         app->cb_resume();
     }

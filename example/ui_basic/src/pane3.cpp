@@ -34,6 +34,7 @@ Pane3::~Pane3() {
 }
 // ----------------------------------------------------------------------------
 void Pane3::resize_tex() {
+    if (!kernel()->renderer()->ready()) return;
     Size2i s;
     s.width = m_absrect.size.width / m_detail_level;
     s.height = m_absrect.size.height / m_detail_level;
