@@ -38,6 +38,8 @@ private:
     SLVolumeItf m_vol_iface;
     static void cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev);
     static void cb_playback(SLPlayItf caller, void *context, SLuint32 ev);
+#elif defined(PLATFORM_MAC)
+    void* m_player;
 #elif defined(PLATFORM_IOS)
     void* m_player;
 #endif

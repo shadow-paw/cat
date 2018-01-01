@@ -2,7 +2,9 @@
 #if defined(PLATFORM_ANDROID)
   #include <SLES/OpenSLES_Android.h>
   #include <android/asset_manager_jni.h>
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
+  #import <AppKit/AppKit.h>
+#elif defined(PLATFORM_IOS)
   #import <AVFoundation/AVFoundation.h>
 #endif
 #include "cat_util_log.h"
@@ -21,7 +23,7 @@ AudioPlayer::AudioPlayer() {
     m_seek_iface = nullptr;
     m_vol_iface = nullptr;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
+    m_player = nullptr;
 #elif defined(PLATFORM_IOS)
     m_player = nullptr;
 #else
@@ -85,8 +87,11 @@ fail:
     unload();
     return false;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return false;
+    NSString *path = [NSString stringWithUTF8String:(engine->m_psd->res_path + name).c_str()];
+    NSSound *sound = [[NSSound alloc] initWithContentsOfFile:path byReference:YES];
+    if (!sound) return false;
+    m_player = (__bridge_retained void*)sound;
+    return true;
 #elif defined(PLATFORM_IOS)
     NSString *path = [NSString stringWithUTF8String:(engine->m_psd->res_path + name).c_str()];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:path];
@@ -114,7 +119,11 @@ void AudioPlayer::unload() {
     m_seek_iface = nullptr;
     m_vol_iface = nullptr;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
+    if (m_player) {
+        NSSound* player = (__bridge_transfer NSSound*)m_player;
+        m_player = nullptr;
+        [player stop];
+    }
 #elif defined(PLATFORM_IOS)
     if (m_player) {
         AVAudioPlayer* player = (__bridge_transfer AVAudioPlayer*)m_player;
@@ -137,8 +146,9 @@ bool AudioPlayer::play() {
         return true;
     } return false;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return false;
+    if (!m_player) return false;
+    NSSound* player = (__bridge NSSound*)m_player;
+    return [player play];
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
@@ -159,8 +169,9 @@ bool AudioPlayer::pause() {
         return true;
     } return false;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return false;
+    if (!m_player) return false;
+    NSSound* player = (__bridge NSSound*)m_player;
+    return [player pause];
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
@@ -182,8 +193,9 @@ bool AudioPlayer::stop() {
         return true;
     } return false;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return false;
+    if (!m_player) return false;
+    NSSound* player = (__bridge NSSound*)m_player;
+    return [player stop];
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
@@ -205,8 +217,9 @@ bool AudioPlayer::is_playing() {
         return state == SL_PLAYSTATE_PLAYING;
     } return false;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return false;
+    if (!m_player) return false;
+    NSSound* player = (__bridge NSSound*)m_player;
+    return [player isPlaying];
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
@@ -227,8 +240,9 @@ unsigned long AudioPlayer::duration() {
         return (unsigned long)ms;
     } return 0;
 #elif defined(PLATFORM_MAC)
-    // TODO: Not Implemented
-    return 0;
+    if (!m_player) return false;
+    NSSound* player = (__bridge NSSound*)m_player;
+    return 1000UL * [player duration];
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
