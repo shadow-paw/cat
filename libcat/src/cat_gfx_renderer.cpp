@@ -3,7 +3,7 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
-Renderer::Renderer() {
+Renderer::Renderer() : draw2d(this) {
     m_contextready = false;
     m_dirty = false;
     m_width = m_height = 0;

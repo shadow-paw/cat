@@ -1,6 +1,7 @@
 #include <new>
 #include "cat_gfx_draw2d.h"
 #include "cat_gfx_shader.h"
+#include "cat_gfx_renderer.h"
 #include "cat_storage_resmgr.h"
 #include "cat_util_log.h"
 
@@ -22,7 +23,8 @@ std::unordered_map<int, std::string> Draw2D::s_attrs = {
     { Draw2D::in_Texcoord, "inTexcoord" }
 };
 // ----------------------------------------------------------------------------
-Draw2D::Draw2D() {
+Draw2D::Draw2D(Renderer* r) {
+    m_renderer = r;
     for (auto&& shader: m_shaders) {
         shader = nullptr;
     }
@@ -539,6 +541,7 @@ void Draw2D::drawtext(const Rect2i& rect, const std::string& utf8, const TextSty
     entry.expired = false;
     entry.ready = false;
     m_texts.emplace(utf8, entry);
+    m_renderer->dirty();
 }
 // ----------------------------------------------------------------------------
 const Shader* Draw2D::retain_2dshader(ResourceManager* res, const std::string& name) {
