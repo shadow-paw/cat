@@ -25,6 +25,7 @@ public:
     bool stop();
 
     bool is_playing();
+    bool is_loaded() const { return m_loaded; }
     unsigned long duration();
 private:
     bool load(AudioEngine* engine, const std::string& name);
@@ -40,8 +41,10 @@ private:
     static void cb_playback(SLPlayItf caller, void *context, SLuint32 ev);
 #elif defined(PLATFORM_MAC)
     void* m_player;
+    void* m_delegate;
 #elif defined(PLATFORM_IOS)
     void* m_player;
+    void* m_delegate;
 #endif
 };
 // ----------------------------------------------------------------------------

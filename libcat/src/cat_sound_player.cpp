@@ -12,6 +12,53 @@
 using namespace cat;
 
 // ----------------------------------------------------------------------------
+// AudioPlayer delegate
+// ----------------------------------------------------------------------------
+#if defined(PLATFORM_ANDROID)
+void AudioPlayer::cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev) {
+    AudioPlayer* self = static_cast<AudioPlayer*>(context);
+    SLpermille level = 0;
+    (*caller)->GetFillLevel(caller, &level);
+    SLuint32 status;
+    (*caller)->GetPrefetchStatus(caller, &status);
+    // If error occurs, both event comes at once and level is zero
+    if ((ev & (SL_PREFETCHEVENT_STATUSCHANGE | SL_PREFETCHEVENT_FILLLEVELCHANGE)) == (SL_PREFETCHEVENT_STATUSCHANGE|SL_PREFETCHEVENT_FILLLEVELCHANGE)
+        && (level == 0) && (status == SL_PREFETCHSTATUS_UNDERFLOW)) {
+        self->ev_status.call(self, Status::Failed);
+    } else if (level == 1000) {
+        self->m_loaded = true;
+        self->ev_status.call(self, Status::Loaded);
+    }
+}
+// ----------------------------------------------------------------------------
+void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
+    AudioPlayer* self = static_cast<AudioPlayer*>(context);
+    if ((ev & SL_PLAYEVENT_HEADATEND) == SL_PLAYEVENT_HEADATEND) {
+        self->ev_status.call(self, Status::Paused);
+    }
+}
+#elif defined(PLATFORM_MAC)
+// ----------------------------------------------------------------------------
+@interface AudioPlayerDelegate : NSObject<NSSoundDelegate>
+@property (nonatomic) AudioPlayer* player;
+@end
+@implementation AudioPlayerDelegate
+- (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)flag {
+    if (self.player) self.player->ev_status.call(self.player, AudioPlayer::Status::Paused);
+}
+@end
+#elif defined(PLATFORM_IOS)
+// ----------------------------------------------------------------------------
+@interface AudioPlayerDelegate : NSObject<AVAudioPlayerDelegate>
+@property (nonatomic) AudioPlayer* player;
+@end
+@implementation AudioPlayerDelegate
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    if (self.player) self.player->ev_status.call(self.player, AudioPlayer::Status::Paused);
+}
+@end
+#endif
+// ----------------------------------------------------------------------------
 // AudioPlayer
 // ----------------------------------------------------------------------------
 AudioPlayer::AudioPlayer() {
@@ -24,8 +71,10 @@ AudioPlayer::AudioPlayer() {
     m_vol_iface = nullptr;
 #elif defined(PLATFORM_MAC)
     m_player = nullptr;
+    m_delegate = nullptr;
 #elif defined(PLATFORM_IOS)
     m_player = nullptr;
+    m_delegate = nullptr;
 #else
     #error Not Implemented!
 #endif
@@ -90,14 +139,28 @@ fail:
     NSString *path = [NSString stringWithUTF8String:(engine->m_psd->res_path + name).c_str()];
     NSSound *sound = [[NSSound alloc] initWithContentsOfFile:path byReference:YES];
     if (!sound) return false;
+    AudioPlayerDelegate * d = [[AudioPlayerDelegate alloc] init];
+    d.player = this;
+    sound.delegate = d;
     m_player = (__bridge_retained void*)sound;
+    m_delegate = (__bridge_retained void*)d;
+    // assume its loaded
+    m_loaded = true;
+    ev_status.call(this, Status::Loaded);
     return true;
 #elif defined(PLATFORM_IOS)
     NSString *path = [NSString stringWithUTF8String:(engine->m_psd->res_path + name).c_str()];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:path];
     AVAudioPlayer* player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
     if (!player) return false;
+    AudioPlayerDelegate * d = [[AudioPlayerDelegate alloc] init];
+    d.player = this;
+    player.delegate = d;
     m_player = (__bridge_retained void*)player;
+    m_delegate = (__bridge_retained void*)d;
+    // assume its loaded
+    m_loaded = true;
+    ev_status.call(this, Status::Loaded);
     return true;
 #else
     #error Not Implemented!
@@ -119,12 +182,22 @@ void AudioPlayer::unload() {
     m_seek_iface = nullptr;
     m_vol_iface = nullptr;
 #elif defined(PLATFORM_MAC)
+    if (m_delegate) {
+        AudioPlayerDelegate* d = (__bridge_transfer AudioPlayerDelegate*)m_delegate;
+        (void)d;
+        m_delegate = nullptr;
+    }
     if (m_player) {
         NSSound* player = (__bridge_transfer NSSound*)m_player;
         m_player = nullptr;
         [player stop];
     }
 #elif defined(PLATFORM_IOS)
+    if (m_delegate) {
+        AudioPlayerDelegate* d = (__bridge_transfer AudioPlayerDelegate*)m_delegate;
+        (void)d;
+        m_delegate = nullptr;
+    }
     if (m_player) {
         AVAudioPlayer* player = (__bridge_transfer AVAudioPlayer*)m_player;
         m_player = nullptr;
@@ -148,11 +221,17 @@ bool AudioPlayer::play() {
 #elif defined(PLATFORM_MAC)
     if (!m_player) return false;
     NSSound* player = (__bridge NSSound*)m_player;
-    return [player play];
+    if ([player play]) {
+        ev_status.call(this, Status::Playing);
+        return true;
+    } return false;
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
-    return [player play];
+    if ([player play]) {
+        ev_status.call(this, Status::Playing);
+        return true;
+    } return false;
 #else
     #error Not Implemented!
 #endif
@@ -171,11 +250,15 @@ bool AudioPlayer::pause() {
 #elif defined(PLATFORM_MAC)
     if (!m_player) return false;
     NSSound* player = (__bridge NSSound*)m_player;
-    return [player pause];
+    if ([player pause]) {
+        ev_status.call(this, Status::Paused);
+        return true;
+    } return false;
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
     [player pause];
+    ev_status.call(this, Status::Paused);
     return true;
 #else
     #error Not Implemented!
@@ -195,11 +278,15 @@ bool AudioPlayer::stop() {
 #elif defined(PLATFORM_MAC)
     if (!m_player) return false;
     NSSound* player = (__bridge NSSound*)m_player;
-    return [player stop];
+    if ([player stop]) {
+        ev_status.call(this, Status::Paused);
+        return true;
+    } return false;
 #elif defined(PLATFORM_IOS)
     if (!m_player) return false;
     AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
     [player stop];
+    ev_status.call(this, Status::Paused);
     return true;
 #else
     #error Not Implemented!
@@ -251,33 +338,6 @@ unsigned long AudioPlayer::duration() {
     #error Not Implemented!
 #endif
 }
-// ----------------------------------------------------------------------------
-// Platform Specific: Android
-// ----------------------------------------------------------------------------
-#if defined(PLATFORM_ANDROID)
-void AudioPlayer::cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev) {
-    AudioPlayer* self = static_cast<AudioPlayer*>(context);
-    SLpermille level = 0;
-    (*caller)->GetFillLevel(caller, &level);
-    SLuint32 status;
-    (*caller)->GetPrefetchStatus(caller, &status);
-    // If error occurs, both event comes at once and level is zero
-    if ((ev & (SL_PREFETCHEVENT_STATUSCHANGE | SL_PREFETCHEVENT_FILLLEVELCHANGE)) == (SL_PREFETCHEVENT_STATUSCHANGE|SL_PREFETCHEVENT_FILLLEVELCHANGE)
-                        && (level == 0) && (status == SL_PREFETCHSTATUS_UNDERFLOW)) {
-        self->ev_status.call(self, Status::Failed);
-    } else if (level == 1000) {
-        self->m_loaded = true;
-        self->ev_status.call(self, Status::Loaded);
-    }
-}
-// ----------------------------------------------------------------------------
-void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
-    AudioPlayer* self = static_cast<AudioPlayer*>(context);
-    if ((ev & SL_PLAYEVENT_HEADATEND) == SL_PLAYEVENT_HEADATEND) {
-        self->ev_status.call(self, Status::Paused);
-    }
-}
-#endif
 // ----------------------------------------------------------------------------
 // AudioEngine
 // ----------------------------------------------------------------------------
