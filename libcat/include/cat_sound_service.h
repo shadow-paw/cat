@@ -7,6 +7,7 @@
 #include "cat_platform.h"
 #include "cat_sound_type.h"
 #include "cat_sound_effects.h"
+#include "cat_sound_player.h"
 
 namespace cat {
 class Kernel;
@@ -22,6 +23,7 @@ public:
     bool unload(const SoundEffect* sound);
     void play(const SoundEffect* sound, float left_volume, float right_volume);
 
+    AudioPlayer* load_audio(const std::string& name);
 private:
     //! Initialize service
     bool init(const PlatformSpecificData* psd);
@@ -33,6 +35,7 @@ private:
     void resume();
 private:
     SoundEffects m_effects;
+    AudioEngine  m_engine;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat

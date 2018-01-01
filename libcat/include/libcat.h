@@ -16,6 +16,7 @@
 #include "cat_storage_resmgr.h"
 #include "cat_time_service.h"
 #include "cat_net_service.h"
+#include "cat_sound_service.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_renderer.h"
 #include "cat_gfx_ibo.h"

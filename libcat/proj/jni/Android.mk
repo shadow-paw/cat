@@ -23,6 +23,7 @@ LOCAL_SRC_FILES := \
                 ../../src/cat_net_http.cpp \
                 ../../src/cat_sound_service.cpp \
                 ../../src/cat_sound_effects.cpp \
+                ../../src/cat_sound_player.cpp \
                 ../../src/cat_gfx_renderer.cpp \
                 ../../src/cat_gfx_ibo.cpp \
                 ../../src/cat_gfx_vbo.cpp \

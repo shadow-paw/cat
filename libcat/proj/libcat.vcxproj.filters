@@ -181,6 +181,9 @@
     <ClInclude Include="..\include\cat_sound_effects.h">
       <Filter>libcat\sound</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_sound_player.h">
+      <Filter>libcat\sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">
@@ -280,6 +283,9 @@
       <Filter>libcat\sound</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cat_sound_effects.cpp">
+      <Filter>libcat\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cat_sound_player.cpp">
       <Filter>libcat\sound</Filter>
     </ClCompile>
   </ItemGroup>

@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\cat_net_http.cpp" />
     <ClCompile Include="..\src\cat_net_service.cpp" />
     <ClCompile Include="..\src\cat_sound_effects.cpp" />
+    <ClCompile Include="..\src\cat_sound_player.cpp" />
     <ClCompile Include="..\src\cat_sound_service.cpp" />
     <ClCompile Include="..\src\cat_ui_animator.cpp" />
     <ClCompile Include="..\src\cat_ui_effectview.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
     <ClInclude Include="..\include\cat_sound_effects.h" />
+    <ClInclude Include="..\include\cat_sound_player.h" />
     <ClInclude Include="..\include\cat_sound_service.h" />
     <ClInclude Include="..\include\cat_sound_type.h" />
     <ClInclude Include="..\include\cat_ui_animator.h" />
