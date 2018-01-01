@@ -19,10 +19,11 @@
     CatView* view = (CatView*)self.window.rootViewController.view;
     cat::PlatformSpecificData psd;
     psd.rootview = (__bridge void*)view;
+    psd.res_path = [[[NSBundle mainBundle] resourcePath] UTF8String];
     self.m_kernel = new cat::Kernel();
     if (!self.m_kernel->init(psd)) return NO;
     [view setKernel:self.m_kernel];
-    self.m_kernel->vfs()->mount("/assets/", new cat::FileDriver([[[NSBundle mainBundle] resourcePath] UTF8String]));
+    self.m_kernel->vfs()->mount("/assets/", new cat::FileDriver(psd.res_path));
     self.m_kernel->context_restored();
     self.m_kernel->startup();
     self.m_kernel->run(new app::BootApp());

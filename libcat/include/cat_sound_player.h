@@ -3,7 +3,7 @@
 
 #include <string>
 #if defined(PLATFORM_ANDROID)
-#include <SLES/OpenSLES.h>
+  #include <SLES/OpenSLES.h>
 #endif
 #include "cat_platform.h"
 #include "cat_data_event.h"
@@ -38,6 +38,8 @@ private:
     SLVolumeItf m_vol_iface;
     static void cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev);
     static void cb_playback(SLPlayItf caller, void *context, SLuint32 ev);
+#elif defined(PLATFORM_IOS)
+    void* m_player;
 #endif
 };
 // ----------------------------------------------------------------------------

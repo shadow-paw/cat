@@ -204,7 +204,7 @@
 		3E6B5D181FFA209C00D9F109 /* cat_sound_service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_sound_service.h; path = ../include/cat_sound_service.h; sourceTree = "<group>"; };
 		3E6B5D191FFA209C00D9F109 /* cat_data_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_event.h; path = ../include/cat_data_event.h; sourceTree = "<group>"; };
 		3E6B5D201FFA20B500D9F109 /* cat_sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_sound_effects.cpp; path = ../src/cat_sound_effects.cpp; sourceTree = "<group>"; };
-		3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_sound_player.cpp; path = ../src/cat_sound_player.cpp; sourceTree = "<group>"; };
+		3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = cat_sound_player.cpp; path = ../src/cat_sound_player.cpp; sourceTree = "<group>"; };
 		3E6B5D221FFA20B500D9F109 /* cat_sound_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_sound_service.cpp; path = ../src/cat_sound_service.cpp; sourceTree = "<group>"; };
 		3E8636FC1F77544B00A97811 /* libcat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8D7D401F8A36BF00F91EDF /* cat_gfx_ibo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_ibo.cpp; path = ../src/cat_gfx_ibo.cpp; sourceTree = "<group>"; };
@@ -230,6 +230,8 @@
 		3EAED96D1F8FCF3600E0B461 /* cat_storage_driver_asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_driver_asset.cpp; path = ../src/cat_storage_driver_asset.cpp; sourceTree = "<group>"; };
 		3EAED9701F8FCF3C00E0B461 /* cat_storage_driver_asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_driver_asset.h; path = ../include/cat_storage_driver_asset.h; sourceTree = "<group>"; };
 		3EAED9721F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_drawablecanvas.cpp; path = ../src/cat_gfx_drawablecanvas.cpp; sourceTree = "<group>"; };
+		3EAF4C611FFA287100DB1467 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3EAF4C631FFA287800DB1467 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EBBA7E91F8D321A0053D8AE /* cat_ui_pane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_pane.h; path = ../include/cat_ui_pane.h; sourceTree = "<group>"; };
 		3EBBA7EA1F8D321A0053D8AE /* cat_ui_widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_widget.h; path = ../include/cat_ui_widget.h; sourceTree = "<group>"; };
 		3EBBA7EB1F8D321A0053D8AE /* cat_ui_slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_slider.h; path = ../include/cat_ui_slider.h; sourceTree = "<group>"; };
@@ -348,6 +350,15 @@
 			name = data;
 			sourceTree = "<group>";
 		};
+		3EAF4C601FFA287100DB1467 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EAF4C631FFA287800DB1467 /* AVFoundation.framework */,
+				3EAF4C611FFA287100DB1467 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3EBBA7E71F8D32080053D8AE /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +399,7 @@
 				3EBBA7E71F8D32080053D8AE /* ui */,
 				3ED4FE951F89EB8800D299B6 /* libcat.h */,
 				3ECE605F1F7671CB007C3766 /* Products */,
+				3EAF4C601FFA287100DB1467 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

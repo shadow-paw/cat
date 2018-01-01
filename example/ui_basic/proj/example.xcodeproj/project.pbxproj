@@ -20,6 +20,7 @@
 		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
+		3EE112F81FFA2F640085C627 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE112F71FFA2F640085C627 /* AVFoundation.framework */; };
 		3EF8A4011FF8D50D00B828ED /* pane1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */; };
 		3EF8A4021FF8D50D00B828ED /* pane2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */; };
 		3EF8A4031FF8D50D00B828ED /* pane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FF1FF8D50D00B828ED /* pane3.cpp */; };
@@ -55,6 +56,7 @@
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
 		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
+		3EE112F71FFA2F640085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane1.cpp; path = ../src/pane1.cpp; sourceTree = "<group>"; };
 		3EF8A3FC1FF8D50D00B828ED /* pane1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pane1.h; path = ../src/pane1.h; sourceTree = "<group>"; };
 		3EF8A3FD1FF8D50D00B828ED /* pane2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane2.cpp; path = ../src/pane2.cpp; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE112F81FFA2F640085C627 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +149,7 @@
 		3EB96B9B1F7F73FC0067C170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EE112F71FFA2F640085C627 /* AVFoundation.framework */,
 				3EB96B9D1F7F73FC0067C170 /* libgraphite.a */,
 			);
 			name = Frameworks;

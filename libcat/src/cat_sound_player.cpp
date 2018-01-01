@@ -2,6 +2,8 @@
 #if defined(PLATFORM_ANDROID)
   #include <SLES/OpenSLES_Android.h>
   #include <android/asset_manager_jni.h>
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+  #import <AVFoundation/AVFoundation.h>
 #endif
 #include "cat_util_log.h"
 
@@ -18,8 +20,10 @@ AudioPlayer::AudioPlayer() {
     m_play_iface = nullptr;
     m_seek_iface = nullptr;
     m_vol_iface = nullptr;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
+#elif defined(PLATFORM_IOS)
+    m_player = nullptr;
 #else
     #error Not Implemented!
 #endif
@@ -80,9 +84,16 @@ bool AudioPlayer::load(AudioEngine* engine, const std::string& name) {
 fail:
     unload();
     return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return false;
+#elif defined(PLATFORM_IOS)
+    NSString *path = [NSString stringWithUTF8String:(engine->m_psd->res_path + name).c_str()];
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:path];
+    AVAudioPlayer* player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+    if (!player) return false;
+    m_player = (__bridge_retained void*)player;
+    return true;
 #else
     #error Not Implemented!
 #endif
@@ -102,8 +113,14 @@ void AudioPlayer::unload() {
     m_play_iface = nullptr;
     m_seek_iface = nullptr;
     m_vol_iface = nullptr;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
+#elif defined(PLATFORM_IOS)
+    if (m_player) {
+        AVAudioPlayer* player = (__bridge_transfer AVAudioPlayer*)m_player;
+        m_player = nullptr;
+        [player stop];
+    }
 #else
     #error Not Implemented!
 #endif
@@ -119,9 +136,13 @@ bool AudioPlayer::play() {
         ev_status.call(this, Status::Playing);
         return true;
     } return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return false;
+#elif defined(PLATFORM_IOS)
+    if (!m_player) return false;
+    AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
+    return [player play];
 #else
     #error Not Implemented!
 #endif
@@ -137,9 +158,14 @@ bool AudioPlayer::pause() {
         ev_status.call(this, Status::Paused);
         return true;
     } return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return false;
+#elif defined(PLATFORM_IOS)
+    if (!m_player) return false;
+    AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
+    [player pause];
+    return true;
 #else
     #error Not Implemented!
 #endif
@@ -155,9 +181,14 @@ bool AudioPlayer::stop() {
         ev_status.call(this, Status::Paused);
         return true;
     } return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return false;
+#elif defined(PLATFORM_IOS)
+    if (!m_player) return false;
+    AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
+    [player stop];
+    return true;
 #else
     #error Not Implemented!
 #endif
@@ -173,9 +204,13 @@ bool AudioPlayer::is_playing() {
     if ((*m_play_iface)->GetPlayState(m_play_iface, &state) == SL_RESULT_SUCCESS) {
         return state == SL_PLAYSTATE_PLAYING;
     } return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return false;
+#elif defined(PLATFORM_IOS)
+    if (!m_player) return false;
+    AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
+    return [player isPlaying];
 #else
     #error Not Implemented!
 #endif
@@ -191,9 +226,13 @@ unsigned long AudioPlayer::duration() {
     if ((*m_play_iface)->GetDuration(m_play_iface, &ms) == SL_RESULT_SUCCESS) {
         return (unsigned long)ms;
     } return 0;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+#elif defined(PLATFORM_MAC)
     // TODO: Not Implemented
     return 0;
+#elif defined(PLATFORM_IOS)
+    if (!m_player) return false;
+    AVAudioPlayer* player = (__bridge AVAudioPlayer*)m_player;
+    return 1000UL * [player duration];
 #else
     #error Not Implemented!
 #endif
@@ -262,8 +301,11 @@ bool AudioEngine::init(const PlatformSpecificData* psd) {
 fail:
     fini();
     return false;
-#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
-    // TODO: Not Implemented
+#elif defined(PLATFORM_MAC)
+    return true;
+#elif defined(PLATFORM_IOS)
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive: YES error: nil];
     return true;
 #else
     #error Not Implemented!
