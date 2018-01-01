@@ -12,6 +12,8 @@ struct SoundEffect {
     // TODO
 #elif defined(PLATFORM_ANDROID)
     jint sound_id;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // TODO
 #else
     #error Not Implemented!
 #endif

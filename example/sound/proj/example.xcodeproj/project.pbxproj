@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E6B5D301FFA223500D9F109 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 3E6B5D2F1FFA223500D9F109 /* sound */; };
+		3E6B5D311FFA224400D9F109 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 3E6B5D2F1FFA223500D9F109 /* sound */; };
 		3ED4FEB41F89ED2900D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAB1F89ED2800D299B6 /* main.m */; };
 		3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* CatView.mm */; };
 		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
@@ -21,14 +23,13 @@
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
 		3EF8A4011FF8D50D00B828ED /* pane1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */; };
-		3EF8A4081FF8D5BE00B828ED /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4061FF8D5BE00B828ED /* shader */; };
 		3EF8A4091FF8D5BE00B828ED /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4071FF8D5BE00B828ED /* ui */; };
-		3EF8A40A1FF8D5F400B828ED /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4061FF8D5BE00B828ED /* shader */; };
 		3EF8A40B1FF8D5F400B828ED /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8A4071FF8D5BE00B828ED /* ui */; };
 		3EF8A40C1FF8D60700B828ED /* pane1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E6B5D2F1FFA223500D9F109 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../assets/sound; sourceTree = "<group>"; };
 		3E859A121F77939A00F84D36 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
 		3EF8A3FB1FF8D50D00B828ED /* pane1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pane1.cpp; path = ../src/pane1.cpp; sourceTree = "<group>"; };
 		3EF8A3FC1FF8D50D00B828ED /* pane1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pane1.h; path = ../src/pane1.h; sourceTree = "<group>"; };
-		3EF8A4061FF8D5BE00B828ED /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shader; path = ../assets/shader; sourceTree = "<group>"; };
 		3EF8A4071FF8D5BE00B828ED /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ui; path = ../assets/ui; sourceTree = "<group>"; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -151,7 +151,7 @@
 		3EF8A4051FF8D5B000B828ED /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				3EF8A4061FF8D5BE00B828ED /* shader */,
+				3E6B5D2F1FFA223500D9F109 /* sound */,
 				3EF8A4071FF8D5BE00B828ED /* ui */,
 			);
 			name = assets;
@@ -255,7 +255,7 @@
 			files = (
 				3EF8A4091FF8D5BE00B828ED /* ui in Resources */,
 				3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */,
-				3EF8A4081FF8D5BE00B828ED /* shader in Resources */,
+				3E6B5D301FFA223500D9F109 /* sound in Resources */,
 				3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF8A40A1FF8D5F400B828ED /* shader in Resources */,
+				3E6B5D311FFA224400D9F109 /* sound in Resources */,
 				3EF8A40B1FF8D5F400B828ED /* ui in Resources */,
 				3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */,
 				3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */,
