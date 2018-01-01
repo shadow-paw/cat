@@ -6,8 +6,8 @@ using namespace cat;
 // ----------------------------------------------------------------------------
 Pane1::Pane1(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(kernel_api, rect, id) {
     m_sfx = kernel()->sound()->load_effect("/sound/click.m4a"); // NOTE: Android SoundPool has an internal 1M limit on decoded buffer
-                                                                //       This long sound file will get chopped around 6sec.
-    m_audio = kernel()->sound()->load_audio("/sound/audio.m4a");
+                                                                //       long sound file will get chopped around 6sec.
+    m_audio = kernel()->sound()->load_audio("/sound/audio.m4a");// AudioPlayer does not have size limitation.
 
     const char* ui_image = "/assets/ui/default_ui.png";
     // Pane properties
