@@ -3,9 +3,12 @@
   #include <SLES/OpenSLES_Android.h>
   #include <android/asset_manager_jni.h>
 #endif
+#include "cat_util_log.h"
 
 using namespace cat;
 
+// ----------------------------------------------------------------------------
+// AudioPlayer
 // ----------------------------------------------------------------------------
 AudioPlayer::AudioPlayer() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
@@ -27,10 +30,12 @@ AudioPlayer::~AudioPlayer() {
 }
 // ----------------------------------------------------------------------------
 bool AudioPlayer::load(AudioEngine* engine, const std::string& name) {
+    m_loaded = false;
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     // TODO: Not Implemented
     return false;
 #elif defined(PLATFORM_ANDROID)
+    SLPrefetchStatusItf prefetch_iface;
     // input
     //SLDataLocator_URI loc_uri = {SL_DATALOCATOR_URI, (SLchar*)uri.c_str()};
     //SLDataFormat_MIME format_mime = {SL_DATAFORMAT_MIME, NULL, SL_CONTAINERTYPE_UNSPECIFIED};
@@ -53,7 +58,7 @@ bool AudioPlayer::load(AudioEngine* engine, const std::string& name) {
     SLDataLocator_OutputMix loc_outmix = {SL_DATALOCATOR_OUTPUTMIX, engine->m_outmix};
     SLDataSink audioSnk = {&loc_outmix, NULL};
     // create audio player
-    const SLInterfaceID ids[3] = {SL_IID_SEEK, SL_IID_MUTESOLO, SL_IID_VOLUME};
+    const SLInterfaceID ids[3] = {SL_IID_PREFETCHSTATUS, SL_IID_SEEK, SL_IID_VOLUME};
     const SLboolean req[3] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
     if ((*engine->m_engine)->CreateAudioPlayer(engine->m_engine, &m_player, &audioSrc, &audioSnk, 3, ids, req) != SL_RESULT_SUCCESS) goto fail;
     if ((*m_player)->Realize(m_player, SL_BOOLEAN_FALSE) != SL_RESULT_SUCCESS) goto fail;
@@ -61,6 +66,16 @@ bool AudioPlayer::load(AudioEngine* engine, const std::string& name) {
     if ((*m_player)->GetInterface(m_player, SL_IID_PLAY, &m_play_iface) != SL_RESULT_SUCCESS) goto fail;
     if ((*m_player)->GetInterface(m_player, SL_IID_SEEK, &m_seek_iface) != SL_RESULT_SUCCESS) goto fail;
     if ((*m_player)->GetInterface(m_player, SL_IID_VOLUME, &m_vol_iface) != SL_RESULT_SUCCESS) goto fail;
+    // prefetch event
+    if ((*m_player)->GetInterface(m_player, SL_IID_PREFETCHSTATUS, &prefetch_iface) != SL_RESULT_SUCCESS) goto fail;
+    if ((*prefetch_iface)->SetCallbackEventsMask(prefetch_iface, SL_PREFETCHEVENT_STATUSCHANGE|SL_PREFETCHEVENT_FILLLEVELCHANGE) != SL_RESULT_SUCCESS) goto fail;
+    if ((*prefetch_iface)->RegisterCallback(prefetch_iface, cb_prefetch, this) != SL_RESULT_SUCCESS) goto fail;
+    (*prefetch_iface)->SetFillUpdatePeriod(prefetch_iface, 50);
+    // playback event
+    if ((*m_play_iface)->SetCallbackEventsMask(m_play_iface, SL_PLAYEVENT_HEADATEND) != SL_RESULT_SUCCESS) goto fail;
+    if ((*m_play_iface)->RegisterCallback(m_play_iface, cb_playback, this) != SL_RESULT_SUCCESS) goto fail;
+    // preload media
+    (*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PAUSED);
     return true;
 fail:
     unload();
@@ -78,6 +93,9 @@ void AudioPlayer::unload() {
     // TODO: Not Implemented
 #elif defined(PLATFORM_ANDROID)
     if (m_player) {
+        if (m_play_iface) {
+            (*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_STOPPED);
+        }
         (*m_player)->Destroy(m_player);
         m_player = nullptr;
     }
@@ -97,7 +115,10 @@ bool AudioPlayer::play() {
     return false;
 #elif defined(PLATFORM_ANDROID)
     if (!m_play_iface) return false;
-    return (*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PLAYING) == SL_RESULT_SUCCESS;
+    if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PLAYING) == SL_RESULT_SUCCESS) {
+        ev_status.call(this, Status::Playing);
+        return true;
+    } return false;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     // TODO: Not Implemented
     return false;
@@ -112,7 +133,10 @@ bool AudioPlayer::pause() {
     return false;
 #elif defined(PLATFORM_ANDROID)
     if (!m_play_iface) return false;
-    return (*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PAUSED) == SL_RESULT_SUCCESS;
+    if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_PAUSED) == SL_RESULT_SUCCESS) {
+        ev_status.call(this, Status::Paused);
+        return true;
+    } return false;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
     // TODO: Not Implemented
     return false;
@@ -120,6 +144,89 @@ bool AudioPlayer::pause() {
     #error Not Implemented!
 #endif
 }
+// ----------------------------------------------------------------------------
+bool AudioPlayer::stop() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    // TODO: Not Implemented
+    return false;
+#elif defined(PLATFORM_ANDROID)
+    if (!m_play_iface) return false;
+    if ((*m_play_iface)->SetPlayState(m_play_iface, SL_PLAYSTATE_STOPPED) == SL_RESULT_SUCCESS) {
+        ev_status.call(this, Status::Paused);
+        return true;
+    } return false;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // TODO: Not Implemented
+    return false;
+#else
+    #error Not Implemented!
+#endif
+}
+// ----------------------------------------------------------------------------
+bool AudioPlayer::is_playing() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    // TODO: Not Implemented
+    return false;
+#elif defined(PLATFORM_ANDROID)
+    SLuint32 state;
+    if (!m_play_iface) return false;
+    if ((*m_play_iface)->GetPlayState(m_play_iface, &state) == SL_RESULT_SUCCESS) {
+        return state == SL_PLAYSTATE_PLAYING;
+    } return false;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // TODO: Not Implemented
+    return false;
+#else
+    #error Not Implemented!
+#endif
+}
+// ----------------------------------------------------------------------------
+unsigned long AudioPlayer::duration() {
+#if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
+    // TODO: Not Implemented
+    return 0;
+#elif defined(PLATFORM_ANDROID)
+    SLmillisecond ms;
+    if (!m_play_iface) return 0;
+    if ((*m_play_iface)->GetDuration(m_play_iface, &ms) == SL_RESULT_SUCCESS) {
+        return (unsigned long)ms;
+    } return 0;
+#elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS)
+    // TODO: Not Implemented
+    return 0;
+#else
+    #error Not Implemented!
+#endif
+}
+// ----------------------------------------------------------------------------
+// Platform Specific: Android
+// ----------------------------------------------------------------------------
+#if defined(PLATFORM_ANDROID)
+void AudioPlayer::cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev) {
+    AudioPlayer* self = static_cast<AudioPlayer*>(context);
+    SLpermille level = 0;
+    (*caller)->GetFillLevel(caller, &level);
+    SLuint32 status;
+    (*caller)->GetPrefetchStatus(caller, &status);
+    // If error occurs, both event comes at once and level is zero
+    if ((ev & (SL_PREFETCHEVENT_STATUSCHANGE | SL_PREFETCHEVENT_FILLLEVELCHANGE)) == (SL_PREFETCHEVENT_STATUSCHANGE|SL_PREFETCHEVENT_FILLLEVELCHANGE)
+                        && (level == 0) && (status == SL_PREFETCHSTATUS_UNDERFLOW)) {
+        self->ev_status.call(self, Status::Failed);
+    } else if (level == 1000) {
+        self->m_loaded = true;
+        self->ev_status.call(self, Status::Loaded);
+    }
+}
+// ----------------------------------------------------------------------------
+void AudioPlayer::cb_playback(SLPlayItf caller, void *context, SLuint32 ev) {
+    AudioPlayer* self = static_cast<AudioPlayer*>(context);
+    if ((ev & SL_PLAYEVENT_HEADATEND) == SL_PLAYEVENT_HEADATEND) {
+        self->ev_status.call(self, Status::Paused);
+    }
+}
+#endif
+// ----------------------------------------------------------------------------
+// AudioEngine
 // ----------------------------------------------------------------------------
 AudioEngine::AudioEngine() {
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)

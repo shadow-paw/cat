@@ -40,8 +40,19 @@ Pane1::Pane1(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : Pane(
     };
     button2->ev_check += [this](Widget* w, bool checked) -> void {
         Logger::d("App", "Pane1::button2 Clicked!");
-        if (m_audio) m_audio->play();
+        if (m_audio) {
+            if (m_audio->is_playing()) {
+                m_audio->pause();
+            } else {
+                m_audio->play();
+            }
+        }
     };
+    if (m_audio) {
+        m_audio->ev_status += [](AudioPlayer* player, AudioPlayer::Status status) -> void {
+            Logger::d("App", "AudioPlayer status = %d", status);
+        };
+    }
 }
 // ----------------------------------------------------------------------------
 Pane1::~Pane1() {
@@ -53,5 +64,9 @@ Pane1::~Pane1() {
         delete m_audio;
         m_audio = nullptr;
     }
+}
+// ----------------------------------------------------------------------------
+void Pane1::cb_pause(bool paused) {
+    if (m_audio) m_audio->pause();
 }
 // ----------------------------------------------------------------------------

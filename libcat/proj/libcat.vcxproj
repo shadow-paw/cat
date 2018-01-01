@@ -55,6 +55,7 @@
     <ClCompile Include="..\src\cat_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\cat_data_event.h" />
     <ClInclude Include="..\include\cat_gfx_opengl.h" />
     <ClInclude Include="..\include\cat_data_buffer.h" />
     <ClInclude Include="..\include\cat_data_emitter.h" />
@@ -97,7 +98,6 @@
     <ClInclude Include="..\include\cat_time_service.h" />
     <ClInclude Include="..\include\cat_time_type.h" />
     <ClInclude Include="..\include\cat_ui_service.h" />
-    <ClInclude Include="..\include\cat_ui_handler.h" />
     <ClInclude Include="..\include\cat_ui_widget.h" />
     <ClInclude Include="..\include\cat_ui_button.h" />
     <ClInclude Include="..\include\cat_ui_label.h" />

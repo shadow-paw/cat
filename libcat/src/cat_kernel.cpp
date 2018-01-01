@@ -28,10 +28,10 @@ bool Kernel::init(const PlatformSpecificData& psd) {
     if (!m_renderer.init()) goto fail;
     if (!m_res.init()) goto fail;
     // services
-    if (!m_ui.init()) goto fail;
     if (!m_time.init()) goto fail;
     if (!m_net.init()) goto fail;
     if (!m_sound.init(&m_psd)) goto fail;
+    if (!m_ui.init()) goto fail;
     return true;
 fail:
     fini();
@@ -41,10 +41,10 @@ fail:
 void Kernel::fini() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     // services
+    m_ui.fini();
     m_sound.fini();
     m_net.fini();
     m_time.fini();
-    m_ui.fini();
     // core
     m_res.fini();
     m_renderer.fini();
@@ -102,10 +102,10 @@ void Kernel::pause() {
     for (auto& app : m_apps) {
         app->cb_pause();
     }
+    m_ui.pause();
     m_sound.pause();
     m_net.pause();
     m_time.pause();
-    m_ui.pause();
     m_resumed = false;
 }
 // ----------------------------------------------------------------------------
@@ -113,10 +113,10 @@ void Kernel::resume() {
     std::lock_guard<std::mutex> lock(m_bigkernellock);
     if (m_resumed) return;
     m_resumed = true;
-    m_ui.resume();
     m_time.resume();
     m_net.resume();
     m_sound.resume();
+    m_ui.resume();
     for (auto& app : m_apps) {
         app->cb_resume();
     }

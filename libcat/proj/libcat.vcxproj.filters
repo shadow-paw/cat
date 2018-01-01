@@ -106,9 +106,6 @@
     <ClInclude Include="..\include\cat_ui_widget.h">
       <Filter>libcat\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cat_ui_handler.h">
-      <Filter>libcat\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\cat_ui_label.h">
       <Filter>libcat\ui</Filter>
     </ClInclude>
@@ -183,6 +180,9 @@
     </ClInclude>
     <ClInclude Include="..\include\cat_sound_player.h">
       <Filter>libcat\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\cat_data_event.h">
+      <Filter>libcat\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

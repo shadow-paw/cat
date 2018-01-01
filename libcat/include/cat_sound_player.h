@@ -6,6 +6,7 @@
 #include <SLES/OpenSLES.h>
 #endif
 #include "cat_platform.h"
+#include "cat_data_event.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
@@ -14,19 +15,29 @@ class AudioEngine;
 class AudioPlayer {
 friend class AudioEngine;
 public:
+    enum class Status { Failed, Loaded, Playing, Paused };
+    EventHandler<AudioPlayer,Status> ev_status;
+
     AudioPlayer();
     ~AudioPlayer();
     bool play();
     bool pause();
+    bool stop();
+
+    bool is_playing();
+    unsigned long duration();
 private:
     bool load(AudioEngine* engine, const std::string& name);
     void unload();
 private:
+    bool m_loaded;
 #if defined(PLATFORM_ANDROID)
     SLObjectItf m_player;
     SLPlayItf   m_play_iface;
     SLSeekItf   m_seek_iface;
     SLVolumeItf m_vol_iface;
+    static void cb_prefetch(SLPrefetchStatusItf caller, void *context, SLuint32 ev);
+    static void cb_playback(SLPlayItf caller, void *context, SLuint32 ev);
 #endif
 };
 // ----------------------------------------------------------------------------
