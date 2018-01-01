@@ -31,7 +31,7 @@ Editbox::Editbox(KernelApi* kernel_api, const Rect2i& rect, unsigned int id) : W
     [tv.cell setScrollable:YES];
     [tv setHidden: YES];
     [rootview addSubview:tv];
-    m_native_ctrl = (__bridge void*)tv;
+    m_native_ctrl = (__bridge_retained void*)tv;
 #elif defined(PLATFORM_IOS)
     UIView* rootview = (__bridge UIView*)kernel_api->psd()->rootview;
     UITextField* tv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];

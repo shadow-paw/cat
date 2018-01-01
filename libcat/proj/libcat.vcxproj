@@ -24,6 +24,9 @@
     <ClCompile Include="..\src\cat_kernel.cpp" />
     <ClCompile Include="..\src\cat_net_http.cpp" />
     <ClCompile Include="..\src\cat_net_service.cpp" />
+    <ClCompile Include="..\src\cat_sound_effects.cpp" />
+    <ClCompile Include="..\src\cat_sound_player.cpp" />
+    <ClCompile Include="..\src\cat_sound_service.cpp" />
     <ClCompile Include="..\src\cat_ui_animator.cpp" />
     <ClCompile Include="..\src\cat_ui_effectview.cpp" />
     <ClCompile Include="..\src\cat_util_jni.cpp" />
@@ -52,6 +55,7 @@
     <ClCompile Include="..\src\cat_util_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\cat_data_event.h" />
     <ClInclude Include="..\include\cat_gfx_opengl.h" />
     <ClInclude Include="..\include\cat_data_buffer.h" />
     <ClInclude Include="..\include\cat_data_emitter.h" />
@@ -60,6 +64,10 @@
     <ClInclude Include="..\include\cat_gfx_fbo.h" />
     <ClInclude Include="..\include\cat_net_http.h" />
     <ClInclude Include="..\include\cat_net_service.h" />
+    <ClInclude Include="..\include\cat_sound_effects.h" />
+    <ClInclude Include="..\include\cat_sound_player.h" />
+    <ClInclude Include="..\include\cat_sound_service.h" />
+    <ClInclude Include="..\include\cat_sound_type.h" />
     <ClInclude Include="..\include\cat_ui_animator.h" />
     <ClInclude Include="..\include\cat_ui_effectview.h" />
     <ClInclude Include="..\include\cat_ui_interpolator.h" />
@@ -90,7 +98,6 @@
     <ClInclude Include="..\include\cat_time_service.h" />
     <ClInclude Include="..\include\cat_time_type.h" />
     <ClInclude Include="..\include\cat_ui_service.h" />
-    <ClInclude Include="..\include\cat_ui_handler.h" />
     <ClInclude Include="..\include\cat_ui_widget.h" />
     <ClInclude Include="..\include\cat_ui_button.h" />
     <ClInclude Include="..\include\cat_ui_label.h" />

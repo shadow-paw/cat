@@ -1,6 +1,8 @@
 #ifndef __CAT_PLATFORM_H__
 #define __CAT_PLATFORM_H__
 
+#include <string>
+
 // ----------------------------------------------------------------------------
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
     #define WIN32_LEAN_AND_MEAN
@@ -30,8 +32,10 @@ struct PlatformSpecificData {
     HWND rootview;
 #elif defined(PLATFORM_MAC)
     void* rootview; 
+    std::string res_path;
 #elif defined(PLATFORM_IOS)
     void* rootview;
+    std::string res_path;
 #elif defined(PLATFORM_ANDROID)
     jobject rootview; 
     jobject asset_manager;

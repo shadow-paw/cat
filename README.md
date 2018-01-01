@@ -6,18 +6,20 @@
 [![TravisCI][travis-image]][travis-url]
 
 **CAT** provides an abstract and consistent environment for application development. The main features include:
-- Graphics Rendering Service
+- Graphics Renderer
 - UI Framework
 - Time Service
 - Network Service
-- Media Service (camera, mic, audio / video player)
-- Sensor Service
+- Audio Service
+- Media Service - TODO (camera, video player)
+- Sensor Service - TODO
 
 ## Examples
 - [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle.
 - [Basic UI](example/ui_basic/src/bootapp.cpp) - basic ui like pane and button
 - [Timer](example/timer/src/bootapp.cpp) - create and remove timers
 - [HTTP](example/http/src/bootapp.cpp) - rest compatible http client
+- [Sound](example/sound/src/pane1.cpp) - audio playback
 
 ## Build Environments
 You can build app on two environments, sadly you cannot build binaries for all platforms with a single environment. Here is the matrix:

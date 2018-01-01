@@ -26,9 +26,11 @@ void UIService::fini() {
 }
 // ----------------------------------------------------------------------------
 void UIService::pause() {
+    m_desktop->notify_pause(true);
 }
 // ----------------------------------------------------------------------------
 void UIService::resume() {
+    m_desktop->notify_pause(false);
 }
 // ----------------------------------------------------------------------------
 void UIService::context_lost() {

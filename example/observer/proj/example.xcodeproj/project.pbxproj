@@ -22,6 +22,7 @@
 		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
 		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
 		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
+		3EE112FA1FFA2F720085C627 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE112F91FFA2F720085C627 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
 		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
 		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
+		3EE112F31FFA2F320085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3EE112F91FFA2F720085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -63,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE112FA1FFA2F720085C627 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +137,8 @@
 		3EB96B9B1F7F73FC0067C170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EE112F31FFA2F320085C627 /* AVFoundation.framework */,
+				3EE112F91FFA2F720085C627 /* AVFoundation.framework */,
 				3EB96B9D1F7F73FC0067C170 /* libgraphite.a */,
 			);
 			name = Frameworks;

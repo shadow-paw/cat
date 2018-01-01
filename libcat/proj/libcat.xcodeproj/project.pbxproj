@@ -33,6 +33,24 @@
 		3E17C4541FEE61E000AA3E36 /* cat_gfx_fbo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */; };
 		3E2B721E1FEE6212009A5B6F /* cat_ui_effectview.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */; };
 		3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */; };
+		3E6B5D1A1FFA209C00D9F109 /* cat_sound_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D141FFA209C00D9F109 /* cat_sound_player.h */; };
+		3E6B5D1B1FFA209C00D9F109 /* cat_sound_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D151FFA209C00D9F109 /* cat_sound_type.h */; };
+		3E6B5D1C1FFA209C00D9F109 /* cat_sound_effects.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D161FFA209C00D9F109 /* cat_sound_effects.h */; };
+		3E6B5D1D1FFA209C00D9F109 /* cat_gfx_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D171FFA209C00D9F109 /* cat_gfx_opengl.h */; };
+		3E6B5D1E1FFA209C00D9F109 /* cat_sound_service.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D181FFA209C00D9F109 /* cat_sound_service.h */; };
+		3E6B5D1F1FFA209C00D9F109 /* cat_data_event.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D191FFA209C00D9F109 /* cat_data_event.h */; };
+		3E6B5D231FFA20B500D9F109 /* cat_sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D201FFA20B500D9F109 /* cat_sound_effects.cpp */; };
+		3E6B5D241FFA20B500D9F109 /* cat_sound_player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */; };
+		3E6B5D251FFA20B500D9F109 /* cat_sound_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D221FFA20B500D9F109 /* cat_sound_service.cpp */; };
+		3E6B5D261FFA20C700D9F109 /* cat_sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D201FFA20B500D9F109 /* cat_sound_effects.cpp */; };
+		3E6B5D271FFA20C700D9F109 /* cat_sound_player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */; };
+		3E6B5D281FFA20C700D9F109 /* cat_sound_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B5D221FFA20B500D9F109 /* cat_sound_service.cpp */; };
+		3E6B5D291FFA21EE00D9F109 /* cat_data_event.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D191FFA209C00D9F109 /* cat_data_event.h */; };
+		3E6B5D2A1FFA21EE00D9F109 /* cat_gfx_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D171FFA209C00D9F109 /* cat_gfx_opengl.h */; };
+		3E6B5D2B1FFA21EE00D9F109 /* cat_sound_effects.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D161FFA209C00D9F109 /* cat_sound_effects.h */; };
+		3E6B5D2C1FFA21EE00D9F109 /* cat_sound_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D141FFA209C00D9F109 /* cat_sound_player.h */; };
+		3E6B5D2D1FFA21EE00D9F109 /* cat_sound_service.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D181FFA209C00D9F109 /* cat_sound_service.h */; };
+		3E6B5D2E1FFA21EE00D9F109 /* cat_sound_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E6B5D151FFA209C00D9F109 /* cat_sound_type.h */; };
 		3E92B6DC1F8B883F00614529 /* cat_storage_resmgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E92B6DB1F8B883F00614529 /* cat_storage_resmgr.h */; };
 		3E92B6DE1F8B886000614529 /* cat_storage_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */; };
 		3E92B6DF1F8B888F00614529 /* cat_storage_resmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E92B6DD1F8B885F00614529 /* cat_storage_resmgr.cpp */; };
@@ -67,7 +85,6 @@
 		3EAED9781F8FCFAE00E0B461 /* cat_util_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EAED9681F8FCF2600E0B461 /* cat_util_log.cpp */; };
 		3EAED9791F8FCFE600E0B461 /* cat_storage_driver_asset.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EAED9701F8FCF3C00E0B461 /* cat_storage_driver_asset.h */; };
 		3EAED97A1F8FCFE600E0B461 /* cat_util_jni.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EAED9661F8FCF1B00E0B461 /* cat_util_jni.h */; };
-		3EBBA7EF1F8D321A0053D8AE /* cat_ui_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E81F8D32190053D8AE /* cat_ui_handler.h */; };
 		3EBBA7F01F8D321A0053D8AE /* cat_ui_pane.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E91F8D321A0053D8AE /* cat_ui_pane.h */; };
 		3EBBA7F11F8D321A0053D8AE /* cat_ui_widget.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EA1F8D321A0053D8AE /* cat_ui_widget.h */; };
 		3EBBA7F21F8D321A0053D8AE /* cat_ui_slider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EB1F8D321A0053D8AE /* cat_ui_slider.h */; };
@@ -87,7 +104,6 @@
 		3EBBA8061F8D32A60053D8AE /* cat_ui_slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7F61F8D32220053D8AE /* cat_ui_slider.cpp */; };
 		3EBBA8071F8D32A60053D8AE /* cat_ui_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBA7FB1F8D32230053D8AE /* cat_ui_widget.cpp */; };
 		3EBBA8081F8D32BC0053D8AE /* cat_ui_service.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EE1F8D321A0053D8AE /* cat_ui_service.h */; };
-		3EBBA8091F8D32BC0053D8AE /* cat_ui_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E81F8D32190053D8AE /* cat_ui_handler.h */; };
 		3EBBA80A1F8D32BC0053D8AE /* cat_ui_button.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7ED1F8D321A0053D8AE /* cat_ui_button.h */; };
 		3EBBA80B1F8D32BC0053D8AE /* cat_ui_label.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7EC1F8D321A0053D8AE /* cat_ui_label.h */; };
 		3EBBA80C1F8D32BC0053D8AE /* cat_ui_pane.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EBBA7E91F8D321A0053D8AE /* cat_ui_pane.h */; };
@@ -181,6 +197,15 @@
 		3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_fbo.cpp; path = ../src/cat_gfx_fbo.cpp; sourceTree = "<group>"; };
 		3E2B721D1FEE6212009A5B6F /* cat_ui_effectview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_effectview.h; path = ../include/cat_ui_effectview.h; sourceTree = "<group>"; };
 		3E2B721F1FEE6219009A5B6F /* cat_ui_effectview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_ui_effectview.cpp; path = ../src/cat_ui_effectview.cpp; sourceTree = "<group>"; };
+		3E6B5D141FFA209C00D9F109 /* cat_sound_player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_sound_player.h; path = ../include/cat_sound_player.h; sourceTree = "<group>"; };
+		3E6B5D151FFA209C00D9F109 /* cat_sound_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_sound_type.h; path = ../include/cat_sound_type.h; sourceTree = "<group>"; };
+		3E6B5D161FFA209C00D9F109 /* cat_sound_effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_sound_effects.h; path = ../include/cat_sound_effects.h; sourceTree = "<group>"; };
+		3E6B5D171FFA209C00D9F109 /* cat_gfx_opengl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_gfx_opengl.h; path = ../include/cat_gfx_opengl.h; sourceTree = "<group>"; };
+		3E6B5D181FFA209C00D9F109 /* cat_sound_service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_sound_service.h; path = ../include/cat_sound_service.h; sourceTree = "<group>"; };
+		3E6B5D191FFA209C00D9F109 /* cat_data_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_event.h; path = ../include/cat_data_event.h; sourceTree = "<group>"; };
+		3E6B5D201FFA20B500D9F109 /* cat_sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_sound_effects.cpp; path = ../src/cat_sound_effects.cpp; sourceTree = "<group>"; };
+		3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = cat_sound_player.cpp; path = ../src/cat_sound_player.cpp; sourceTree = "<group>"; };
+		3E6B5D221FFA20B500D9F109 /* cat_sound_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_sound_service.cpp; path = ../src/cat_sound_service.cpp; sourceTree = "<group>"; };
 		3E8636FC1F77544B00A97811 /* libcat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8D7D401F8A36BF00F91EDF /* cat_gfx_ibo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_ibo.cpp; path = ../src/cat_gfx_ibo.cpp; sourceTree = "<group>"; };
 		3E8D7D411F8A36BF00F91EDF /* cat_gfx_vbo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_vbo.cpp; path = ../src/cat_gfx_vbo.cpp; sourceTree = "<group>"; };
@@ -205,7 +230,8 @@
 		3EAED96D1F8FCF3600E0B461 /* cat_storage_driver_asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_driver_asset.cpp; path = ../src/cat_storage_driver_asset.cpp; sourceTree = "<group>"; };
 		3EAED9701F8FCF3C00E0B461 /* cat_storage_driver_asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_driver_asset.h; path = ../include/cat_storage_driver_asset.h; sourceTree = "<group>"; };
 		3EAED9721F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_gfx_drawablecanvas.cpp; path = ../src/cat_gfx_drawablecanvas.cpp; sourceTree = "<group>"; };
-		3EBBA7E81F8D32190053D8AE /* cat_ui_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_handler.h; path = ../include/cat_ui_handler.h; sourceTree = "<group>"; };
+		3EAF4C611FFA287100DB1467 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3EAF4C631FFA287800DB1467 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EBBA7E91F8D321A0053D8AE /* cat_ui_pane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_pane.h; path = ../include/cat_ui_pane.h; sourceTree = "<group>"; };
 		3EBBA7EA1F8D321A0053D8AE /* cat_ui_widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_widget.h; path = ../include/cat_ui_widget.h; sourceTree = "<group>"; };
 		3EBBA7EB1F8D321A0053D8AE /* cat_ui_slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_slider.h; path = ../include/cat_ui_slider.h; sourceTree = "<group>"; };
@@ -287,6 +313,20 @@
 			name = kernel;
 			sourceTree = "<group>";
 		};
+		3E6B5D131FFA208200D9F109 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				3E6B5D201FFA20B500D9F109 /* cat_sound_effects.cpp */,
+				3E6B5D161FFA209C00D9F109 /* cat_sound_effects.h */,
+				3E6B5D211FFA20B500D9F109 /* cat_sound_player.cpp */,
+				3E6B5D141FFA209C00D9F109 /* cat_sound_player.h */,
+				3E6B5D221FFA20B500D9F109 /* cat_sound_service.cpp */,
+				3E6B5D181FFA209C00D9F109 /* cat_sound_service.h */,
+				3E6B5D151FFA209C00D9F109 /* cat_sound_type.h */,
+			);
+			name = sound;
+			sourceTree = "<group>";
+		};
 		3E9EB4511FB726DE00BFF6DD /* net */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,12 +341,22 @@
 		3E9EB4591FB7270100BFF6DD /* data */ = {
 			isa = PBXGroup;
 			children = (
+				3E6B5D191FFA209C00D9F109 /* cat_data_event.h */,
 				3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */,
 				3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */,
 				3EF9A0DF1F8A6867008C00C0 /* cat_data_buffer.h */,
 				3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */,
 			);
 			name = data;
+			sourceTree = "<group>";
+		};
+		3EAF4C601FFA287100DB1467 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EAF4C631FFA287800DB1467 /* AVFoundation.framework */,
+				3EAF4C611FFA287100DB1467 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3EBBA7E71F8D32080053D8AE /* ui */ = {
@@ -317,7 +367,6 @@
 				3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */,
 				3EBBA7EE1F8D321A0053D8AE /* cat_ui_service.h */,
 				3EBBA7F81F8D32230053D8AE /* cat_ui_service.cpp */,
-				3EBBA7E81F8D32190053D8AE /* cat_ui_handler.h */,
 				3EBBA7ED1F8D321A0053D8AE /* cat_ui_button.h */,
 				3EBBA7F91F8D32230053D8AE /* cat_ui_button.cpp */,
 				3EEB67B41F8FD0D30009C6FC /* cat_ui_edit.h */,
@@ -342,6 +391,7 @@
 				3E9EB4591FB7270100BFF6DD /* data */,
 				3E33DBF41F7673C700B3A90C /* kernel */,
 				3ED4FEA11F89EBA400D299B6 /* gfx */,
+				3E6B5D131FFA208200D9F109 /* sound */,
 				3EF9A0DC1F8A6855008C00C0 /* storage */,
 				3E9EB4511FB726DE00BFF6DD /* net */,
 				3EEE39751F8CB91100DF9B90 /* time */,
@@ -349,6 +399,7 @@
 				3EBBA7E71F8D32080053D8AE /* ui */,
 				3ED4FE951F89EB8800D299B6 /* libcat.h */,
 				3ECE605F1F7671CB007C3766 /* Products */,
+				3EAF4C601FFA287100DB1467 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -364,6 +415,7 @@
 		3ED4FEA11F89EBA400D299B6 /* gfx */ = {
 			isa = PBXGroup;
 			children = (
+				3E6B5D171FFA209C00D9F109 /* cat_gfx_opengl.h */,
 				3E17C4511FEE61C100AA3E36 /* cat_gfx_fbo.cpp */,
 				3E17C44F1FEE61B700AA3E36 /* cat_gfx_fbo.h */,
 				3E15D8FB1F8A3565004EC94C /* cat_gfx_type.h */,
@@ -423,6 +475,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6B5D291FFA21EE00D9F109 /* cat_data_event.h in Headers */,
+				3E6B5D2A1FFA21EE00D9F109 /* cat_gfx_opengl.h in Headers */,
+				3E6B5D2B1FFA21EE00D9F109 /* cat_sound_effects.h in Headers */,
+				3E6B5D2C1FFA21EE00D9F109 /* cat_sound_player.h in Headers */,
+				3E6B5D2D1FFA21EE00D9F109 /* cat_sound_service.h in Headers */,
+				3E6B5D2E1FFA21EE00D9F109 /* cat_sound_type.h in Headers */,
 				3E9EB4641FB7630D00BFF6DD /* cat_net_http.h in Headers */,
 				3E9EB4651FB7630D00BFF6DD /* cat_net_service.h in Headers */,
 				3E9EB4661FB7630D00BFF6DD /* cat_util_string.h in Headers */,
@@ -458,7 +516,6 @@
 				3EF9A0FD1F8A695D008C00C0 /* cat_storage_driver_file.h in Headers */,
 				3EAED9791F8FCFE600E0B461 /* cat_storage_driver_asset.h in Headers */,
 				3EBBA8081F8D32BC0053D8AE /* cat_ui_service.h in Headers */,
-				3EBBA8091F8D32BC0053D8AE /* cat_ui_handler.h in Headers */,
 				3E124E711FDD278100C60C65 /* cat_ui_animator.h in Headers */,
 				3E124E721FDD278100C60C65 /* cat_ui_interpolator.h in Headers */,
 				3EBBA80E1F8D32BD0053D8AE /* cat_ui_widget.h in Headers */,
@@ -481,6 +538,7 @@
 				3ED4FE9A1F89EB8900D299B6 /* cat_kernel.h in Headers */,
 				3EEE39841F8CC05500DF9B90 /* cat_kernel_api.h in Headers */,
 				3EEE39851F8CC05500DF9B90 /* cat_application.h in Headers */,
+				3E6B5D1A1FFA209C00D9F109 /* cat_sound_player.h in Headers */,
 				3E9EB45E1FB7271900BFF6DD /* cat_util_string.h in Headers */,
 				3EAED9671F8FCF1B00E0B461 /* cat_util_jni.h in Headers */,
 				3E2B721E1FEE6212009A5B6F /* cat_ui_effectview.h in Headers */,
@@ -488,15 +546,18 @@
 				3E15D9051F8A3565004EC94C /* cat_gfx_type.h in Headers */,
 				3ED4FE961F89EB8900D299B6 /* cat_gfx_renderer.h in Headers */,
 				3E15D8FE1F8A3565004EC94C /* cat_gfx_ibo.h in Headers */,
+				3E6B5D1F1FFA209C00D9F109 /* cat_data_event.h in Headers */,
 				3E15D8FD1F8A3565004EC94C /* cat_gfx_vbo.h in Headers */,
 				3E15D9011F8A3565004EC94C /* cat_gfx_tex.h in Headers */,
 				3E15D9021F8A3565004EC94C /* cat_gfx_texref.h in Headers */,
+				3E6B5D1B1FFA209C00D9F109 /* cat_sound_type.h in Headers */,
 				3E15D9031F8A3565004EC94C /* cat_gfx_shader.h in Headers */,
 				3E9EB4611FB7271900BFF6DD /* cat_net_service.h in Headers */,
 				3E15D9001F8A3565004EC94C /* cat_gfx_drawablecanvas.h in Headers */,
 				3E15D9061F8A3565004EC94C /* cat_gfx_drawable.h in Headers */,
 				3E15D9041F8A3565004EC94C /* cat_gfx_draw2d.h in Headers */,
 				3E92B6DC1F8B883F00614529 /* cat_storage_resmgr.h in Headers */,
+				3E6B5D1C1FFA209C00D9F109 /* cat_sound_effects.h in Headers */,
 				3EEE39811F8CC04400DF9B90 /* cat_time_type.h in Headers */,
 				3EEE39821F8CC04400DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* cat_time_service.h in Headers */,
@@ -509,9 +570,10 @@
 				3E9EB4601FB7271900BFF6DD /* cat_data_uniqueid.h in Headers */,
 				3EAED9711F8FCF3C00E0B461 /* cat_storage_driver_asset.h in Headers */,
 				3EBBA7F51F8D321A0053D8AE /* cat_ui_service.h in Headers */,
-				3EBBA7EF1F8D321A0053D8AE /* cat_ui_handler.h in Headers */,
 				3E124E661FDD270500C60C65 /* cat_ui_animator.h in Headers */,
+				3E6B5D1E1FFA209C00D9F109 /* cat_sound_service.h in Headers */,
 				3E124E671FDD270500C60C65 /* cat_ui_interpolator.h in Headers */,
+				3E6B5D1D1FFA209C00D9F109 /* cat_gfx_opengl.h in Headers */,
 				3EBBA7F11F8D321A0053D8AE /* cat_ui_widget.h in Headers */,
 				3E17C4501FEE61B700AA3E36 /* cat_gfx_fbo.h in Headers */,
 				3EBBA7F01F8D321A0053D8AE /* cat_ui_pane.h in Headers */,
@@ -603,29 +665,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E94E4421FEE773700C419EC /* cat_ui_effectview.cpp in Sources */,
-				3E9EB4621FB762F300BFF6DD /* cat_net_http.cpp in Sources */,
-				3E9EB4631FB762F300BFF6DD /* cat_net_service.cpp in Sources */,
 				3ED4FEA21F89EC8700D299B6 /* cat_kernel.cpp in Sources */,
 				3EAED9771F8FCF9A00E0B461 /* cat_util_jni.cpp in Sources */,
 				3EAED9781F8FCFAE00E0B461 /* cat_util_log.cpp in Sources */,
 				3E9EB4581FB726F300BFF6DD /* cat_util_string.cpp in Sources */,
+				3EF9A0F91F8A693C008C00C0 /* cat_data_buffer.cpp in Sources */,
+				3E92B6DF1F8B888F00614529 /* cat_storage_resmgr.cpp in Sources */,
+				3EF9A0FA1F8A693C008C00C0 /* cat_storage_vfs.cpp in Sources */,
+				3EAED9751F8FCF9A00E0B461 /* cat_storage_driver_asset.cpp in Sources */,
+				3EAED9761F8FCF9A00E0B461 /* cat_storage_driver_file.cpp in Sources */,
+				3EEE397D1F8CC02300DF9B90 /* cat_time_service.cpp in Sources */,
+				3E9EB4631FB762F300BFF6DD /* cat_net_service.cpp in Sources */,
+				3E9EB4621FB762F300BFF6DD /* cat_net_http.cpp in Sources */,
+				3E6B5D281FFA20C700D9F109 /* cat_sound_service.cpp in Sources */,
+				3E6B5D261FFA20C700D9F109 /* cat_sound_effects.cpp in Sources */,
+				3E6B5D271FFA20C700D9F109 /* cat_sound_player.cpp in Sources */,
 				3ED3FD841F8A3F8B007BE517 /* cat_gfx_renderer.cpp in Sources */,
 				3ED3FD851F8A3F8B007BE517 /* cat_gfx_ibo.cpp in Sources */,
 				3ED3FD861F8A3F8B007BE517 /* cat_gfx_vbo.cpp in Sources */,
 				3E17C4531FEE61D400AA3E36 /* cat_gfx_fbo.cpp in Sources */,
 				3ED3FD871F8A3F8B007BE517 /* cat_gfx_tex.cpp in Sources */,
 				3ED3FD881F8A3F8B007BE517 /* cat_gfx_shader.cpp in Sources */,
-				3EAED9741F8FCF9A00E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
 				3ED3FD891F8A3F8B007BE517 /* cat_gfx_drawable.cpp in Sources */,
+				3EAED9741F8FCF9A00E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
 				3ED3FD8A1F8A3F8B007BE517 /* cat_gfx_draw2d.cpp in Sources */,
 				3ED3FD8B1F8A3F8B007BE517 /* cat_gfx_draw2d_shaders.cpp in Sources */,
-				3E92B6DF1F8B888F00614529 /* cat_storage_resmgr.cpp in Sources */,
-				3EEE397D1F8CC02300DF9B90 /* cat_time_service.cpp in Sources */,
-				3EF9A0F91F8A693C008C00C0 /* cat_data_buffer.cpp in Sources */,
-				3EF9A0FA1F8A693C008C00C0 /* cat_storage_vfs.cpp in Sources */,
-				3EAED9751F8FCF9A00E0B461 /* cat_storage_driver_asset.cpp in Sources */,
-				3EAED9761F8FCF9A00E0B461 /* cat_storage_driver_file.cpp in Sources */,
 				3EBBA8021F8D32A60053D8AE /* cat_ui_service.cpp in Sources */,
 				3E124E6E1FDD275F00C60C65 /* cat_ui_animator.cpp in Sources */,
 				3EBBA8071F8D32A60053D8AE /* cat_ui_widget.cpp in Sources */,
@@ -633,6 +697,7 @@
 				3EBBA8041F8D32A60053D8AE /* cat_ui_label.cpp in Sources */,
 				3EBBA8031F8D32A60053D8AE /* cat_ui_button.cpp in Sources */,
 				3EBBA8061F8D32A60053D8AE /* cat_ui_slider.cpp in Sources */,
+				3E94E4421FEE773700C419EC /* cat_ui_effectview.cpp in Sources */,
 				3EEB67B81F8FD1110009C6FC /* cat_ui_edit.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,34 +709,37 @@
 				3ED4FEA01F89EB9100D299B6 /* cat_kernel.cpp in Sources */,
 				3EAED96B1F8FCF2600E0B461 /* cat_util_jni.cpp in Sources */,
 				3EAED96A1F8FCF2600E0B461 /* cat_util_log.cpp in Sources */,
-				3ECE1B021F8A391C009D9088 /* cat_gfx_renderer.cpp in Sources */,
+				3E9EB4571FB726EF00BFF6DD /* cat_util_string.cpp in Sources */,
+				3EF9A0EF1F8A68C1008C00C0 /* cat_data_buffer.cpp in Sources */,
+				3E92B6DE1F8B886000614529 /* cat_storage_resmgr.cpp in Sources */,
+				3EF9A0EE1F8A68C1008C00C0 /* cat_storage_vfs.cpp in Sources */,
+				3EAED96E1F8FCF3600E0B461 /* cat_storage_driver_file.cpp in Sources */,
+				3EAED96F1F8FCF3600E0B461 /* cat_storage_driver_asset.cpp in Sources */,
+				3EEE397C1F8CC01700DF9B90 /* cat_time_service.cpp in Sources */,
+				3E9EB4551FB726EF00BFF6DD /* cat_net_service.cpp in Sources */,
 				3E9EB4561FB726EF00BFF6DD /* cat_net_http.cpp in Sources */,
-				3E124E691FDD270F00C60C65 /* cat_ui_animator.cpp in Sources */,
-				3EAED9731F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
+				3E6B5D251FFA20B500D9F109 /* cat_sound_service.cpp in Sources */,
+				3E6B5D231FFA20B500D9F109 /* cat_sound_effects.cpp in Sources */,
+				3E6B5D241FFA20B500D9F109 /* cat_sound_player.cpp in Sources */,
+				3ECE1B021F8A391C009D9088 /* cat_gfx_renderer.cpp in Sources */,
 				3ECE1B031F8A391C009D9088 /* cat_gfx_ibo.cpp in Sources */,
 				3ECE1B041F8A391C009D9088 /* cat_gfx_vbo.cpp in Sources */,
-				3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */,
 				3E17C4521FEE61C100AA3E36 /* cat_gfx_fbo.cpp in Sources */,
 				3ECE1B051F8A391C009D9088 /* cat_gfx_tex.cpp in Sources */,
 				3ECE1B061F8A391C009D9088 /* cat_gfx_shader.cpp in Sources */,
 				3ECE1B071F8A391C009D9088 /* cat_gfx_drawable.cpp in Sources */,
+				3EAED9731F8FCF5500E0B461 /* cat_gfx_drawablecanvas.cpp in Sources */,
 				3ECE1B081F8A391C009D9088 /* cat_gfx_draw2d.cpp in Sources */,
 				3ECE1B091F8A391C009D9088 /* cat_gfx_draw2d_shaders.cpp in Sources */,
-				3E92B6DE1F8B886000614529 /* cat_storage_resmgr.cpp in Sources */,
-				3EEE397C1F8CC01700DF9B90 /* cat_time_service.cpp in Sources */,
-				3EF9A0EF1F8A68C1008C00C0 /* cat_data_buffer.cpp in Sources */,
-				3EF9A0EE1F8A68C1008C00C0 /* cat_storage_vfs.cpp in Sources */,
-				3EAED96E1F8FCF3600E0B461 /* cat_storage_driver_file.cpp in Sources */,
-				3EAED96F1F8FCF3600E0B461 /* cat_storage_driver_asset.cpp in Sources */,
 				3EBBA7FE1F8D32230053D8AE /* cat_ui_service.cpp in Sources */,
+				3E124E691FDD270F00C60C65 /* cat_ui_animator.cpp in Sources */,
 				3EBBA8011F8D32230053D8AE /* cat_ui_widget.cpp in Sources */,
 				3EBBA8001F8D32230053D8AE /* cat_ui_pane.cpp in Sources */,
 				3EBBA7FD1F8D32230053D8AE /* cat_ui_label.cpp in Sources */,
-				3E9EB4551FB726EF00BFF6DD /* cat_net_service.cpp in Sources */,
 				3EBBA7FF1F8D32230053D8AE /* cat_ui_button.cpp in Sources */,
 				3EBBA7FC1F8D32230053D8AE /* cat_ui_slider.cpp in Sources */,
+				3E2B72201FEE6219009A5B6F /* cat_ui_effectview.cpp in Sources */,
 				3EEB67B91F8FD1110009C6FC /* cat_ui_edit.cpp in Sources */,
-				3E9EB4571FB726EF00BFF6DD /* cat_util_string.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

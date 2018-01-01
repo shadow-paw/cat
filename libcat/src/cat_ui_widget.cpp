@@ -190,6 +190,13 @@ void Widget::notify_uiscaled() {
     } cb_resize();
 }
 // ----------------------------------------------------------------------------
+void Widget::notify_pause(bool paused) {
+    for (auto& child : m_childs) {
+        child->notify_pause(paused);
+    }
+    cb_pause(paused);
+}
+// ----------------------------------------------------------------------------
 void Widget::notify_visible(bool b) {
     for (auto& child : m_childs) {
         child->notify_visible(b & child->is_visible());

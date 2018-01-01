@@ -10,7 +10,7 @@
 #include "cat_gfx_texref.h"
 #include "cat_gfx_draw2d.h"
 #include "cat_time_queue.h"
-#include "cat_ui_handler.h"
+#include "cat_data_event.h"
 #include "cat_ui_animator.h"
 
 namespace cat {
@@ -19,8 +19,8 @@ class Widget : public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers
-    UIHandlers<> ev_layout;
-    UIHandlers<> ev_click;
+    EventHandler<Widget> ev_layout;
+    EventHandler<Widget> ev_click;
     // Animators
     struct ANIMATORS {
         ANIMATORS(Widget* w) : translate(w), opacity(w) {}
@@ -75,6 +75,7 @@ public:
 protected:
     virtual void cb_move() {}
     virtual void cb_resize() {}
+    virtual void cb_pause(bool paused) {}
     virtual void cb_visible(bool b) {}
     virtual void cb_enable(bool b) {}
     virtual bool cb_timer(Timestamp now, int code) { return false; }
@@ -108,6 +109,7 @@ private:
     void render(Renderer* r, Timestamp now);
     bool touch(const TouchEvent& ev, bool handled);
     void notify_uiscaled();
+    void notify_pause(bool paused);
     void notify_visible(bool b);
     void notify_enable(bool b);
 
