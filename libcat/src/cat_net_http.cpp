@@ -3,7 +3,6 @@
 #include <algorithm>
 #include "cat_util_string.h"
 #include "cat_time_service.h"
-#include "cat_util_log.h"
 #if defined(PLATFORM_MAC)
   #import <Cocoa/Cocoa.h>
 #elif defined(PLATFORM_IOS)
