@@ -1,6 +1,4 @@
 #include "cat_kernel.h"
-#include "cat_util_jni.h"
-#include "cat_util_log.h"
 
 using namespace cat;
 

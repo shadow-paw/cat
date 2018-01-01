@@ -11,7 +11,6 @@
   #import <AVFoundation/AVFoundation.h>
 #endif
 #include "cat_util_string.h"
-#include "cat_util_log.h"
 
 using namespace cat;
 

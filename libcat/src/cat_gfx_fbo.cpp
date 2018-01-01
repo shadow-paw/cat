@@ -1,5 +1,4 @@
 #include "cat_gfx_fbo.h"
-#include "cat_util_log.h"
 
 using namespace cat;
 

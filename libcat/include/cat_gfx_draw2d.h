@@ -54,7 +54,7 @@ public:
     void          release_2dshader(ResourceManager* res, const Shader* shader);
 
 private:
-    Draw2D();
+    Draw2D(Renderer* r);
     ~Draw2D();
     bool init();
     void fini();

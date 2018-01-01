@@ -1,6 +1,5 @@
 #include "cat_ui_effectview.h"
 #include "cat_gfx_renderer.h"
-#include "cat_util_log.h"
 
 using namespace cat;
 
