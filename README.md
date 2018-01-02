@@ -113,6 +113,8 @@ ${ANDROID_NDK_HOME}/ndk-build -j4
 #### Build example - android
 Open `example/{project}/proj/android` with Android Studio. You can adjust manifest and stuffs in `example/{project}/glue/android`. APK will be created under `example/{project}/bin/android/`.
 
+<sup>Note: For [Android Emulator](https://developer.android.com/studio/releases/emulator.html) on Mac, OpenGL3 is only available to system image with API 24 or above, note that you can still target at API 18.</sup>
+
 <sup>Note: To build windows app on mac, you need to bootcamp or VM into Windows.</sup>
 
 ## License
