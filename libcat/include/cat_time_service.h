@@ -4,12 +4,13 @@
 #include <functional>
 #include "cat_time_type.h"
 #include "cat_time_queue.h"
+#include "cat_data_copyable.h"
 
 namespace cat {
 class Kernel;
 // ----------------------------------------------------------------------------
 //! Time Service
-class TimeService {
+class TimeService : private NonCopyable<TimeService> {
 friend class cat::Kernel;
 public:
     TimeService();

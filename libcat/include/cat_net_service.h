@@ -1,13 +1,14 @@
 #ifndef __CAT_NET_SERVICE_H__
 #define __CAT_NET_SERVICE_H__
 
+#include "cat_data_copyable.h"
 #include "cat_net_http.h"
 
 namespace cat {
 class Kernel;
 // ----------------------------------------------------------------------------
 //! Network Service
-class NetService {
+class NetService : private NonCopyable<NetService> {
 friend class cat::Kernel;
 public:
     NetService();

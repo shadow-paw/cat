@@ -5,6 +5,7 @@
 #include <utility>
 #include <unordered_map>
 #include "cat_platform.h"
+#include "cat_data_copyable.h"
 #include "cat_sound_type.h"
 #include "cat_sound_effects.h"
 #include "cat_sound_player.h"
@@ -13,7 +14,7 @@ namespace cat {
 class Kernel;
 // ----------------------------------------------------------------------------
 //! Sound Service
-class SoundService {
+class SoundService : private NonCopyable<SoundService> {
 friend class cat::Kernel;
 public:
     SoundService();

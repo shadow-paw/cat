@@ -3,14 +3,19 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class IBO {
+class IBO : private NonCopyable<IBO> {
 public:
     IBO();
     ~IBO();
+    // Move
+    IBO(IBO&& o);
+    IBO& operator=(IBO&& o);
+
     bool      init(size_t count);
     void      fini();
     bool      resize(size_t count);

@@ -1,12 +1,13 @@
 #ifndef __CAT_GFX_RENDERER_H__
 #define __CAT_GFX_RENDERER_H__
 
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_draw2d.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Renderer {
+class Renderer : private NonCopyable<Renderer> {
 public:
     Draw2D draw2d;
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include "cat_platform.h"
+#include "cat_data_copyable.h"
 #include "cat_type.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_shader.h"
@@ -19,7 +20,7 @@ namespace cat {
 class Renderer;
 class ResourceManager;
 // ----------------------------------------------------------------------------
-class Draw2D {
+class Draw2D : private NonCopyable<Draw2D> {
 friend class Renderer;
 public:
     enum Effect {

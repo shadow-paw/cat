@@ -13,6 +13,19 @@ Texture::~Texture() {
     release();
 }
 // ----------------------------------------------------------------------------
+Texture::Texture(Texture&& o) {
+    m_tex = o.m_tex;       o.m_tex = 0;
+    m_width = o.m_width;   o.m_width = 0;
+    m_height = o.m_height; o.m_height =0;
+}
+// ----------------------------------------------------------------------------
+Texture& Texture::operator=(Texture&& o) {
+    m_tex = o.m_tex;       o.m_tex = 0;
+    m_width = o.m_width;   o.m_width = 0;
+    m_height = o.m_height; o.m_height = 0;
+    return *this;
+}
+// ----------------------------------------------------------------------------
 void Texture::release() {
     m_width = m_height = 0;
     if (m_tex != 0) {

@@ -3,13 +3,14 @@
 
 #include <string>
 #include "cat_platform.h"
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_tex.h"
 #include "cat_gfx_drawablecanvas.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Drawable {
+class Drawable : private NonCopyable<Drawable> {
 public:
     Drawable();
     virtual ~Drawable();

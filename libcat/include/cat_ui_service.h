@@ -3,6 +3,7 @@
 
 #include "cat_platform.h"
 #include "cat_type.h"
+#include "cat_data_copyable.h"
 #include "cat_time_type.h"
 #include "cat_ui_widget.h"
 #include "cat_gfx_renderer.h"
@@ -11,7 +12,7 @@
 namespace cat {
 class Kernel;
 // ----------------------------------------------------------------------------
-class UIService {
+class UIService : private NonCopyable<UIService> {
 friend class cat::Kernel;
 public:
     UIService(KernelApi* kernel);

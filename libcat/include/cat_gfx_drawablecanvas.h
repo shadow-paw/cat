@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "cat_platform.h"
 #include "cat_type.h"
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_tex.h"
 
@@ -16,7 +17,7 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class DrawableCanvas {
+class DrawableCanvas : private NonCopyable<DrawableCanvas> {
 public:
     DrawableCanvas();
     ~DrawableCanvas();

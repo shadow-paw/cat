@@ -1,11 +1,12 @@
 #ifndef __CAT_GFX_TEX_H__
 #define __CAT_GFX_TEX_H__
 
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Texture {
+class Texture : private NonCopyable<Texture> {
 friend class FBO;
 public:
     enum Format {
@@ -14,6 +15,10 @@ public:
     };
     Texture();
     ~Texture();
+    // Move
+    Texture(Texture&& o);
+    Texture& operator=(Texture&& o);
+
     int  width() const  { return m_width;  }
     int  height() const { return m_height; }
     void bind(unsigned int unit) const {

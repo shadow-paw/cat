@@ -5,22 +5,23 @@
 #include <utility>
 #include <unordered_map>
 #include "cat_platform.h"
+#include "cat_data_copyable.h"
 #include "cat_sound_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
 //! Sound Effects
-class SoundEffects {
+class SoundEffects : private NonCopyable<SoundEffects> {
 friend class SoundService;
 public:
-    SoundEffects();
-    ~SoundEffects();
-
     const SoundEffect* load(const std::string& name);
     bool unload(const SoundEffect* sound);
     void play(const SoundEffect* sound, float left_volume, float right_volume);
 
 private:
+    SoundEffects();
+    ~SoundEffects();
+
     //! Initialize service
     bool init(const PlatformSpecificData* psd);
     //! Cleanup service

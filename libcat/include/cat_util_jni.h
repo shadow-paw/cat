@@ -4,10 +4,11 @@
 
 #include <jni.h>
 #include <string>
+#include "cat_data_copyable.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class JNIHelper {
+class JNIHelper : private NonCopyable<JNIHelper> {
 public:
     //! Initialize internal static data
     //! \param env JNI environment
