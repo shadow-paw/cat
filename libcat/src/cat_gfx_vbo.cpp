@@ -15,6 +15,21 @@ VBO::~VBO() {
     fini();
 }
 // ----------------------------------------------------------------------------
+VBO::VBO(VBO&& o) {
+    m_vbo = o.m_vbo;   o.m_vbo = 0;
+    m_data = o.m_data; o.m_data = nullptr;
+    m_size = o.m_size; o.m_size = 0;
+    m_type = o.m_type; o.m_type = GL_DYNAMIC_DRAW;
+}
+// ----------------------------------------------------------------------------
+VBO& VBO::operator=(VBO&& o) {
+    m_vbo = o.m_vbo;   o.m_vbo = 0;
+    m_data = o.m_data; o.m_data = nullptr;
+    m_size = o.m_size; o.m_size = 0;
+    m_type = o.m_type; o.m_type = GL_DYNAMIC_DRAW;
+    return *this;
+}
+// ----------------------------------------------------------------------------
 void VBO::fini() {
     if (m_data) { free(m_data); m_data = nullptr; }
     if (m_vbo)  { glDeleteBuffers (1, &m_vbo ); m_vbo = 0; }

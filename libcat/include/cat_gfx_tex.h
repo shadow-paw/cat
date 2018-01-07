@@ -15,6 +15,10 @@ public:
     };
     Texture();
     ~Texture();
+    // Move
+    Texture(Texture&& o);
+    Texture& operator=(Texture&& o);
+
     int  width() const  { return m_width;  }
     int  height() const { return m_height; }
     void bind(unsigned int unit) const {

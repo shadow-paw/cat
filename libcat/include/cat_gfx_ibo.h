@@ -12,6 +12,10 @@ class IBO : private NonCopyable<IBO> {
 public:
     IBO();
     ~IBO();
+    // Move
+    IBO(IBO&& o);
+    IBO& operator=(IBO&& o);
+
     bool      init(size_t count);
     void      fini();
     bool      resize(size_t count);

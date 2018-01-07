@@ -12,6 +12,10 @@ class VBO : private NonCopyable<VBO> {
 public:
     VBO();
     ~VBO();
+    // Move
+    VBO(VBO&& o);
+    VBO& operator=(VBO&& o);
+
     bool  init(size_t size, bool dynamic);
     void  fini();
     bool  resize(size_t size);

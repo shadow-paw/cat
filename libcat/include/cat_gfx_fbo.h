@@ -11,6 +11,10 @@ class FBO : private NonCopyable<FBO> {
 public:
     FBO();
     ~FBO();
+    // Move
+    FBO(FBO&& o);
+    FBO& operator=(FBO&& o);
+
     bool init();
     void fini();
     void bind(const Texture& tex);
