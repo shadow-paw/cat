@@ -184,6 +184,9 @@
     <ClInclude Include="..\include\cat_data_event.h">
       <Filter>libcat\data</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\cat_data_copyable.h">
+      <Filter>libcat\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cat_gfx_renderer.cpp">

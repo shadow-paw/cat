@@ -17,6 +17,7 @@
 #include <thread>
 #include <atomic>
 #include "cat_platform.h"
+#include "cat_data_copyable.h"
 #include "cat_data_buffer.h"
 #include "cat_data_uniqueid.h"
 #include "cat_time_type.h"
@@ -105,7 +106,7 @@ public:
 };
 // ----------------------------------------------------------------------------
 //! HTTP Manager
-class HttpManager {
+class HttpManager : private NonCopyable<HttpManager> {
 friend class cat::NetService;
 public:
     HttpManager();

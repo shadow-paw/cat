@@ -6,6 +6,7 @@
 #include "cat_platform.h"
 #include "cat_type.h"
 #include "cat_kernel_api.h"
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 #include "cat_gfx_texref.h"
 #include "cat_gfx_draw2d.h"
@@ -15,7 +16,7 @@
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Widget : public TimerDelegate<int> {
+class Widget : private NonCopyable<Widget>, public TimerDelegate<int> {
 friend class UIService;
 public:
     // Event Handlers

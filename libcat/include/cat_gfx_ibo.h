@@ -3,11 +3,12 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class IBO {
+class IBO : private NonCopyable<IBO> {
 public:
     IBO();
     ~IBO();

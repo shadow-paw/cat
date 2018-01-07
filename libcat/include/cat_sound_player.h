@@ -14,14 +14,15 @@
   #include <SLES/OpenSLES.h>
 #endif
 #include "cat_data_event.h"
+#include "cat_data_copyable.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
 class SoundService;
 class AudioEngine;
-class AudioPlayer
+class AudioPlayer : private NonCopyable<AudioPlayer>
 #if defined(PLATFORM_WIN32) || defined(PLATFORM_WIN64)
-    : public IMFAsyncCallback
+    , public IMFAsyncCallback
 #endif
 {
 friend class AudioEngine;
@@ -77,7 +78,7 @@ private:
 #endif
 };
 // ----------------------------------------------------------------------------
-class AudioEngine {
+class AudioEngine : private NonCopyable<AudioEngine> {
 friend class AudioPlayer;
 friend class SoundService;
 public:

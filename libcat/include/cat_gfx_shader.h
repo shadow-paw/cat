@@ -5,12 +5,13 @@
 #include <stddef.h>
 #include <string>
 #include <glm/glm.hpp>
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
 #define CAT_GFX_OFFSETOF(struc,member) ((void*)((size_t) &((struc*)0)->member))
-class Shader {
+class Shader : private NonCopyable<Shader> {
 public:
     enum {
         kTriangles = GL_TRIANGLES,

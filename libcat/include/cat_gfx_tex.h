@@ -1,11 +1,12 @@
 #ifndef __CAT_GFX_TEX_H__
 #define __CAT_GFX_TEX_H__
 
+#include "cat_data_copyable.h"
 #include "cat_gfx_type.h"
 
 namespace cat {
 // ----------------------------------------------------------------------------
-class Texture {
+class Texture : private NonCopyable<Texture> {
 friend class FBO;
 public:
     enum Format {
