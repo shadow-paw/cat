@@ -1,4 +1,5 @@
 #include <new>
+#include <stddef.h>
 #include "cat_gfx_draw2d.h"
 #include "cat_gfx_shader.h"
 #include "cat_gfx_renderer.h"
@@ -141,8 +142,8 @@ void Draw2D::drawline(int x1, int y1, int x2, int y2, uint32_t color) {
     m_vbo.bind();
     shader->bind();
     shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
-    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
     shader->draw(Shader::kLine, 0, 2);
     shader->clr_attr(in_Color);
     shader->clr_attr(in_Position);
@@ -174,8 +175,8 @@ void Draw2D::outline(const Rect2i& rect, uint32_t color) {
     m_vbo.bind();
     shader->bind();
     shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
-    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
     shader->draw(Shader::kLineLoop, 0, 4);
     shader->clr_attr(in_Color);
     shader->clr_attr(in_Position);
@@ -207,8 +208,8 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color) {
     m_vbo.bind();
     shader->bind();
     shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
-    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+    shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+    shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
     shader->draw(Shader::kTriangleFan, 0, 4);
     shader->clr_attr(in_Color);
     shader->clr_attr(in_Position);
@@ -255,9 +256,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const Texture* tex, unsign
         shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
         shader->uniform(u_Tex0, 0);
         shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
-        shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-        shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
-        shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+        shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+        shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, u)));
+        shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
         shader->draw(Shader::kTriangleStrip, 0, 4);
         shader->clr_attr(in_Color);
         shader->clr_attr(in_Texcoord);
@@ -307,9 +308,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t & 0xffffff)/1000);
-            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
-            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, u)));
+            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
             shader->draw(Shader::kTriangleStrip, 0, 4);
             shader->clr_attr(in_Color);
             shader->clr_attr(in_Texcoord);
@@ -419,9 +420,9 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
-            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, x));
-            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, u));
-            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), CAT_GFX_OFFSETOF(Vertex2f, color));
+            shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));
+            shader->set_attr(in_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, u)));
+            shader->set_attr(in_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, color)));
             shader->draw(Shader::kTriangles, 0, 54);
             shader->clr_attr(in_Color);
             shader->clr_attr(in_Texcoord);
