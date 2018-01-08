@@ -175,6 +175,8 @@
 		3EF9A0FC1F8A695D008C00C0 /* cat_storage_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DE1F8A6867008C00C0 /* cat_storage_driver.h */; };
 		3EF9A0FD1F8A695D008C00C0 /* cat_storage_driver_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0DD1F8A6867008C00C0 /* cat_storage_driver_file.h */; };
 		3EF9A0FE1F8A695D008C00C0 /* cat_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */; };
+		3EFB2C5420033EF3004B91B6 /* cat_data_copyable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */; };
+		3EFB2C5520033F1F004B91B6 /* cat_data_copyable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -266,6 +268,7 @@
 		3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_storage_vfs.h; path = ../include/cat_storage_vfs.h; sourceTree = "<group>"; };
 		3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_vfs.cpp; path = ../src/cat_storage_vfs.cpp; sourceTree = "<group>"; };
 		3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_data_buffer.cpp; path = ../src/cat_data_buffer.cpp; sourceTree = "<group>"; };
+		3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_copyable.h; path = ../include/cat_data_copyable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +344,7 @@
 		3E9EB4591FB7270100BFF6DD /* data */ = {
 			isa = PBXGroup;
 			children = (
+				3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */,
 				3E6B5D191FFA209C00D9F109 /* cat_data_event.h */,
 				3E124E6A1FDD271A00C60C65 /* cat_data_emitter.h */,
 				3E124E6B1FDD271A00C60C65 /* cat_data_observable.h */,
@@ -475,6 +479,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EFB2C5520033F1F004B91B6 /* cat_data_copyable.h in Headers */,
 				3E6B5D291FFA21EE00D9F109 /* cat_data_event.h in Headers */,
 				3E6B5D2A1FFA21EE00D9F109 /* cat_gfx_opengl.h in Headers */,
 				3E6B5D2B1FFA21EE00D9F109 /* cat_sound_effects.h in Headers */,
@@ -562,6 +567,7 @@
 				3EEE39821F8CC04400DF9B90 /* cat_time_queue.h in Headers */,
 				3EEE39831F8CC04400DF9B90 /* cat_time_service.h in Headers */,
 				3EF9A0E31F8A6867008C00C0 /* cat_data_buffer.h in Headers */,
+				3EFB2C5420033EF3004B91B6 /* cat_data_copyable.h in Headers */,
 				3E124E6D1FDD271A00C60C65 /* cat_data_observable.h in Headers */,
 				3E124E6C1FDD271A00C60C65 /* cat_data_emitter.h in Headers */,
 				3EF9A0E41F8A6867008C00C0 /* cat_storage_vfs.h in Headers */,
