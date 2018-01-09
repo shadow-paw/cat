@@ -28,8 +28,13 @@ matrix:
           - tools
           - build-tools-26.0.2
           - android-26
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
       cache:
         directories:
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
         - /home/travis/build/shadow-paw/cat/tools/android-ndk-r15b
         - /home/travis/build/shadow-paw/cat/dependency/include/generic
         - /home/travis/build/shadow-paw/cat/dependency/include/android
