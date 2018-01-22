@@ -130,9 +130,9 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 5. Create a new Pull Request
 
 <!-- Markdown link & img dfn's -->
-[cpp-image]: https://img.shields.io/badge/c%2B%2B-14-green.svg
+[cpp-image]: https://img.shields.io/badge/c%2B%2B-14-blue.svg
 [cpp-url]: https://en.wikipedia.org/wiki/C%2B%2B14
-[ogl-image]: https://img.shields.io/badge/opengl-3.3%20%7C%203.0%20es-green.svg
+[ogl-image]: https://img.shields.io/badge/opengl-3.3%20%7C%203.0%20es-blue.svg
 [ogl-url]: https://en.wikipedia.org/wiki/OpenGL
 [travis-image]: https://travis-ci.org/shadow-paw/cat.svg?branch=master
 [travis-url]: https://travis-ci.org/shadow-paw/cat
