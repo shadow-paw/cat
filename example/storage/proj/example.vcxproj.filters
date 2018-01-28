@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bootstrap">
+      <UniqueIdentifier>{e4e8cce8-200b-4ba3-8fcc-ad1950146ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="assets\ui">
+      <UniqueIdentifier>{f78feff0-a457-4120-bd0f-eb141394a92f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\bootapp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\bootstrap\win\catview.cpp">
+      <Filter>bootstrap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\bootstrap\win\winmain.cpp">
+      <Filter>bootstrap</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\bootapp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\bootstrap\win\catview.h">
+      <Filter>bootstrap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\ui\default_ui.png">
+      <Filter>assets\ui</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

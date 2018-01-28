@@ -30,6 +30,15 @@ Buffer::Buffer(Buffer&& o) {
     o.m_allocated = 0;
 }
 // ----------------------------------------------------------------------------
+Buffer::Buffer(const std::string& o) {
+    m_buffer = nullptr;
+    m_size = m_allocated = 0;
+    auto s = o.size();
+    if (realloc(s)) {
+        memcpy(m_buffer, o.c_str(), s);
+    }
+}
+// ----------------------------------------------------------------------------
 Buffer::Buffer(const void* p, size_t size) {
     m_buffer = nullptr;
     m_size = m_allocated = 0;
