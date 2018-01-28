@@ -23,7 +23,11 @@
     self.m_kernel = new cat::Kernel();
     if (!self.m_kernel->init(psd)) return NO;
     [view setKernel:self.m_kernel];
-    self.m_kernel->vfs()->mount("/assets/", new cat::FileDriver(psd.res_path));
+    self.m_kernel->vfs()->mount("/assets/", new cat::FileDriver(psd.res_path, cat::FileDriver::FLAG_READONLY));
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentPath = [searchPaths objectAtIndex:0];
+    self.m_kernel->vfs()->mount("/doc/", new cat::FileDriver([documentPath UTF8String], cat::FileDriver::FLAG_WRITABLE));
+
     self.m_kernel->context_restored();
     self.m_kernel->startup();
     self.m_kernel->run(new app::BootApp());
