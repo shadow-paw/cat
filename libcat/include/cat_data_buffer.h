@@ -18,6 +18,8 @@ public:
     Buffer(Buffer&& o);
     //! Initialize by copying the memory region
     Buffer(const void* p, size_t size);
+    //! Initialize by copying the string content
+    Buffer(const std::string& o);
     //! Destroy and release buffer
     ~Buffer();
 

@@ -24,8 +24,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
     cat::Kernel* kernel = new cat::Kernel();
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
-    // mount our assets
-    kernel->vfs()->mount("/assets/", new cat::FileDriver(get_exepath() + "/../"));
+    // mount vfs
+    auto exepath = get_exepath();
+    // create doc directory if needed
+    CreateDirectory(StringUtil::make_tstring(exepath + "/../doc").c_str(), NULL);
+    kernel->vfs()->mount("/assets/", new cat::FileDriver(exepath + "/../assets", FileDriver::FLAG_READONLY));
+    kernel->vfs()->mount("/doc/", new cat::FileDriver(exepath + "/../doc", FileDriver::FLAG_WRITABLE));
+
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();

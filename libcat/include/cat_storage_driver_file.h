@@ -8,12 +8,16 @@ namespace cat {
 // ----------------------------------------------------------------------------
 class FileDriver: public Driver {
 public:
-    FileDriver(const std::string& base);
+    static const unsigned int FLAG_READONLY = 0;
+    static const unsigned int FLAG_WRITABLE = 1 << 0;
+
+    FileDriver(const std::string& base, unsigned int flags);
     virtual ~FileDriver();
     virtual bool read(const std::string& name, Buffer* buffer);
     virtual bool write(const std::string& name, const Buffer& buffer);
 private:
     std::string m_base;
+    bool m_flags;
 };
 // ----------------------------------------------------------------------------
 } // namespace cat
