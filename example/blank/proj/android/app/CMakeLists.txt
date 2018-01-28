@@ -17,7 +17,7 @@ include_directories(
 )
 add_library(cat-app
             SHARED
-            ${APP_BASE_PATH}/glue/android/cpp/jni.cpp
+            ${CAT_BASE_PATH}/bootstrap/android/cpp/jni.cpp
             ${APP_BASE_PATH}/src/bootapp.cpp
             )
 
