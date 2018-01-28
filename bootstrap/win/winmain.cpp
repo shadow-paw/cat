@@ -1,8 +1,16 @@
 #include "catview.h"
 #include "bootapp.h"
+#include <Pathcch.h>
 
 using namespace cat;
 using namespace app;
+
+std::string get_exepath() {
+    TCHAR exepath[MAX_PATH];
+    DWORD len = GetModuleFileName(NULL, exepath, MAX_PATH);
+    if (S_OK != PathCchRemoveFileSpec(exepath, len)) return "";
+    return StringUtil::make_string(exepath);
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow) {
     CATView* view = new CATView();
@@ -17,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 	if ( !kernel->init(psd) ) return 0;
     view->set_kernel(kernel);
     // mount our assets
-    kernel->vfs()->mount("/assets/", new cat::FileDriver("../"));
+    kernel->vfs()->mount("/assets/", new cat::FileDriver(get_exepath() + "/../"));
     kernel->context_restored();
     kernel->resize(view->width(), view->height());
     kernel->startup();

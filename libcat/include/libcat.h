@@ -10,6 +10,7 @@
 #include "cat_data_emitter.h"
 #include "cat_data_uniqueid.h"
 #include "cat_util_log.h"
+#include "cat_util_string.h"
 #include "cat_storage_vfs.h"
 #include "cat_storage_driver_file.h"
 #include "cat_storage_driver_asset.h"

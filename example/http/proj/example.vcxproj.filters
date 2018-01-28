@@ -11,8 +11,8 @@
     <Filter Include="src">
       <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="glue">
-      <UniqueIdentifier>{7b5b95d5-8eab-43cf-a997-b74af5712876}</UniqueIdentifier>
+    <Filter Include="bootstrap">
+      <UniqueIdentifier>{08683f4d-a588-431c-848d-ca43b702b5ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,22 +24,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\glue\win\catview.cpp">
-      <Filter>glue</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glue\win\winmain.cpp">
-      <Filter>glue</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\bootapp.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\bootstrap\win\catview.cpp">
+      <Filter>bootstrap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\bootstrap\win\winmain.cpp">
+      <Filter>bootstrap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\glue\win\catview.h">
-      <Filter>glue</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\bootapp.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\bootstrap\win\catview.h">
+      <Filter>bootstrap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

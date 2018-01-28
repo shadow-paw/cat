@@ -1,5 +1,5 @@
-#ifndef __CAT_UTIL_UNICODE_H__
-#define __CAT_UTIL_UNICODE_H__
+#ifndef __CAT_UTIL_STRING_H__
+#define __CAT_UTIL_STRING_H__
 
 #include <string>
 #include <vector>
@@ -44,4 +44,4 @@ public:
 } // namespace cat
   // ----------------------------------------------------------------------------
 
-#endif // __CAT_UTIL_UNICODE_H__
+#endif // __CAT_UTIL_STRING_H__
