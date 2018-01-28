@@ -9,7 +9,7 @@ struct CAT_INSTANCE {
     Kernel*    kernel;
 };
 extern "C" JNIEXPORT jobject JNICALL
-Java_com_shadowpaw_cat_CatView_jniInit(JNIEnv *env, jobject self, jobject assmgr) {
+Java_com_shadowpaw_cat_CatView_jniInit(JNIEnv *env, jobject self, jobject assmgr, jstring docpath) {
     JNIHelper::init(env);
     CAT_INSTANCE* data = new CAT_INSTANCE();
     PlatformSpecificData psd;
@@ -18,6 +18,10 @@ Java_com_shadowpaw_cat_CatView_jniInit(JNIEnv *env, jobject self, jobject assmgr
     data->kernel = new Kernel();
     data->kernel->init(psd);
     data->kernel->vfs()->mount("/assets/", new AssetDriver(assmgr));
+    {
+        JNIHelper jni;
+        data->kernel->vfs()->mount("/doc/", new FileDriver(jni.GetStringUTFChars(docpath), FileDriver::FLAG_WRITABLE));
+    }
     return env->NewDirectByteBuffer((void*)data, sizeof(CAT_INSTANCE));
 }
 extern "C" JNIEXPORT void JNICALL

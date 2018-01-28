@@ -49,7 +49,7 @@ bool FileDriver::write(const std::string& name, const Buffer& buffer) {
     if (name.find("..\\") != std::string::npos) return false;
     if (fopen_s(&fp, (m_base + name).c_str(), "wb")) return false;
 #elif defined(PLATFORM_MAC) || defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID)
-    if ((fp = fopen((m_base + name).c_str(), "rb")) == nullptr) return false;
+    if ((fp = fopen((m_base + name).c_str(), "wb")) == nullptr) return false;
 #else
     #error Not Implemented!
 #endif

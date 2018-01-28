@@ -19,7 +19,7 @@ public class CatView extends FrameLayout {
     private Object mJniHandle;
     private boolean mContextReady;
 
-    private native Object  jniInit(AssetManager mgr);
+    private native Object  jniInit(AssetManager mgr, String docPath);
     private native void    jniFini(Object handle);
     private native void    jniStartup(Object handle);
     private native void    jniShutdown(Object handle);
@@ -37,7 +37,7 @@ public class CatView extends FrameLayout {
         mContextReady = false;
         mSurface = new GLSurfaceView(context);
         addView(mSurface, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        mJniHandle = jniInit(getContext().getAssets());
+        mJniHandle = jniInit(getContext().getAssets(), getContext().getFilesDir().getAbsolutePath());
         jniStartup(mJniHandle);
         mSurface.setEGLContextClientVersion(3);
         mSurface.setZOrderOnTop(false);

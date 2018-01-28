@@ -16,7 +16,12 @@ BootApp::~BootApp() {
 // ----------------------------------------------------------------------------
 bool BootApp::cb_startup(Timestamp now) {
     Logger::d("App", "cb_startup");
-    kernel()->vfs()->write("/doc/test.txt", cat::Buffer("test"));
+    kernel()->vfs()->write("/doc/test.txt", Buffer("test"));
+
+    Buffer b;
+    if (kernel()->vfs()->read("/doc/test.txt", &b)) {
+        Logger::d("App", "read: %s", b.ptr());
+    }
     return true;
 }
 // cb_resume is called when the program has resumed
