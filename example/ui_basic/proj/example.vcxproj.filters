@@ -1,27 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="res">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="res\shader">
-      <UniqueIdentifier>{21a562c7-f5bc-4385-977c-2f47b6a36608}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="bootstrap">
       <UniqueIdentifier>{c5a7de26-90dc-4803-ac6b-f0cd2ecf2aea}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shader\test.fs">
-      <Filter>res\shader</Filter>
-    </None>
-    <None Include="res\shader\test.vs">
-      <Filter>res\shader</Filter>
-    </None>
+    <Filter Include="assets">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="assets\shader">
+      <UniqueIdentifier>{21a562c7-f5bc-4385-977c-2f47b6a36608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\ui">
+      <UniqueIdentifier>{b298b605-2782-497e-8dea-63866b52ff50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\bootapp.cpp">
@@ -59,5 +54,15 @@
     <ClInclude Include="..\..\..\bootstrap\win\catview.h">
       <Filter>bootstrap</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\ui\default_ui.png">
+      <Filter>assets\ui</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shader\custom.shader">
+      <Filter>assets\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

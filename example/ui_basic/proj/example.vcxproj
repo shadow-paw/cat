@@ -177,10 +177,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="res\shader\test.fs" />
-    <None Include="res\shader\test.vs" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\bootstrap\win\catview.cpp" />
     <ClCompile Include="..\..\..\bootstrap\win\winmain.cpp" />
     <ClCompile Include="..\src\bootapp.cpp" />
@@ -194,6 +190,12 @@
     <ClInclude Include="..\src\pane1.h" />
     <ClInclude Include="..\src\pane2.h" />
     <ClInclude Include="..\src\pane3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\ui\default_ui.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shader\custom.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
