@@ -7,49 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E543400201D915700CC106E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433FA201D915700CC106E /* AppDelegate.mm */; };
+		3E543401201D915700CC106E /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433FB201D915700CC106E /* CatView.mm */; };
+		3E543402201D915700CC106E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433FE201D915700CC106E /* main.m */; };
+		3E543403201D915700CC106E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5433FF201D915700CC106E /* Main.storyboard */; };
+		3E543407201D917100CC106E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E543404201D917100CC106E /* Assets.xcassets */; };
+		3E543410201D923D00CC106E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5433EF201D914800CC106E /* Main.storyboard */; };
+		3E543411201D923D00CC106E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E543409201D917A00CC106E /* Assets.xcassets */; };
+		3E543412201D923D00CC106E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E54340B201D917A00CC106E /* LaunchScreen.storyboard */; };
+		3E543413201D925100CC106E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433F1201D914800CC106E /* AppDelegate.mm */; };
+		3E543414201D925100CC106E /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433F3201D914800CC106E /* CatView.mm */; };
+		3E543415201D925100CC106E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E5433F0201D914800CC106E /* main.m */; };
 		3E64D7491FF8D7840049AD7C /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3E64D7481FF8D7840049AD7C /* ui */; };
 		3E64D74A1FF8D78D0049AD7C /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 3E64D7481FF8D7840049AD7C /* ui */; };
-		3ED4FEB41F89ED2900D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAB1F89ED2800D299B6 /* main.m */; };
-		3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAC1F89ED2800D299B6 /* CatView.mm */; };
-		3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */; };
-		3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */; };
-		3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEB21F89ED2900D299B6 /* Main.storyboard */; };
 		3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
 		3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
-		3ED4FEDB1F89F56400D299B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBF1F89F35100D299B6 /* main.m */; };
-		3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */; };
-		3ED4FEDD1F89F56400D299B6 /* CatView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC51F89F35200D299B6 /* CatView.mm */; };
-		3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC11F89F35100D299B6 /* Assets.xcassets */; };
-		3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */; };
-		3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4FEC31F89F35200D299B6 /* Main.storyboard */; };
-		3EE112F01FFA2EE60085C627 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE112EF1FFA2EE60085C627 /* AVFoundation.framework */; };
+		3EE112F21FFA2F0E0085C627 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E5433EF201D914800CC106E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../bootstrap/ios/Main.storyboard; sourceTree = "<group>"; };
+		3E5433F0201D914800CC106E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../bootstrap/ios/main.m; sourceTree = "<group>"; };
+		3E5433F1201D914800CC106E /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../../../bootstrap/ios/AppDelegate.mm; sourceTree = "<group>"; };
+		3E5433F2201D914800CC106E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../../bootstrap/ios/AppDelegate.h; sourceTree = "<group>"; };
+		3E5433F3201D914800CC106E /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../../../bootstrap/ios/CatView.mm; sourceTree = "<group>"; };
+		3E5433F4201D914800CC106E /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../../../bootstrap/ios/CatView.h; sourceTree = "<group>"; };
+		3E5433FA201D915700CC106E /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../../../bootstrap/mac/AppDelegate.mm; sourceTree = "<group>"; };
+		3E5433FB201D915700CC106E /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../../../bootstrap/mac/CatView.mm; sourceTree = "<group>"; };
+		3E5433FC201D915700CC106E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../../bootstrap/mac/AppDelegate.h; sourceTree = "<group>"; };
+		3E5433FD201D915700CC106E /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../../../bootstrap/mac/CatView.h; sourceTree = "<group>"; };
+		3E5433FE201D915700CC106E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../bootstrap/mac/main.m; sourceTree = "<group>"; };
+		3E5433FF201D915700CC106E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../bootstrap/mac/Main.storyboard; sourceTree = "<group>"; };
+		3E543404201D917100CC106E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../platform/mac/Assets.xcassets; sourceTree = "<group>"; };
+		3E543405201D917100CC106E /* example.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = example.entitlements; path = ../platform/mac/example.entitlements; sourceTree = "<group>"; };
+		3E543406201D917100CC106E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../platform/mac/Info.plist; sourceTree = "<group>"; };
+		3E543409201D917A00CC106E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../platform/ios/Assets.xcassets; sourceTree = "<group>"; };
+		3E54340A201D917A00CC106E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../platform/ios/Info.plist; sourceTree = "<group>"; };
+		3E54340B201D917A00CC106E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../platform/ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E64D7481FF8D7840049AD7C /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ui; path = ../assets/ui; sourceTree = "<group>"; };
 		3E859A121F77939A00F84D36 /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB96B9D1F7F73FC0067C170 /* libgraphite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgraphite.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3ED4FEAB1F89ED2800D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/mac/main.m; sourceTree = "<group>"; };
-		3ED4FEAC1F89ED2800D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/mac/CatView.mm; sourceTree = "<group>"; };
-		3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../glue/mac/Assets.xcassets; sourceTree = "<group>"; };
-		3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../glue/mac/AppDelegate.mm; sourceTree = "<group>"; };
-		3ED4FEAF1F89ED2800D299B6 /* example.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = example.entitlements; path = ../glue/mac/example.entitlements; sourceTree = "<group>"; };
-		3ED4FEB01F89ED2900D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/mac/AppDelegate.h; sourceTree = "<group>"; };
-		3ED4FEB11F89ED2900D299B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../glue/mac/Info.plist; sourceTree = "<group>"; };
-		3ED4FEB21F89ED2900D299B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../glue/mac/Main.storyboard; sourceTree = "<group>"; };
-		3ED4FEB31F89ED2900D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/mac/CatView.h; sourceTree = "<group>"; };
 		3ED4FEBB1F89F15A00D299B6 /* bootapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bootapp.h; path = ../src/bootapp.h; sourceTree = "<group>"; };
 		3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bootapp.cpp; path = ../src/bootapp.cpp; sourceTree = "<group>"; };
-		3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../glue/ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3ED4FEBF1F89F35100D299B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../glue/ios/main.m; sourceTree = "<group>"; };
-		3ED4FEC01F89F35100D299B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../glue/ios/Info.plist; sourceTree = "<group>"; };
-		3ED4FEC11F89F35100D299B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../glue/ios/Assets.xcassets; sourceTree = "<group>"; };
-		3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../glue/ios/AppDelegate.mm; sourceTree = "<group>"; };
-		3ED4FEC31F89F35200D299B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../glue/ios/Main.storyboard; sourceTree = "<group>"; };
-		3ED4FEC41F89F35200D299B6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../glue/ios/AppDelegate.h; sourceTree = "<group>"; };
-		3ED4FEC51F89F35200D299B6 /* CatView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CatView.mm; path = ../glue/ios/CatView.mm; sourceTree = "<group>"; };
-		3ED4FEC61F89F35200D299B6 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatView.h; path = ../glue/ios/CatView.h; sourceTree = "<group>"; };
-		3EE112EF1FFA2EE60085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,13 +65,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EE112F01FFA2EE60085C627 /* AVFoundation.framework in Frameworks */,
+				3EE112F21FFA2F0E0085C627 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E5433ED201D912600CC106E /* bootstrap */ = {
+			isa = PBXGroup;
+			children = (
+				3E5433F9201D914C00CC106E /* mac */,
+				3E5433EE201D913800CC106E /* ios */,
+			);
+			name = bootstrap;
+			sourceTree = "<group>";
+		};
+		3E5433EE201D913800CC106E /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				3E5433F2201D914800CC106E /* AppDelegate.h */,
+				3E5433F1201D914800CC106E /* AppDelegate.mm */,
+				3E5433F4201D914800CC106E /* CatView.h */,
+				3E5433F3201D914800CC106E /* CatView.mm */,
+				3E5433F0201D914800CC106E /* main.m */,
+				3E5433EF201D914800CC106E /* Main.storyboard */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		3E5433F9201D914C00CC106E /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				3E5433FC201D915700CC106E /* AppDelegate.h */,
+				3E5433FA201D915700CC106E /* AppDelegate.mm */,
+				3E5433FD201D915700CC106E /* CatView.h */,
+				3E5433FB201D915700CC106E /* CatView.mm */,
+				3E5433FE201D915700CC106E /* main.m */,
+				3E5433FF201D915700CC106E /* Main.storyboard */,
+			);
+			name = mac;
+			sourceTree = "<group>";
+		};
 		3E64D7471FF8D7770049AD7C /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +137,8 @@
 		3E859A341F7793DE00F84D36 /* example */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FEBA1F89ED3400D299B6 /* glue */,
+				3E5433ED201D912600CC106E /* bootstrap */,
+				3ED4FEBA1F89ED3400D299B6 /* platform */,
 				3EB96B971F7F71C20067C170 /* src */,
 			);
 			name = example;
@@ -111,15 +147,9 @@
 		3E859A361F7793FC00F84D36 /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FEAB1F89ED2800D299B6 /* main.m */,
-				3ED4FEB01F89ED2900D299B6 /* AppDelegate.h */,
-				3ED4FEAE1F89ED2800D299B6 /* AppDelegate.mm */,
-				3ED4FEB31F89ED2900D299B6 /* CatView.h */,
-				3ED4FEAC1F89ED2800D299B6 /* CatView.mm */,
-				3ED4FEB11F89ED2900D299B6 /* Info.plist */,
-				3ED4FEAD1F89ED2800D299B6 /* Assets.xcassets */,
-				3ED4FEB21F89ED2900D299B6 /* Main.storyboard */,
-				3ED4FEAF1F89ED2800D299B6 /* example.entitlements */,
+				3E543404201D917100CC106E /* Assets.xcassets */,
+				3E543405201D917100CC106E /* example.entitlements */,
+				3E543406201D917100CC106E /* Info.plist */,
 			);
 			name = mac;
 			sourceTree = "<group>";
@@ -136,33 +166,27 @@
 		3EB96B9B1F7F73FC0067C170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3EE112EF1FFA2EE60085C627 /* AVFoundation.framework */,
+				3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */,
 				3EB96B9D1F7F73FC0067C170 /* libgraphite.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3ED4FEBA1F89ED3400D299B6 /* glue */ = {
+		3ED4FEBA1F89ED3400D299B6 /* platform */ = {
 			isa = PBXGroup;
 			children = (
 				3E859A361F7793FC00F84D36 /* mac */,
 				3EFB3A511F8103930097445D /* ios */,
 			);
-			name = glue;
+			name = platform;
 			sourceTree = "<group>";
 		};
 		3EFB3A511F8103930097445D /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4FEBF1F89F35100D299B6 /* main.m */,
-				3ED4FEC41F89F35200D299B6 /* AppDelegate.h */,
-				3ED4FEC21F89F35200D299B6 /* AppDelegate.mm */,
-				3ED4FEC61F89F35200D299B6 /* CatView.h */,
-				3ED4FEC51F89F35200D299B6 /* CatView.mm */,
-				3ED4FEC01F89F35100D299B6 /* Info.plist */,
-				3ED4FEC11F89F35100D299B6 /* Assets.xcassets */,
-				3ED4FEBE1F89F35100D299B6 /* LaunchScreen.storyboard */,
-				3ED4FEC31F89F35200D299B6 /* Main.storyboard */,
+				3E543409201D917A00CC106E /* Assets.xcassets */,
+				3E54340A201D917A00CC106E /* Info.plist */,
+				3E54340B201D917A00CC106E /* LaunchScreen.storyboard */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -247,9 +271,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED4FEB91F89ED2900D299B6 /* Main.storyboard in Resources */,
+				3E543407201D917100CC106E /* Assets.xcassets in Resources */,
 				3E64D7491FF8D7840049AD7C /* ui in Resources */,
-				3ED4FEB61F89ED2900D299B6 /* Assets.xcassets in Resources */,
+				3E543403201D915700CC106E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,10 +281,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E543411201D923D00CC106E /* Assets.xcassets in Resources */,
 				3E64D74A1FF8D78D0049AD7C /* ui in Resources */,
-				3ED4FEDE1F89F57F00D299B6 /* Assets.xcassets in Resources */,
-				3ED4FEDF1F89F57F00D299B6 /* LaunchScreen.storyboard in Resources */,
-				3ED4FEE01F89F57F00D299B6 /* Main.storyboard in Resources */,
+				3E543410201D923D00CC106E /* Main.storyboard in Resources */,
+				3E543412201D923D00CC106E /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,9 +295,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED4FEB41F89ED2900D299B6 /* main.m in Sources */,
-				3ED4FEB71F89ED2900D299B6 /* AppDelegate.mm in Sources */,
-				3ED4FEB51F89ED2900D299B6 /* CatView.mm in Sources */,
+				3E543402201D915700CC106E /* main.m in Sources */,
+				3E543401201D915700CC106E /* CatView.mm in Sources */,
+				3E543400201D915700CC106E /* AppDelegate.mm in Sources */,
 				3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,9 +306,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED4FEDB1F89F56400D299B6 /* main.m in Sources */,
-				3ED4FEDC1F89F56400D299B6 /* AppDelegate.mm in Sources */,
-				3ED4FEDD1F89F56400D299B6 /* CatView.mm in Sources */,
+				3E543415201D925100CC106E /* main.m in Sources */,
+				3E543413201D925100CC106E /* AppDelegate.mm in Sources */,
+				3E543414201D925100CC106E /* CatView.mm in Sources */,
 				3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +424,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_VARIANTS = debug;
-				CODE_SIGN_ENTITLEMENTS = ../glue/mac/example.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ../platform/mac/example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../bin/;
@@ -415,7 +439,7 @@
 					../../../dependency/include/generic,
 					../../../dependency/include/mac,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../glue/mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../platform/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/mac,
@@ -436,7 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ../glue/mac/example.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ../platform/mac/example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../bin/;
@@ -447,7 +471,7 @@
 					../../../dependency/include/generic,
 					../../../dependency/include/mac,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../glue/mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../platform/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/mac,
@@ -481,7 +505,7 @@
 					../../../dependency/include/generic,
 					../../../dependency/include/ios,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../glue/ios/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../platform/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -513,7 +537,7 @@
 					../../../dependency/include/generic,
 					../../../dependency/include/ios,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../glue/ios/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../platform/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

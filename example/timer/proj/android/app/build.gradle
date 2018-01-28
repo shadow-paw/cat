@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.shadowpaw.cat.example.timer"
         minSdkVersion 18
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -29,9 +29,9 @@ android {
     }
     sourceSets {
         main {
-            java.srcDirs = ['../../../glue/android/java']
-            res.srcDirs= ['../../../glue/android/res']
+            java.srcDirs = ['../../../../../bootstrap/android/java']
             assets.srcDirs = ['../../../assets']
+            res.srcDirs = ['../../../platform/android/res']
         }
     }
     externalNativeBuild {
@@ -52,5 +52,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
 }
