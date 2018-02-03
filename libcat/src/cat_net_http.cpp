@@ -49,6 +49,9 @@ void HttpRequest::post(const std::string& data, const std::string& mime) {
     Buffer buf(data.c_str(), data.size());
     post(std::move(buf), mime);
 }
+void HttpRequest::post(const nlohmann::json& json) {
+    post (json.dump(0), "application/json");
+}
 void HttpRequest::put(Buffer&& data, const std::string& mime) {
     m_method = Method::METHOD_PUT;
     m_data = std::move(data);
@@ -58,6 +61,9 @@ void HttpRequest::put(const std::string& data, const std::string& mime) {
     Buffer buf(data.c_str(), data.size());
     put(std::move(buf), mime);
 }
+void HttpRequest::put(const nlohmann::json& json) {
+    put(json.dump(0), "application/json");
+}
 void HttpRequest::patch(Buffer&& data, const std::string& mime) {
     m_method = Method::METHOD_PATCH;
     m_data = std::move(data);
@@ -66,6 +72,9 @@ void HttpRequest::patch(Buffer&& data, const std::string& mime) {
 void HttpRequest::patch(const std::string& data, const std::string& mime) {
     Buffer buf(data.c_str(), data.size());
     patch(std::move(buf), mime);
+}
+void HttpRequest::patch(const nlohmann::json& json) {
+    patch(json.dump(0), "application/json");
 }
 void HttpRequest::del() {
     m_method = Method::METHOD_DELETE;
@@ -560,7 +569,9 @@ void HttpManager::cb_inet_status(HINTERNET handle, INET_PARAM* param, DWORD stat
             bool success = rez->dwResult != 0;
             if (success) {
                 DWORD bodylen = 0;
-                if (!InternetQueryDataAvailable(conn->handle, &bodylen, 0, 0)) {
+                DWORD bodylen_size = (DWORD)sizeof(bodylen);
+                HttpQueryInfo(conn->handle, HTTP_QUERY_CONTENT_LENGTH | HTTP_QUERY_FLAG_NUMBER, &bodylen, &bodylen_size, nullptr);
+                if (bodylen >= 1024 * 1024 * 10) {
                     success = false;
                 } else {
                     conn->response.body.realloc(bodylen + 1);

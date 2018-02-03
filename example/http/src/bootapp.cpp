@@ -23,18 +23,51 @@ bool BootApp::cb_startup(Timestamp now) {
 // ----------------------------------------------------------------------------
 void BootApp::cb_resume() {
     Logger::d("App", "cb_resume");
-    // Http Test
-    HttpRequest req("https://httpbin.org/post");
-    req.add_header("foo", "bar");
-    req.add_header("foo2", "dumb");
-    req.post("Post Data", "text/plain; charset=utf-8");
-    auto http_id = kernel()->net()->http_fetch(std::move(req), [](HttpResponse&& res) -> void {
-        for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
-            Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
-        }
-        Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
-    });
-    // kernel()->net()->http_cancel(http_id);
+    // Http Test: simple request
+    {
+        HttpRequest req("https://httpbin.org/post");
+        req.add_header("foo", "bar");
+        req.add_header("foo2", "dumb");
+        req.post("Post Data", "text/plain; charset=utf-8");
+        auto http_id = kernel()->net()->http_fetch(std::move(req), [](HttpResponse&& res) -> void {
+            for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
+                Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
+            }
+            Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
+        });
+        // kernel()->net()->http_cancel(http_id);
+    }
+
+    // Http Test: json request
+    {
+        nlohmann::json json = {
+            {"key1", 1234.56},
+            {"key2", true},
+            {"key3", "hello world"},
+            {"key4", nullptr},
+            {"nested",{
+                {"key", 9876}
+            }},
+            {"list",{1, 0, 2}},
+            {"object",{
+                {"currency", "USD"},
+                {"value", 12.34}
+            }}
+        };
+        HttpRequest req("https://httpbin.org/post");
+        req.add_header("foo", "bar");
+        req.add_header("foo2", "dumb");
+        req.post(json);
+        auto http2_id = kernel()->net()->http_fetch(std::move(req), [this](HttpResponse&& res) -> void {
+            for (auto it = res.headers.begin(); it != res.headers.end(); ++it) {
+                Logger::d("App", "http -> header = %s:%s", it->first.c_str(), it->second.c_str());
+            }
+            kernel()->vfs()->write("/doc/http.txt", res.body);
+            Logger::d("App", "http -> %d - %s", res.code, res.body.ptr());
+            auto json = nlohmann::json::parse(res.body.ptr());
+            Logger::d("App", "http -> %d - %s", res.code, json.dump(4).c_str());
+        });
+    }
 }
 // cb_pause is called when the program is going background
 // ----------------------------------------------------------------------------

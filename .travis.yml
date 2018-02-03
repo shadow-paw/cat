@@ -7,6 +7,7 @@ matrix:
       os: osx
       osx_image: xcode9.2
       cache:
+        timeout: 300
         directories:
         - /home/travis/build/shadow-paw/cat/dependency/include/generic
         - /home/travis/build/shadow-paw/cat/dependency/include/ios
@@ -14,6 +15,7 @@ matrix:
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)
+        - (cd dependency/setup && ./json.sh)
         - (cd dependency/setup && ./libpng-ios.sh)
       script:
         - (cd libcat/proj && xcodebuild -project libcat.xcodeproj -target libcat-ios -sdk iphonesimulator11.2 build)
@@ -32,6 +34,7 @@ matrix:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
       cache:
+        timeout: 300
         directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
@@ -52,6 +55,7 @@ matrix:
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)
+        - (cd dependency/setup && ./json.sh)
         - (cd dependency/setup && ./libpng-android.sh)
       script:
         - (cd libcat/proj && ${ANDROID_NDK_HOME}/ndk-build -j4)

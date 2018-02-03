@@ -15,8 +15,9 @@
 - Sensor Service - TODO
 
 ## Examples
-- [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle.
+- [Blank skeleton](example/blank/src/bootapp.cpp) - program structure and life cycle
 - [Basic UI](example/ui_basic/src/bootapp.cpp) - basic ui like pane and button
+- [Storage](example/storage/src/bootapp.cpp) - persistent storage
 - [Timer](example/timer/src/bootapp.cpp) - create and remove timers
 - [HTTP](example/http/src/bootapp.cpp) - rest compatible http client
 - [Sound](example/sound/src/pane1.cpp) - audio playback
@@ -51,6 +52,7 @@ export ANDROID_NDK_HOME=c:/android/sdk/ndk-bundle
 ```
 cd dependency/setup
 ./glm.sh
+./json.sh
 ./glew-win.sh
 ./zlib-win.sh
 ./libpng-win.sh
@@ -93,6 +95,7 @@ export ANDROID_NDK_HOME=/usr/local/android/ndk-bundle
 ```
 cd dependency/setup
 ./glm.sh
+./json.sh
 ./libpng-mac.sh
 ./libpng-ios.sh
 ./libpng-android.sh

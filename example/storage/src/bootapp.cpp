@@ -1,4 +1,5 @@
 #include "bootapp.h"
+#include "nlohmann/json.hpp"
 
 using namespace app;
 using namespace cat;
@@ -22,6 +23,36 @@ bool BootApp::cb_startup(Timestamp now) {
     if (kernel()->vfs()->read("/doc/test.txt", &b)) {
         Logger::d("App", "read: %s", b.ptr());
     }
+
+    // Preference using this excellent json library: https://github.com/nlohmann/json
+    nlohmann::json pref = {
+        {"key1", 1234.56},
+        {"key2", true},
+        {"key3", "hello world"},
+        {"key4", nullptr},
+        {"nested",{
+            {"key", 9876}
+        }},
+        {"list",{1, 0, 2}},
+        {"object",{
+            {"currency", "USD"},
+            {"value", 12.34}
+        }}
+    };
+    Logger::d("App", "pref: %s", pref.dump(4).c_str());
+    Logger::d("App", "pref[key1]: %f", pref["key1"].get<float>());
+    Logger::d("App", "pref[nested][key]: %d", pref["nested"]["key"].get<int>());
+    // Save to file
+    kernel()->vfs()->write("/doc/pref.json", Buffer(pref.dump(4).c_str()));
+    // Load it back
+    Buffer pref_buffer;
+    if (kernel()->vfs()->read("/doc/pref.json", &pref_buffer)) {
+        auto pref2 = nlohmann::json::parse(pref_buffer.ptr());
+        Logger::d("App", "pref2: %s", pref2.dump(4).c_str());
+        Logger::d("App", "pref2[key1]: %f", pref2["key1"].get<float>());
+        Logger::d("App", "pref2[nested][key]: %d", pref2["nested"]["key"].get<int>());
+    }
+
     return true;
 }
 // cb_resume is called when the program has resumed

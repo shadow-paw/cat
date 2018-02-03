@@ -15,7 +15,7 @@ using namespace cat;
 
 // ----------------------------------------------------------------------------
 void Logger::d(const char* tag, const char* fmt, ...) {
-    char buf[1024 + 16];
+    char buf[8192 + 16];
     va_list va;
     va_start(va, fmt);
     size_t len = vsnprintf(buf, sizeof(buf)-8, fmt, va);
@@ -27,7 +27,7 @@ void Logger::d(const char* tag, const char* fmt, ...) {
 }
 // ----------------------------------------------------------------------------
 void Logger::e(const char* tag, const char* fmt, ...) {
-    char buf[1024 + 16];
+    char buf[8192 + 16];
     va_list va;
     va_start(va, fmt);
     size_t len = vsnprintf(buf, sizeof(buf)-8, fmt, va);
