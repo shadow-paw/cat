@@ -9,9 +9,9 @@ matrix:
       cache:
         timeout: 300
         directories:
-        - /home/travis/build/shadow-paw/cat/dependency/include/generic
-        - /home/travis/build/shadow-paw/cat/dependency/include/ios
-        - /home/travis/build/shadow-paw/cat/dependency/lib/ios
+        - "$TRAVIS_BUILD_DIR/dependency/include/generic"
+        - "$TRAVIS_BUILD_DIR/dependency/include/ios"
+        - "$TRAVIS_BUILD_DIR//dependency/lib/ios"
       install:
         # 3rd party libraries
         - (cd dependency/setup && ./glm.sh)
@@ -38,10 +38,10 @@ matrix:
         directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
-        - /home/travis/build/shadow-paw/cat/tools/android-ndk-r15b
-        - /home/travis/build/shadow-paw/cat/dependency/include/generic
-        - /home/travis/build/shadow-paw/cat/dependency/include/android
-        - /home/travis/build/shadow-paw/cat/dependency/lib/android
+        - "$TRAVIS_BUILD_DIR/tools/android-ndk-r15b"
+        - "$TRAVIS_BUILD_DIR/dependency/include/generic"
+        - "$TRAVIS_BUILD_DIR/dependency/include/android"
+        - "$TRAVIS_BUILD_DIR/dependency/lib/android"
       before_install:
         # cmake agree license
         - mkdir -p ${ANDROID_HOME}/licenses/
