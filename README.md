@@ -38,7 +38,7 @@ You can build app on two environments, sadly you cannot build binaries for all p
 ## Windows Environment
 #### Tools
 - [Visual Studio Community 2017][visualstudio-url]
-- [Android Studio 3.0][android-url]
+- [Android Studio 4.0][android-url]
 - [Git Bash][git-url]
 - [VCPKG][vcpkg-url]
 
@@ -51,19 +51,25 @@ cd vcpkg/
 ```
 ###### Android tweaks
 https://github.com/microsoft/vcpkg/blob/master/docs/users/android.md
-
-
-#### Command Line Environment
 ```
 export ANDROID_NDK_HOME=/c/android/sdk/ndk/21.3.6528147
 export VCPKG_ROOT=/c/vcpkg
 ```
+Add to windows environment for gradle, right click This PC > Properties > Advanced System Settings > Environment Variables
+```
+ANDROID_NDK_HOME=c:/android/sdk/ndk/21.3.6528147
+VCPKG_ROOT=c:/devtools/vcpkg
+```
 <sup>Change the above path if needed</sup>
 
-#### Setup dependency
+#### Install dependency
 ```
 ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo glew --triplet x86-windows
 ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo glew --triplet x64-windows
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm64-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x86-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x64-android
 ```
 
 #### Build libcat - windows
@@ -84,28 +90,40 @@ Open `example/{project}/proj/android` with Android Studio. APK will be created u
 ## Mac Environment
 #### Tools
 - [Xcode 9][xcode-url] with command line tools
-- [Android Studio 3.0][android-url]
+- [Android Studio 4.0][android-url]
+- [VCPKG][vcpkg-url]
 
 #### Xcode command line tools
 ```
 xcode-select --install
 ```
 
-#### Command Line Environment
+#### Install vcpkg
 ```
-export ANDROID_HOME=/usr/local/android
-export ANDROID_NDK_HOME=/usr/local/android/ndk-bundle
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg/
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+```
+###### Android tweaks
+https://github.com/microsoft/vcpkg/blob/master/docs/users/android.md
+```
+export VCPKG_ROOT=$HOME/devel/git/public/vcpkg
+export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/21.3.6528147/
 ```
 <sup>Change the above path if needed</sup>
 
-#### Setup dependency
+#### Install dependency
 ```
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm64-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x86-android
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x64-android
+
 cd dependency/setup
 ./glm.sh
-./json.sh
 ./libpng-mac.sh
 ./libpng-ios.sh
-./libpng-android.sh
 ```
 
 #### Build libcat - mac & ios

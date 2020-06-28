@@ -117,8 +117,8 @@ const SoundEffect* SoundEffects::load(const std::string& name) {
     JNIHelper jni;
     // fd = assetsManager.openFd(name[1]); 
     const jint LOAD_PRIORITY_NORMAL = 1;
-    if (name[0] != '/') return nullptr;
-    jobject jafd = jni.CallObjectMethod(m_psd->asset_manager, "openFd", "(Ljava/lang/String;)Landroid/content/res/AssetFileDescriptor;", jni.NewStringUTF(name.substr(1)));
+    if (name.compare("/assets/") != 0) return nullptr;
+    jobject jafd = jni.CallObjectMethod(m_psd->asset_manager, "openFd", "(Ljava/lang/String;)Landroid/content/res/AssetFileDescriptor;", jni.NewStringUTF(name.substr(8)));
     if (jafd == nullptr) return nullptr;
     jint sound_id = jni.CallIntMethod(m_soundpool, "load", "(Ljava/io/FileDescriptor;JJI)I",
         jni.CallObjectMethod(jafd, "getFileDescriptor", "()Ljava/io/FileDescriptor;"),
