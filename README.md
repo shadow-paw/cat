@@ -40,23 +40,30 @@ You can build app on two environments, sadly you cannot build binaries for all p
 - [Visual Studio Community 2017][visualstudio-url]
 - [Android Studio 3.0][android-url]
 - [Git Bash][git-url]
+- [VCPKG][vcpkg-url]
+
+#### Install vcpkg
+```
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg/
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+```
+###### Android tweaks
+https://github.com/microsoft/vcpkg/blob/master/docs/users/android.md
+
 
 #### Command Line Environment
 ```
-export ANDROID_HOME=c:/android/sdk
-export ANDROID_NDK_HOME=c:/android/sdk/ndk-bundle
+export ANDROID_NDK_HOME=/c/android/sdk/ndk/21.3.6528147
+export VCPKG_ROOT=/c/vcpkg
 ```
 <sup>Change the above path if needed</sup>
 
 #### Setup dependency
 ```
-cd dependency/setup
-./glm.sh
-./json.sh
-./glew-win.sh
-./zlib-win.sh
-./libpng-win.sh
-./libpng-android.sh
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo glew --triplet x86-windows
+${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo glew --triplet x64-windows
 ```
 
 #### Build libcat - windows
@@ -143,3 +150,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [xcode-url]: https://developer.apple.com/xcode/
 [android-url]: https://developer.android.com/studio/index.html
 [git-url]: https://git-scm.com/downloads
+[vcpkg-url]: https://github.com/Microsoft/vcpkg.git

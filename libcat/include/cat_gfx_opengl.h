@@ -6,8 +6,8 @@
     #include <Windows.h>
     #include <WindowsX.h>
     #undef WIN32_LEAN_AND_MEAN
-    #include "glew/glew.h"
-    #include "glew/wglew.h"
+    #include <GL/glew.h>
+    #include <GL/wglew.h>
 #elif defined(PLATFORM_MAC)
     #include <OpenGL/gl3.h>
 #elif defined(PLATFORM_IOS)

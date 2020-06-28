@@ -5,17 +5,17 @@
       <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="bootstrap">
-      <UniqueIdentifier>{d7de2b13-e05a-419d-b701-26b4f09dcf39}</UniqueIdentifier>
+      <UniqueIdentifier>{c5a7de26-90dc-4803-ac6b-f0cd2ecf2aea}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="assets\ui">
+    <Filter Include="assets\shader">
       <UniqueIdentifier>{21a562c7-f5bc-4385-977c-2f47b6a36608}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets\sound">
-      <UniqueIdentifier>{cfcb5bff-482a-476f-8e38-870170de3b10}</UniqueIdentifier>
+    <Filter Include="assets\ui">
+      <UniqueIdentifier>{b298b605-2782-497e-8dea-63866b52ff50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,11 +49,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\sound\audio.m4a">
-      <Filter>assets\sound</Filter>
-    </None>
-    <None Include="..\assets\sound\click.m4a">
-      <Filter>assets\sound</Filter>
+    <None Include="..\assets\shader\custom.shader">
+      <Filter>assets\shader</Filter>
     </None>
   </ItemGroup>
 </Project>

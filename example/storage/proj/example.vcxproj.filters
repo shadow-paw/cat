@@ -5,14 +5,14 @@
       <UniqueIdentifier>{a76bb8bb-bfb2-41fe-bf81-17c4e35210d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="bootstrap">
-      <UniqueIdentifier>{e4e8cce8-200b-4ba3-8fcc-ad1950146ff4}</UniqueIdentifier>
+      <UniqueIdentifier>{08683f4d-a588-431c-848d-ca43b702b5ab}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="assets\ui">
-      <UniqueIdentifier>{f78feff0-a457-4120-bd0f-eb141394a92f}</UniqueIdentifier>
+      <UniqueIdentifier>{0aa03efe-2567-4cbd-95be-b632021f877c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

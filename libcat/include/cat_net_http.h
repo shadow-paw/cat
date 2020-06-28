@@ -16,7 +16,6 @@
 #include <condition_variable>
 #include <thread>
 #include <atomic>
-#include "nlohmann/json.hpp"
 #include "cat_platform.h"
 #include "cat_data_copyable.h"
 #include "cat_data_buffer.h"
@@ -56,39 +55,30 @@ public:
     void add_header(const std::string& key, const std::string& value);
     //! Make this a post request with the provide data
     //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
-    //! \param mime MIME type, e.g. "application/json"
-    void post(Buffer&& data, const std::string& mime);
+    //! \param content_type Content type, e.g. "application/json"
+    void post(Buffer&& data, const std::string& content_type);
     //! Make this a post request with the provide data
     //! \param data String to post, zero-terminator is excluded
-    //! \param mime MIME type, e.g. "application/json"
-    void post(const std::string& data, const std::string& mime);
-    //! Make this a post request with the provide data
-    //! \param json json data to post
-    void post(const nlohmann::json& json);
+    //! \param content_type Content type, e.g. "application/json"
+    void post(const std::string& data, const std::string& content_type);
 
     //! Make this a put request with the provide data
     //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
-    //! \param mime MIME type, e.g. "application/json"
-    void put(Buffer&& data, const std::string& mime);
+    //! \param content_type Content type, e.g. "application/json"
+    void put(Buffer&& data, const std::string& content_type);
     //! Make this a put request with the provide data
     //! \param data String to post, zero-terminator is excluded
-    //! \param mime MIME type, e.g. "application/json"
-    void put(const std::string& data, const std::string& mime);
-    //! Make this a put request with the provide data
-    //! \param json json data to post
-    void put(const nlohmann::json& json);
+    //! \param content_type Content type, e.g. "application/json"
+    void put(const std::string& data, const std::string& content_type);
 
     //! Make this a patch request with the provide data
     //! \param data Data to post, the data will be acquired by HTTP Manager with move semantic
-    //! \param mime MIME type, e.g. "application/json"
-    void patch(Buffer&& data, const std::string& mime);
+    //! \param content_type Content type, e.g. "application/json"
+    void patch(Buffer&& data, const std::string& content_type);
     //! Make this a patch request with the provide data
     //! \param data String to post, zero-terminator is excluded
-    //! \param mime MIME type, e.g. "application/json"
-    void patch(const std::string& data, const std::string& mime);
-    //! Make this a patch request with the provide data
-    //! \param json json data to post
-    void patch(const nlohmann::json& json);
+    //! \param content_type Content type, e.g. "application/json"
+    void patch(const std::string& data, const std::string& content_type);
 
     //! Make this a delete request
     void del();

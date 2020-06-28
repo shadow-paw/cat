@@ -40,41 +40,32 @@ void HttpRequest::set_url(const std::string& url) {
 void HttpRequest::add_header(const std::string& key, const std::string& value) {
     m_headers.emplace(std::make_pair(key, value));
 }
-void HttpRequest::post(Buffer&& data, const std::string& mime) {
+void HttpRequest::post(Buffer&& data, const std::string& content_type) {
     m_method = Method::METHOD_POST;
     m_data = std::move(data);
-    m_headers.emplace(std::make_pair("Content-Type", mime));
+    m_headers.emplace(std::make_pair("Content-Type", content_type));
 }
-void HttpRequest::post(const std::string& data, const std::string& mime) {
+void HttpRequest::post(const std::string& data, const std::string& content_type) {
     Buffer buf(data.c_str(), data.size());
-    post(std::move(buf), mime);
+    post(std::move(buf), content_type);
 }
-void HttpRequest::post(const nlohmann::json& json) {
-    post (json.dump(0), "application/json");
-}
-void HttpRequest::put(Buffer&& data, const std::string& mime) {
+void HttpRequest::put(Buffer&& data, const std::string& content_type) {
     m_method = Method::METHOD_PUT;
     m_data = std::move(data);
-    m_headers.emplace(std::make_pair("Content-Type", mime));
+    m_headers.emplace(std::make_pair("Content-Type", content_type));
 }
-void HttpRequest::put(const std::string& data, const std::string& mime) {
+void HttpRequest::put(const std::string& data, const std::string& content_type) {
     Buffer buf(data.c_str(), data.size());
-    put(std::move(buf), mime);
+    put(std::move(buf), content_type);
 }
-void HttpRequest::put(const nlohmann::json& json) {
-    put(json.dump(0), "application/json");
-}
-void HttpRequest::patch(Buffer&& data, const std::string& mime) {
+void HttpRequest::patch(Buffer&& data, const std::string& content_type) {
     m_method = Method::METHOD_PATCH;
     m_data = std::move(data);
-    m_headers.emplace(std::make_pair("Content-Type", mime));
+    m_headers.emplace(std::make_pair("Content-Type", content_type));
 }
-void HttpRequest::patch(const std::string& data, const std::string& mime) {
+void HttpRequest::patch(const std::string& data, const std::string& content_type) {
     Buffer buf(data.c_str(), data.size());
-    patch(std::move(buf), mime);
-}
-void HttpRequest::patch(const nlohmann::json& json) {
-    patch(json.dump(0), "application/json");
+    patch(std::move(buf), content_type);
 }
 void HttpRequest::del() {
     m_method = Method::METHOD_DELETE;
