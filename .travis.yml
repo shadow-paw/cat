@@ -5,21 +5,14 @@ matrix:
   include:
     - language: objective-c
       os: osx
-      osx_image: xcode9.2
+      osx_image: xcode11.4
       cache:
-        timeout: 300
-        directories:
-        - "$TRAVIS_BUILD_DIR/dependency/include/generic"
-        - "$TRAVIS_BUILD_DIR/dependency/include/ios"
-        - "$TRAVIS_BUILD_DIR//dependency/lib/ios"
-      install:
-        # 3rd party libraries
-        - (cd dependency/setup && ./glm.sh)
-        - (cd dependency/setup && ./json.sh)
-        - (cd dependency/setup && ./libpng-ios.sh)
+        - cocoapods
+      before_install:
+        - gem install cocoapods -v 1.9.3
       script:
-        - (cd libcat/proj && xcodebuild -project libcat.xcodeproj -target libcat-ios -sdk iphonesimulator11.2 build)
-        - (cd example/ui_basic/proj && xcodebuild -project example.xcodeproj -target example-ios -sdk iphonesimulator11.2 build)
+        - (cd libcat/proj && pod install && xcodebuild -workspace libcat.xcworkspace -scheme libcat-ios -sdk iphonesimulator13.4 build)
+        - (cd example/ui_basic/proj && pod install && xcodebuild -workspace example.xcworkspace -scheme example-ios -sdk iphonesimulator13.4 build)
   
     - language: android
       jdk: oraclejdk8
@@ -39,9 +32,7 @@ matrix:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
         - "$TRAVIS_BUILD_DIR/tools/android-ndk-r15b"
-        - "$TRAVIS_BUILD_DIR/dependency/include/generic"
-        - "$TRAVIS_BUILD_DIR/dependency/include/android"
-        - "$TRAVIS_BUILD_DIR/dependency/lib/android"
+        - $HOME/vcpkg/
       before_install:
         # cmake agree license
         - mkdir -p ${ANDROID_HOME}/licenses/
@@ -53,10 +44,13 @@ matrix:
         - export ANDROID_NDK_HOME=/home/travis/build/shadow-paw/cat/tools/android-ndk-${ANDROID_NDK_VERSION}
         - if [ ! -f ${ANDROID_NDK_HOME}/ndk-build ]; then curl -L http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -O; mkdir -p tools; unzip -q -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d tools/; fi
       install:
-        # 3rd party libraries
-        - (cd dependency/setup && ./glm.sh)
-        - (cd dependency/setup && ./json.sh)
-        - (cd dependency/setup && ./libpng-android.sh)
+        - export VCPKG_ROOT=${HOME}/vcpkg
+        - git clone https://github.com/Microsoft/vcpkg.git ${VCPKG_ROOT}
+        - ( cd ${VCPKG_ROOT} && ./bootstrap-vcpkg.sh && ./vcpkg integrate install )
+        - ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm-android
+        - ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm64-android
+        - ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x86-android
+        - ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x64-android
       script:
         - (cd libcat/proj && ${ANDROID_NDK_HOME}/ndk-build -j4)
         - (cd example/ui_basic/proj/android && ./gradlew assembleDebug)
