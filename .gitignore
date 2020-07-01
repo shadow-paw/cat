@@ -46,7 +46,8 @@ bin/
 
 # xcode files
 project.xcworkspace
-xcuserdata
+xcuserdata/
+xcshareddata/
 
 # Android files
 *.apk
@@ -81,6 +82,9 @@ captures/
 .cxx/
 CMakeCache.txt
 CMakeFiles/
+
+# cocoapod
+Pods/
 
 # Keystore files
 *.jks

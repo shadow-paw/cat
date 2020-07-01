@@ -89,9 +89,10 @@ Open `example/{project}/proj/android` with Android Studio. APK will be created u
 
 ## Mac Environment
 #### Tools
-- [Xcode 9][xcode-url] with command line tools
+- [Xcode][xcode-url] with command line tools
 - [Android Studio 4.0][android-url]
 - [VCPKG][vcpkg-url]
+- [CocoaPod][cocoapod-url]
 
 #### Xcode command line tools
 ```
@@ -119,17 +120,20 @@ ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm-android
 ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet arm64-android
 ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x86-android
 ${VCPKG_ROOT}/vcpkg install glm zlib libpng libjpeg-turbo --triplet x64-android
-
-cd dependency/setup
-./glm.sh
-./libpng-mac.sh
-./libpng-ios.sh
 ```
 
 #### Build libcat - mac & ios
+```
+cd libcat/proj
+pod install
+```
 Open `libcat/proj/libcat.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Libraries will be created under `libcat/lib/`.
 
 #### Build example - mac & ios
+```
+cd example/{project}/proj
+pod install
+```
 Open `example/{project}/proj/example.xcodeproj` with Xcode. Edit scheme and choose ``Release`` under ``Run`` section. There are two targets available: `mac`, `ios`. Excutables will be created under `example/{project}/bin/`.
 
 #### Build libcat - android
@@ -169,3 +173,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [android-url]: https://developer.android.com/studio/index.html
 [git-url]: https://git-scm.com/downloads
 [vcpkg-url]: https://github.com/Microsoft/vcpkg.git
+[cocoapod-url]: https://cocoapods.org/

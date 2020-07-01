@@ -4,7 +4,7 @@
 
 #import "CatView.h"
 
-// #define SUPPORT_RETINA_RESOLUTION 1
+#define SUPPORT_RETINA_RESOLUTION 1
 
 // ----------------------------------------------------------------------------
 @interface CatView()
@@ -53,6 +53,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 #if SUPPORT_RETINA_RESOLUTION
     [self setWantsBestResolutionOpenGLSurface:YES];
 #endif
+    [context makeCurrentContext];
 }
 // ----------------------------------------------------------------------------
 - (id)init {

@@ -1,0 +1,20 @@
+PODS:
+  - glm (0.9.4.6)
+  - libpng (1.6.35)
+
+DEPENDENCIES:
+  - glm (= 0.9.4.6)
+  - libpng (= 1.6.35)
+
+SPEC REPOS:
+  trunk:
+    - glm
+    - libpng
+
+SPEC CHECKSUMS:
+  glm: e22c8d9df10404059b19c2952f9fa44d9a9f3056
+  libpng: c490b0523e94f78697f83ad434fbaf715050e15b
+
+PODFILE CHECKSUM: e4f4677ea456a692cbcd7eb29fe18f38967c4b5a
+
+COCOAPODS: 1.9.3

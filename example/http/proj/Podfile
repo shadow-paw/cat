@@ -1,0 +1,13 @@
+workspace 'example'
+
+platform :osx, '10.15'
+target 'example-mac' do
+  pod 'glm', '0.9.4.6'
+  pod 'libpng', '1.6.35'
+end
+
+target 'example-ios' do
+  platform :ios, '11'
+  pod 'glm', '0.9.4.6'
+  pod 'libpng', '1.6.35'
+end
