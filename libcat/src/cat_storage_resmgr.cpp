@@ -1,7 +1,7 @@
 #include "cat_storage_resmgr.h"
 #include <new>
 #include <string.h>
-#include "libpng/png.h"
+#include <png.h>
 
 using namespace cat;
 

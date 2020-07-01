@@ -46,7 +46,8 @@ bin/
 
 # xcode files
 project.xcworkspace
-xcuserdata
+xcuserdata/
+xcshareddata/
 
 # Android files
 *.apk
@@ -75,6 +76,16 @@ captures/
 .idea/gradle.xml
 .idea/dictionaries
 .idea/libraries
+.idea/
+
+# cmake
+.cxx/
+CMakeCache.txt
+CMakeFiles/
+
+# cocoapod
+Pods/
+
 # Keystore files
 *.jks
 # External native build folder generated in Android Studio 2.2 and later

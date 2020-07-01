@@ -417,7 +417,7 @@ void Draw2D::fill(const Rect2i& rect, uint32_t color, const TextureRef& texref, 
             shader->bind();
             m_vbo.bind();
             texref.tex->bind(0);
-            shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width(), 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
+            shader->uniform(u_CenterMultiplier, m_render_target ? glm::vec2(2.0f / m_render_target->width() * 2, 2.0f / m_render_target->height()) : m_uniforms.center_multiplier);
             shader->uniform(u_Tex0, 0);
             shader->uniform(u_Time, (float)(t&0xffffff)/1000);
             shader->set_attr(in_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2f), reinterpret_cast<GLvoid*>(offsetof(Vertex2f, x)));

@@ -291,9 +291,9 @@ fail:
     //SLDataFormat_MIME format_mime = {SL_DATAFORMAT_MIME, NULL, SL_CONTAINERTYPE_UNSPECIFIED};
     //SLDataSource audioSrc = {&loc_uri, &format_mime};
     JNIHelper jni;
-    if (name[0] != '/') return false;
+    if (name.compare("/assets/") != 0) return false;
     AAssetManager* mgr = AAssetManager_fromJava(jni.env(), engine->m_psd->asset_manager);
-    AAsset* asset = AAssetManager_open(mgr, name.substr(1).c_str(), AASSET_MODE_UNKNOWN);
+    AAsset* asset = AAssetManager_open(mgr, name.substr(8).c_str(), AASSET_MODE_UNKNOWN);
     if (!asset) return false;
     // open asset as file descriptor
     off_t start, length;

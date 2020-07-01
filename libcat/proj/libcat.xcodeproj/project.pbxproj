@@ -177,9 +177,13 @@
 		3EF9A0FE1F8A695D008C00C0 /* cat_storage_vfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EF9A0E01F8A6867008C00C0 /* cat_storage_vfs.h */; };
 		3EFB2C5420033EF3004B91B6 /* cat_data_copyable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */; };
 		3EFB2C5520033F1F004B91B6 /* cat_data_copyable.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */; };
+		9D4A5D2135985143C47C4C46 /* libPods-libcat-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FAD7C7A21D95DDB9C32AA6 /* libPods-libcat-ios.a */; };
+		D69A82172CFC7997C9A2F965 /* libPods-libcat-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A87A7A57CCA5AA42931BDEB /* libPods-libcat-mac.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2953EABE3D9EB9449D0E9C51 /* Pods-libcat-mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libcat-mac.release.xcconfig"; path = "Target Support Files/Pods-libcat-mac/Pods-libcat-mac.release.xcconfig"; sourceTree = "<group>"; };
+		2A5DCEC1DCD93DF29E546553 /* Pods-libcat-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libcat-ios.debug.xcconfig"; path = "Target Support Files/Pods-libcat-ios/Pods-libcat-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		3E124E641FDD270500C60C65 /* cat_ui_animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_animator.h; path = ../include/cat_ui_animator.h; sourceTree = "<group>"; };
 		3E124E651FDD270500C60C65 /* cat_ui_interpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_ui_interpolator.h; path = ../include/cat_ui_interpolator.h; sourceTree = "<group>"; };
 		3E124E681FDD270F00C60C65 /* cat_ui_animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_ui_animator.cpp; path = ../src/cat_ui_animator.cpp; sourceTree = "<group>"; };
@@ -269,6 +273,10 @@
 		3EF9A0EC1F8A68C1008C00C0 /* cat_storage_vfs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_storage_vfs.cpp; path = ../src/cat_storage_vfs.cpp; sourceTree = "<group>"; };
 		3EF9A0ED1F8A68C1008C00C0 /* cat_data_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cat_data_buffer.cpp; path = ../src/cat_data_buffer.cpp; sourceTree = "<group>"; };
 		3EFB2C5320033EF2004B91B6 /* cat_data_copyable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cat_data_copyable.h; path = ../include/cat_data_copyable.h; sourceTree = "<group>"; };
+		5A87A7A57CCA5AA42931BDEB /* libPods-libcat-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libcat-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84627C27742D721AF6766112 /* Pods-libcat-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libcat-ios.release.xcconfig"; path = "Target Support Files/Pods-libcat-ios/Pods-libcat-ios.release.xcconfig"; sourceTree = "<group>"; };
+		85FAD7C7A21D95DDB9C32AA6 /* libPods-libcat-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libcat-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94F00F83CC7363650358552B /* Pods-libcat-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libcat-mac.debug.xcconfig"; path = "Target Support Files/Pods-libcat-mac/Pods-libcat-mac.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D4A5D2135985143C47C4C46 /* libPods-libcat-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69A82172CFC7997C9A2F965 /* libPods-libcat-mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +369,8 @@
 			children = (
 				3EAF4C631FFA287800DB1467 /* AVFoundation.framework */,
 				3EAF4C611FFA287100DB1467 /* AVFoundation.framework */,
+				5A87A7A57CCA5AA42931BDEB /* libPods-libcat-mac.a */,
+				85FAD7C7A21D95DDB9C32AA6 /* libPods-libcat-ios.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -404,6 +416,7 @@
 				3ED4FE951F89EB8800D299B6 /* libcat.h */,
 				3ECE605F1F7671CB007C3766 /* Products */,
 				3EAF4C601FFA287100DB1467 /* Frameworks */,
+				50E942E71A6DBA5B77F3E40D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -470,6 +483,17 @@
 				3EF9A0DD1F8A6867008C00C0 /* cat_storage_driver_file.h */,
 			);
 			name = storage;
+			sourceTree = "<group>";
+		};
+		50E942E71A6DBA5B77F3E40D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				94F00F83CC7363650358552B /* Pods-libcat-mac.debug.xcconfig */,
+				2953EABE3D9EB9449D0E9C51 /* Pods-libcat-mac.release.xcconfig */,
+				2A5DCEC1DCD93DF29E546553 /* Pods-libcat-ios.debug.xcconfig */,
+				84627C27742D721AF6766112 /* Pods-libcat-ios.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -598,6 +622,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E8637021F77544B00A97811 /* Build configuration list for PBXNativeTarget "libcat-ios" */;
 			buildPhases = (
+				9949F61668ACCAA82EF57AE0 /* [CP] Check Pods Manifest.lock */,
 				3E8636F81F77544B00A97811 /* Sources */,
 				3E8636F91F77544B00A97811 /* Frameworks */,
 				3E8637051F7754D900A97811 /* Headers */,
@@ -615,6 +640,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3ECE60621F7671CB007C3766 /* Build configuration list for PBXNativeTarget "libcat-mac" */;
 			buildPhases = (
+				0349C2DC29B5628E86F89BC3 /* [CP] Check Pods Manifest.lock */,
 				3ECE605A1F7671CB007C3766 /* Sources */,
 				3ECE605B1F7671CB007C3766 /* Frameworks */,
 				3ECE605C1F7671CB007C3766 /* Headers */,
@@ -634,7 +660,7 @@
 		3ECE60561F7671CB007C3766 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = libpng;
 				TargetAttributes = {
 					3E8636FB1F77544B00A97811 = {
@@ -665,6 +691,53 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0349C2DC29B5628E86F89BC3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-libcat-mac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9949F61668ACCAA82EF57AE0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-libcat-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E8636F81F77544B00A97811 /* Sources */ = {
@@ -754,6 +827,7 @@
 /* Begin XCBuildConfiguration section */
 		3E8637031F77544B00A97811 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A5DCEC1DCD93DF29E546553 /* Pods-libcat-ios.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -766,15 +840,20 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../include,
-					../../dependency/include/generic,
-					../../dependency/include/ios,
+					"$(inherited)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/libpng-iOS\"",
+				);
 				OBJROOT = ./build;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = libcat;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYMROOT = ../lib;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -782,23 +861,32 @@
 		};
 		3E8637041F77544B00A97811 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84627C27742D721AF6766112 /* Pods-libcat-ios.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/ios";
 				EXECUTABLE_PREFIX = "";
-				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_IOS;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_IOS,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					../include,
-					../../dependency/include/generic,
-					../../dependency/include/ios,
+					"$(inherited)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/libpng-iOS\"",
+				);
 				OBJROOT = ./build;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = libcat;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYMROOT = ../lib;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -819,6 +907,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -826,6 +915,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -874,6 +964,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -881,6 +972,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -910,10 +1002,12 @@
 		};
 		3ECE60631F7671CB007C3766 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94F00F83CC7363650358552B /* Pods-libcat-mac.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/mac";
 				EXECUTABLE_PREFIX = "";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					PLATFORM_MAC,
 					"DEBUG=1",
@@ -921,8 +1015,12 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../include,
-					../../dependency/include/generic,
-					../../dependency/include/mac,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/libpng-macOS\"",
 				);
 				OBJROOT = ./build;
 				PRODUCT_NAME = libcat;
@@ -932,15 +1030,24 @@
 		};
 		3ECE60641F7671CB007C3766 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2953EABE3D9EB9449D0E9C51 /* Pods-libcat-mac.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/mac";
 				EXECUTABLE_PREFIX = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "PLATFORM_MAC ";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_MAC,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					../include,
-					../../dependency/include/generic,
-					../../dependency/include/mac,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/libpng-macOS\"",
 				);
 				OBJROOT = ./build;
 				PRODUCT_NAME = libcat;

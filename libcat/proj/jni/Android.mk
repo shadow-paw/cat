@@ -4,8 +4,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    :=cat
 LOCAL_C_INCLUDES:=../include \
-                  ../../dependency/include/generic \
-                  ../../dependency/include/android
+                 ${VCPKG_ROOT}/installed/arm64-android/include
 LOCAL_CFLAGS    :=-Werror -Wno-switch -DPLATFORM_ANDROID
 LOCAL_CPPFLAGS  :=-std=c++14 -frtti -fexceptions
 LOCAL_SRC_FILES := \

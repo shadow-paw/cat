@@ -23,9 +23,12 @@
 		3ED4FEBD1F89F15A00D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
 		3ED4FEDA1F89F56400D299B6 /* bootapp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */; };
 		3EE112F21FFA2F0E0085C627 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */; };
+		D2BFCBBA1A43149DB8B76BB6 /* libPods-example-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63975BBBEBA7D0586799D8E1 /* libPods-example-mac.a */; };
+		E1819F57F55FC5727063ADDA /* libPods-example-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9DB850BF6810CDB63B92560 /* libPods-example-ios.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CAA6325CDE575CDFB8E09E2 /* Pods-example-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-ios.release.xcconfig"; path = "Target Support Files/Pods-example-ios/Pods-example-ios.release.xcconfig"; sourceTree = "<group>"; };
 		3E5433EF201D914800CC106E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../bootstrap/ios/Main.storyboard; sourceTree = "<group>"; };
 		3E5433F0201D914800CC106E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../bootstrap/ios/main.m; sourceTree = "<group>"; };
 		3E5433F1201D914800CC106E /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../../../bootstrap/ios/AppDelegate.mm; sourceTree = "<group>"; };
@@ -51,6 +54,11 @@
 		3ED4FEBC1F89F15A00D299B6 /* bootapp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bootapp.cpp; path = ../src/bootapp.cpp; sourceTree = "<group>"; };
 		3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EFB3A631F8105C50097445D /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63975BBBEBA7D0586799D8E1 /* libPods-example-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-example-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7218C097AB5C9A6A6F0EBF4B /* Pods-example-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-mac.debug.xcconfig"; path = "Target Support Files/Pods-example-mac/Pods-example-mac.debug.xcconfig"; sourceTree = "<group>"; };
+		9E97EB8DEB120E7E2B067668 /* Pods-example-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-ios.debug.xcconfig"; path = "Target Support Files/Pods-example-ios/Pods-example-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		A9DB850BF6810CDB63B92560 /* libPods-example-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-example-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F93137DEA6FD19B1CC8F3CF7 /* Pods-example-mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-mac.release.xcconfig"; path = "Target Support Files/Pods-example-mac/Pods-example-mac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2BFCBBA1A43149DB8B76BB6 /* libPods-example-mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EE112F21FFA2F0E0085C627 /* AVFoundation.framework in Frameworks */,
+				E1819F57F55FC5727063ADDA /* libPods-example-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +132,7 @@
 				3E859A341F7793DE00F84D36 /* example */,
 				3E859A131F77939A00F84D36 /* Products */,
 				3EB96B9B1F7F73FC0067C170 /* Frameworks */,
+				5B578836AC12A3AB5EABD55B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +179,8 @@
 			children = (
 				3EE112F11FFA2F0E0085C627 /* AVFoundation.framework */,
 				3EB96B9D1F7F73FC0067C170 /* libgraphite.a */,
+				A9DB850BF6810CDB63B92560 /* libPods-example-ios.a */,
+				63975BBBEBA7D0586799D8E1 /* libPods-example-mac.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,6 +204,17 @@
 			name = ios;
 			sourceTree = "<group>";
 		};
+		5B578836AC12A3AB5EABD55B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9E97EB8DEB120E7E2B067668 /* Pods-example-ios.debug.xcconfig */,
+				1CAA6325CDE575CDFB8E09E2 /* Pods-example-ios.release.xcconfig */,
+				7218C097AB5C9A6A6F0EBF4B /* Pods-example-mac.debug.xcconfig */,
+				F93137DEA6FD19B1CC8F3CF7 /* Pods-example-mac.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -198,6 +222,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E859A261F77939A00F84D36 /* Build configuration list for PBXNativeTarget "example-mac" */;
 			buildPhases = (
+				F279216A4245485510EF8A67 /* [CP] Check Pods Manifest.lock */,
 				3E859A0E1F77939A00F84D36 /* Sources */,
 				3E859A0F1F77939A00F84D36 /* Frameworks */,
 				3E859A101F77939A00F84D36 /* Resources */,
@@ -215,6 +240,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3EFB3A761F8105C50097445D /* Build configuration list for PBXNativeTarget "example-ios" */;
 			buildPhases = (
+				9E6F6B0DEC71B2AE8ECD74FF /* [CP] Check Pods Manifest.lock */,
 				3EFB3A5F1F8105C50097445D /* Sources */,
 				3EFB3A601F8105C50097445D /* Frameworks */,
 				3EFB3A611F8105C50097445D /* Resources */,
@@ -234,7 +260,7 @@
 		3E859A0A1F77939A00F84D36 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Meerkat Laboratory";
 				TargetAttributes = {
 					3E859A111F77939A00F84D36 = {
@@ -290,6 +316,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9E6F6B0DEC71B2AE8ECD74FF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-example-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F279216A4245485510EF8A67 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-example-mac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3E859A0E1F77939A00F84D36 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -330,6 +403,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -337,6 +411,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -385,6 +460,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -392,6 +468,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -421,10 +498,12 @@
 		};
 		3E859A271F77939A00F84D36 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7218C097AB5C9A6A6F0EBF4B /* Pods-example-mac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_VARIANTS = debug;
 				CODE_SIGN_ENTITLEMENTS = ../platform/mac/example.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../bin/;
@@ -436,60 +515,62 @@
 				HEADER_SEARCH_PATHS = (
 					../src,
 					../../../libcat/include,
-					../../../dependency/include/generic,
-					../../../dependency/include/mac,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../platform/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/mac,
-					../../../dependency/lib/mac,
+					"$(inherited)",
+					"$(CONFIGURATION_BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				OTHER_LDFLAGS = (
 					"-lcat",
-					"-lpng",
-					"-lz",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
-				SYMROOT = ./.build;
 			};
 			name = Debug;
 		};
 		3E859A281F77939A00F84D36 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F93137DEA6FD19B1CC8F3CF7 /* Pods-example-mac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ../platform/mac/example.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../bin/;
-				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_MAC;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_MAC,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					../src,
 					../../../libcat/include,
-					../../../dependency/include/generic,
-					../../../dependency/include/mac,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../platform/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/mac,
-					../../../dependency/lib/mac,
+					"$(inherited)",
+					"$(CONFIGURATION_BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				OTHER_LDFLAGS = (
 					"-lcat",
-					"-lpng",
-					"-lz",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
-				SYMROOT = ./.build;
 			};
 			name = Release;
 		};
 		3EFB3A771F8105C50097445D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E97EB8DEB120E7E2B067668 /* Pods-example-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -502,20 +583,19 @@
 				HEADER_SEARCH_PATHS = (
 					../src,
 					../../../libcat/include,
-					../../../dependency/include/generic,
-					../../../dependency/include/ios,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../platform/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/ios,
-					../../../dependency/lib/ios,
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
 					"-lcat",
-					"-lpng",
-					"-lz",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
@@ -526,28 +606,31 @@
 		};
 		3EFB3A781F8105C50097445D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CAA6325CDE575CDFB8E09E2 /* Pods-example-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = PLATFORM_IOS;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_IOS,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					../src,
 					../../../libcat/include,
-					../../../dependency/include/generic,
-					../../../dependency/include/ios,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../platform/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../../../libcat/lib/ios,
-					../../../dependency/lib/ios,
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
 					"-lcat",
-					"-lpng",
-					"-lz",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shadowpaw.cat.app.hello;
 				PRODUCT_NAME = example;
