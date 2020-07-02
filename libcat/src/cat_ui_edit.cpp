@@ -114,6 +114,11 @@ void Editbox::cb_visible(bool b) {
     [tv setHidden:!b];
 #elif defined(PLATFORM_IOS)
     UITextField* tv = (__bridge UITextField*)m_native_ctrl;
+    if (b) {
+        [tv becomeFirstResponder];
+    } else {
+        [tv resignFirstResponder];
+    }
     [tv setHidden:!b];
 #elif defined(PLATFORM_ANDROID)
     JNIHelper jni;
